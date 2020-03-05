@@ -18,7 +18,7 @@ program.parse(process.argv);
 console.log(program.opts());
 
 var sourceDir = path.join(__dirname, "./" + program.type);
-var destinationDir = path.join(__dirname, "./" + program.name);
+var destinationDir ="./" + program.name;
 
 if (!fs.existsSync(destinationDir)) {
     fs.mkdirSync(destinationDir, { recursive: true });
