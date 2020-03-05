@@ -1,3 +1,3 @@
-## creae a radbod project
+## create a radbod project
 
 just execute `npx create-radbod-project my-project-name`
