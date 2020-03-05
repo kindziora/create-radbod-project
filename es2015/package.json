@@ -1,0 +1,19 @@
+{
+  "name": "my-project",
+  "version": "1.0.0",
+  "description": "radbod isomorphic/SSR PWA",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon -e html,js -w ./src/ builder/build.js ./src ./public/build/dev & nodemon -e js -w ./public/build/dev server/run.js 8801 ../src/loader/server_html_loader.js",
+    "prod": "node server/run.js 8801 ../src/loader/server_html_loader.js"
+  },
+  "author": "Alexander Kindziora",
+  "license": "ISC",
+  "devDependencies": {
+    "puppeteer": "^2.1.1",
+    "webpack": "^4.42.0"
+  },
+  "dependencies": {
+    "radbod": "git+https://068ab122bfafcf4145337707a89da0677ef46c50:x-oauth-basic@github.com/kindziora/radbod.git"
+  }
+}
