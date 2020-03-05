@@ -1,5 +1,5 @@
 {
-  "name": "@kindziora/create-radbod-project",
+  "name": "create-radbod-project",
   "version": "1.0.0",
   "description": "tool for radbod project creation",
   "main": "index.js",
