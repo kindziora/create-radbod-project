@@ -24,6 +24,8 @@ if (!fs.existsSync(destinationDir)) {
     fs.mkdirSync(destinationDir, { recursive: true });
 }
 
+console.log("clone", sourceDir, destinationDir);
+
 fs_Extra.copy(sourceDir, destinationDir, function (err) {
     console.log(arguments);
     if (err) {
