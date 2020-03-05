@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "radbod isomorphic/SSR PWA",
   "main": "index.js",
+  "type" :"module",
   "scripts": {
     "dev": "nodemon -e html,js -w ./src/ builder/build.js ./src ./public/build/dev & nodemon -e js -w ./public/build/dev server/run.js 8801 ../src/loader/server_html_loader.js",
     "prod": "node server/run.js 8801 ../src/loader/server_html_loader.js"
