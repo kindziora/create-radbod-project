@@ -1,9 +1,9 @@
 const regex = /[>|}]([\s\w]*?)[<|$]/igm;
 const fetchTranslationCalls = /\${_t\(([\s\S]*?)\)/igm;
 
-import { getFiles } from './files.js.js.js.js';
+import { getFiles } from './files.js';
 
-import {mergeDeep} from './merge.js.js.js.js';
+import {mergeDeep} from './merge.js';
 
 import { promises as fs } from 'fs';
 import defltYdx from 'yandex-translate-async';

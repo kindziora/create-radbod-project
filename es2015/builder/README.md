@@ -6,7 +6,7 @@ working on single file components
 
 ### How to build files
 
- `node server/build.js "src location" "build location"`
+ `node builder/build.js "src location" "build location"`
 
 
 ## Delivering
@@ -14,7 +14,7 @@ working on single file components
 express server delivering assets
 loading files via the html_loader middleware
 
-`node server/run.js "path/to/html_loader" "path/to/data_loader"`
+`node server/run.js "path/to/html_loader"`
 
 
 

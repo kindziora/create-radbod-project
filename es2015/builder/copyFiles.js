@@ -1,6 +1,6 @@
-import { getFiles } from './files.js.js.js.js';
+import { getFiles } from './files.js';
 import { promises as fs } from 'fs';
-import { createFolderAndFiles } from './translation.js.js.js.js';
+import { createFolderAndFiles } from './translation.js';
 
 export async function copyFiles(folder, options) {
 

@@ -1,7 +1,7 @@
-import {buildSFC} from './build_sfc.js.js.js.js';
-import { compileViews } from './compile_views.js.js.js.js';
-import { copyFiles } from './copyFiles.js.js.js.js';
-import { internationalize, loadAllTranslations } from './translation.js.js.js.js';
+import {buildSFC} from './build_sfc.js';
+import { compileViews } from './compile_views.js';
+import { copyFiles } from './copyFiles.js';
+import { internationalize, loadAllTranslations } from './translation.js';
 
 
 (async () => {

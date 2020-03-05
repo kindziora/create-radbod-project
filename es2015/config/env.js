@@ -3,9 +3,9 @@ export const settings = {
    project_path : "./"
 }
 
-export {dataHandler} from "radbod/build/dataHandler.js";
-export {eventHandler} from "radbod/build/eventHandler.js";
-export {mergeDeep} from "radbod/server/merge.js";
-export {getFiles} from "radbod/server/files.js";
-export {getFile} from "./routes.js.js.js.js";
-export {translations} from "./public/build/dev/i18n/app_translations.js.js.js.js";
+export {dataHandler} from "./node_modules/radbod/build/dataHandler.js";
+export {eventHandler} from "./node_modules/radbod/build/eventHandler.js";
+export {mergeDeep} from "./node_modules/radbod/server/merge.js";
+export {getFiles} from "./node_modules/radbod/server/files.js";
+export {getFile} from "./routes.js";
+export {translations} from "./public/build/dev/i18n/app_translations.js";

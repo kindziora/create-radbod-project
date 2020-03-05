@@ -1,4 +1,4 @@
-import { getFiles } from './files.js.js.js.js';
+import { getFiles } from './files.js';
 import puppeteer from "puppeteer";
 import { promises as fs } from 'fs';
 

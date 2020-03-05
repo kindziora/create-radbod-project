@@ -1,12 +1,12 @@
  
-import { i18n } from './_t.js.js.js.js.js';
+import { i18n } from './_t.js';
 import { 
     dataHandler,
     eventHandler, 
     getFile,
     translations,
     settings
-} from "./config/env.js.js.js.js";
+} from "./config/env.js";
 
 import { promises as fs } from 'fs';
 
