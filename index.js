@@ -35,7 +35,7 @@ fs_Extra.copy(sourceDir, destinationDir, function (err) {
 
         var exec = require('child_process').exec;
 
-        let cp = exec('npm install ' + destinationDir).stderr.pipe(process.stderr);
+        let cp = exec('npm --prefix '+ destinationDir +' install' ).stderr.pipe(process.stderr);
 
         cp.on("exit", function (code, signal) {
             console.log("Exited", { code: code, signal: signal });
