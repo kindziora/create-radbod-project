@@ -4,9 +4,8 @@ import {
     dataHandler,
     eventHandler, 
     getFile,
-    translations,
-    settings
-} from "./config/env.js";
+    translations
+} from "../config/env.js";
 
 import { promises as fs } from 'fs';
 
@@ -82,16 +81,14 @@ export const html_loader = asyncHandler(async function (req, res, next) {
 
     let f = getFile(path);
 
-    console.log(settings.project_path + "public/build/dev/page/" + f + ".js");
+    console.log("./public/build/dev/page/" + f + ".js");
 
-    let page = await import(settings.project_path + "public/build/dev/page/" + f + ".js");
+    let page = await import( "./public/build/dev/page/" + f + ".js");
     
-    let layout = await fs.readFile(settings.project_path + "src/layout/index.html", 'utf8');
+    let layout = await fs.readFile( "./src/layout/index.html", 'utf8');
 
     let count = countForData(page[f], 0);
     let met = { cnt: 0, loaded: [] };
-
-    let RADBODINLINE = await fs.readFile(settings.radbod_build.replace("build", "dist") + "/radbod.js", 'utf8');
 
     fetchData(page[f], (data) => {
 
@@ -111,8 +108,7 @@ export const html_loader = asyncHandler(async function (req, res, next) {
                  js : getModules(meta),
                  css : getCSS(meta),
                  env: {language :"en_EN"},
-                 head: "",
-                 radbod : RADBODINLINE
+                 head: ""
             });
 
             renderedHTML = eval("(( index )=>`" + layout + "`)").apply(null, [layoutStore.data]);
