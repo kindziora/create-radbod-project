@@ -30,7 +30,7 @@ export class compileViews {
      */
     async compileMultiple(folder) {
 
-        let rbd = await fs.readFile("./dist/radbod.js", 'utf8');
+        let rbd = await fs.readFile("./node_modules/radbod/dist/radbod.js", 'utf8');
 
         const browser = await puppeteer.launch({
           //  headless: false,

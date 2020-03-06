@@ -1,16 +1,14 @@
 
+import {home} from "./page/home.js";
+
 let buildApp = new window.radbod.app();
 
-let views = {};
+console.log(buildApp);
 
-console.log("NAME:", home);
-
- /*
 let compo = buildApp.createComponent(
-    n,
-    views,
-    store,
-    component.interactions(),
-    component.components
+    "home",
+    home.views,
+    home.data.call(buildApp.dataH),
+    home.interactions(),
+    home.components
 );
-*/

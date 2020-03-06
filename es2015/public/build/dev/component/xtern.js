@@ -2,7 +2,7 @@
 
     export let xtern = {
         views : {
-'xtern' : (change,xternal)=>`<h2>${_t('externe daten')}</h2> <div> ${_t('xtern')} ${ todos.name } </div>` },
+'xtern' : (change,xternal, _t)=>`<h2>${_t('externe daten')}</h2> <div> ${_t('xtern')} ${ todos.name } </div>` },
         "style":"","path":"/component/xtern.js",
         
         components: {},

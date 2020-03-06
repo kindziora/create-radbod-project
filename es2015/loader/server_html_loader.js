@@ -67,7 +67,10 @@ function getModules(meta){
     return meta.loaded.map(mod).join("\n\r");
 }
 
- 
+function replaceFunctionHeader(funcString, newFunctionHeader){
+    const functionHeader = /\([\w,\s]+\)+(\s+|)=>/m;
+   return funcString.replace(functionHeader, `(${newFunctionHeader})=>`);
+}
 
 function getCSS(meta){
     
@@ -83,7 +86,7 @@ export const html_loader = asyncHandler(async function (req, res, next) {
 
     console.log("./public/build/dev/page/" + f + ".js");
 
-    let page = await import( "./public/build/dev/page/" + f + ".js");
+    let page = await import( "../public/build/dev/page/" + f + ".js");
     
     let layout = await fs.readFile( "./src/layout/index.html", 'utf8');
 
@@ -99,9 +102,15 @@ export const html_loader = asyncHandler(async function (req, res, next) {
         let renderedHTML = '';
 
         let _t = (text, lang) => internationalize._t(text, lang);
+        
         let storeData = stores.store.toArray();
+
+        console.log(page[f].views[f].toString(), [{ value: "" }, ...storeData, _t]);
+
+        let func = replaceFunctionHeader(page[f].views[f].toString(), ["change", ...stores.store.keys(),"_t"]);
+
         try {
-            let pageHTML = eval(`(${page[f].views[f].toString()})`).apply(null, [{ value: "" }, ...storeData]);
+            let pageHTML = eval(`(${func})`).apply(null, [{ value: "" }, ...storeData, _t]);
 
             let layoutStore = stores.createStore("index", {
                  html: pageHTML,
@@ -111,7 +120,7 @@ export const html_loader = asyncHandler(async function (req, res, next) {
                  head: ""
             });
 
-            renderedHTML = eval("(( index )=>`" + layout + "`)").apply(null, [layoutStore.data]);
+            renderedHTML = eval("(( index, _t )=>`" + layout + "`)").apply(null, [layoutStore.data, _t]);
 
         } catch (e) {
             console.log(renderedHTML, e);
