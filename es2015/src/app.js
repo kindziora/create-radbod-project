@@ -5,10 +5,9 @@ let buildApp = new window.radbod.app();
 
 console.log(buildApp);
 
-let compo = buildApp.createComponent(
-    "home",
-    home.views,
-    home.data.call(buildApp.dataH),
-    home.interactions(),
-    home.components
+let compo = buildApp.mountComponent(
+    "home", home,
+    (stores, data, component)=>  {
+        console.log(stores, data, component);
+    }
 );

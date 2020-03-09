@@ -41,7 +41,7 @@ function fetchData(component, cb, allready, total, meta, dataH) {
 
     let result = component.data.call(dataH, callback(meta), {});
 
-    if (typeof result.then !== "function") {
+    if (!result || typeof result.then !== "function") {
         meta.cnt++;
         meta.loaded.push(component);
     }
