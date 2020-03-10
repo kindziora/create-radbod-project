@@ -65,12 +65,7 @@ function getModules(meta){
     let mod = (e)=> `<script type="module" src="${e.path}"></script>`;
     meta.loaded.push({path:"/app.js"});
     return meta.loaded.map(mod).join("\n\r");
-}
-
-function replaceFunctionHeader(funcString, newFunctionHeader){
-    const functionHeader = /\([\w,\s]+\)+(\s+|)=>/m;
-   return funcString.replace(functionHeader, `(${newFunctionHeader})=>`);
-}
+} 
 
 function getCSS(meta){
     
@@ -103,14 +98,10 @@ export const html_loader = asyncHandler(async function (req, res, next) {
 
         let _t = (text, lang) => internationalize._t(text, lang);
         
-        let storeData = stores.store.toArray();
-
-        console.log(page[f].views[f].toString(), [{ value: "" }, ...storeData, _t]);
-
-        let func = replaceFunctionHeader(page[f].views[f].toString(), ["change", ...stores.store.keys(),"_t"]);
+        let storeData = stores.store.toObject();
 
         try {
-            let pageHTML = eval(`(${func})`).apply(null, [{ value: "" }, ...storeData, _t]);
+            let pageHTML = eval(`(${page[f].views[f].toString()})`).call(stores, { change:{ value: "" }, ...storeData, _t});
 
             let layoutStore = stores.createStore("index", {
                  html: pageHTML,
@@ -120,7 +111,7 @@ export const html_loader = asyncHandler(async function (req, res, next) {
                  head: ""
             });
 
-            renderedHTML = eval("(( index, _t )=>`" + layout + "`)").apply(null, [layoutStore.data, _t]);
+            renderedHTML = eval("(( index, _t )=>`" + layout + "`)").apply(stores, [layoutStore.data, _t]);
 
         } catch (e) {
             console.log(renderedHTML, e);
