@@ -32,8 +32,8 @@ export async function copyFiles(folder, options) {
     await fs.copyFile(folder.replace("src", "config/manifest.json"), buildP + "/manifest.json" );
     await fs.copyFile(folder + "/app.js", buildP + "/app.js" );
     await fs.mkdir(folder + "/deps", { recursive: true });
-
-    await fs.copyFile("/home/akindziora/Downloads/projekte/radbod/dist/radbod.js", buildP + "/deps/radbod.js"  );
+    
+    await fs.copyFile("./node_modules/radbod/dist/radbod.js", buildP + "/deps/radbod.js"  );
 
     
 

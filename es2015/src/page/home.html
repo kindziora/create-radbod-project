@@ -1,13 +1,15 @@
 
 <template language="js-template">
     <h1>Hallo ${home.name}</h1>
+    <input data-name="$home/name" />
     <section class="todoapp">
         <todo-component data-name="/$items"></todo-component>
     </section> 
-    <input data-name="$home/name" />
-    <div data-name="$home/name" ></div>
+    
 
-    <footer class="info"> 
+    <div data-name="$home/name" > </div>
+
+    <footer class="info">
         <p>Double-click to edit a todo</p>
         <p>Written by <a href="http://twitter.com/lukeed05">Luke Edwards</a></p>
         <p>Refactored by <a href="https://github.com/xorgy">Aaron Muir Hamilton</a></p>
