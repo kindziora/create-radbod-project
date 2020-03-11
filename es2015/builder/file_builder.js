@@ -1,11 +1,13 @@
 
 import path from 'path';
 import { promises as fs } from 'fs';
- 
+import {getCSS} from './styles.js';
+
 const __dirname = path.resolve();
 const template = /<template.*>([^]+)?<\/template>/igm;
 const script = /<script.*>([^]+)?<\/script>/igm;
 const scriptLang = /<script.*language\=\"([A-Za-z0-9 _]*)\"/igm;
+const rstyleScope = /<style.*scope\=\"([A-Za-z0-9 _]*)\"/igm;
 const openeningBracketObject = /export.*?\s({)/gim;
 const importStatement = /import(.*?)from\s+("|')(.*?)("|');/ig;
 const style = /<style.*>([^]+)?<\/style>/igm;
@@ -19,7 +21,6 @@ export async function extract(content) {
     let js = Array.from(content.matchAll(script))[0][1];
     content = content.replace(js, "");
     let css = Array.from(content.matchAll(style))[0][1];
-    
     return { html, js, css};
 }
 
@@ -68,11 +69,14 @@ export async function buildFile(file, opts) {
         return;
     };
     let slang = Array.from(content.matchAll(scriptLang))[0][1];
-
+    let styleScope = Array.from(content.matchAll(rstyleScope))[0] ? Array.from(content.matchAll(rstyleScope))[0][1] : "body";
     let fileBuilt = await getBuildLocation(file);
     fileBuilt = fileBuilt.replace("html", slang);
 
     let { html, js, css } = await extract(content);
+
+    css = await getCSS(css, styleScope || '[data-name="' + fileBuilt.split('/').pop().split('.')[0] + '"]');
+    
     let strP = JSON.stringify({
         html: html.replace(/\s/ig, " ").replace(/  +/ig, " ").replace(/'/g, '"').trim(),
         style: css.replace(/\s/ig, " ").replace(/  +/ig, " ").replace(/'/g, '"').trim(),
@@ -84,8 +88,6 @@ export async function buildFile(file, opts) {
 
     let replacedImports = await replaceImports(js, slang);
     let newFile = await injectCode(replacedImports, inject);
-
-  
 
     let bpath = fileBuilt.split("/");
     bpath.pop();
