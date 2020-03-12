@@ -3,7 +3,8 @@
         <h1>todos ${todo.name} ${todo.name} </h1>
         <input class="new-todo" data-name="/$todo/name" placeholder="What needs to be done?" autofocus />
     </header>
- <div data-name="/$todo"></div>
+ <div data-name="/$todo/name"></div>
+
     <section class="main">
         <input id="toggle-all" data-id="toggle-all" class="toggle-all" type="checkbox" data-name="/$items" />
         <label for="toggle-all">Mark all as complete</label>
@@ -59,7 +60,7 @@
             return {
                 "/$todo/name" : {
                     "keyup"(sender, dataStore) { //address specific element in dom
-                        console.log(sender.field.getValue());
+                        dataStore.name = sender.field.getValue() + "xxx";
                     }
                 },
                 "/$items" : {

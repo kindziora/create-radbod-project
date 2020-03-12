@@ -1,6 +1,6 @@
 {
  "en_EN": {
-  "Hallo": "hello xxx",
+  "d": "d",
   "Written by": "Written by",
   "Luke Edwards": "Luke Edwards",
   "Refactored by": "Refactored by",
@@ -8,6 +8,7 @@
   "Part of": "Part of",
   "TodoMVC": "TodoMVC",
   "\\": "\\",
+  "Hallo": "hello xxx",
   "test": "testa"
  },
  "de_DE": {
