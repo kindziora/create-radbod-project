@@ -1,13 +1,9 @@
 
 <template language="js-template">
-    <h1>Hallo ${home.name}</h1>
-    <input data-name="$home/name" />
-    <section class="todoapp">
-        <todo-component data-name="/$items"></todo-component>
-    </section> 
-    
-
-    <div data-name="$home/name" > </div>
+    <h1> d ${home.name}</h1>
+    <input data-name="/$home/name" />
+     
+    <div data-name="/$home/name" > </div>
 
     <footer class="info">
         <p>Double-click to edit a todo</p>
@@ -20,7 +16,7 @@
 
 <style language="scss">
 h1{
-    font-size:3em;
+    font-size:1em;
 }
 </style>
 
@@ -34,8 +30,14 @@ h1{
         data(){
             return this.createStore("home", {name : "AK home"});
         },
-        interactions(){
-            return { }
+        interactions(){ 
+            return {
+                "/$home/name" : {
+                    "keyup"(sender, data) { //address specific element in dom
+                        data.name = sender.field.getValue();
+                    }
+                }
+            }
         },
         translations(language){
             return translations[language];
