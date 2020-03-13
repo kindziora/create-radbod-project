@@ -3,10 +3,12 @@
     <h1> d ${home.name}</h1>
     <input data-name="/$home/name" />
      
-    <div data-name="/$home/name" > </div>
+    <div data-name="/$home/name" ></div>
+     
+<todo-component data-name="/$todo"></todo-component>
 
     <footer class="info">
-        <p>Double-click to edit a todo</p>
+        <p> Double-click to edit a todo </p>
         <p>Written by <a href="http://twitter.com/lukeed05">Luke Edwards</a></p>
         <p>Refactored by <a href="https://github.com/xorgy">Aaron Muir Hamilton</a></p>
         <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
@@ -16,7 +18,7 @@
 
 <style language="scss">
 h1{
-    font-size:1em;
+    font-size:2em;
 }
 </style>
 
@@ -34,7 +36,7 @@ h1{
             return {
                 "/$home/name" : {
                     "keyup"(sender, data) { //address specific element in dom
-                        data.name = sender.field.getValue();
+                         data.name = sender.field.getValue();
                     }
                 }
             }

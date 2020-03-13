@@ -9,7 +9,7 @@ var compo = buildApp.mountComponent(
         
         console.log(stores, data, component);
 
-        stores.pxy.$home.name = "affff";
+       // stores.pxy.$home.name = "affff";
 
         document.querySelector('#section').replaceWith(component.dom.$el);
 
