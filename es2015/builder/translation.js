@@ -1,4 +1,4 @@
-const regex = /[>|}]([\s\w]*?)[<|$]/igm;
+const regex = /[>|}]([\s\w].*?)[<|$]/igm;
 const fetchTranslationCalls = /\${_t\(([\s\S]*?)\)/igm;
 
 import { getFiles } from './files.js';
