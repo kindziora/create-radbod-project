@@ -1,6 +1,6 @@
 export const routes = {
     "home": "home",
-    _not_found : "notFound"
+    "_not_found" : "notFound"
 };
 
 export function getFile(path) {

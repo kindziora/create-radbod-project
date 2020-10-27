@@ -18,7 +18,9 @@
                 </div>
             </li>
         </ul>
+        
         <xtern-component data-name="/$items"></xtern-component>
+
         <footer class="footer">
             <span class="todo-count"></span>
             <ul class="filters">
@@ -60,7 +62,16 @@
             return {
                 "/$todo/name" : {
                     "keyup"(sender, dataStore) { //address specific element in dom
-                        dataStore.name = sender.field.getValue() + "xxx";
+                        dataStore.name = sender.field.getValue();
+
+                        if(sender.ev.keyCode === 13){
+
+                            dataStore.items.push({
+                                label: dataStore.name,
+                                checked: false
+                            });
+
+                        }
                     }
                 },
              /*   "/$items" : {

@@ -94,18 +94,29 @@ export class compileViews {
                             component.interactions(),
                             component.components
                         );
+                        views[n] = compo.dom.$el.innerHTML;
+                        
+                        //now we have an enriched and view generated code and html template strings
+                        let compoFinal = buildApp.createComponent(
+                            n,
+                            views,
+                            store,
+                            component.interactions(),
+                            component.components
+                        );
 
                         let viewsFinal = {};
                         let strVws = [];
-                        for (let i in compo.dom.element) {
-                            let element = compo.dom.element[i];
+                        for (let i in compoFinal.dom.element) {
+                            let element = compoFinal.dom.element[i];
+                            console.log(element);
                             if (element.template) {
                                 viewsFinal[element.id] = element.template ? element.template : null;
                                 strVws.push(`'${element.id}' : ${element.template.toString()}`);
                             }
                         }
-                        viewsFinal[n] = compo.dom.template;
-                        strVws.push(`'${n}' : ${compo.dom.template.toString()}`);
+                        viewsFinal[n] = compoFinal.dom.template;
+                        strVws.push(`'${n}' : ${compoFinal.dom.template.toString()}`);
                         component['views'] = viewsFinal;
                         component['viewsTemplate'] = `{
 ${strVws.join(`,
