@@ -78,6 +78,8 @@ export const html_loader = asyncHandler(async function (req, res, next) {
 
     let path = req.path;
 
+    
+
     let f = getFile(path);
 
     console.log("./public/build/dev/page/" + f + ".js");
