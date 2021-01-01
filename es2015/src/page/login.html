@@ -1,0 +1,46 @@
+<template language="js-template">
+    <h1>Hallo from login</h1>
+    <section>
+        <form>
+            <label for="age">Alter</label>
+            <input id="age" type="number" />
+
+            <label for="birthday">Geburtsdatum</label>
+            <input id="birthday" type="date" />
+
+            <label for="bname">Benutzername</label>
+            <input id="bname" required />
+
+            <label for="passwd">Passwort</label>
+            <input type="password" id="passwd" required />
+
+            <button type="submit">Anmelden</button>
+        </form>
+    </section>
+
+    <footer class="info">
+        <p>Double-click to edit a todo</p>
+        <p>Written by <a href="http://twitter.com/lukeed05">Luke Edwards</a></p>
+        <p>Refactored by <a href="https://github.com/xorgy">Aaron Muir Hamilton</a></p>
+        <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+    </footer>
+
+</template>
+
+<style language="scss">
+
+</style>
+
+<script language="js">
+    export let login = {
+        data() {
+            return this.createStore("user", { name: "AK home" });
+        },
+        interactions() {
+            return {};
+        },
+        translations(language){
+            return {};
+        }
+    }
+</script>
