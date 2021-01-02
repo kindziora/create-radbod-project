@@ -1,30 +1,35 @@
 <template language="js-template">
-    <h1>Hallo from login</h1>
-    <section>
-        <form>
-            <label for="age">Alter</label>
-            <input id="age" type="number" />
+    <title>${_t("Hier kannst du dich einloggen")}</title>
+    <page>
+        <topmenu-component data-name="/$topmenu"></topmenu-component>
 
-            <label for="birthday">Geburtsdatum</label>
-            <input id="birthday" type="date" />
+        <h1>Hallo from login</h1>
+        <section>
+            <form>
+                <label for="age">Alter</label>
+                <input id="age" type="number" />
 
-            <label for="bname">Benutzername</label>
-            <input id="bname" required />
+                <label for="birthday">Geburtsdatum</label>
+                <input id="birthday" type="date" />
 
-            <label for="passwd">Passwort</label>
-            <input type="password" id="passwd" required />
+                <label for="bname">Benutzername</label>
+                <input id="bname" required />
 
-            <button type="submit">Anmelden</button>
-        </form>
-    </section>
+                <label for="passwd">Passwort</label>
+                <input type="password" id="passwd" required />
 
-    <footer class="info">
-        <p>Double-click to edit a todo</p>
-        <p>Written by <a href="http://twitter.com/lukeed05">Luke Edwards</a></p>
-        <p>Refactored by <a href="https://github.com/xorgy">Aaron Muir Hamilton</a></p>
-        <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
-    </footer>
+                <button type="submit">Anmelden</button>
+            </form>
+        </section>
 
+        <footer class="info">
+            <p>Double-click to edit a todo</p>
+            <p>Written by <a href="http://twitter.com/lukeed05">Luke Edwards</a></p>
+            <p>Refactored by <a href="https://github.com/xorgy">Aaron Muir
+                    Hamilton</a></p>
+            <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+        </footer>
+    </page>
 </template>
 
 <style language="scss">
@@ -32,12 +37,18 @@
 </style>
 
 <script language="js">
+
+    import {topmenu} from '../component/topmenu';
+
     export let login = {
+        components : {"topmenu-component" : topmenu},
         data() {
-            return this.createStore("user", { name: "AK home" });
+            return this.createStore("login", { name: "AK login" });
         },
         interactions() {
-            return {};
+            return {
+               
+            }
         },
         translations(language){
             return {};

@@ -1,5 +1,6 @@
 {
  "en_EN": {
+  "\\": "\\",
   "Hallo from login": "Hallo from login",
   "Alter": "Alter",
   "Geburtsdatum": "Geburtsdatum",
@@ -13,6 +14,8 @@
   "Aaron Muir Hamilton": "Aaron Muir Hamilton",
   "Part of": "Part of",
   "TodoMVC": "TodoMVC",
+  "Hier kannst du dich einloggen": "Hier kannst du dich einloggen",
+  "home": "home",
   "Hallo not FOUND": "Hallo not FOUND"
  }
 }

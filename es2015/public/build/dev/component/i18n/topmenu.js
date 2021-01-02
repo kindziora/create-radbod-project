@@ -1,0 +1,1 @@
+export const translations = {"en_EN":{"home":"home","externe daten":"externe daten","xtern":"xtern"}}
