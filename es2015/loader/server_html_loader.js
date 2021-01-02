@@ -10,6 +10,7 @@ import {
 
 import { promises as fs } from 'fs';
 
+const REGEX_TITLE = (data) => data.match(/<title.*\>((.*))<\/title>/i) ? data.match(/<title.*\>((.*))<\/title>/i)[1] : "Default title";
 
 let internationalize = new i18n();
 internationalize.addTranslation(translations);
@@ -102,10 +103,14 @@ export const html_loader = asyncHandler(async function (req, res, next) {
         let storeData = stores.store.toObject();
 
         try {
+
+            console.log(page[f].views[f]);
+
             let pageHTML = eval(`(${page[f].views[f].toString()})`).call(stores, { change:{ value: "" }, ...storeData, _t});
 
             let layoutStore = stores.createStore("index", {
                  html: pageHTML,
+                 title: REGEX_TITLE(pageHTML),
                  js : getModules(meta),
                  css : getCSS(meta),
                  env: {language :"en_EN"},

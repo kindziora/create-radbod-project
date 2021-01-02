@@ -2,6 +2,28 @@ import {getFile} from "./routes.js";
 
 window.buildApp = new window.radbod.app();
 
+window.buildApp.loadPage = function(path) {
+    
+    let page = getFile(path);
+
+    import(`./page/${page}.js`).then((module) => {
+        var compo = buildApp.mountComponent(page, module[page], (stores, data, component) => {
+
+            let title = component.dom.$el.querySelector('title') ? component.dom.$el.querySelector('page').innerTEXT: page;
+            history.pushState(path, title, path);
+            addRouting(stores, data, component);
+            render(component);
+
+        });
+    });
+
+};
+
+function render(component) {
+    document.querySelector('#section').innerHTML = "";
+    document.querySelector('#section').append(component.dom.$el.querySelector('page'));
+}
+
 function addRouting(stores, data, component) {
     Array.from(component.dom.$el.querySelectorAll("a[data-name]")).forEach((el)=>{ 
         el.addEventListener("click", function(ev){
@@ -11,31 +33,6 @@ function addRouting(stores, data, component) {
     });
 }
 
-window.buildApp.loadPage = function(path) {
-    let page = getFile(path);
-    import(`./page/${page}.js`).then((module) => {
-        var compo = buildApp.mountComponent(page, module[page], (stores, data, component) => {
-
-            let title = component.dom.$el.querySelector('title')? component.dom.$el.querySelector('page').innerTEXT: page;
-
-            history.pushState(path, title, path);
-
-            console.log(stores, data, component);
-    
-            // stores.pxy.$home.name = "affff";
-    
-            addRouting(stores, data, component);
-            
-            document.querySelector('page').replaceWith(component.dom.$el.querySelector('page'));
-
-    
-        });
-    });
-
-};
-
-window.onpopstate = function(event) {
-    window.buildApp.loadPage(event.state);
-}
+window.onpopstate = (event) => window.buildApp.loadPage(event.state);
 
 window.buildApp.loadPage(window.location.pathname);
