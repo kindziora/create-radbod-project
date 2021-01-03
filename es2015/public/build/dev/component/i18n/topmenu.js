@@ -1,1 +1,1 @@
-export const translations = {"en_EN":{"home":"home","externe daten":"externe daten","xtern":"xtern"}}
+export const translations = {"en_EN":{"home":"home","login":"login","more":"more","externe daten":"externe daten","xtern":"xtern"}}

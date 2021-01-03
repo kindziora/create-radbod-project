@@ -1,5 +1,8 @@
 <template language="js-template">
-    <ul><li> <a href="/home" data-on="click" data-name="/$topmenu/lnk">home</a></li></ul>
+    <ul>
+        <li> <a href="/home" class="${topmenu.path}" data-name="link">home</a></li>
+        <li> <a href="/login" class="" data-name="link">login</a></li>
+    </ul>
 </template>
 
 <style language="scss">
@@ -10,7 +13,7 @@
     export let topmenu = {
         components: {},
         data(){
-            return {}
+            return {path :  window.location.pathname}
         },
         interactions(){
             return {}

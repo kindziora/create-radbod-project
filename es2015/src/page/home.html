@@ -1,8 +1,10 @@
 
 <template language="js-template">
+    <title>Willkommen home</title>
     <page>
+        <topmenu-component data-name="/$topmenu"></topmenu-component>
 
-        <h1> d ${home.name}</h1>
+        <h1> dtest ${home.name}</h1>
         <input data-name="/$home/name" />
 
         <div data-name="/$home/name"></div>
@@ -28,10 +30,10 @@ h1{
 <script language="js">
     import {todo} from '../component/todo';
     import {translations} from './i18n/home';
-
+    import {topmenu} from '../component/topmenu';
 
     export let home = { 
-        components: {"todo-component" : todo},
+        components: {"todo-component" : todo, "topmenu-component" : topmenu},
         data(){
             return this.createStore("home", { name : "AK home" });
         },

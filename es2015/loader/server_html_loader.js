@@ -32,7 +32,7 @@ function fetchData(component, cb, allready, total, meta, dataH) {
 
     let callback = function (meta) {
         return (data) => {
-            cb(data);
+            cb(data, meta);
             meta.cnt++;
             meta.loaded.push(component);
             if (meta.cnt >= total) {
@@ -88,7 +88,7 @@ export const html_loader = asyncHandler(async function (req, res, next) {
     let layout = await fs.readFile( "./src/layout/index.html", 'utf8');
 
     let count = countForData(page[f], 0);
-    let met = { cnt: 0, loaded: [] };
+    let met = { cnt: 0, loaded: [], req };
 
     fetchData(page[f], (data) => {
 
