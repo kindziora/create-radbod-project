@@ -1,6 +1,6 @@
 <template language="js-template">
     <ul>
-        <li> <a href="/home" class="${topmenu.path}" data-name="link">home</a></li>
+        <li> <a href="/home" class="" data-name="link">home</a></li>
         <li> <a href="/login" class="" data-name="link">login</a></li>
     </ul>
 </template>
@@ -12,8 +12,8 @@
 <script language="js">
     export let topmenu = {
         components: {},
-        data(){
-            return {path :  window.location.pathname}
+        data(data, runtime){
+            return { }
         },
         interactions(){
             return {}
