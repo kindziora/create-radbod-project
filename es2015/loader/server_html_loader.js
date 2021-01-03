@@ -1,16 +1,23 @@
- 
+
 import { i18n } from './_t.js';
 
-import { 
+import {
     dataHandler,
-    eventHandler, 
+    eventHandler,
     getFile,
     translations
 } from "../config/env.js";
 
 import { promises as fs } from 'fs';
 
+
 const REGEX_TITLE = (data) => data.match(/<title.*\>((.*))<\/title>/i) ? data.match(/<title.*\>((.*))<\/title>/i)[1] : "Default title";
+
+let layout;
+(async function () {
+    layout = await fs.readFile("./src/layout/index.html", 'utf8');
+})()
+
 
 let internationalize = new i18n();
 internationalize.addTranslation(translations);
@@ -63,17 +70,17 @@ function countForData(component, cnt) {
     return ++cnt;
 }
 
-function getModules(meta){
-    let mod = (e)=> `<script type="module" src="${e.path}"></script>`;
-    meta.loaded.push({path:"/app.js"});
+function getModules(meta) {
+    let mod = (e) => `<script type="module" src="${e.path}"></script>`;
+    meta.loaded.push({ path: "/app.js" });
     return meta.loaded.map(mod).join("\n\r");
-} 
-
-function getCSS(meta){
-    
 }
 
-export const html_loader = asyncHandler(async function (req, res, next) {
+function getCSS(meta) {
+
+}
+
+export const html_loader = asyncHandler(function (req, res, next) {
 
     let dataH = new dataHandler(new eventHandler(), enviroment);
 
@@ -83,50 +90,47 @@ export const html_loader = asyncHandler(async function (req, res, next) {
 
     console.log("./public/build/dev/page/" + f + ".js");
 
-    let page = await import( "../public/build/dev/page/" + f + ".js");
-    
-    let layout = await fs.readFile( "./src/layout/index.html", 'utf8');
+    import("../public/build/dev/page/" + f + ".js").then(function (page) {
 
-    let count = countForData(page[f], 0);
-    let met = { cnt: 0, loaded: [], req };
+        let count = countForData(page[f], 0);
+        let met = { cnt: 0, loaded: [] };
 
-    fetchData(page[f], (data) => {
+        fetchData(page[f], (data) => {
 
-        console.log(data);
+            console.log("fetched datastore", data);
 
-    }, (stores, meta) => { 
+        }, (stores, meta) => {
 
-        let renderedHTML = '';
+            let renderedHTML = '';
 
-        let _t = (text, lang) => internationalize._t(text, lang);
-        
-        let storeData = stores.store.toObject();
+            let _t = (text, lang) => internationalize._t(text, lang);
 
-        try {
+            let storeData = stores.store.toObject();
 
-            console.log(page[f].views[f]);
+            try {
 
-            let pageHTML = eval(`(${page[f].views[f].toString()})`).call(stores, { change:{ value: "" }, ...storeData, _t});
+                let pageHTML = eval(`(${page[f].views[f].toString()})`).call(stores, { change: { value: "" }, ...storeData, _t });
 
-            let layoutStore = stores.createStore("index", {
-                 html: pageHTML,
-                 title: REGEX_TITLE(pageHTML),
-                 js : getModules(meta),
-                 css : getCSS(meta),
-                 env: {language :"en_EN"},
-                 head: ""
-            });
+                let layoutStore = stores.createStore("index", {
+                    html: pageHTML,
+                    title: REGEX_TITLE(pageHTML),
+                    js: getModules(meta),
+                    css: getCSS(meta),
+                    env: { language: "en_EN" },
+                    head: ""
+                });
 
-            renderedHTML = eval("(( index, _t )=>`" + layout + "`)").apply(stores, [layoutStore.data, _t]);
+                renderedHTML = eval("(( index, _t )=>`" + layout + "`)").apply(stores, [layoutStore.data, _t]);
 
-        } catch (e) {
-            console.log(renderedHTML, e);
-        }
+            } catch (e) {
+                console.log(renderedHTML, e);
+            }
 
-        res.send(renderedHTML);
+            res.send(renderedHTML);
 
-        next();
+            next();
 
-    }, count, met, dataH);
+        }, count, met, dataH);
+    }).catch(console.log);
 
 });

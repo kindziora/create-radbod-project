@@ -1,6 +1,13 @@
 import {getFile} from "./routes.js"; 
+import {runtime} from "./runtime.js"; 
 
-window.buildApp = new window.radbod.app();
+window.buildApp = new window.radbod.app( {
+    data_loader: {
+        find(options, cb) {
+            setTimeout(() => cb.call({ dataH: {} }, { name: "test load asynchronous client site" }), 0);
+        }
+    }
+});
 
 window.buildApp.loadPage = function(path) {
     
