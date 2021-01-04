@@ -12,25 +12,32 @@ window.buildApp.loadPage = function(path) {
     
     let page = getFile(path);
 
-    import(`./page/${page}.js`).then((module) => {
-        var compo = buildApp.mountComponent(page, module[page], (stores, data, component) => {
-
-            let title = component.dom.$el.querySelector('title') ? component.dom.$el.querySelector('page').innerTEXT: page;
-            history.pushState(path, title, path);
-            addRouting(stores, data, component);
-            render(component);
-
+    if(buildApp.components[page]) {
+        
+        render(null, null, buildApp.components[page], path);
+    }else{
+        import(`./page/${page}.js`).then((module) => { 
+            var compo = buildApp.mountComponent(page, module[page], (stores, data, component)=> {
+                render (stores, data, component, path);
+                addRouting(component);
+            });
+             
         });
-    });
+    
+    }
 
+   
 };
 
-function render(component) {
+function render(stores, data, component, path) {
+    let title = component.dom.$el.querySelector('title') ? component.dom.$el.querySelector('page').innerTEXT: page;
+    history.pushState(path, title, path); 
     document.querySelector('#section').innerHTML = "";
-    document.querySelector('#section').append(component.dom.$el.querySelector('page'));
+    
+    document.querySelector('#section').append(component.dom.$el);
 }
 
-function addRouting(stores, data, component) {
+function addRouting(component) {
     Array.from(component.dom.$el.querySelectorAll("a[data-name]")).forEach((el)=>{ 
         el.addEventListener("click", function(ev){
             ev.preventDefault();

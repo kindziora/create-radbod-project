@@ -14,7 +14,11 @@
                         label: "Testdaten",
                         checked: false
                       }]
-            }).load({id: 1}, dataReady);
+            }).load({id: 1}, function(data){
+                console.log("LOAD DATA todo", data);
+                if(typeof dataReady ==="function")
+                    dataReady(data);
+            });
          },
         interactions(){
             return {
