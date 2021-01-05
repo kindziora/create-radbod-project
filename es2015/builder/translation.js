@@ -1,7 +1,7 @@
 const regex = /[>|}]([\s\w].*?)[<|$]/igm;
 const fetchTranslationCalls = /\${_t\(([\s\S]*?)\)/igm;
 
-import { getFiles } from './files.js';
+import { getFiles, folderViewList } from './files.js';
 
 import {mergeDeep} from './merge.js';
 
@@ -46,7 +46,7 @@ export async function writeTranslationBundle(folder, bundleName) {
 export async function createFolderAndFiles(file) {
 
   console.log("TRANSLATION createFolderAndFiles ", file);
-  
+
   let folder = file.split("/");
   let fname = folder.pop().replace(".html", ".js"); 
   let content;
@@ -116,7 +116,10 @@ async function writeToJSFile(file, content, enriched) {
 export async function internationalize(folder) {
 
   for await (const file of getFiles(folder || './test/todoMVC/public/build/dev/')) {
+
      if(!/\.js$/.test(file) || file.indexOf("i18n") >-1)continue;
+
+     if(folderViewList(file))continue;
 
      console.log("internationalize", file);
     try {

@@ -3,13 +3,16 @@ import { promises as fs } from 'fs';
 import { createFolderAndFiles } from './translation.js';
 
 export async function copyFiles(folder, options) {
-   
+
+    let buildPath =  options.buildPath || "public/build/dev";
+
+    await fs.rmdir(buildPath, { recursive: true });
 
     for await (const file of getFiles(folder || '/home/akindziora/projekte/radbod/test/todoMVC/src/')) {
-        let folderPath = file.replace("src", options.buildPath || "public/build/dev").split("/");
+        let folderPath = file.replace("src", buildPath).split("/");
         let filename = folderPath.pop();
 
-        let destF = file.replace("src", options.buildPath || "public/build/dev");
+        let destF = file.replace("src", buildPath);
 
         if (filename.split(".")[1] === options.extension) {
 
@@ -31,14 +34,13 @@ export async function copyFiles(folder, options) {
     }
 
 
-    let buildP = folder.replace("src", options.buildPath || "public/build/dev");
+    let buildP = folder.replace("src", buildPath);
 
     await fs.copyFile(folder.replace("src", "config/manifest.json"), buildP + "/manifest.json" );
     await fs.copyFile(folder.replace("src", "config/routes.js"), buildP + "/routes.js" );
 
     await fs.copyFile(folder + "/app.js", buildP + "/app.js" );
-
-     
+    
     await fs.mkdir(buildP + "/deps", { recursive: true });
    
 

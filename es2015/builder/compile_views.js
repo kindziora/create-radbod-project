@@ -1,11 +1,8 @@
-import { getFiles } from './files.js';
+import { getFiles, folderViewList } from './files.js';
 import puppeteer from "puppeteer";
 import { promises as fs } from 'fs';
 
 const htmlProperty = /"html":".*?",/gmi;
-
-const folderViewList = ["page", "component", "layout"];
-
 export class compileViews {
 
     constructor() {
@@ -51,7 +48,7 @@ export class compileViews {
 
             if (file.split(".")[1] !== "js" || file.indexOf("i18n") >= 0) continue;
 
-            if(folderViewList.filter(allowed => file.indexOf(allowed) >=0).length === 0) continue;
+            if(folderViewList(file))continue;
 
             console.log("BUILD VIEW: " + file);
 
