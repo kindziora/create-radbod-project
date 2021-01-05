@@ -57,7 +57,7 @@ export async function createFolderAndFiles(file) {
    content = await fs.readFile(folder.join("/") + "/i18n/" + fname, 'utf8');
 
   }catch(e){
-    console.log(e); 
+    console.log("create fresh translation file: " + folder.join("/") + "/i18n/" + fname); 
     await fs.writeFile(folder.join("/") + "/i18n/" + fname, `export const translations = ${JSON.stringify({en_EN : {}})}`);
   }
 

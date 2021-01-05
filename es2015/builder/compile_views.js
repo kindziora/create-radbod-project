@@ -16,6 +16,7 @@ export class compileViews {
      * @param {*} component 
      */
     async writeToJSFile(file, content, component) {
+       
         let newFileData = content.replace(htmlProperty, `views : ${component.viewsTemplate},
         `);
 
@@ -32,8 +33,8 @@ export class compileViews {
         let rbd = await fs.readFile("./node_modules/radbod/dist/radbod.js", 'utf8');
 
         const browser = await puppeteer.launch({
-        //    headless: false,
-        //   devtools: true,
+            //    headless: false,
+              // devtools: true,
             args: ["--disable-web-security"],
         });
         const page = await browser.newPage();
@@ -48,7 +49,7 @@ export class compileViews {
 
             if (file.split(".")[1] !== "js" || file.indexOf("i18n") >= 0) continue;
 
-            if(folderViewList(file))continue;
+            if (folderViewList(file)) continue;
 
             console.log("BUILD VIEW: " + file);
 
@@ -61,12 +62,11 @@ export class compileViews {
 
                 if (component.html || component.views) {
                     // Get the "viewport" of the page, as reported by the page.
-                    const cmp = await page.evaluate((n, componentSerialized) => {
- 
+                    const cmp = await page.evaluate((n, componentSerialized) => { 
 
                         let component = JSON.parse(componentSerialized,
                             (k, v) => typeof v === "string" ?
-                                (/(.*)\(/.exec(v) !== null && k !=="html" ? ((v) => {
+                                (/(.*)\(/.exec(v) !== null && k !== "html" ? ((v) => {
 
                                     console.log(v);
 
@@ -98,7 +98,7 @@ export class compileViews {
                             component.components
                         );
                         views[n] = compo.dom.$el.innerHTML;
-                        
+
                         //now we have an enriched and view generated code and html template strings
                         let compoFinal = buildApp.createComponent(
                             n,
@@ -107,12 +107,12 @@ export class compileViews {
                             component.interactions(),
                             component.components
                         );
-
+                        
                         let viewsFinal = {};
                         let strVws = [];
                         for (let i in compoFinal.dom.element) {
                             let element = compoFinal.dom.element[i];
-                            console.log(element);
+                         
                             if (element.template) {
                                 viewsFinal[element.id] = element.template ? element.template : null;
                                 strVws.push(`'${element.id}' : ${element.template.toString()}`);
@@ -125,7 +125,7 @@ export class compileViews {
                         component['viewsTemplate'] = `{
 ${strVws.join(`,
 `).replace(/=""/g, '')} }`;
-                        
+
                         return component;
 
                     }, n, JSON.stringify(component, (k, v) => typeof v === "function" ? v.toString() : v));
@@ -140,7 +140,7 @@ ${strVws.join(`,
 
         }
 
-        await browser.close();
+      //  await browser.close();
 
     }
 
