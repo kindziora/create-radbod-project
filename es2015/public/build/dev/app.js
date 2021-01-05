@@ -3,7 +3,10 @@ import {getFile} from "./routes.js";
 window.buildApp = new window.radbod.app( {
     data_loader: {
         find(options, cb) {
-            setTimeout(() => cb.call({ dataH: {} }, { name: "test load asynchronous client" }), 1110);
+            setTimeout(() => cb.call({ dataH: {} }, { items: [{
+                label: "Testdaten",
+                checked: false
+            }], name: "test load asynchronous client" }), 1110);
         }
     }
 });
