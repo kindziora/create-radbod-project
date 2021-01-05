@@ -4,6 +4,8 @@ import { promises as fs } from 'fs';
 
 const htmlProperty = /"html":".*?",/gmi;
 
+const folderViewList = ["page", "component", "layout"];
+
 export class compileViews {
 
     constructor() {
@@ -43,9 +45,13 @@ export class compileViews {
 
         await page.addScriptTag({ content: rbd });
 
+        console.log("BUILD VIEW FOR FOLDER: " + folder);
+
         for await (const file of getFiles(folder || './test/todoMVC/public/build/dev/')) {
 
-            if (file.split(".")[1] !== "js") continue;
+            if (file.split(".")[1] !== "js" || file.indexOf("i18n") >= 0) continue;
+
+            if(folderViewList.filter(allowed => file.indexOf(allowed) >=0).length === 0) continue;
 
             console.log("BUILD VIEW: " + file);
 
@@ -118,6 +124,7 @@ export class compileViews {
                         viewsFinal[n] = compoFinal.dom.template;
                         strVws.push(`'${n}' : ${compoFinal.dom.template.toString()}`);
                         component['views'] = viewsFinal;
+                        console.log(viewsFinal);
                         component['viewsTemplate'] = `{
 ${strVws.join(`,
 `).replace(/=""/g, '')} }`;

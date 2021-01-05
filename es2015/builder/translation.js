@@ -44,7 +44,9 @@ export async function writeTranslationBundle(folder, bundleName) {
 }
 
 export async function createFolderAndFiles(file) {
-   
+
+  console.log("TRANSLATION createFolderAndFiles ", file);
+  
   let folder = file.split("/");
   let fname = folder.pop().replace(".html", ".js"); 
   let content;

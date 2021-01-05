@@ -1,8 +1,10 @@
 <template language="js-template">
     <header class="header">
-        <h1>todos ${todo.name} ${todo.name} </h1>
+        <h1>todos ${todo.name}</h1>
         <input class="new-todo" data-name="/$todo/name" placeholder="What needs to be done?" autofocus />
     </header>
+
+    <span> hier ist nochmal der name ${todo.name} </span>
  <div data-name="/$todo/name"></div>
 
     <section class="main">
@@ -50,16 +52,18 @@
     export let todo = {
         components: {"xtern-component" : xtern},
         data(dataReady){
+
             return this.createStore("todo", { 
-                name : "AK TODOS",
+                name : "AK TODOS c",
                 items:[{
                         label: "Testdaten",
                         checked: false
                       }]
-            }).load({id: 1}, function(data){
+            }).find({id: 1}, function(data){
                 console.log("LOAD DATA todo", data);
                 if(typeof dataReady ==="function")
-                    dataReady(data);
+                     dataReady(data);
+                 
             });
          },
         interactions(){

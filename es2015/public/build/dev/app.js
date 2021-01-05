@@ -3,7 +3,7 @@ import {getFile} from "./routes.js";
 window.buildApp = new window.radbod.app( {
     data_loader: {
         find(options, cb) {
-            setTimeout(() => cb.call({ dataH: {} }, { name: "test load asynchronous client site" }), 0);
+            setTimeout(() => cb.call({ dataH: {} }, { name: "test load asynchronous client" }), 1110);
         }
     }
 });
@@ -25,8 +25,6 @@ window.buildApp.loadPage = function(path) {
         });
     
     }
-
-   
 };
 
 function render(stores, data, component, path) {
@@ -47,5 +45,4 @@ function addRouting(component) {
 }
 
 window.onpopstate = (event) => window.buildApp.loadPage(event.state);
-
 window.buildApp.loadPage(window.location.pathname);

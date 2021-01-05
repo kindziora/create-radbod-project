@@ -1,1 +1,1 @@
-export const translations = {"en_EN":{"todos":"todos","Mark all as complete":"Mark all as complete","type=\\\"checkbox\\\" />":"type=\\\"checkbox\\\" />","All":"All","Active":"Active","Completed":"Completed","Clear completed":"Clear completed"}}
+export const translations = {"en_EN":{"todos":"todos","hier ist nochmal der name":"hier ist nochmal der name","Mark all as complete":"Mark all as complete","type=\\\"checkbox\\\" />":"type=\\\"checkbox\\\" />","All":"All","Active":"Active","Completed":"Completed","Clear completed":"Clear completed"}}

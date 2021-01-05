@@ -3,38 +3,45 @@ import { promises as fs } from 'fs';
 import { createFolderAndFiles } from './translation.js';
 
 export async function copyFiles(folder, options) {
+   
 
     for await (const file of getFiles(folder || '/home/akindziora/projekte/radbod/test/todoMVC/src/')) {
         let folderPath = file.replace("src", options.buildPath || "public/build/dev").split("/");
         let filename = folderPath.pop();
-                    
+
+        let destF = file.replace("src", options.buildPath || "public/build/dev");
+
         if (filename.split(".")[1] === options.extension) {
 
             await fs.mkdir(folderPath.join("/"), { recursive: true });
-
+            
             if (filename.indexOf("server_") === -1){
-                await fs.copyFile(file, file.replace("src", options.buildPath || "public/build/dev"));
-        
+               
+                await fs.copyFile(file, destF);
+                console.log("COPY FILES ",file, destF);
             } 
     
         }
 
-        if (filename.split(".")[1] === "html") {
-            console.log("PAGE", file);
-
-            await createFolderAndFiles(file.replace("src", options.buildPath || "public/build/dev"));
+        if (filename.split(".")[1] === "html") { 
+            //translation
+            await createFolderAndFiles(destF);
         }
 
     }
 
 
     let buildP = folder.replace("src", options.buildPath || "public/build/dev");
+
     await fs.copyFile(folder.replace("src", "config/manifest.json"), buildP + "/manifest.json" );
     await fs.copyFile(folder.replace("src", "config/routes.js"), buildP + "/routes.js" );
 
     await fs.copyFile(folder + "/app.js", buildP + "/app.js" );
-    await fs.mkdir(folder + "/deps", { recursive: true });
-    
+
+     
+    await fs.mkdir(buildP + "/deps", { recursive: true });
+   
+
     await fs.copyFile("./node_modules/radbod/dist/radbod.js", buildP + "/deps/radbod.js"  );
 
     
