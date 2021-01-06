@@ -85,7 +85,7 @@ export async function buildFile(file, opts) {
     let inject = `
         ${strP.substring(1, strP.length-1)},
         `;
-
+    
     let replacedImports = await replaceImports(js, slang);
     let newFile = await injectCode(replacedImports, inject);
 

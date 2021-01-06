@@ -30,20 +30,21 @@ const asyncHandler = fn => (req, res, next) =>
 const enviroment = {
     data_loader: {
         find(options, cb) {
-            setTimeout(() => cb.call({ dataH: {} }, { name: "test load asynchronous" }), 0);
+            setTimeout(() => cb.call({ dataH: {} }, { name: "test load asynchronous server"}), 0);
         }
     }
 };
 
 function fetchData(component, cb, allready, total, meta, dataH) {
-
+   
     let callback = function (meta) {
         return (data) => {
             cb(data, meta);
             meta.cnt++;
             meta.loaded.push(component);
-            if (meta.cnt >= total) {
-                allready(dataH, meta);
+            if (meta.cnt >= total && !meta.calledFinal) {
+                meta.calledFinal = true;
+                 allready(dataH, meta);
             }
         }
     };
@@ -59,7 +60,10 @@ function fetchData(component, cb, allready, total, meta, dataH) {
         fetchData(component.components[i], cb, allready, total, meta, dataH);
     }
 
-    if (meta.cnt >= total) {
+    if (meta.cnt >= total && !meta.calledFinal) {
+         
+        console.log("allready");
+        meta.calledFinal = true;
         allready(dataH, meta);
     }
 }
@@ -80,7 +84,7 @@ function getCSS(meta) {
 
 }
 
-export const html_loader = asyncHandler(function (req, res, next) {
+export const html_loader = asyncHandler(async function (req, res, next) {
 
     let dataH = new dataHandler(new eventHandler(), enviroment);
 
@@ -125,12 +129,15 @@ export const html_loader = asyncHandler(function (req, res, next) {
             } catch (e) {
                 console.log(renderedHTML, e);
             }
-
             res.send(renderedHTML);
 
             next();
 
         }, count, met, dataH);
-    }).catch(console.log);
+    }).catch((e)=>{
+
+        console.log("ERROR CATCH ",e);
+
+    });
 
 });

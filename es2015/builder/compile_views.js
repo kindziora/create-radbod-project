@@ -2,11 +2,37 @@ import { getFiles, folderViewList } from './files.js';
 import puppeteer from "puppeteer";
 import { promises as fs } from 'fs';
 
+
 const htmlProperty = /"html":".*?",/gmi;
+const componentObjectString = /export.*?\s({.*})/gims;
+
 export class compileViews {
+ 
 
     constructor() {
 
+    }
+
+    hybernate(obj) {
+        return JSON.stringify(obj, (k, v) => typeof v === "function" ? v.toString() : v);
+    }
+
+    dehybernate(str) {
+        return JSON.parse(str,
+            (k, v) => typeof v === "string" ?
+                (/(.*)\(/.exec(v) !== null && k !== "html" ? ((v) => {
+
+                    console.log(v);
+
+                    let ret = "";
+                    try {
+                        ret = eval(`(function ${v} )`);
+                    } catch (e) {
+                        ret = eval(`(${v} )`);
+                    }
+
+                    return ret
+                })(v) : v) : v);
     }
 
     /**
@@ -16,10 +42,17 @@ export class compileViews {
      * @param {*} component 
      */
     async writeToJSFile(file, content, component) {
-       
+
+        //console.log(hybernate(component.views));
+        let oFound = componentObjectString.exec(content);
+         
+        //if(oFound)
+          //  console.log(Array.from(oFound)[1], this.dehybernate( Array.from(oFound)[1]) ); //this.dehybernate(Array.from(oFound)[1]),
+
+
         let newFileData = content.replace(htmlProperty, `views : ${component.viewsTemplate},
         `);
-
+       
         return await fs.writeFile(file, newFileData);
     }
 
@@ -31,10 +64,10 @@ export class compileViews {
     async compileMultiple(folder) {
 
         let rbd = await fs.readFile("./node_modules/radbod/dist/radbod.js", 'utf8');
-
+  
         const browser = await puppeteer.launch({
             //    headless: false,
-              // devtools: true,
+            //   devtools: true,
             args: ["--disable-web-security"],
         });
         const page = await browser.newPage();
@@ -110,18 +143,29 @@ export class compileViews {
                         
                         let viewsFinal = {};
                         let strVws = [];
+
                         for (let i in compoFinal.dom.element) {
                             let element = compoFinal.dom.element[i];
                          
                             if (element.template) {
+
                                 viewsFinal[element.id] = element.template ? element.template : null;
-                                strVws.push(`'${element.id}' : ${element.template.toString()}`);
+
+                              //  if(typeof component['views'] !== "undefined" && typeof component['views'][element.id] === "undefined"  )
+                                    strVws.push(`'${element.id}' : ${element.template.toString()}`);
                             }
                         }
                         viewsFinal[n] = compoFinal.dom.template;
+
                         strVws.push(`'${n}' : ${compoFinal.dom.template.toString()}`);
+                        if(component.views){
+                            for(let vfn in component.views) {
+                                strVws.push(`'${vfn}' : ${component.views[vfn].toString()}`);
+                            }
+                        }
+                        
                         component['views'] = viewsFinal;
-                        console.log(viewsFinal);
+                        
                         component['viewsTemplate'] = `{
 ${strVws.join(`,
 `).replace(/=""/g, '')} }`;

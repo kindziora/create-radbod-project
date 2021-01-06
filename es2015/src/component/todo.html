@@ -1,26 +1,22 @@
 <template language="js-template">
     <header class="header">
         <h1>todos ${todo.name}</h1>
-        <input class="new-todo" data-name="/$todo/name" placeholder="What needs to be done?" autofocus />
+        <input class="new-todo" data-name="/$todo/name" placeholder="What needs
+            to be done?" autofocus />
     </header>
 
     <span> hier ist nochmal der name ${todo.name} </span>
- <div data-name="/$todo/name"></div>
+    <div data-name="/$todo/name"></div>
 
     <section class="main">
-        <input id="toggle-all" data-id="toggle-all" class="toggle-all" type="checkbox" data-name="/$todo/items" />
+        <input id="toggle-all" data-id="toggle-all" class="toggle-all"
+            type="checkbox" data-name="/$todo/items" />
         <label for="toggle-all">Mark all as complete</label>
 
-        <ul class="todo-list" data-name="/$todo/items">
-            <li data-name="/$todo/items/${change.index}" data-type="list-item">
-                <div class="view">
-                    <input class="toggle" ${change.value.checked?`checked`:``} type="checkbox" />
-                    <label data-name="/$todo/$items/${change.index}">${change.value.label}</label>
-                    <button class="destroy" data-name="/$todo/$items/${change.index}" data-id="destroy"></button>
-                </div>
-            </li>
+        <ul class="todo-list" data-name="/$todo/items" data-view="todo-list">
+
         </ul>
-        
+
         <xtern-component data-name="/$todo/items"></xtern-component>
 
         <footer class="footer">
@@ -28,19 +24,19 @@
             <ul class="filters">
                 <li>
                     <a href="#/" class="selected">All</a>
-                </li> 
+                </li>
                 <li>
                     <a href="#/active">Active</a>
                 </li>
                 <li>
                     <a href="#/completed">Completed</a>
-                </li> 
+                </li>
             </ul>
             <button class="clear-completed">Clear completed</button>
         </footer>
     </section>
 </template>
- 
+
 <style language="scss">
 
 
@@ -50,21 +46,35 @@
     import {xtern} from './xtern';
 
     export let todo = {
+      
         components: {"xtern-component" : xtern},
         data(dataReady){
-
+         /*   views: {
+            'todo-list'(args){
+                let {change, todo, xternal, _t} = args;
+                return `
+                <li data-name="/$todo/items/${change.index}" data-type="list-item">
+                    <input class="toggle" ${change.value.checked?`checked`:``} type="checkbox" />
+                    <label data-name="/$todo/$items/${change.index}">${change.value.label}</label>
+                    <button class="destroy" data-name="/$todo/$items/${change.index}"></button>
+                </li>`;
+            }
+        },*/
             return this.createStore("todo", { 
                 name : "AK TODOS c",
                 items:[{
                         label: "Testdaten",
                         checked: false
+                      },{
+                        label: "Testdaten2",
+                        checked: false
                       }]
-            }).find({id: 1}, function(data){
+            });/*.find({id: 1}, function(data){
                 console.log("LOAD DATA todo", data);
                 if(typeof dataReady ==="function")
                      dataReady(data);
                  
-            });
+            });*/
          },
         interactions(){
             return {
