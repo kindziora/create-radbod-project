@@ -8,11 +8,11 @@
  <div data-name="/$todo/name"></div>
 
     <section class="main">
-        <input id="toggle-all" data-id="toggle-all" class="toggle-all" type="checkbox" data-name="/$todo/$items" />
+        <input id="toggle-all" data-id="toggle-all" class="toggle-all" type="checkbox" data-name="/$todo/items" />
         <label for="toggle-all">Mark all as complete</label>
 
-        <ul class="todo-list" data-name="/$todo/$items">
-            <li data-name="/$todo/$items/${change.index}" data-type="list-item">
+        <ul class="todo-list" data-name="/$todo/items">
+            <li data-name="/$todo/items/${change.index}" data-type="list-item">
                 <div class="view">
                     <input class="toggle" ${change.value.checked?`checked`:``} type="checkbox" />
                     <label data-name="/$todo/$items/${change.index}">${change.value.label}</label>
@@ -21,7 +21,7 @@
             </li>
         </ul>
         
-        <xtern-component data-name="/$todo/$items"></xtern-component>
+        <xtern-component data-name="/$todo/items"></xtern-component>
 
         <footer class="footer">
             <span class="todo-count"></span>
