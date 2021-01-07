@@ -1,4 +1,4 @@
-import { getFiles, folderViewList } from './files.js';
+import { getFiles, folderViewList, parseFunction } from './files.js';
 import puppeteer from "puppeteer";
 import { promises as fs } from 'fs';
 
@@ -7,14 +7,36 @@ const htmlProperty = /"html":".*?",/gmi;
 const componentObjectString = /export.*?\s({.*})/gims;
 
 export class compileViews {
- 
-
     constructor() {
 
     }
 
-    hybernate(obj) {
-        return JSON.stringify(obj, (k, v) => typeof v === "function" ? v.toString() : v);
+    toCode(obj, str) {
+
+        for (let i in obj) {
+           
+            if (obj.hasOwnProperty(i)) {
+                if (typeof obj[i] === "object") {
+                    str.push(`"${i}" : { ${this.toCode(obj[i], [])} }`) ;
+                }else if (typeof obj[i] === "function") {
+                    let fn = obj[i].toString();
+                    
+                    str.push(`"${i}" :  ${parseFunction(fn).toString()}`);
+
+
+
+                }else if(typeof obj[i] === "string" ){
+                    str.push(`"${i}" : "${obj[i]}"`);
+                }else{
+                    str.push(`"${i}" : ${obj[i]}`);
+                }
+
+            }
+           
+        } 
+
+        return str.join(",");
+   
     }
 
     dehybernate(str) {
@@ -41,19 +63,22 @@ export class compileViews {
      * @param {*} content 
      * @param {*} component 
      */
-    async writeToJSFile(file, content, component) {
+    async writeToJSFile(file, content, component, comp, name) {
+        let newFileData = content;
+        try {
 
-        //console.log(hybernate(component.views));
-        let oFound = componentObjectString.exec(content);
-         
-        //if(oFound)
-          //  console.log(Array.from(oFound)[1], this.dehybernate( Array.from(oFound)[1]) ); //this.dehybernate(Array.from(oFound)[1]),
+            comp.views = eval(`(${component.viewsTemplate})`);
+            delete comp.html;
+
+            newFileData = content.replace(componentObjectString, `;export let ${name} = { ${this.toCode(comp, [])} };`);
+
+        } catch (e) {
+            console.log(e);
+        }
+
+        await fs.writeFile(file, newFileData);
 
 
-        let newFileData = content.replace(htmlProperty, `views : ${component.viewsTemplate},
-        `);
-       
-        return await fs.writeFile(file, newFileData);
     }
 
     /**
@@ -64,7 +89,7 @@ export class compileViews {
     async compileMultiple(folder) {
 
         let rbd = await fs.readFile("./node_modules/radbod/dist/radbod.js", 'utf8');
-  
+
         const browser = await puppeteer.launch({
             //    headless: false,
             //   devtools: true,
@@ -88,14 +113,15 @@ export class compileViews {
 
             try {
                 let component = await import(file + "?t=" + new Date());
-
                 let content = await fs.readFile(file, 'utf8');
                 let n = Object.keys(component)[0];
                 component = component[n];
 
+
+
                 if (component.html || component.views) {
                     // Get the "viewport" of the page, as reported by the page.
-                    const cmp = await page.evaluate((n, componentSerialized) => { 
+                    let cmp = await page.evaluate((n, componentSerialized) => {
 
                         let component = JSON.parse(componentSerialized,
                             (k, v) => typeof v === "string" ?
@@ -140,32 +166,32 @@ export class compileViews {
                             component.interactions(),
                             component.components
                         );
-                        
+
                         let viewsFinal = {};
                         let strVws = [];
 
                         for (let i in compoFinal.dom.element) {
                             let element = compoFinal.dom.element[i];
-                         
+
                             if (element.template) {
 
                                 viewsFinal[element.id] = element.template ? element.template : null;
 
-                              //  if(typeof component['views'] !== "undefined" && typeof component['views'][element.id] === "undefined"  )
-                                    strVws.push(`'${element.id}' : ${element.template.toString()}`);
+                                //  if(typeof component['views'] !== "undefined" && typeof component['views'][element.id] === "undefined"  )
+                                strVws.push(`'${element.id}' : ${element.template.toString()}`);
                             }
                         }
                         viewsFinal[n] = compoFinal.dom.template;
 
                         strVws.push(`'${n}' : ${compoFinal.dom.template.toString()}`);
-                        if(component.views){
-                            for(let vfn in component.views) {
+                        if (component.views) {
+                            for (let vfn in component.views) {
                                 strVws.push(`'${vfn}' : ${component.views[vfn].toString()}`);
                             }
                         }
-                        
+
                         component['views'] = viewsFinal;
-                        
+
                         component['viewsTemplate'] = `{
 ${strVws.join(`,
 `).replace(/=""/g, '')} }`;
@@ -174,7 +200,7 @@ ${strVws.join(`,
 
                     }, n, JSON.stringify(component, (k, v) => typeof v === "function" ? v.toString() : v));
 
-                    await this.writeToJSFile(file, content, cmp);
+                    await this.writeToJSFile(file, content, cmp, component, n);
                 }
 
 
@@ -184,7 +210,7 @@ ${strVws.join(`,
 
         }
 
-      //  await browser.close();
+        await browser.close();
 
     }
 

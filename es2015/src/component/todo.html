@@ -14,7 +14,6 @@
         <label for="toggle-all">Mark all as complete</label>
 
         <ul class="todo-list" data-name="/$todo/items" data-view="todo-list">
-
         </ul>
 
         <xtern-component data-name="/$todo/items"></xtern-component>
@@ -46,11 +45,8 @@
     import {xtern} from './xtern';
 
     export let todo = {
-      
-        components: {"xtern-component" : xtern},
-        data(dataReady){
-         /*   views: {
-            'todo-list'(args){
+        views: {
+            "todo-list": function (args){
                 let {change, todo, xternal, _t} = args;
                 return `
                 <li data-name="/$todo/items/${change.index}" data-type="list-item">
@@ -58,8 +54,9 @@
                     <label data-name="/$todo/$items/${change.index}">${change.value.label}</label>
                     <button class="destroy" data-name="/$todo/$items/${change.index}"></button>
                 </li>`;
-            }
-        },*/
+            }},
+        components: {"xtern-component" : xtern},
+        data(dataReady){ 
             return this.createStore("todo", { 
                 name : "AK TODOS c",
                 items:[{
