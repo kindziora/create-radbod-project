@@ -4,12 +4,45 @@ import { promises as fs } from 'fs';
 
 
 const htmlProperty = /"html":".*?",/gmi;
+const viewProperty =/(views(["']|)\s*?:\s)/mig;
+
+
 const componentObjectString = /export.*?\s({.*})/gims;
 
 export class compileViews {
     constructor() {
 
     }
+
+    /**
+     * 
+     * @param {*} codeStr 
+     */
+    parseParanthesisReturnEnd(codeStr) { 
+
+        const par = /(\{)|(\})/gmi;
+
+        let m;
+        let openMatch = 0;
+        while ((m = par.exec(codeStr)) !== null) {
+            // This is necessary to avoid infinite loops with zero-width matches
+            if (m.index === par.lastIndex) {
+                par.lastIndex++;
+            }
+            
+            if(m[0] === "{") {
+                openMatch++;
+            }
+
+            if(m[0] === "}") {
+                openMatch--;
+            }
+
+            if(openMatch === 0) return m[0].length + m.index;
+
+        }
+    }
+
 
     toCode(obj, str) {
 
@@ -22,11 +55,9 @@ export class compileViews {
                     let fn = obj[i].toString();
                     
                     str.push(`"${i}" :  ${parseFunction(fn).toString()}`);
-
-
-
+ 
                 }else if(typeof obj[i] === "string" ){
-                    str.push(`"${i}" : "${obj[i]}"`);
+                    str.push(`"${i}" : \`${obj[i]}\``);
                 }else{
                     str.push(`"${i}" : ${obj[i]}`);
                 }
@@ -66,11 +97,17 @@ export class compileViews {
     async writeToJSFile(file, content, component, comp, name) {
         let newFileData = content;
         try {
+ 
+            let m = Array.from(content.matchAll(viewProperty))[0];
 
-            comp.views = eval(`(${component.viewsTemplate})`);
-            delete comp.html;
+            if(m) {
+                let startStr = content.substr(m.index);
+                let objStr = startStr.substr(0, this.parseParanthesisReturnEnd(startStr));
+                content = content.replace(objStr, "").replace(/,\s*,/g, ",").replace(",,", ",");
+            }
 
-            newFileData = content.replace(componentObjectString, `;export let ${name} = { ${this.toCode(comp, [])} };`);
+              newFileData = content.replace(htmlProperty, `views : ${component.viewsTemplate},
+            `);
 
         } catch (e) {
             console.log(e);
