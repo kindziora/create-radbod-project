@@ -9,9 +9,7 @@ export const routes = {
 export function getFile(path) {
 
     let pathCleaned = path.split("/").filter(e => e.trim()!=="").join("/");
-    
-    console.log("path", path);
-
+     
     for (let i in routes) {
 
         let file = routes[i];
@@ -20,8 +18,7 @@ export function getFile(path) {
 
         let match = pathCleaned.match(rex);
 
-        console.log("match", match, "rex", rex);
-
+ 
         if(match) {
             return file;
         }

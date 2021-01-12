@@ -11,7 +11,7 @@
         
         components: {},
         data(data, runtime){
-            console.log(data, runtime);
+             
             return this.createStore("topmenu", { 
                 path : "runtime.path"
             })
