@@ -32,27 +32,27 @@
             "style":"","path":"/component/todo.js",
         components: {"xtern-component" : xtern},
         data(dataReady){ 
-            return this.createStore("todo", { 
-                name : "AK TODOS c",
-                items:[{
-                        label: "Testdaten",
-                        checked: false
-                      },{
-                        label: "Testdaten2",
-                        checked: false
-                      }]
-            });/*.find({id: 1}, function(data){
+            
+            return this.createStore("todo", { }).find({id: 1}, function(data){
+                
                 console.log("LOAD DATA todo", data);
                 if(typeof dataReady ==="function")
                      dataReady(data);
                  
-            });*/
+            });
+          
          },
         interactions(){
             return {
                 "/$todo/deleteItem" :{
                     "click"(sender, dataStore) { //address specific element in dom
-                        console.log(dataStore, sender);
+                        let index = parseInt(sender.field.$el.getAttribute("data-index"));
+                        dataStore.items.some((v,k)=> {
+                            if(v.id == index) {
+                                delete dataStore.items[k];
+                                return true;
+                            }
+                        });
                     }
                 },
                 "/$todo/name" : {
@@ -61,6 +61,7 @@
 
                         if(sender.ev.keyCode === 13){
                             dataStore.items.push({
+                                id: dataStore.items.length,
                                 label: dataStore.name,
                                 checked: false
                             });

@@ -1,8 +1,7 @@
 <template language="js-template">
     <header class="header">
         <h1>todos ${todo.name}</h1>
-        <input class="new-todo" data-name="/$todo/name" data-id="myinput" placeholder="What needs
-            to be done?" autofocus />
+        <input class="new-todo" data-name="/$todo/name" data-id="myinput" placeholder="What needs to be done?" autofocus />
     </header>
 
     <span> hier ist nochmal der name ${todo.name} </span>
@@ -57,27 +56,27 @@
             }},
         components: {"xtern-component" : xtern},
         data(dataReady){ 
-            return this.createStore("todo", { 
-                name : "AK TODOS c",
-                items:[{
-                        label: "Testdaten",
-                        checked: false
-                      },{
-                        label: "Testdaten2",
-                        checked: false
-                      }]
-            });/*.find({id: 1}, function(data){
+            
+            return this.createStore("todo", { }).find({id: 1}, function(data){
+                
                 console.log("LOAD DATA todo", data);
                 if(typeof dataReady ==="function")
                      dataReady(data);
                  
-            });*/
+            });
+          
          },
         interactions(){
             return {
                 "/$todo/deleteItem" :{
                     "click"(sender, dataStore) { //address specific element in dom
-                        console.log(dataStore, sender);
+                        let index = parseInt(sender.field.$el.getAttribute("data-index"));
+                        dataStore.items.some((v,k)=> {
+                            if(v.id == index) {
+                                delete dataStore.items[k];
+                                return true;
+                            }
+                        });
                     }
                 },
                 "/$todo/name" : {
@@ -86,6 +85,7 @@
 
                         if(sender.ev.keyCode === 13){
                             dataStore.items.push({
+                                id: dataStore.items.length,
                                 label: dataStore.name,
                                 checked: false
                             });

@@ -48,7 +48,7 @@
         interactions(){ 
             return {
                 "/$home/name" : {
-                    "keyup"(sender, data) { //address specific element in dom
+                    "keydown"(sender, data) { //address specific element in dom
                          data.name = sender.field.getValue();
                     }
                 }
