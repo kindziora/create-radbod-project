@@ -1,39 +1,69 @@
 import { getFile } from "./routes.js";
-import { app } from "./deps/radbod.js";
+//import { radbod } from "./deps/radbod.js";
 
-export class myApp extends app {
-
+export class myApp extends radbod.app {
+    /**
+     * 
+     * @param {*} stores 
+     * @param {*} data 
+     * @param {*} component 
+     * @param {*} path 
+     */
     render(stores, data, component, path) {
         let title = component.dom.$el.querySelector('title') ? component.dom.$el.querySelector('page').innerTEXT : page;
         history.pushState(path, title, path);
         document.querySelector('#section').innerHTML = "";
-
         document.querySelector('#section').append(component.dom.$el);
+        this.loaded(path);
+    }
+    /**
+     * 
+     * @param {*} uri 
+     */
+    loading(uri){
+        let $span = document.createElement("span");
+        $span.innerHTML= "LOADING..."
+        document.querySelector('#section').append($span);
+    }
+    /**
+     * 
+     * @param {*} uri 
+     */
+    loaded(uri){
+        console.log("loaded");
     }
 
+    /**
+     * 
+     * @param {*} path 
+     */
     loadPage(path) {
         let page = getFile(path);
 
-        if (this.components[page]) {
+        this.loading(page);
 
-            render(null, null, this.components[page], path);
+        if (this.components[page]) {
+            this.render(null, null, this.components[page], path);
         } else {
             import(`./page/${page}.js`).then((module) => {
-                var compo = this.mountComponent(page, module[page], (stores, data, component) => {
-                    render(stores, data, component, path);
-                    addRouting(component);
+                this.mountComponent(page, module[page], (stores, data, component) => {
+                    this.render(stores, data, component, path);
+                    this.addRouting(component);
                 });
-
             });
 
         }
     }
 
+    /**
+     * 
+     * @param {*} component 
+     */
     addRouting(component) {
         Array.from(component.dom.$el.querySelectorAll("a[data-name]")).forEach((el) => {
-            el.addEventListener("click", function (ev) {
+            el.addEventListener("click", (ev) =>{
                 ev.preventDefault();
-                this.loadPage(this.getAttribute("href"));
+                this.loadPage(ev.srcElement.getAttribute("href"));
             });
         });
     }
@@ -41,8 +71,9 @@ export class myApp extends app {
 
 window.buildApp = new myApp({
     data_loader: {
-        find(options, cb) {
-            setTimeout(() => cb.call({ dataH: {} }, {
+        find(query, onResultCallback) {
+
+            setTimeout(() => onResultCallback.call({ dataH: {} }, {
                 name: "AK TODOS c asdfsdf sdf",
                 items: [{
                     id: 0,
@@ -54,6 +85,7 @@ window.buildApp = new myApp({
                     checked: false
                 }]
             }), 1110);
+
         }
     }
 });

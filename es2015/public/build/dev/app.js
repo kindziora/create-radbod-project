@@ -2,24 +2,41 @@ import { getFile } from "./routes.js";
 //import { radbod } from "./deps/radbod.js";
 
 export class myApp extends radbod.app {
-
+    /**
+     * 
+     * @param {*} stores 
+     * @param {*} data 
+     * @param {*} component 
+     * @param {*} path 
+     */
     render(stores, data, component, path) {
         let title = component.dom.$el.querySelector('title') ? component.dom.$el.querySelector('page').innerTEXT : page;
         history.pushState(path, title, path);
- 
+        document.querySelector('#section').innerHTML = "";
         document.querySelector('#section').append(component.dom.$el);
         this.loaded(path);
     }
-
+    /**
+     * 
+     * @param {*} uri 
+     */
     loading(uri){
-        document.querySelector('#section').innerHTML = "<span id='loading'>LOADING...</span>";
+        let $span = document.createElement("span");
+        $span.innerHTML= "LOADING..."
+        document.querySelector('#section').append($span);
     }
-
+    /**
+     * 
+     * @param {*} uri 
+     */
     loaded(uri){
         console.log("loaded");
-        document.querySelector('#section #loading').remove();
     }
 
+    /**
+     * 
+     * @param {*} path 
+     */
     loadPage(path) {
         let page = getFile(path);
 
@@ -38,6 +55,10 @@ export class myApp extends radbod.app {
         }
     }
 
+    /**
+     * 
+     * @param {*} component 
+     */
     addRouting(component) {
         Array.from(component.dom.$el.querySelectorAll("a[data-name]")).forEach((el) => {
             el.addEventListener("click", (ev) =>{
@@ -50,8 +71,9 @@ export class myApp extends radbod.app {
 
 window.buildApp = new myApp({
     data_loader: {
-        find(options, cb) {
-            setTimeout(() => cb.call({ dataH: {} }, {
+        find(query, onResultCallback) {
+
+            setTimeout(() => onResultCallback.call({ dataH: {} }, {
                 name: "AK TODOS c asdfsdf sdf",
                 items: [{
                     id: 0,
@@ -63,6 +85,7 @@ window.buildApp = new myApp({
                     checked: false
                 }]
             }), 1110);
+
         }
     }
 });
