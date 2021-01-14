@@ -1,5 +1,4 @@
 import { getFile } from "./routes.js";
-//import { radbod } from "./deps/radbod.js";
 
 export class myApp extends radbod.app {
     /**
@@ -20,10 +19,8 @@ export class myApp extends radbod.app {
      * 
      * @param {*} uri 
      */
-    loading(uri){
-        let $span = document.createElement("span");
-        $span.innerHTML= "LOADING..."
-        document.querySelector('#section').append($span);
+    loading(uri){ 
+        document.querySelector('#status').innerHTML= "LOADING...";
     }
     /**
      * 
@@ -31,6 +28,7 @@ export class myApp extends radbod.app {
      */
     loaded(uri){
         console.log("loaded");
+        document.querySelector('#status').innerHTML= "";
     }
 
     /**
