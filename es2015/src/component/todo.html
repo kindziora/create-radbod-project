@@ -13,6 +13,15 @@
         <label for="toggle-all">Mark all as complete</label>
 
         <ul class="todo-list" data-name="/$todo/items" data-view="todo-list">
+            ${typeof todo.items !="undefined" ? (function(){ 
+                let re = ""; 
+                if(typeof this !=="undefined" )if(typeof this.views !=="undefined")  
+                    for(let i in todo.items) {
+                        args.change = {value: todo.items[i], index : i};
+                        re += this.views["todo-list"](args);
+                    }
+                return re;
+            }).bind(this)() : ""}
         </ul>
 
         <xtern-component data-name="/$todo/items"></xtern-component>
@@ -44,7 +53,7 @@
     import {xtern} from './xtern';
 
     export let todo = {
-        views: {
+        views: { 
             "todo-list": function (args){
                 let {change, todo, xternal, _t} = args;
                 return `

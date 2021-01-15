@@ -2,7 +2,6 @@
  "en_EN": {
   "Willkommen home": "Willkommen home",
   "dtest": "dtest",
-  "Double-click to edit a todo": "Double-click to edit a todo",
   "Written by": "Written by",
   "Luke Edwards": "Luke Edwards",
   "Refactored by": "Refactored by",
@@ -10,6 +9,7 @@
   "Part of": "Part of",
   "TodoMVC": "TodoMVC",
   "\\": "\\",
+  "Double-click to edit a todo": "Double-click to edit a todo",
   "Hallo": "hello xxx",
   "test": "testa"
  },

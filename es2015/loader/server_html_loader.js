@@ -90,16 +90,16 @@ export const html_loader = asyncHandler(async function (req, res, next) {
 
     let path = req.path;
 
-    let f = getFile(path);
+    let pageName = getFile(path);
 
-    console.log("./public/build/dev/page/" + f + ".js");
+    console.log("./public/build/dev/page/" + pageName + ".js");
 
-    import("../public/build/dev/page/" + f + ".js").then(function (page) {
+    import("../public/build/dev/page/" + pageName + ".js").then(function (page) {
 
-        let count = countForData(page[f], 0);
+        let count = countForData(page[pageName], 0);
         let met = { cnt: 0, loaded: [] };
 
-        fetchData(page[f], (data) => {
+        fetchData(page[pageName], (data) => {
 
             console.log("fetched datastore", data);
 
@@ -113,7 +113,7 @@ export const html_loader = asyncHandler(async function (req, res, next) {
 
             try {
 
-                let pageHTML = eval(`(${page[f].views[f].toString()})`).call(stores, { change: { value: "" }, ...storeData, _t });
+                let pageHTML = eval(`(${page[pageName].views[pageName].toString()})`).call(stores, { change: { value: "" }, ...storeData, _t });
 
                 let layoutStore = stores.createStore("index", {
                     html: pageHTML,

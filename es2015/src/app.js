@@ -9,7 +9,7 @@ export class myApp extends radbod.app {
      * @param {*} path 
      */
     render(stores, data, component, path) {
-        let title = component.dom.$el.querySelector('title') ? component.dom.$el.querySelector('page').innerTEXT : page;
+        let title = component.dom.$el.querySelector('title') ? component.dom.$el.querySelector('page').innerTEXT : path;
         history.pushState(path, title, path);
         document.querySelector('#section').innerHTML = "";
         document.querySelector('#section').append(component.dom.$el);
@@ -81,6 +81,10 @@ window.buildApp = new myApp({
                     id: 1,
                     label: "Testdaten2",
                     checked: false
+                }, {
+                    id: 2,
+                    label: "Testdaten3",
+                    checked: false
                 }]
             }), 1110);
 
@@ -91,4 +95,6 @@ window.buildApp = new myApp({
   
 
 window.onpopstate = (event) => window.buildApp.loadPage(event.state);
+
+//initial page load
 window.buildApp.loadPage(window.location.pathname);
