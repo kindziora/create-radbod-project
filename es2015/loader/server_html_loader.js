@@ -127,7 +127,7 @@ export const html_loader = asyncHandler(async function (req, res, next) {
                 renderedHTML = eval("(( index, _t )=>`" + layout + "`)").apply(stores, [layoutStore.data, _t]);
 
             } catch (e) {
-                console.log(renderedHTML, e);
+                console.log(renderedHTML,pageName, e);
             }
             res.send(renderedHTML);
 

@@ -129,7 +129,7 @@ export class compileViews {
 
         const browser = await puppeteer.launch({
              //   headless: false,
-           //    devtools: true,
+             //  devtools: true,
             args: ["--disable-web-security"],
         });
         const page = await browser.newPage();
@@ -153,8 +153,6 @@ export class compileViews {
                 let content = await fs.readFile(file, 'utf8');
                 let n = Object.keys(component)[0];
                 component = component[n];
-
-
 
                 if (component.html || component.views) {
                     // Get the "viewport" of the page, as reported by the page.
