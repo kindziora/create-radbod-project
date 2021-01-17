@@ -30,7 +30,19 @@ const asyncHandler = fn => (req, res, next) =>
 const enviroment = {
     data_loader: {
         find(options, cb) {
-            setTimeout(() => cb.call({ dataH: {} }, { name: "test load asynchronous server"}), 0);
+            setTimeout(() => cb.call({ dataH: {} }, { name: "test load asynchronous server",    items: [{
+                id: 0,
+                label: "Testdaten1 server",
+                checked: false
+            }, {
+                id: 1,
+                label: "Testdaten2 server",
+                checked: false
+            }, {
+                id: 2,
+                label: "Testdaten3 server",
+                checked: false
+            }]}), 0);
         }
     }
 };
@@ -112,6 +124,8 @@ export const html_loader = asyncHandler(async function (req, res, next) {
             let storeData = stores.store.toObject();
 
             try {
+
+                console.log(page[pageName]);
 
                 let pageHTML = eval(`(${page[pageName].views[pageName].toString()})`).call(stores, { change: { value: "" }, ...storeData, _t });
 
