@@ -76,7 +76,7 @@ window.buildApp = new myApp({
                 items: [{
                     id: 0,
                     label: "Testdaten1",
-                    checked: false
+                    checked: true
                 }, {
                     id: 1,
                     label: "Testdaten2",
