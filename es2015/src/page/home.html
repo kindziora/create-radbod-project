@@ -2,13 +2,13 @@
 <template language="js-template">
     <title>Willkommen home</title>
     <page>
-        <topmenu-component data-name="/$topmenu"></topmenu-component>
-        
+        <topmenu-component type="component" data-name="/$topmenu"></topmenu-component>
+
         <input data-name="/$home/name" />
         <h1> dtest ${home.name}</h1>
         <div data-name="/$home/name"></div>
 
-        <todo-component data-name="/$todo"></todo-component>
+        <todo-component type="component" data-name="/$todo"></todo-component>
 
         <footer class="info">
             <p> Double-click to edit a todo </p>
@@ -39,7 +39,7 @@
         interactions(){ 
             return {
                 "/$home/name" : {
-                    "keydown"(sender, data) { //address specific element in dom
+                    "keyup"(sender, data) { //address specific element in dom
                          data.name = sender.field.getValue();
                     }
                 }

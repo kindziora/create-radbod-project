@@ -1,7 +1,7 @@
 <template language="js-template">
     <header class="header">
         <h1>todos ${todo.name}</h1>
-        <input class="new-todo" data-name="/$todo/name" data-id="myinput" placeholder="What needs to be done?" autofocus />
+        <input class="new-todo" data-name="/$todo/name" data-id="todo-myinput" placeholder="What needs to be done?" autofocus />
     </header>
 
     <span> hier ist nochmal der name ${todo.name} </span>
@@ -81,7 +81,7 @@
                     }
                 },
                 "/$todo/name" : {
-                    "keyup#myinput"(sender, dataStore) { //address specific element in dom
+                    "keyup#todo-myinput"(sender, dataStore) { //address specific element in dom
                         dataStore.name = sender.field.getValue();
 
                         if(sender.ev.keyCode === 13){
