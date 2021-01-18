@@ -1,6 +1,8 @@
 
 <template language="js-template">
-    <title>Willkommen home</title>
+    <extend-head>
+        <title>Willkommen home</title>
+    </extend-head>
     <page>
         <topmenu-component type="component" data-name="/$topmenu"></topmenu-component>
 
@@ -11,7 +13,7 @@
         <todo-component type="component" data-name="/$todo"></todo-component>
 
         <footer class="info">
-            <p> Double-click to edit a todo </p>
+            <p>Double-click to edit a todo</p>
             <p>Written by <a href="http://twitter.com/lukeed05">Luke Edwards</a></p>
             <p>Refactored by <a href="https://github.com/xorgy">Aaron Muir
                     Hamilton</a></p>
@@ -21,8 +23,10 @@
 </template>
 
 <style language="scss">
-    h1{
-        font-size:2em;
+   #home{
+        h1{
+            font-size:2em;
+        }
     }
 </style>
 

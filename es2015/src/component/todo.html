@@ -16,8 +16,6 @@
          ...loading...
         </ul>
 
-        <xtern-component type="component" data-name="/$todo/items"></xtern-component>
-
         <footer class="footer">
             <span class="todo-count"></span>
             <ul class="filters">
@@ -42,12 +40,11 @@
 </style>
 
 <script language="js">
-    import {xtern} from './xtern';
-
+ 
     export let todo = {
         views: { 
             "todo-list": function (args){
-                let {change, todo, xternal, _t} = args;
+                let {change, todo, _t} = args;
                 return `
                 <li data-name="/$todo/items/${change.index}" data-type="list-item">
                     <input class="toggle" ${change.value.checked?`checked`:``} type="checkbox" />
@@ -55,7 +52,6 @@
                     <button class="destroy" data-name="/$todo/deleteItem" data-index="${change.index}"></button>
                 </li>`;
             }},
-        components: {"xtern-component" : xtern},
         data(dataReady){ 
             
             return this.createStore("todo", { }).find({id: 1}, function(data){

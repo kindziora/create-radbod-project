@@ -9,9 +9,8 @@ import {
 } from "../config/env.js";
 
 import { promises as fs } from 'fs';
-
-
-const REGEX_TITLE = (data) => data.match(/<title.*\>((.*))<\/title>/i) ? data.match(/<title.*\>((.*))<\/title>/i)[1] : "Default title";
+const regexSectionHead =/<extend-head[\w\s\d-"=]*\>(.*)<\/extend-head>/igs;
+const REGEX_HEAD = (data) => data.match(regexSectionHead) ? [...data.matchAll(regexSectionHead)][0][1]  : "<title>";
 
 let layout;
 (async function () {
@@ -123,19 +122,18 @@ export const html_loader = asyncHandler(async function (req, res, next) {
 
             let storeData = stores.store.toObject();
 
+
             try {
 
-                console.log(page[pageName]);
-
                 let pageHTML = eval(`(${page[pageName].views[pageName].toString()})`).call(stores, { change: { value: "" }, ...storeData, _t });
-
+ 
+ 
                 let layoutStore = stores.createStore("index", {
-                    html: pageHTML,
-                    title: REGEX_TITLE(pageHTML),
+                    html: pageHTML.replace(regexSectionHead, ""),
+                    head: REGEX_HEAD(pageHTML),
                     js: getModules(meta),
                     css: getCSS(meta),
-                    env: { language: "en_EN" },
-                    head: ""
+                    env: { language: "en_EN" }, 
                 });
 
                 renderedHTML = eval("(( index, _t )=>`" + layout + "`)").apply(stores, [layoutStore.data, _t]);

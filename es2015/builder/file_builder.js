@@ -1,7 +1,7 @@
 
 import path from 'path';
 import { promises as fs } from 'fs';
-//import {getCSS} from './styles.js';
+import {getCSS} from './styles.js';
 
 const __dirname = path.resolve();
 const template = /<template.*>([^]+)?<\/template>/igm;
@@ -74,8 +74,12 @@ export async function buildFile(file, opts) {
     fileBuilt = fileBuilt.replace("html", slang);
 
     let { html, js, css } = await extract(content);
+    try {
+        css = await getCSS(css, styleScope || '[data-name="' + fileBuilt.split('/').pop().split('.')[0] + '"]');
 
-  //  css = await getCSS(css, styleScope || '[data-name="' + fileBuilt.split('/').pop().split('.')[0] + '"]');
+    }catch(e) {
+        console.log("SCSS ERROR: ", e);
+    }
     
     let strP = JSON.stringify({
         html: html.replace(/\s/ig, " ").replace(/  +/ig, " ").replace(/'/g, '"').trim(),
