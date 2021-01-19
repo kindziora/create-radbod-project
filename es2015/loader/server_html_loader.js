@@ -91,8 +91,9 @@ function getModules(meta) {
     return meta.loaded.map(mod).join("\n\r");
 }
 
-function getCSS(meta) {
-
+function getCSS(meta) { 
+    let mod = (e) => e.style ? `<style>${e.style}</style>` : undefined;
+    return meta.loaded.map(mod).join("\n\r");
 }
 
 export const html_loader = asyncHandler(async function (req, res, next) {

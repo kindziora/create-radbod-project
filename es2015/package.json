@@ -1,7 +1,7 @@
 {
   "name": "my-project",
   "version": "1.0.0",
-  "description": "radbod isomorphic/SSR PWA",
+  "description": "radbod isomorphic/SSR es2015 i18n PWA",
   "main": "index.js",
   "type": "module",
   "scripts": {
