@@ -7,7 +7,7 @@ const __dirname = path.resolve();
 const template = /<template.*>([^]+)?<\/template>/igm;
 const script = /<script.*>([^]+)?<\/script>/igm;
 const scriptLang = /<script.*language\=\"([A-Za-z0-9 _]*)\"/igm;
-const rstyleScope = /<style.*scope\=\"([A-Za-z0-9 _]*)\"/igm;
+const rstyleScope = /<style.*scope\=\"([#.A-Za-z0-9 _]*)\"/igm;
 const openeningBracketObject = /export.*?\s({)/gim;
 const importStatement = /import(.*?)from\s+("|')(.*?)("|');/ig;
 const style = /<style.*>([^]+)?<\/style>/igm;
@@ -69,13 +69,13 @@ export async function buildFile(file, opts) {
         return;
     };
     let slang = Array.from(content.matchAll(scriptLang))[0][1];
-    let styleScope = Array.from(content.matchAll(rstyleScope))[0] ? Array.from(content.matchAll(rstyleScope))[0][1] : "body";
+    let styleScope = Array.from(content.matchAll(rstyleScope))[0] ? Array.from(content.matchAll(rstyleScope))[0][1] : "";
     let fileBuilt = await getBuildLocation(file);
     fileBuilt = fileBuilt.replace("html", slang);
 
     let { html, js, css } = await extract(content);
     try {
-        css = await getCSS(css, styleScope || '[data-name="' + fileBuilt.split('/').pop().split('.')[0] + '"]');
+        css = await getCSS(css, styleScope);
 
     }catch(e) {
         console.log("SCSS ERROR: ", e);
