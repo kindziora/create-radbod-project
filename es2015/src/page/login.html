@@ -9,16 +9,16 @@
         <section>
             <form>
                 <label for="age">Alter</label>
-                <input id="age" type="number" />
+                <input id="age" type="number" data-name="/$user/age" />
 
                 <label for="birthday">Geburtsdatum</label>
-                <input id="birthday" type="date" />
+                <input id="birthday" data-name="/$user/birthday" type="date" />
 
                 <label for="bname">Benutzername</label>
-                <input id="bname" required />
+                <input id="bname" data-name="/$user/bname" required />
 
                 <label for="passwd">Passwort</label>
-                <input type="password" id="passwd" required />
+                <input type="password" data-name="/$user/password" id="passwd" required />
 
                 <button type="submit">Anmelden</button>
             </form>
@@ -40,19 +40,26 @@
 
 <script language="js">
 
-    import {topmenu} from '../component/topmenu';
+    import { topmenu } from '../component/topmenu';
+    import { magic_form } from '../middleware/magic_form';
+
 
     export let login = {
-        components : {"topmenu-component" : topmenu},
+        components: { "topmenu-component": topmenu },
         data() {
-            return this.createStore("login", { name: "AK login" });
+            return this.createStore("user", { name: "user login" });
         },
         interactions() {
-            return {
-               
-            }
+            return magic_form.call(this, {
+                "/$user/age" : {
+                    "keydown"(){
+                        alert("keydown age");
+                    }
+                }
+
+            });
         },
-        translations(language){
+        translations(language) {
             return {};
         }
     }

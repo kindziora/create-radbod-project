@@ -1,6 +1,6 @@
 <template language="js-template">
     <ul>
-        <li> <a href="/home" class="${topmenu.path}" data-name="link">home</a></li>
+        <li> <a href="/home" class="${topmenu.hallo}" data-name="link">home</a></li>
         <li> <a href="/login" class="" data-name="link">login</a></li>
     </ul>
 </template>
@@ -12,7 +12,7 @@
 <script language="js">
     export let topmenu = {
         data(data, runtime){
-             
+            console.log(this);
             return this.createStore("topmenu", { 
                 path : "runtime.path"
             })

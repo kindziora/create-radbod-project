@@ -200,15 +200,15 @@ export class compileViews {
         views[componentName] = component.html;
 
         let store = component.data ? component.data.call(buildApp.dataH) : {};
-
+        
         let compo = buildApp.createComponent(
             componentName,
             views,
             store,
-            component.interactions(),
+            component.interactions,
             component.components
         );
-            
+
         let strVws = [];
 
         strVws.push(`'${componentName}' : ${compo.dom.template.toString()}`);

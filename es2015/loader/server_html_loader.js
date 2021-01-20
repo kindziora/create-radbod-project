@@ -9,7 +9,7 @@ import {
 } from "../config/env.js";
 
 import { promises as fs } from 'fs';
-const regexSectionHead =/<extend-head[\w\s\d-"=]*\>(.*)<\/extend-head>/igs;
+const regexSectionHead =/<extend-head[\w\s\d-'"=]*\>(.*)<\/extend-head>/igs;
 const REGEX_HEAD = (data) => data.match(regexSectionHead) ? [...data.matchAll(regexSectionHead)][0][1]  : "<title>";
 
 let layout;
