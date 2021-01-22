@@ -199,7 +199,7 @@ export class compileViews {
 
         views[componentName] = component.html;
 
-        let store = component.data ? component.data.call(buildApp.dataH) : {};
+        let store = component.data ; //? component.data.call(buildApp.dataH) : {};
         
         let compo = buildApp.createComponent(
             componentName,

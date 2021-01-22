@@ -42,22 +42,19 @@
 
     import { topmenu } from '../component/topmenu';
     import { magic_form } from '../middleware/magic_form';
-
+    import { mail_validator } from '../middleware/validator/email';
 
     export let login = {
         components: { "topmenu-component": topmenu },
         data() {
-            return this.createStore("user", { name: "user login" });
+            return this.createStore("user", { name: "user login" }).addValidations({mail_validator: mail_validator});
         },
         interactions() {
-            return magic_form.call(this, {
-                "/$user/age" : {
-                    "keydown"(){
-                        alert("keydown age");
-                    }
-                }
+            return magic_form.call(this, {}, function (data) {
 
-            });
+                console.log("CHANGEEEEEEEEEEEEEEEEEE BACKEND SYNC", data)
+
+            }, 1000);
         },
         translations(language) {
             return {};
