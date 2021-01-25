@@ -123,7 +123,6 @@ export const html_loader = asyncHandler(async function (req, res, next) {
 
             let storeData = stores.store.toObject();
 
-
             try {
 
                 let pageHTML = eval(`(${page[pageName].views[pageName].toString()})`).call(stores, { change: { value: "" }, ...storeData, _t });

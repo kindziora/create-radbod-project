@@ -15,7 +15,10 @@
                 <input id="birthday" data-name="/$user/birthday" type="date" />
 
                 <label for="bname">Benutzername</label>
-                <input id="bname" data-name="/$user/bname" required />
+                <input id="bname" data-name="/$user/bname" required data-validations="required_validator" />
+
+                <label for="email">E-Mail</label>
+                <input id="email" type="email" data-name="/$user/email" required data-validations="mail_validator,required_validator" />
 
                 <label for="passwd">Passwort</label>
                 <input type="password" data-name="/$user/password" id="passwd" required />
@@ -43,18 +46,21 @@
     import { topmenu } from '../component/topmenu';
     import { magic_form } from '../middleware/magic_form';
     import { mail_validator } from '../middleware/validator/email';
+    import { required_validator } from '../middleware/validator/required';
 
     export let login = {
         components: { "topmenu-component": topmenu },
         data() {
-            return this.createStore("user", { name: "user login" }).addValidations({mail_validator: mail_validator});
+            return this
+                    .createStore("user", { name: "user login" })
+                    .addValidations({mail_validator, required_validator});
         },
         interactions() {
             return magic_form.call(this, {}, function (data) {
 
-                console.log("CHANGEEEEEEEEEEEEEEEEEE BACKEND SYNC", data)
+                console.log("CHANGE PLEASE BACKEND SYNC", data)
 
-            }, 1000);
+            });
         },
         translations(language) {
             return {};
