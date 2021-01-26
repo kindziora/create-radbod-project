@@ -18,7 +18,7 @@
        'home-e-15' : function (args) { let {change, home,todo,topmenu, _t} = args; return `${_t('Aaron Muir Hamilton')}`},
        'home-e-16' : function (args) { let {change, home,todo,topmenu, _t} = args; return `${_t('Part of')} <a href="http://todomvc.com">${_t('TodoMVC')}</a>`},
        'home-e-17' : function (args) { let {change, home,todo,topmenu, _t} = args; return `${_t('TodoMVC')}`} },
-            "style":"#home #s h1 { font-size: 2em; }","path":"/page/home.js",
+            "style":"","path":"/page/home.js",
          
         components: {"todo-component" : todo, "topmenu-component" : topmenu},
         data(){

@@ -4,7 +4,7 @@
     </extend-head>
     <page>
         <topmenu-component data-name="/$topmenu"></topmenu-component>
-
+        //todo bei seitenwechsel geht validator nicht mehr
         <h1>Hallo from login</h1>
         <section>
             <form>
@@ -19,7 +19,7 @@
 
                 <label for="email">E-Mail</label>
                 <input id="email" type="email" data-name="/$user/email" required data-validations="mail_validator,required_validator" />
-                <span data-name="/_state/$user/email" data-view="error"></span>
+                <span data-name="/_state/$user/email">${ change.value ? change.value.msg.map(function(e){return e}) : "" }</span>
 
                 <label for="passwd">Passwort</label>
                 <input type="password" data-name="/$user/password" id="passwd" required />
@@ -51,12 +51,6 @@
 
     export let login = {
         components: { "topmenu-component": topmenu },
-        views:{
-            error : function(args){
-                let {change, login, topmenu, _t} = args;
-                return change.value.msg.map((e)=>e);
-            }
-        },
         data() {
             return this
                     .createStore("user", { name: "user login" })

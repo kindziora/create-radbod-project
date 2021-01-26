@@ -7,6 +7,9 @@
   "Active": "Active",
   "Completed": "Completed",
   "Clear completed": "Clear completed",
+  "todos ${todo.name}": "todos ${todo.name}",
+  "hier ist nochmal der name ${todo.name}": "hier ist nochmal der name ${todo.name}",
+  "...loading...": "...loading...",
   "loading": "loading"
  }
 }
