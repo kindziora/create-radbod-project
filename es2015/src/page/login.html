@@ -19,6 +19,7 @@
 
                 <label for="email">E-Mail</label>
                 <input id="email" type="email" data-name="/$user/email" required data-validations="mail_validator,required_validator" />
+                <span data-name="/_state/$user/email">${ change.value.msg === {} ?"":  Object.keys(typeof change.value.msg !=="undefined"? change.value.msg:{}).map(function(e){return change.value.msg[e]} )}</span>
 
                 <label for="passwd">Passwort</label>
                 <input type="password" data-name="/$user/password" id="passwd" required />

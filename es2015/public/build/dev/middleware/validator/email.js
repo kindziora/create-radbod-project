@@ -3,7 +3,7 @@ export const mail_validator = function (value) {
     let isValid = !(value == '' || !re.test(value));
 
     return {
-        result: isValid,
+        isValid: isValid,
         msg: "email ist nicht gültig"
     };
 };
