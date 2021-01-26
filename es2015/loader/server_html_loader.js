@@ -110,7 +110,7 @@ export const html_loader = asyncHandler(async function (req, res, next) {
 
         let count = countForData(page[pageName], 0);
         let met = { cnt: 0, loaded: [] };
-
+        
         fetchData(page[pageName], (data) => {
 
             console.log("fetched datastore", data);
@@ -126,8 +126,7 @@ export const html_loader = asyncHandler(async function (req, res, next) {
             try {
 
                 let pageHTML = eval(`(${page[pageName].views[pageName].toString()})`).call(stores, { change: { value: "" }, ...storeData, _t });
- 
- 
+                
                 let layoutStore = stores.createStore("index", {
                     html: pageHTML.replace(regexSectionHead, ""),
                     head: REGEX_HEAD(pageHTML),

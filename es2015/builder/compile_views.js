@@ -4,7 +4,7 @@ import { promises as fs } from 'fs';
 
 
 const htmlProperty = /"html":".*?",/gmi;
-const viewProperty = /(views(["']|)\s*?:\s)/mig;
+const viewProperty = /(views(["']|)\s*?:\s*)/mig;
 
 
 const componentObjectString = /export.*?\s({.*})/gims;
