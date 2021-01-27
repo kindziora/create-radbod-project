@@ -4,6 +4,6 @@ export const mail_validator = function (value) {
 
     return {
         isValid: isValid,
-        msg: "email ist nicht gültig"
+        msg: "E-mail ist nicht gültig"
     };
 };
