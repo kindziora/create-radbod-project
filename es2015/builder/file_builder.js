@@ -22,8 +22,10 @@ export async function extract(content) {
     content = content.replace(js, "");
 
     let css = Array.from(content.matchAll(style))[0];
-    css = css  > 1 ?css[1]:"";
-    
+ 
+    css = css.length  > 1 ?css[1]:"";
+    css = typeof css !=="undefined" ? css : "";
+
     return { html, js, css};
 }
 

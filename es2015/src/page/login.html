@@ -24,7 +24,7 @@
                 <label for="passwd">Passwort</label>
                 <input type="password" data-name="/$user/password" id="passwd" required />
 
-                <button type="submit">Anmelden</button>
+                <button type="submit" data-name="/$user/submit">Anmelden</button>
             </form>
         </section>
 
@@ -39,7 +39,10 @@
 </template>
 
 <style language="scss">
-
+    .error{
+        box-shadow: #f31010 0px 0px 4px 0px;
+        border: 1px solid red;
+    }
 </style>
 
 <script language="js">
@@ -58,14 +61,24 @@
         },
         interactions() {
             return magic_form.call(this, {
-                "/_state/$user/email/isValid": {
-                    change(){
-                        console.log(arguments);
+                "/$user/submit": {
+                    click(change, state){
+                        alert("SUBMIT");
+                    }
+                },
+                "/_state/$user/email/msg": {
+                    change(change, state){
+                        if(!state.isValid){
+                            document.querySelector("#email").classList.add("error");
+                        }else{
+                            document.querySelector("#email").classList.remove("error");
+                        }
+                        console.log(change, state);
                     }
                 }
 
             }, function (data) {
-
+                
                 console.log("CHANGE PLEASE BACKEND SYNC", data)
 
             });

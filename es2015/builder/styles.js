@@ -6,9 +6,9 @@
 import * as sassDef from 'node-sass';
 
 export async function getCSS(scss_content, scope) {
-
+    
     scss_content = `
-${scope}{
+${scope ? scope : "body"}{
     ${scss_content}
 }
 `;
