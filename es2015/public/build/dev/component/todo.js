@@ -2,22 +2,22 @@
  
     export let todo = {
         views : {
-       'todo' : function(args){ let {change, todo, _t} = args; return `<header class="header" data-id="todo-e-2" data-view="todo-e-2"> <h1 data-id="todo-e-3" data-view="todo-e-3" data-name="/$todo/name">${_t('todos')} ${todo.name}</h1> <input class="new-todo" data-name="/$todo/name" data-id="todo-myinput" placeholder="What needs to be done?" autofocus data-view="todo-myinput"> </header> <span data-id="todo-e-5" data-view="todo-e-5" data-name="/$todo/name"> ${_t('hier ist nochmal der name')} ${todo.name} </span> <div data-name="/$todo/name" data-id="todo-e-6" data-view="todo-e-6"></div> <section class="main" data-id="todo-e-7" data-view="todo-e-7"> <input id="toggle-all" data-id="toggle-all" class="toggle-all" type="checkbox" data-name="/$todo/items"> <label for="toggle-all" data-id="todo-e-8" data-view="todo-e-8">${_t('Mark all as complete')}</label> <ul class="todo-list" data-name="/$todo/items" data-view="todo-list" data-type="list" data-id="todo-e-9"> ...loading... </ul> <footer class="footer" data-id="todo-e-10" data-view="todo-e-10"> <span class="todo-count" data-id="todo-e-11" data-view="todo-e-11"></span> <ul class="filters" data-type="list" data-id="todo-e-12" data-view="todo-e-12"> <li data-id="todo-e-13" data-view="todo-e-13"> <a href="#/" class="selected" data-id="todo-e-14" data-view="todo-e-14">${_t('All')}</a> </li> <li data-id="todo-e-15" data-view="todo-e-15"> <a href="#/active" data-id="todo-e-16" data-view="todo-e-16">${_t('Active')}</a> </li> <li data-id="todo-e-17" data-view="todo-e-17"> <a href="#/completed" data-id="todo-e-18" data-view="todo-e-18">${_t('Completed')}</a> </li> </ul> <button class="clear-completed" data-id="todo-e-19" data-view="todo-e-19">${_t('Clear completed')}</button> </footer> </section>`},
+       'todo' : function(args){ let {change, todo, _t} = args; return `<header class="header" data-id="todo-e-2" data-view="todo-e-2"> <h1 data-id="todo-e-3" data-view="todo-e-3" data-name="/$todo/name">${_t('todos')} ${todo.name}</h1> <input class="new-todo" data-name="/$todo/name" data-id="todo-myinput" placeholder="What needs to be done?" autofocus data-view="todo-myinput"> </header> <span data-id="todo-e-5" data-view="todo-e-5" data-name="/$todo/name"> ${_t('hier ist nochmal der name')} ${todo.name} </span> <div data-name="/$todo/name" data-id="todo-e-6" data-view="todo-e-6"></div> <section class="main" data-id="todo-e-7" data-view="todo-e-7"> <label for="toggle-all" data-id="todo-e-8" data-view="todo-e-8"> <input id="toggle-all" data-id="toggle-all" class="toggle-all" type="checkbox" data-name="/$todo/items" data-view="toggle-all"> ${_t('Mark all as complete')}</label> <ul class="todo-list" data-name="/$todo/items" data-view="todo-list" data-type="list" data-id="todo-e-10"> ...loading... </ul> <footer class="footer" data-id="todo-e-11" data-view="todo-e-11"> <span class="todo-count" data-id="todo-e-12" data-view="todo-e-12"></span> <ul class="filters" data-type="list" data-id="todo-e-13" data-view="todo-e-13"> <li data-id="todo-e-14" data-view="todo-e-14"> <a href="#/" class="selected" data-id="todo-e-15" data-view="todo-e-15">${_t('All')}</a> </li> <li data-id="todo-e-16" data-view="todo-e-16"> <a href="#/active" data-id="todo-e-17" data-view="todo-e-17">${_t('Active')}</a> </li> <li data-id="todo-e-18" data-view="todo-e-18"> <a href="#/completed" data-id="todo-e-19" data-view="todo-e-19">${_t('Completed')}</a> </li> </ul> <button class="clear-completed" data-id="todo-e-20" data-view="todo-e-20">${_t('Clear completed')}</button> </footer> </section>`},
        'todo-e-2' : function (args) { let {change, todo, _t} = args; return `<h1>${_t('todos')} ${todo.name}</h1> <input class="new-todo" data-name="/$todo/name" data-id="todo-myinput" placeholder="What needs to be done?" autofocus>`},
        'todo-e-3' : function (args) { let {change, todo, _t} = args; return `${_t('todos')} ${todo.name}`},
        'todo-e-5' : function (args) { let {change, todo, _t} = args; return `${_t('hier ist nochmal der name')} ${todo.name}`},
-       'todo-e-7' : function (args) { let {change, todo, _t} = args; return `<input id="toggle-all" data-id="toggle-all" class="toggle-all" type="checkbox" data-name="/$todo/items"> <label for="toggle-all">${_t('Mark all as complete')}</label> <ul class="todo-list" data-name="/$todo/items" data-view="todo-list"> ...loading... </ul> <footer class="footer"> <span class="todo-count"></span> <ul class="filters"> <li> <a href="#/" class="selected">${_t('All')}</a> </li> <li> <a href="#/active">${_t('Active')}</a> </li> <li> <a href="#/completed">${_t('Completed')}</a> </li> </ul> <button class="clear-completed">${_t('Clear completed')}</button> </footer>`},
-       'todo-e-8' : function (args) { let {change, todo, _t} = args; return `${_t('Mark all as complete')}`},
-       'todo-e-9' : function (args) { let {change, todo, _t} = args; return `...loading...`},
-       'todo-e-10' : function (args) { let {change, todo, _t} = args; return `<span class="todo-count"></span> <ul class="filters"> <li> <a href="#/" class="selected">${_t('All')}</a> </li> <li> <a href="#/active">${_t('Active')}</a> </li> <li> <a href="#/completed">${_t('Completed')}</a> </li> </ul> <button class="clear-completed">${_t('Clear completed')}</button>`},
-       'todo-e-12' : function (args) { let {change, todo, _t} = args; return `<li> <a href="#/" class="selected">${_t('All')}</a> </li> <li> <a href="#/active">${_t('Active')}</a> </li> <li> <a href="#/completed">${_t('Completed')}</a> </li>`},
-       'todo-e-13' : function (args) { let {change, todo, _t} = args; return `<a href="#/" class="selected">${_t('All')}</a>`},
-       'todo-e-14' : function (args) { let {change, todo, _t} = args; return `${_t('All')}`},
-       'todo-e-15' : function (args) { let {change, todo, _t} = args; return `<a href="#/active">${_t('Active')}</a>`},
-       'todo-e-16' : function (args) { let {change, todo, _t} = args; return `${_t('Active')}`},
-       'todo-e-17' : function (args) { let {change, todo, _t} = args; return `<a href="#/completed">${_t('Completed')}</a>`},
-       'todo-e-18' : function (args) { let {change, todo, _t} = args; return `${_t('Completed')}`},
-       'todo-e-19' : function (args) { let {change, todo, _t} = args; return `${_t('Clear completed')}`},
+       'todo-e-7' : function (args) { let {change, todo, _t} = args; return `<label for="toggle-all"> <input id="toggle-all" data-id="toggle-all" class="toggle-all" type="checkbox" data-name="/$todo/items"> ${_t('Mark all as complete')}</label> <ul class="todo-list" data-name="/$todo/items" data-view="todo-list"> ...loading... </ul> <footer class="footer"> <span class="todo-count"></span> <ul class="filters"> <li> <a href="#/" class="selected">${_t('All')}</a> </li> <li> <a href="#/active">${_t('Active')}</a> </li> <li> <a href="#/completed">${_t('Completed')}</a> </li> </ul> <button class="clear-completed">${_t('Clear completed')}</button> </footer>`},
+       'todo-e-8' : function (args) { let {change, todo, _t} = args; return `<input id="toggle-all" data-id="toggle-all" class="toggle-all" type="checkbox" data-name="/$todo/items"> ${_t('Mark all as complete')}`},
+       'todo-e-10' : function (args) { let {change, todo, _t} = args; return `...loading...`},
+       'todo-e-11' : function (args) { let {change, todo, _t} = args; return `<span class="todo-count"></span> <ul class="filters"> <li> <a href="#/" class="selected">${_t('All')}</a> </li> <li> <a href="#/active">${_t('Active')}</a> </li> <li> <a href="#/completed">${_t('Completed')}</a> </li> </ul> <button class="clear-completed">${_t('Clear completed')}</button>`},
+       'todo-e-13' : function (args) { let {change, todo, _t} = args; return `<li> <a href="#/" class="selected">${_t('All')}</a> </li> <li> <a href="#/active">${_t('Active')}</a> </li> <li> <a href="#/completed">${_t('Completed')}</a> </li>`},
+       'todo-e-14' : function (args) { let {change, todo, _t} = args; return `<a href="#/" class="selected">${_t('All')}</a>`},
+       'todo-e-15' : function (args) { let {change, todo, _t} = args; return `${_t('All')}`},
+       'todo-e-16' : function (args) { let {change, todo, _t} = args; return `<a href="#/active">${_t('Active')}</a>`},
+       'todo-e-17' : function (args) { let {change, todo, _t} = args; return `${_t('Active')}`},
+       'todo-e-18' : function (args) { let {change, todo, _t} = args; return `<a href="#/completed">${_t('Completed')}</a>`},
+       'todo-e-19' : function (args) { let {change, todo, _t} = args; return `${_t('Completed')}`},
+       'todo-e-20' : function (args) { let {change, todo, _t} = args; return `${_t('Clear completed')}`},
        'todo-list' : function (args){
                 let {change, todo, _t} = args;
                 return `
@@ -52,6 +52,12 @@
                         });
                     }
                 },
+                "/$todo/items" : {
+                    "click#toggle-all"(sender, dataStore) { 
+                        alert("");
+                    }
+                },
+                
                 "/$todo/name" : {
                     "keyup#todo-myinput"(sender, dataStore) { //address specific element in dom
                         dataStore.name = sender.field.getValue();

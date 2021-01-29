@@ -8,9 +8,11 @@
     <div data-name="/$todo/name"></div>
 
     <section class="main">
-        <input id="toggle-all" data-id="toggle-all" class="toggle-all"
+       
+        <label for="toggle-all">
+            <input id="toggle-all" data-id="toggle-all" class="toggle-all"
             type="checkbox" data-name="/$todo/items" />
-        <label for="toggle-all">Mark all as complete</label>
+            Mark all as complete</label>
 
         <ul class="todo-list" data-name="/$todo/items" data-view="todo-list">
          ...loading...
@@ -76,6 +78,12 @@
                         });
                     }
                 },
+                "/$todo/items" : {
+                    "click#toggle-all"(sender, dataStore) { 
+                        alert("");
+                    }
+                },
+                
                 "/$todo/name" : {
                     "keyup#todo-myinput"(sender, dataStore) { //address specific element in dom
                         dataStore.name = sender.field.getValue();
