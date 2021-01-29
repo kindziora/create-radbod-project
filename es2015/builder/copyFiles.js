@@ -64,8 +64,11 @@ export async function copyFiles(folder, options) {
 
     await fs.copyFile(folder.replace("src", "config/manifest.json"), buildP + "/manifest.json");
     await fs.copyFile(folder.replace("src", "config/routes.js"), buildP + "/routes.js");
-
     await fs.copyFile(folder + "/app.js", buildP + "/app.js");
+
+    await fs.mkdir(buildP + "/css", { recursive: true });
+    await fs.copyFile(folder + "/../node_modules/water.css/out/water.min.css", buildP + "/css/water.css");
+
 
     await fs.mkdir(buildP + "/deps", { recursive: true });
 
