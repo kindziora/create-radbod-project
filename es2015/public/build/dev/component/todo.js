@@ -54,7 +54,7 @@
                 },
                 "/$todo/items" : {
                     "click#toggle-all"(sender, dataStore) { 
-                        alert("");
+                        dataStore.items.forEach((i)=> i.checked = !i.checked);
                     }
                 },
                 
