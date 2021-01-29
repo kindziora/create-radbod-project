@@ -36,7 +36,7 @@ export const magic_form = function (elementEvents, onSync, delay = 800) {
         keyup: callback
     };
 
-    for (let e in this.dom.elementByName) elementEvents[e] = Object.assign(kup, elementEvents[e]);
+    for (let e in this.dom.elementByName) elementEvents[e] = Object.assign({}, elementEvents[e], kup);
 
     elementEvents["/"] = {
         "change"(change, store) {
