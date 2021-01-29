@@ -21,10 +21,10 @@
        'todo-list' : function (args){
                 let {change, todo, _t} = args;
                 return `
-                <li data-name="/$todo/items/${change.index}" data-type="list-item">
+                <li data-name="/$todo/items/${change.value.id}" data-type="list-item">
                     <input class="toggle" ${change.value.checked?`checked`:``} type="checkbox" />
-                    <label data-name="/$todo/items/${change.index}">${change.value.label}</label>
-                    <button class="destroy" data-name="/$todo/deleteItem" data-index="${change.index}"></button>
+                    <label data-name="/$todo/items/${change.value.id}">${change.value.label}</label>
+                    <button class="destroy" data-name="/$todo/deleteItem" data-index="${change.value.id}"></button>
                 </li>`;
             } },
             "style":"","path":"/component/todo.js",
