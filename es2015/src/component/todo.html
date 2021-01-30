@@ -17,7 +17,13 @@
         <ul class="todo-list" data-name="/$todo/items" data-view="todo-list">
          ...loading...
         </ul>
-
+        <ul class="todo-list" data-name="/$todo/items" data-view="todo-list-active">
+            
+        </ul>
+        <ul class="todo-list" data-name="/$todo/items" data-view="todo-list-completed">
+            
+        </ul>
+      
         <footer class="footer">
             <span class="todo-count"></span>
             <ul class="filters">
@@ -47,13 +53,22 @@
         views: { 
             "todo-list": function (args){
                 let {change, todo, _t} = args;
-                return `
-                <li data-name="/$todo/items/${change.value.id}" data-type="list-item">
-                    <input class="toggle" ${change.value.checked?`checked`:``} type="checkbox" />
+                return `<li data-name="/$todo/items/${change.value.id}" data-type="list-item">
+                    <input class="toggle" ${change.value.checked?`checked`:``} type="checkbox" data-name="/$todo/clickItem" data-index="${change.value.id}" />
                     <label data-name="/$todo/items/${change.value.id}">${change.value.label}</label>
                     <button class="destroy" data-name="/$todo/deleteItem" data-index="${change.value.id}"></button>
                 </li>`;
-            }},
+            },
+            "todo-list-active": function (args){
+                let {change, todo, _t} = args;
+                return todo.filter === "active"? this.dom.views["todo-list"].call(this, args):"";
+            },
+            "todo-list-completed": function (args){
+                let {change, todo, _t} = args;
+                return todo.filter === "completed"? this.dom.views["todo-list"].call(this, args):"";
+            }
+        
+        },
         data(dataReady){ 
             
             return this.createStore("todo", { }).find({id: 1}, function(data){
@@ -67,6 +82,17 @@
          },
         interactions(){
             return {
+                "/$todo/clickItem" :{
+                    "click"(sender, dataStore) { //address specific element in dom
+                        let index = parseInt(sender.field.$el.getAttribute("data-index"));
+                        dataStore.items.some((v,k)=> {
+                            if(v.id == index) {
+                               dataStore.items[k].checked = !dataStore.items[k].checked;
+                                return true;
+                            }
+                        });
+                    }
+                },
                 "/$todo/deleteItem" :{
                     "click"(sender, dataStore) { //address specific element in dom
                         let index = parseInt(sender.field.$el.getAttribute("data-index"));
@@ -80,7 +106,8 @@
                 },
                 "/$todo/items" : {
                     "click#toggle-all"(sender, dataStore) { 
-                        dataStore.items.forEach((i)=> i.checked = !i.checked);
+                        dataStore.checked = !dataStore.checked;
+                        dataStore.items.forEach((i)=> i.checked = dataStore.checked);
                     }
                 },
                 
