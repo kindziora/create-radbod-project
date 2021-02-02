@@ -73,6 +73,7 @@ window.buildApp = new myApp({
 
             setTimeout(() => onResultCallback.call({ dataH: {} }, {
                 name: "AK TODOS c asdfsdf sdf",
+                filter: "all",
                 items: [{
                     id: 0,
                     label: "Testdaten1",

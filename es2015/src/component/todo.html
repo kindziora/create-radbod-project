@@ -13,17 +13,17 @@
             <input id="toggle-all" data-id="toggle-all" class="toggle-all"
             type="checkbox" data-name="/$todo/items" />
             Mark all as complete</label>
-
+        <h3>All</h3>
         <ul class="todo-list" data-name="/$todo/items" data-view="todo-list">
          ...loading...
         </ul>
+        <h3>active</h3>
         <ul class="todo-list" data-name="/$todo/items" data-view="todo-list-active">
-            
         </ul>
+        <h3>completed</h3>
         <ul class="todo-list" data-name="/$todo/items" data-view="todo-list-completed">
-            
         </ul>
-      
+    
         <footer class="footer">
             <span class="todo-count"></span>
             <ul class="filters">
@@ -54,18 +54,18 @@
             "todo-list": function (args){
                 let {change, todo, _t} = args;
                 return `<li data-name="/$todo/items/${change.value.id}" data-type="list-item">
-                    <input class="toggle" ${change.value.checked?`checked`:``} type="checkbox" data-name="/$todo/clickItem" data-index="${change.value.id}" />
+                    <input class="toggle" ${change.value.checked ? `checked` : ``} type="checkbox" data-name="/$todo/clickItem" data-index="${change.value.id}" />
                     <label data-name="/$todo/items/${change.value.id}">${change.value.label}</label>
                     <button class="destroy" data-name="/$todo/deleteItem" data-index="${change.value.id}"></button>
                 </li>`;
             },
             "todo-list-active": function (args){
                 let {change, todo, _t} = args;
-                return todo.filter === "active"? this.dom.views["todo-list"].call(this, args):"";
+                return !change.value.checked ? this.dom.views["todo-list"].call(this, args):"";
             },
             "todo-list-completed": function (args){
                 let {change, todo, _t} = args;
-                return todo.filter === "completed"? this.dom.views["todo-list"].call(this, args):"";
+                return change.value.checked ? this.dom.views["todo-list"].call(this, args):"";
             }
         
         },
