@@ -78,9 +78,16 @@
                      dataReady(data);
                  
             });
-          
+           
          },
         interactions(){
+            /**
+             * @TODO
+             * events binden auf n elemente mit data-name="/$todo/items/${change.value.id}.click" per # werden einzelne addressiert, per . alle 
+             * 
+             * 
+             * 
+             **/
             return {
                 "/$todo/clickItem" :{
                     "click"(sender, dataStore) { //address specific element in dom
