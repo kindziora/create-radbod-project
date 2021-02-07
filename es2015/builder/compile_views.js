@@ -105,7 +105,7 @@ export class compileViews {
                 let objStr = startStr.substr(0, this.parseParanthesisReturnEnd(startStr));
                 newFileData = newFileData.replace(objStr, "").replace(/,\s*,/g, ",").replace(",,", ",");
             }
-
+            
             newFileData = newFileData.replace(htmlProperty, `views : ${component.viewsTemplate},
             `);
 
@@ -120,8 +120,8 @@ export class compileViews {
     async setupPuppeteer() {
 
         const browser = await puppeteer.launch({
-         //   headless: false,
-         //   devtools: true,
+       //     headless: false,
+        //    devtools: true,
             args: ["--disable-web-security"],
         });
         const page = await browser.newPage();
@@ -217,7 +217,7 @@ export class compileViews {
             if (i.charAt(0) === "/") continue;
             let element = compo.dom.element[i];
             
-            if (element.template) { 
+            if (typeof element.template ==="function") { 
                 strVws.push(`'${element.id}' : ${element.template.toString()}`);
             }
         }
