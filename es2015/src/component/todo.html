@@ -1,21 +1,21 @@
 <template language="js-template">
     <header class="header">
         <h1>todos ${todo.name}</h1>
-        <input class="new-todo" data-name="/$todo/name" data-id="todo-myinput" placeholder="What needs to be done?" autofocus />
+        <input class="new-todo" data-name="/$todo/name" data-id="todo-myinput" placeholder="What needs to be done?"
+            autofocus />
     </header>
 
     <span> hier ist nochmal der name ${todo.name} </span>
     <div data-name="/$todo/name"></div>
 
     <section class="main">
-       
+
         <label for="toggle-all">
-            <input id="toggle-all" data-id="toggle-all" class="toggle-all"
-            type="checkbox" data-name="/$todo/items" />
+            <input id="toggle-all" data-id="toggle-all" class="toggle-all" type="checkbox" data-name="/$todo/items" />
             Mark all as complete</label>
         <h3>All</h3>
         <ul class="todo-list" data-name="/$todo/items" data-view="todo-list">
-         ...loading...
+            ...loading...
         </ul>
         <h3>active</h3>
         <ul class="todo-list" data-name="/$todo/items" data-view="todo-list-active">
@@ -23,7 +23,7 @@
         <h3>completed</h3>
         <ul class="todo-list" data-name="/$todo/items" data-view="todo-list-completed">
         </ul>
-    
+
         <footer class="footer">
             <span class="todo-count"></span>
             <ul class="filters">
@@ -43,86 +43,102 @@
 </template>
 
 <style language="scss">
+input.toggle {
+    vertical-align: middle;
+}
 
+button.destroy{
+    color: crimson;
+    font-weight: 900;
+    padding: 0;
+}
+
+li.todo-item {
+    list-style: decimal;
+}
 
 </style>
 
 <script language="js">
- 
+
     export let todo = {
-        views: { 
-            "todo-list": function (args){
-                let {change, todo, _t} = args;
-                return `<li data-name="/$todo/items/${change.value.id}" data-type="list-item">
+        views: {
+            "todo-list": function (args) {
+                let { change, todo, _t } = args;
+                return `<li data-name="/$todo/items/${change.value.id}" data-type="list-item" class="todo-item">
                     <input class="toggle" ${change.value.checked ? `checked` : ``} type="checkbox" data-name="/$todo/clickItem" data-index="${change.value.id}" />
-                    <label data-name="/$todo/items/${change.value.id}">${change.value.label}</label>
-                    <button class="destroy" data-name="/$todo/deleteItem" data-index="${change.value.id}"></button>
+                    <label contenteditable="true" data-events="name:input" data-index="${change.value.id}" data-name="/$todo/items/${change.value.id}">${change.value.label}</label>
+                    <button class="destroy" data-name="/$todo/deleteItem" data-index="${change.value.id}">&#10007;</button>
                 </li>`;
             },
-            "todo-list-active": function (args){
-                let {change, todo, _t} = args;
-                return !change.value.checked ? this.dom.views["todo-list"].call(this, args):"";
+            "todo-list-active": function (args) {
+                let { change, todo, _t } = args;
+                return !change.value.checked ? this.dom.views["todo-list"].call(this, args) : "";
             },
-            "todo-list-completed": function (args){
-                let {change, todo, _t} = args;
-                return change.value.checked ? this.dom.views["todo-list"].call(this, args):"";
+            "todo-list-completed": function (args) {
+                let { change, todo, _t } = args;
+                return change.value.checked ? this.dom.views["todo-list"].call(this, args) : "";
             }
-        
+
         },
-        data(dataReady){ 
-            
-            return this.createStore("todo", { }).find({id: 1}, function(data){
-                
+        data(dataReady) {
+
+            return this.createStore("todo", {}).find({ id: 1 }, function (data) {
+
                 console.log("LOAD DATA todo", data);
-                if(typeof dataReady ==="function")
-                     dataReady(data);
-                 
+                if (typeof dataReady === "function")
+                    dataReady(data);
+
             });
-           
-         },
-        interactions(){
-            /**
-             * @TODO
-             * events binden auf n elemente mit data-name="/$todo/items/${change.value.id}.click" per # werden einzelne addressiert, per . alle 
-             * 
-             * 
-             * 
-             **/
-            return {
-                "/$todo/clickItem" :{
+
+        },
+        interactions() { 
+            return  {
+                "/$todo/clickItem": {
                     "click"(sender, dataStore) { //address specific element in dom
                         let index = parseInt(sender.field.$el.getAttribute("data-index"));
-                        dataStore.items.some((v,k)=> {
-                            if(v.id == index) {
-                               dataStore.items[k].checked = !dataStore.items[k].checked;
+                        dataStore.items.some((v, k) => {
+                            if (v.id == index) {
+                                dataStore.items[k].checked = !dataStore.items[k].checked;
                                 return true;
                             }
                         });
                     }
                 },
-                "/$todo/deleteItem" :{
+                "name": {
+                    "input"(sender, dataStore) { 
+                        let index = parseInt(sender.field.$el.getAttribute("data-index"));
+                        for(let k in dataStore.items){
+                            let v = dataStore.items[k];
+                            if (v.id == index) {
+                                dataStore.items[k].label = sender.field.$el.innerText;
+                            }
+                        }
+                    }
+                },
+                "/$todo/deleteItem": {
                     "click"(sender, dataStore) { //address specific element in dom
                         let index = parseInt(sender.field.$el.getAttribute("data-index"));
-                        dataStore.items.some((v,k)=> {
-                            if(v.id == index) {
+                        dataStore.items.some((v, k) => {
+                            if (v.id == index) {
                                 delete dataStore.items[k];
                                 return true;
                             }
                         });
                     }
                 },
-                "/$todo/items" : {
-                    "click#toggle-all"(sender, dataStore) { 
+                "/$todo/items": {
+                    "click#toggle-all"(sender, dataStore) {
                         dataStore.checked = !dataStore.checked;
-                        dataStore.items.forEach((i)=> i.checked = dataStore.checked);
+                        dataStore.items.forEach((i) => i.checked = dataStore.checked);
                     }
                 },
-                
-                "/$todo/name" : {
+
+                "/$todo/name": {
                     "keyup#todo-myinput"(sender, dataStore) { //address specific element in dom
                         dataStore.name = sender.field.getValue();
 
-                        if(sender.ev.keyCode === 13){
+                        if (sender.ev.keyCode === 13) {
                             dataStore.items.push({
                                 id: dataStore.items.length,
                                 label: dataStore.name,
