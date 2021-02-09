@@ -11,30 +11,39 @@
     <section class="main">
 
         <label for="toggle-all">
-            <input id="toggle-all" data-id="toggle-all" class="toggle-all" type="checkbox" data-name="/$todo/items" />
+            <input id="toggle-all" data-events="toggle:click" class="toggle-all" type="checkbox" data-name="/$todo/items" />
             Mark all as complete</label>
-        <h3>All</h3>
-        <ul class="todo-list" data-name="/$todo/items" data-view="todo-list">
-            ...loading...
-        </ul>
-        <h3>active</h3>
-        <ul class="todo-list" data-name="/$todo/items" data-view="todo-list-active">
-        </ul>
-        <h3>completed</h3>
-        <ul class="todo-list" data-name="/$todo/items" data-view="todo-list-completed">
-        </ul>
+
+        <div id="all" class="tab selected">
+            <h3>All</h3>
+            <ul class="todo-list" data-name="/$todo/items" data-view="todo-list">
+                ...loading...
+            </ul>
+        </div>
+
+        <div id="active" class="tab">
+            <h3>active</h3>
+            <ul class="todo-list" data-name="/$todo/items" data-view="todo-list-active">
+            </ul>
+        </div>
+
+        <div id="completed" class="tab">
+            <h3>completed</h3>
+            <ul class="todo-list" data-name="/$todo/items" data-view="todo-list-completed">
+            </ul>
+        </div>
 
         <footer class="footer">
-            <span class="todo-count"></span>
+            <span class="todo-count" data-name="/user/items" data-view="count"></span>
             <ul class="filters">
                 <li>
-                    <a href="#/" class="selected">All</a>
+                    <a href="#/all" data-events="tab:click" class="selected">All</a>
                 </li>
                 <li>
-                    <a href="#/active">Active</a>
+                    <a href="#/active" data-events="tab:click">Active</a>
                 </li>
                 <li>
-                    <a href="#/completed">Completed</a>
+                    <a href="#/completed" data-events="tab:click">Completed</a>
                 </li>
             </ul>
             <button class="clear-completed">Clear completed</button>
@@ -43,26 +52,64 @@
 </template>
 
 <style language="scss">
-input.toggle {
-    vertical-align: middle;
-}
+    input.toggle {
+        vertical-align: middle;
+    }
 
-button.destroy{
-    color: crimson;
-    font-weight: 900;
-    padding: 0;
-}
+    button.destroy {
+        color: crimson;
+        font-weight: 900;
+        padding: 0;
+    }
 
-li.todo-item {
-    list-style: decimal;
-}
+    li.todo-item {
+        list-style: decimal;
+    }
+
+    .tab {
+        display: none;
+    }
+
+    .tab.selected {
+        display: block;
+    } 
+
+    .filters li {
+        display: inline;
+    }
+
+    .filters li a {
+        color: inherit;
+        margin: 3px;
+        padding: 3px 7px;
+        text-decoration: none;
+        border: 1px solid transparent;
+        border-radius: 3px;
+    }
+
+    .filters li a:hover {
+        border-color: rgba(175, 47, 47, 0.1);
+    }
+
+    .filters li a.selected {
+        border-color: rgba(175, 47, 47, 0.2);
+    }
 
 </style>
 
 <script language="js">
-
+    /**
+     * @TODO
+     * 
+     * links gehen nicht mehr x mal rebind post render usw.
+     * form validation geht nicht richtig
+     * 
+     **/
     export let todo = {
         views: {
+            "count": function(args){
+                return args.todo.items.length;
+            },
             "todo-list": function (args) {
                 let { change, todo, _t } = args;
                 return `<li data-name="/$todo/items/${change.value.id}" data-type="list-item" class="todo-item">
@@ -92,8 +139,20 @@ li.todo-item {
             });
 
         },
-        interactions() { 
-            return  {
+        interactions() {
+            return {
+                "tab": {
+                    "click"(sender, dataStore) {
+                        sender.ev.preventDefault();
+                        let tab = document.querySelector('#' + sender.field.$el.getAttribute("href").split("/")[1]);
+                        document.querySelectorAll(".tab").forEach(e => e.classList.remove("selected"));
+                        tab.classList.add("selected");
+
+                        document.querySelectorAll(".filters li a").forEach(e => e.classList.remove("selected"));
+
+                        sender.field.$el.classList.add("selected");
+                    }
+                },
                 "/$todo/clickItem": {
                     "click"(sender, dataStore) { //address specific element in dom
                         let index = parseInt(sender.field.$el.getAttribute("data-index"));
@@ -106,9 +165,9 @@ li.todo-item {
                     }
                 },
                 "name": {
-                    "input"(sender, dataStore) { 
+                    "input"(sender, dataStore) {
                         let index = parseInt(sender.field.$el.getAttribute("data-index"));
-                        for(let k in dataStore.items){
+                        for (let k in dataStore.items) {
                             let v = dataStore.items[k];
                             if (v.id == index) {
                                 dataStore.items[k].label = sender.field.$el.innerText;
@@ -127,8 +186,8 @@ li.todo-item {
                         });
                     }
                 },
-                "/$todo/items": {
-                    "click#toggle-all"(sender, dataStore) {
+                "toggle": {
+                    "click"(sender, dataStore) {
                         dataStore.checked = !dataStore.checked;
                         dataStore.items.forEach((i) => i.checked = dataStore.checked);
                     }

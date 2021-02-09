@@ -105,7 +105,7 @@ export class compileViews {
                 let objStr = startStr.substr(0, this.parseParanthesisReturnEnd(startStr));
                 newFileData = newFileData.replace(objStr, "").replace(/,\s*,/g, ",").replace(",,", ",");
             }
-            
+
             newFileData = newFileData.replace(htmlProperty, `views : ${component.viewsTemplate},
             `);
 
@@ -120,8 +120,8 @@ export class compileViews {
     async setupPuppeteer() {
 
         const browser = await puppeteer.launch({
-         //   headless: false,
-         //   devtools: true,
+            //   headless: false,
+            //   devtools: true,
             args: ["--disable-web-security"],
         });
         const page = await browser.newPage();
@@ -147,10 +147,10 @@ export class compileViews {
             if (file.split(".")[1] !== "js" || file.indexOf("i18n") >= 0) continue;
             if (folderViewList(file)) continue;
 
-           await this.compileSingleFile(file, page);
+            await this.compileSingleFile(file, page);
         }
 
-      await browser.close();
+        await browser.close();
 
     }
 
@@ -163,13 +163,13 @@ export class compileViews {
 
             let componentName = Object.keys(componentModule)[0];
             let component = componentModule[componentName];
-            
+
             if (component.html || component.views) {
                 // Get the "viewport" of the page, as reported by the page.
                 let componentSerialized = JSON.stringify(component, (k, v) => typeof v === "function" ? v.toString() : v);
 
                 let compiledComponent = await page.evaluate(this.insidePuppeteer, componentName, componentSerialized);
-                
+
                 await this.writeToJSFile(file, compiledComponent);
             }
 
@@ -188,7 +188,11 @@ export class compileViews {
                     try {
                         ret = eval(`(function ${v} )`);
                     } catch (e) {
-                        ret = eval(`(${v} )`);
+                        try {
+                            ret = eval(`(${v})`);
+                        } catch (e) {
+                            ret = v;
+                        }
                     }
                     return ret
                 })(v) : v) : v);
@@ -199,8 +203,8 @@ export class compileViews {
 
         views[componentName] = component.html;
 
-        let store = component.data ; //? component.data.call(buildApp.dataH) : {};
-        
+        let store = component.data; //? component.data.call(buildApp.dataH) : {};
+
         let compo = buildApp.createComponent(
             componentName,
             views,
@@ -216,20 +220,20 @@ export class compileViews {
         for (let i in compo.dom.element) {
             if (i.charAt(0) === "/") continue;
             let element = compo.dom.element[i];
-            
-            if (typeof element.template ==="function") { 
+
+            if (typeof element.template === "function") {
                 strVws.push(`'${element.id}' : ${element.template.toString()}`);
             }
         }
         // add user views
         for (let i in component.views) {
             strVws.push(`'${i}' : ${component.views[i].toString()}`);
-        } 
-         
-               component['viewsTemplate'] = `{
+        }
+
+        component['viewsTemplate'] = `{
        ${strVws.join(`,
        `).replace(/=""/g, '')} }`;
-      
+
 
         return component;
 

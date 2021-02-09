@@ -26,6 +26,7 @@ export async function extract(content) {
     css = css.length  > 1 ?css[1]:"";
     css = typeof css !=="undefined" ? css : "";
 
+ 
     return { html, js, css};
 }
 
