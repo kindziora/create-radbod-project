@@ -2,7 +2,6 @@
     /**
      * @TODO
      * 
-     * links gehen nicht mehr x mal rebind post render usw.
      * form validation geht nicht richtig
      * 
      **/

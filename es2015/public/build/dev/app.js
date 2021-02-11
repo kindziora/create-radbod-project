@@ -59,10 +59,12 @@ export class myApp extends radbod.app {
      */
     addRouting(component) {
         Array.from(component.dom.$el.querySelectorAll("a[data-name]")).forEach((el) => {
-            el.addEventListener("click", (ev) =>{
+            let cb = (ev) =>{
                 ev.preventDefault();
                 this.loadPage(ev.srcElement.getAttribute("href"));
-            });
+            };
+            el.removeEventListener("click", cb);
+            el.addEventListener("click", cb);
         });
     }
 }
