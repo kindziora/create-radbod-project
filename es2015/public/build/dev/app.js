@@ -13,7 +13,7 @@ export class myApp extends radbod.app {
         history.pushState(path, title, path);
         document.querySelector('#section').innerHTML = "";
         document.querySelector('#section').append(component.dom.$el);
-        this.loaded(path);
+         this.loaded(path);
     }
     /**
      * 

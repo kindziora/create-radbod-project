@@ -41,6 +41,7 @@
             return magic_form.call(this, {
                 "/$user/submit": {
                     click(change, state){
+                        change.ev.preventDefault();
                         alert("SUBMIT");
                     }
                 },
@@ -55,7 +56,7 @@
                     }
                 }
 
-            }, function (data) {
+            }, "/$user", function (data) {
                 
                 console.log("CHANGE PLEASE BACKEND SYNC", data)
 

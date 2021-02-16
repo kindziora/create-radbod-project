@@ -1,4 +1,4 @@
-export const magic_form = function (elementEvents, onSync, delay = 800) {
+export const magic_form = function (elementEvents, dataScope = "/", onSync, delay = 800) {
     let calledID = "";
 
     function addValidators(field, fieldPath) {
@@ -25,20 +25,23 @@ export const magic_form = function (elementEvents, onSync, delay = 800) {
             metaManager.setMeta(fieldPath, meta);
         }
     }
-    let callback = function (sender, dataState) {
-        let name = sender.field.$el.getAttribute("data-name").split("/").pop();
-        addValidators(sender.field, sender.field.$el.getAttribute("data-name"));
-        dataState[name] = sender.field.getValue();
-    };
-
+     
     let kup = {
-        change: callback,
-        keyup: callback
+        change: function (sender, dataState) {
+            let name = sender.field.$el.getAttribute("data-name").split("/").pop();
+            addValidators(sender.field, sender.field.$el.getAttribute("data-name"));
+            dataState[name] = sender.field.getValue();
+        },
+        keyup: function (sender, dataState) {
+            let name = sender.field.$el.getAttribute("data-name").split("/").pop();
+            addValidators(sender.field, sender.field.$el.getAttribute("data-name"));
+            dataState[name] = sender.field.getValue();
+        }
     };
 
     for (let e in this.dom.elementByName) elementEvents[e] = Object.assign({}, elementEvents[e], kup);
 
-    elementEvents["/"] = {
+    elementEvents[dataScope] = {
         "change"(change, store) {
             if (typeof onSync === "function") {
                 clearTimeout(calledID);
