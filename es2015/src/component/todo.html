@@ -34,7 +34,7 @@
         </div>
 
         <footer class="footer">
-            <span class="todo-count" data-name="/$todo/items" data-view="count"></span>
+            <span class="todo-count" data-name="/$todo/tab" data-events="change" data-view="count"></span>
             <ul class="filters">
                 <li>
                     <a href="#/all" data-events="tab:click" class="selected">All</a>
@@ -107,7 +107,11 @@
     export let todo = {
         views: {
             "count": function(args){
-                return args.todo.items.length;
+                switch (args.todo.tab) {
+                    case "all": return args.todo.items.length;
+                    case "active": return args.todo.items.filter((i) => !i.checked).length;
+                    case "completed": return args.todo.items.filter((i) => i.checked).length;
+                }
             },
             "todo-list": function (args) {
                 let { change, todo, _t } = args;
@@ -143,12 +147,13 @@
                 "tab": {
                     "click"(sender, dataStore) {
                         sender.ev.preventDefault();
-                        let tab = document.querySelector('#' + sender.field.$el.getAttribute("href").split("/")[1]);
+                        let tabName = sender.field.$el.getAttribute("href").split("/")[1];
+                        let tab = document.querySelector('#' + tabName);
                         document.querySelectorAll(".tab").forEach(e => e.classList.remove("selected"));
                         tab.classList.add("selected");
 
                         document.querySelectorAll(".filters li a").forEach(e => e.classList.remove("selected"));
-
+                        dataStore.tab = tabName;
                         sender.field.$el.classList.add("selected");
                     }
                 },
@@ -191,7 +196,11 @@
                         dataStore.items.forEach((i) => i.checked = dataStore.checked);
                     }
                 },
-
+                "/$todo/items": {
+                    "change"(sender, dataStore) {
+                         console.log(datastore);
+                    }
+                },
                 "/$todo/name": {
                     "keyup#todo-myinput"(sender, dataStore) { //address specific element in dom
                         dataStore.name = sender.field.getValue();
