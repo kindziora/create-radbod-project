@@ -1,8 +1,8 @@
 export const routes = {
     "home": "home",
     "^$": "home",
-    "user/login" : "login",
-    "login" : "login",
+    "user/login" : "form",
+    "form" : "form",
     "_not_found" : "notFound"
 };
 

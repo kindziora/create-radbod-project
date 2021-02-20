@@ -34,7 +34,7 @@
         </div>
 
         <footer class="footer">
-            <span class="todo-count" data-name="/$todo/tab" data-events="change" data-view="count"></span>
+            <span class="todo-count" data-name="/$todo/tab" ><strong data-name="/$todo/items" data-view="count"></strong></span>
             <ul class="filters">
                 <li>
                     <a href="#/all" data-events="tab:click" class="selected">All</a>
@@ -108,7 +108,7 @@
         views: {
             "count": function(args){
                 switch (args.todo.tab) {
-                    case "all": return args.todo.items.length;
+                    case "all": return args.todo.items.filter((i) => i).length;
                     case "active": return args.todo.items.filter((i) => !i.checked).length;
                     case "completed": return args.todo.items.filter((i) => i.checked).length;
                 }
@@ -198,7 +198,7 @@
                 },
                 "/$todo/items": {
                     "change"(sender, dataStore) {
-                         console.log(datastore);
+                         console.log(dataStore);
                     }
                 },
                 "/$todo/name": {
