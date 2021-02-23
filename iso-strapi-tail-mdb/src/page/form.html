@@ -32,60 +32,44 @@
             <button type="submit" data-name="/$user/submit">Anmelden</button>
 
           </div>
+
           <div class="item biefroest">
 
 
           </div>
 
-
         </div>
-
-
       </form>
     </section>
 
     <footer class="info">
-      <p>Double-click to edit a todo</p>
-      <p>Written by <a href="http://twitter.com/lukeed05">Luke Edwards</a></p>
-      <p>Refactored by <a href="https://github.com/xorgy">Aaron Muir
-          Hamilton</a></p>
-      <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+      
     </footer>
   </page>
 </template>
 
 <style language="scss">
+
   .error {
     box-shadow: #f31010 0px 0px 4px 0px;
     border: 1px solid red;
-  }
+  } 
 
-  
+  .span.msg{
+    position: absolute;
+    background-color: lightgoldenrodyellow;
+    padding: 1em;
+    border: 1px solid lightgray;
+    border-radius: 0 10px 10px 10px;
+  } 
 
   .biefroest{
-      background-image: url(https://mountainmoments.de/wp-content/uploads/2019/04/web_mountainmoments-5-aurora-borealis-fotografieren-J.-Groll-1030x686.jpg);
+      background-image: url("https://mountainmoments.de/wp-content/uploads/2019/04/web_mountainmoments-5-aurora-borealis-fotografieren-J.-Groll-1030x686.jpg");
       background-size: cover;
       background-position-x: center;
      /* background-image: url("img/form/biefroest.jpg");*/
   }
-
-  .container {
-    display: flex;
-
-    @media only screen and (max-width: 640px) {
-      flex-direction: column;
-    }
-
-  }
-
-  .item {
-    min-height: 100px;
-    flex-grow: 1;
-    width: 50%;
-    @media only screen and (max-width: 640px) {
-      width: 100%;
-    }
-  }
+ 
 
 </style>
 
@@ -97,6 +81,9 @@
   import { required_validator } from '../middleware/validator/required';
 
   export let form = {
+    mounted() {
+          console.log("mounted", this); 
+    },
     components: { "topmenu-component": topmenu },
     data() {
       return this

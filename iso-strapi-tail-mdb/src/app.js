@@ -89,7 +89,7 @@ window.buildApp = new myApp({
                     label: "Testdaten3",
                     checked: false
                 }]
-            }), 10);
+            }), 1);
 
         }
     }

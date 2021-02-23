@@ -1,4 +1,3 @@
-
 <template language="js-template">
     <extend-head>
         <title>Willkommen home</title>
@@ -6,46 +5,46 @@
     <page>
         <topmenu-component type="component" data-name="/$topmenu"></topmenu-component>
 
-        <input data-name="/$home/name" />
         <h1> dtest ${home.name}</h1>
+        <input data-name="/$home/name" />
+
         <div data-name="/$home/name"></div>
 
         <todo-component type="component" data-name="/$todo"></todo-component>
- 
+
         <footer class="info">
-            <p>Double-click to edit a todo</p>
-            <p>Written by <a href="http://twitter.com/lukeed05">Luke Edwards</a></p>
-            <p>Refactored by <a href="https://github.com/xorgy">Aaron Muir
-                    Hamilton</a></p>
-            <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+
         </footer> ${_t("asas")}
     </page>
 </template>
 
 <style language="scss" scope="#home">
- 
+
 </style>
 
 <script language="js">
-    import {todo} from '../component/todo';
-    import {translations} from './i18n/home';
-    import {topmenu} from '../component/topmenu';
+    import { todo } from '../component/todo';
+    import { translations } from './i18n/home';
+    import { topmenu } from '../component/topmenu';
 
-    export let home = { 
-        components: {"todo-component" : todo, "topmenu-component" : topmenu},
-        data(){
-            return this.createStore("home", { name : "AK home" });
+    export let home = {
+        mounted() {
+            console.log("mounted", this);
         },
-        interactions(){ 
+        components: { "todo-component": todo, "topmenu-component": topmenu },
+        data() {
+            return this.createStore("home", { name: "AK home" });
+        },
+        interactions() {
             return {
-                "/$home/name" : {
+                "/$home/name": {
                     "keyup"(sender, data) { //address specific element in dom
-                         data.name = sender.field.getValue();
+                        data.name = sender.field.getValue();
                     }
                 }
             }
         },
-        translations(language){
+        translations(language) {
             return translations[language];
         }
     }

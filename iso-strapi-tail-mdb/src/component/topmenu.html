@@ -1,24 +1,160 @@
 <template language="js-template">
-    <ul>
-        <li> <a href="/home" class="${topmenu.hallo}" data-name="link">home</a></li>
-        <li> <a href="/form" class="" data-name="link">form</a></li>
-    </ul>
+    <navgation>
+        <div class="logo">logo</div>
+        <div class="hamburger" data-events="hamburger:click">
+            <div class="hamburg">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </div>
+        </div>
+        <nav id="menu">
+            <a href="/home" class="${topmenu.hallo}" data-name="link">home</a>
+            <a href="/form" class="" data-name="link">form</a>
+            <a href="#">Article 3</a>
+            <a href="#">Article 4</a>
+            <a href="#">Article 5</a>
+        </nav>
+    </navgation>
 </template>
 
-<style language="scss">
+<style language="scss" data-scope=" ">
+    navgation {
+        background: #EEE;
+        display: flex;
+        justify-content: space-between;
+    }
 
+    .logo {
+        font-size: 2em;
+        line-height: 3em;
+        padding: 0 0.5em;
+    }
+
+    .hamburger {
+        padding: 0 0.5em;
+        font-size: 1.5em;
+        line-height: 3em;
+        display: flex;
+        z-index: 2;
+    }
+
+    .hamburg {
+        display: block;
+        background: #555;
+        width: 3.14em;
+        height: 2.1em;
+        position: relative;
+        margin: auto;
+        border-radius: 4px;
+        transition: border-radius .5s;
+    }
+
+    .line {
+        position: absolute;
+        left: 10px;
+        height: 4px;
+        width: 55px;
+        background: #fff;
+        border-radius: 2px;
+        display: block;
+        transition: 0.5s;
+        transform-origin: center;
+    }
+
+    .line:nth-child(1) {
+        top: 12px;
+    }
+
+    .line:nth-child(2) {
+        top: 24px;
+    }
+
+    .line:nth-child(3) {
+        top: 36px;
+    }
+
+    .hamburger.checked .line:nth-child(1) {
+        transform: translateY(12px) rotate(-45deg);
+    }
+
+    .hamburger.checked .line:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.checked .line:nth-child(3) {
+        transform: translateY(-12px) rotate(45deg);
+    }
+
+    nav {
+        position: absolute;
+        width: 100%;
+        background: #eee;
+        display: none;
+    }
+
+    nav:hover {
+        display: block;
+    }
+
+    nav a {
+        display: block;
+        line-height: 50px;
+        text-align: center;
+    }
+
+    .hamburger:hover~nav {
+        display: block;
+    }
+
+    .hamburger.checked~nav {
+        display: block;
+    }
+
+    @media only screen and (min-width: 768px) {
+        .hamburger {
+            display: none;
+        }
+
+        nav {
+            position: static;
+            display: flex;
+            background: none;
+            clear: none;
+            flex: 1;
+            justify-content: flex-end;
+        }
+
+        nav:hover {
+            display: flex;
+        }
+
+        nav a {
+            padding: 0 1em;
+        }
+    }
 </style>
 
 <script language="js">
     export let topmenu = {
-        data(data, runtime){
+        mounted() {
+            console.log("mounted", this);
+ 
+        },
+        data(data, runtime) {
             console.log(this);
-            return this.createStore("topmenu", { 
-                path : "runtime.path"
+            return this.createStore("topmenu", {
+                path: "runtime.path"
             })
         },
-        interactions(){
-            return {}
+        interactions() {
+            return {
+                "hamburger": {
+                    "click"(sender, dataStore) {
+                        sender.field.$el.classList.toggle("checked");
+                    }
+                }
+            }
         }
     }
 </script>

@@ -54,6 +54,11 @@
                 return change.value.checked ? this.dom.views["todo-list"].call(this, args) : "";
             } },
             "style":"body input.toggle { vertical-align: middle; } body button.destroy { color: crimson; font-weight: 900; padding: 0; } body li.todo-item { list-style: decimal; } body .tab { display: none; } body .tab.selected { display: block; } body .filters li { display: inline; } body .filters li a { color: inherit; margin: 3px; padding: 3px 7px; text-decoration: none; border: 1px solid transparent; border-radius: 3px; } body .filters li a:hover { border-color: rgba(175, 47, 47, 0.1); } body .filters li a.selected { border-color: rgba(175, 47, 47, 0.2); }","path":"/component/todo.js",
+        
+        mounted() {
+           console.log("mounted", this);
+
+        },
         data(dataReady) {
 
             return this.createStore("todo", {}).find({ id: 1 }, function (data) {

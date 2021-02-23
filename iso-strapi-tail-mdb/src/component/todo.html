@@ -105,6 +105,10 @@
      * 
      **/
     export let todo = {
+        mounted() {
+           console.log("mounted", this);
+
+        },
         views: {
             "count": function(args){
                 switch (args.todo.tab) {
