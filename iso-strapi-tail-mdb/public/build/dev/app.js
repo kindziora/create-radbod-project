@@ -12,6 +12,8 @@ export class myApp extends radbod.app {
         let title = component.dom.$el.querySelector('title') ? component.dom.$el.querySelector('page').innerTEXT : path;
         history.pushState(path, title, path);
         document.querySelector('#section').innerHTML = "";
+        this.environment.path = path;
+        component.environment = this.environment;
         document.querySelector('#section').append(component.dom.$el);
          this.loaded(path);
     }
@@ -44,6 +46,9 @@ export class myApp extends radbod.app {
             this.render(null, null, this.components[page], path);
         } else {
             import(`./page/${page}.js`).then((module) => {
+                this.environment.path = path;
+                module[page].environment = this.environment;
+
                 this.mountComponent(page, module[page], (stores, data, component) => {
                     this.render(stores, data, component, path);
                     this.addRouting(component);
@@ -89,7 +94,7 @@ window.buildApp = new myApp({
                     label: "Testdaten3",
                     checked: false
                 }]
-            }), 1);
+            }), 10);
 
         }
     }

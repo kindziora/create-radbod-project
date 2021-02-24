@@ -9,8 +9,8 @@
             </div>
         </div>
         <nav id="menu">
-            <a href="/home" class="${topmenu.hallo}" data-name="link">home</a>
-            <a href="/form" class="" data-name="link">form</a>
+            <a href="/home" class="${topmenu.isActive('/home')}" data-name="/$topmenu/link">home</a>
+            <a href="/form" class="${topmenu.isActive('/form')}" data-name="/$topmenu/link">form</a>
             <a href="#">Article 3</a>
             <a href="#">Article 4</a>
             <a href="#">Article 5</a>
@@ -18,7 +18,7 @@
     </navgation>
 </template>
 
-<style language="scss" data-scope=" ">
+<style language="scss">
     navgation {
         background: #EEE;
         display: flex;
@@ -137,24 +137,24 @@
 
 <script language="js">
     export let topmenu = {
-        mounted() {
-            console.log("mounted", this);
- 
+        loaded(data) {
+          
+            console.log("loaded", this);
+            
+            data._data.isActive = (path) => this.environment.path.split("/")[1] === path ?"active" :"";
         },
         data(data, runtime) {
             console.log(this);
             return this.createStore("topmenu", {
-                path: "runtime.path"
+                link: "runtime.path"
             })
         },
-        interactions() {
-            return {
+        interactions : () => ({
                 "hamburger": {
                     "click"(sender, dataStore) {
                         sender.field.$el.classList.toggle("checked");
                     }
                 }
-            }
-        }
+            })
     }
 </script>

@@ -26,7 +26,8 @@ const asyncHandler = fn => (req, res, next) =>
         .resolve(fn(req, res, next))
         .catch(next)
 
-const enviroment = {
+const environment = {
+
     data_loader: {
         find(options, cb) {
             setTimeout(() => cb.call({ dataH: {} }, { name: "test load asynchronous server",    items: [{
@@ -50,7 +51,7 @@ function fetchData(component, cb, allready, total, meta, dataH) {
    
     let callback = function (meta) {
         return (data) => {
-            cb(data, meta);
+            cb(data, component);
             meta.cnt++;
             meta.loaded.push(component);
             if (meta.cnt >= total && !meta.calledFinal) {
@@ -63,20 +64,14 @@ function fetchData(component, cb, allready, total, meta, dataH) {
     let result = component.data.call(dataH, callback(meta), {});
 
     if (!result || typeof result.then !== "function") {
-        meta.cnt++;
-        meta.loaded.push(component);
+ 
+        callback(meta)(result);
     }
 
     for (let i in component.components) {
         fetchData(component.components[i], cb, allready, total, meta, dataH);
     }
-
-    if (meta.cnt >= total && !meta.calledFinal) {
-         
-        console.log("allready");
-        meta.calledFinal = true;
-        allready(dataH, meta);
-    }
+ 
 }
 
 function countForData(component, cnt) {
@@ -98,7 +93,7 @@ function getCSS(meta) {
 
 export const html_loader = asyncHandler(async function (req, res, next) {
 
-    let dataH = new dataHandler(new eventHandler(), enviroment);
+    let dataH = new dataHandler(new eventHandler(), environment);
 
     let path = req.path;
 
@@ -111,9 +106,14 @@ export const html_loader = asyncHandler(async function (req, res, next) {
         let count = countForData(page[pageName], 0);
         let met = { cnt: 0, loaded: [] };
         
-        fetchData(page[pageName], (data) => {
+        fetchData(page[pageName], (data, component) => {
 
             console.log("fetched datastore", data);
+            if(typeof component.loaded === "function"){
+                environment.path = path;
+                component.environment = environment;
+                component.loaded.call(component, data);
+            }
 
         }, (stores, meta) => {
 
@@ -122,7 +122,7 @@ export const html_loader = asyncHandler(async function (req, res, next) {
             let _t = (text, lang) => internationalize._t(text, lang);
 
             let storeData = stores.store.toObject();
-
+ 
             try {
 
                 let pageHTML = eval(`(${page[pageName].views[pageName].toString()})`).call(stores, { change: { value: "" }, ...storeData, _t });
@@ -138,7 +138,7 @@ export const html_loader = asyncHandler(async function (req, res, next) {
                 renderedHTML = eval("(( index, _t )=>`" + layout + "`)").apply(stores, [layoutStore.data, _t]);
 
             } catch (e) {
-                console.log(renderedHTML,pageName, e);
+                console.log(renderedHTML, pageName, e);
             }
             res.send(renderedHTML);
 

@@ -22,7 +22,7 @@
             <input id="email" type="email" data-name="/$user/email" required
               data-validations="mail_validator,required_validator" />
 
-            <span data-name="/_state/$user/email">${ change.value.msg ? change.value.msg.map(function(e){return e}) : ""
+            <span data-name="/_state/$user/email" class="msg ${ change.value.msg ? 'error':''}">${ change.value.msg ? change.value.msg.map(function(e){return e}) : ""
               }</span>
 
             <label for="passwd">Passwort</label>
@@ -53,12 +53,12 @@
   .error {
     box-shadow: #f31010 0px 0px 4px 0px;
     border: 1px solid red;
+    display: block; 
   } 
 
-  .span.msg{
+  span.msg{
     position: absolute;
     background-color: lightgoldenrodyellow;
-    padding: 1em;
     border: 1px solid lightgray;
     border-radius: 0 10px 10px 10px;
   } 
