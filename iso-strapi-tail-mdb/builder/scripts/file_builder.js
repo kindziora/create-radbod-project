@@ -88,8 +88,8 @@ export async function buildFile(file, opts) {
     }
     
     let strP = JSON.stringify({
-        html: html.replace(/\s/ig, " ").replace(/  +/ig, " ").replace(/'/g, '"').trim(),
-        style: css.replace(/\s/ig, " ").replace(/  +/ig, " ").replace(/'/g, '"').trim(),
+        html: html.replace(/\s/ig, " ").replace(/  +/ig, " ").trim(),
+        style: css.replace(/\s/ig, " ").replace(/  +/ig, " ").trim(),
         path: fileBuilt.split(options.buildPath)[1]
     });
     let inject = `

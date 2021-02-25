@@ -83,6 +83,8 @@ export async function copyFiles(folder, options) {
 
     await fs.copyFile(folder.replace("src", "config/manifest.json"), buildP + "/manifest.json");
     await fs.copyFile(folder.replace("src", "config/routes.js"), buildP + "/routes.js");
+    await fs.copyFile(folder.replace("src", "config/client.dev.js"), buildP + "/client.dev.js");
+
     await fs.copyFile(folder + "/app.js", buildP + "/app.js");
 
     await fs.mkdir(buildP + "/css", { recursive: true });

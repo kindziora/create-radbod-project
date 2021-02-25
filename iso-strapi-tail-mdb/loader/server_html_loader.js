@@ -1,5 +1,6 @@
 
 import { i18n } from './_t.js';
+import {environment} from "../config/server.dev.js";
 
 import {
     dataHandler,
@@ -25,27 +26,6 @@ const asyncHandler = fn => (req, res, next) =>
     Promise
         .resolve(fn(req, res, next))
         .catch(next)
-
-const environment = {
-
-    data_loader: {
-        find(options, cb) {
-            setTimeout(() => cb.call({ dataH: {} }, { name: "test load asynchronous server",    items: [{
-                id: 0,
-                label: "Testdaten1 server",
-                checked: false
-            }, {
-                id: 1,
-                label: "Testdaten2 server",
-                checked: false
-            }, {
-                id: 2,
-                label: "Testdaten3 server",
-                checked: false
-            }]}), 0);
-        }
-    }
-};
 
 function fetchData(component, cb, allready, total, meta, dataH) {
    
@@ -110,7 +90,7 @@ export const html_loader = asyncHandler(async function (req, res, next) {
 
             console.log("fetched datastore", data);
             if(typeof component.loaded === "function"){
-                environment.path = path;
+                environment.path = ()=> path;
                 component.environment = environment;
                 component.loaded.call(component, data);
             }

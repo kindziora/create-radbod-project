@@ -8,13 +8,11 @@
                 <span class="line"></span>
             </div>
         </div>
-        <nav id="menu">
-            <a href="/home" class="${topmenu.isActive('/home')}" data-name="/$topmenu/link">home</a>
-            <a href="/form" class="${topmenu.isActive('/form')}" data-name="/$topmenu/link">form</a>
-            <a href="#">Article 3</a>
-            <a href="#">Article 4</a>
-            <a href="#">Article 5</a>
-        </nav>
+        <ul id="menu">
+           <li data-name="/$topmenu/link"><a href="/home" class="${topmenu.isActive('home')}" >home</a></li> 
+           <li data-name="/$topmenu/link"><a href="/form" class="${topmenu.isActive('form')}" >form</a></li> 
+           <li data-name="/$topmenu/link"><a href="/extra" class="${topmenu.isActive('extra')}" >extra</a></li> 
+        </ul>
     </navgation>
 </template>
 
@@ -86,28 +84,33 @@
         transform: translateY(-12px) rotate(45deg);
     }
 
-    nav {
+    #menu {
         position: absolute;
         width: 100%;
         background: #eee;
         display: none;
+        list-style-type: none;
     }
 
-    nav:hover {
+    #menu:hover {
         display: block;
     }
 
-    nav a {
+    #menu li{
         display: block;
         line-height: 50px;
         text-align: center;
     }
 
-    .hamburger:hover~nav {
+    #menu a.active {
+        font-weight:bold;
+    }
+
+    .hamburger:hover~#menu {
         display: block;
     }
 
-    .hamburger.checked~nav {
+    .hamburger.checked~#menu {
         display: block;
     }
 
@@ -116,7 +119,7 @@
             display: none;
         }
 
-        nav {
+        #menu {
             position: static;
             display: flex;
             background: none;
@@ -125,23 +128,29 @@
             justify-content: flex-end;
         }
 
-        nav:hover {
+        #menu:hover {
             display: flex;
         }
 
-        nav a {
+        #menu li {
             padding: 0 1em;
         }
     }
 </style>
 
 <script language="js">
+
+/***
+ * @TODO MENU ALS LISTE BAUEN data-type="list"
+ * */
+
+
     export let topmenu = {
-        loaded(data) {
+        loaded(data) { //pipeline after data has been loaded
           
             console.log("loaded", this);
             
-            data._data.isActive = (path) => this.environment.path.split("/")[1] === path ?"active" :"";
+            data._data.isActive = (path) => this.environment.path().split("/")[1] === path ?"active" :"";
         },
         data(data, runtime) {
             console.log(this);
@@ -153,6 +162,16 @@
                 "hamburger": {
                     "click"(sender, dataStore) {
                         sender.field.$el.classList.toggle("checked");
+                    }
+                },
+                "/$topmenu/link": {
+                    "click"(sender, dataStore) {
+                        sender.ev.preventDefault();
+
+                        buildApp.loadPage(sender.field.$el.firstChild.getAttribute("href"));
+
+                        dataStore.link = sender.field.$el.firstChild.getAttribute("href");
+
                     }
                 }
             })
