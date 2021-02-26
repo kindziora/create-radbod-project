@@ -9,9 +9,9 @@
             </div>
         </div>
         <ul id="menu">
-           <li data-name="/$topmenu/link"><a href="/home" class="${topmenu.isActive('home')}" >home</a></li> 
-           <li data-name="/$topmenu/link"><a href="/form" class="${topmenu.isActive('form')}" >form</a></li> 
-           <li data-name="/$topmenu/link"><a href="/extra" class="${topmenu.isActive('extra')}" >extra</a></li> 
+           <li data-name="/$topmenu/link"><a href="/home" class="${topmenu.isActive('home')}">home</a></li> 
+           <li data-name="/$topmenu/link"><a href="/form" class="${topmenu.isActive('form')}">form</a></li> 
+           <li data-name="/$topmenu/link"><a href="/extra" class="${topmenu.isActive('extra')}">extra</a></li> 
         </ul>
     </navgation>
 </template>
@@ -140,11 +140,6 @@
 
 <script language="js">
 
-/***
- * @TODO MENU ALS LISTE BAUEN data-type="list"
- * */
-
-
     export let topmenu = {
         loaded(data) { //pipeline after data has been loaded
           
@@ -168,9 +163,9 @@
                     "click"(sender, dataStore) {
                         sender.ev.preventDefault();
 
-                        buildApp.loadPage(sender.field.$el.firstChild.getAttribute("href"));
-
-                        dataStore.link = sender.field.$el.firstChild.getAttribute("href");
+                        buildApp.loadPage(sender.field.$el.firstChild.getAttribute("href"), ()=> {
+                            dataStore.link = sender.field.$el.firstChild.getAttribute("href");
+                        });
 
                     }
                 }

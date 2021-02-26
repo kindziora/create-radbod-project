@@ -36,17 +36,21 @@ export class myApp extends radbod.app {
      * 
      * @param {*} path 
      */
-    loadPage(path) {
+    loadPage(path, callback) {
         let page = getFile(path);
 
         this.loading(page);
 
         if (this.components[page]) {
             this.render(null, null, this.components[page], path);
+            if (typeof callback === "function")
+                callback(this.components[page]);
         } else {
             import(`./page/${page}.js`).then((module) => {
                 this.mountComponent(page, module[page], (stores, data, component) => {
                     this.render(stores, data, component, path);
+                    if (typeof callback === "function")
+                        callback(component);
                 });
             });
 
