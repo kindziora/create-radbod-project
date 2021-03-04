@@ -25,13 +25,14 @@
 <script language="js">
     import { todo } from '../component/todo';
     import { translations } from './i18n/home';
-    import { topmenu } from '../component/topmenu';
-
+    
     export let home = {
         mounted() {
             console.log("mounted", this);
         },
-        components: { "todo-component": todo, "topmenu-component": topmenu },
+        components: 
+             { "todo-component": todo, "topmenu-component": "topmenu#mainmenu"}
+        ,
         data() {
             return this.createStore("home", { name: "AK home" });
         },

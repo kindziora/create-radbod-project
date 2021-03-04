@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "npm run build:scss & nodemon -e html,js -w ./src/ builder/build.js ./src ./public/build/dev & npm run server",
+    "dev": "npm run build:scss & nodemon -e html,js -w ./src/ builder/build.js ./src ./public/build/dev & npm run bundle & npm run server",
+    "bundle": "npm --prefix ./builder/cmonjs/ run bundle",
     "prod": "node server/run.js 8801 ../loader/server_html_loader.js",
     "build:scss": "node-sass -w ./src/styles/ -o ./public/build/dev/css/",
     "server": "nodemon -e js -w ./public/build/dev server/run.js 8801 ../loader/server_html_loader.js"
@@ -13,12 +14,14 @@
   "author": "Alexander Kindziora",
   "license": "ISC",
   "devDependencies": {
+    "flatted": "^3.1.1",
     "node-sass": "^5.0.0",
     "nodemon": "^2.0.6",
     "postcss-cli": "^8.3.1",
     "puppeteer": "^2.1.1",
     "water.css": "^2.0.0",
-    "webpack": "^4.42.0",
+    "webpack": "^5.24.2",
+    "webpack-cli": "^4.5.0",
     "yandex-translate-async": "latest"
   },
   "dependencies": {

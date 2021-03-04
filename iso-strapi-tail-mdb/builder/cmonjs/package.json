@@ -1,0 +1,11 @@
+{
+  "name": "cmon-build",
+  "version": "1.0.0",
+  "description": "radbod isomorphic/SSR es2015 i18n PWA",
+  "main": "index.js",
+  "scripts": {
+    "bundle": "npx webpack --config ./webpack.config.js -w --entry ../../public/build/dev/app.js --output-path='../../public/build/dist' --output-filename='full.bundle.js' --mode development"
+  },
+  "author": "Alexander Kindziora",
+  "license": "ISC"
+}

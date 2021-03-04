@@ -22,7 +22,8 @@
             <input id="email" type="email" data-name="/$user/email" required
               data-validations="mail_validator,required_validator" />
 
-            <span data-name="/_state/$user/email" class="msg ${ change.value.msg ? 'error':''}">${ change.value.msg ? change.value.msg.map(function(e){return e}) : ""
+            <span data-name="/_state/$user/email" class="msg ${ change.value.msg ? 'error':''}">${ change.value.msg ?
+              change.value.msg.map(function(e){return e}) : ""
               }</span>
 
             <label for="passwd">Passwort</label>
@@ -43,48 +44,45 @@
     </section>
 
     <footer class="info">
-      
+
     </footer>
   </page>
 </template>
 
 <style language="scss">
-
   .error {
     box-shadow: #f31010 0px 0px 4px 0px;
     border: 1px solid red;
-    display: block; 
-  } 
+    display: block;
+  }
 
-  span.msg{
+  span.msg {
     position: absolute;
     background-color: lightgoldenrodyellow;
     border: 1px solid lightgray;
     border-radius: 0 10px 10px 10px;
-  } 
-
-  .biefroest{
-      background-image: url("https://mountainmoments.de/wp-content/uploads/2019/04/web_mountainmoments-5-aurora-borealis-fotografieren-J.-Groll-1030x686.jpg");
-      background-size: cover;
-      background-position-x: center;
-     /* background-image: url("img/form/biefroest.jpg");*/
   }
- 
 
+  .biefroest {
+    background-image: url("https://mountainmoments.de/wp-content/uploads/2019/04/web_mountainmoments-5-aurora-borealis-fotografieren-J.-Groll-1030x686.jpg");
+    background-size: cover;
+    background-position-x: center;
+    /* background-image: url("img/form/biefroest.jpg");*/
+  }
 </style>
 
 <script language="js">
 
-  import { topmenu } from '../component/topmenu';
   import { magic_form } from '../middleware/magic_form';
   import { mail_validator } from '../middleware/validator/email';
   import { required_validator } from '../middleware/validator/required';
 
+ 
   export let form = {
     mounted() {
-          console.log("mounted", this); 
+      console.log("mounted", this);
     },
-    components: { "topmenu-component": topmenu },
+    components: { "topmenu-component": "topmenu#mainmenu" },
     data() {
       return this
         .createStore("user", { name: "user login" })

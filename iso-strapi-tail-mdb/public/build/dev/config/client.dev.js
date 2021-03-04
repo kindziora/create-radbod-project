@@ -1,3 +1,4 @@
+ 
 export let environment = {
     path : function(){
         return window.location.pathname;

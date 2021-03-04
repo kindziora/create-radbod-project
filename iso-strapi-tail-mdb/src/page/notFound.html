@@ -1,4 +1,3 @@
-
 <template language="js-template">
     <extend-head>
         <title>404 oops Seite nicht gefunden</title>
@@ -24,15 +23,17 @@
 <style language="scss"></style>
 
 <script language="js">
-    import {todo} from '../component/todo';
-     
+    import { todo } from '../component/todo';
+
     export let notFound = {
-        components: {"todo-component" : todo},
-        data(){
-            return this.createStore("home", {name : "AK home"});
+        components: function () {
+            return { "topmenu-component": topmenu };
         },
-        interactions(){
-            return { }
+        data() {
+            return this.createStore("home", { name: "AK home" });
+        },
+        interactions() {
+            return {}
         }
     }
 </script>

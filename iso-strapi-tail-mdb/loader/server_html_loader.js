@@ -1,6 +1,7 @@
 
 import { i18n } from './_t.js';
-import {environment} from "../config/server.dev.js";
+import { fetchDataStores, lookupComponents } from "./readComponents.js"
+import { environment } from "../config/server.dev.js";
 
 import {
     dataHandler,
@@ -10,8 +11,8 @@ import {
 } from "../config/env.js";
 
 import { promises as fs } from 'fs';
-const regexSectionHead =/<extend-head[\w\s\d-'"=]*\>(.*)<\/extend-head>/igs;
-const REGEX_HEAD = (data) => data.match(regexSectionHead) ? [...data.matchAll(regexSectionHead)][0][1]  : "<title>";
+const regexSectionHead = /<extend-head[\w\s\d-'"=]*\>(.*)<\/extend-head>/igs;
+const REGEX_HEAD = (data) => data.match(regexSectionHead) ? [...data.matchAll(regexSectionHead)][0][1] : "<title>";
 
 let layout;
 (async function () {
@@ -27,51 +28,22 @@ const asyncHandler = fn => (req, res, next) =>
         .resolve(fn(req, res, next))
         .catch(next)
 
-function fetchData(component, cb, allready, total, meta, dataH) {
-   
-    let callback = function (meta) {
-        return (data) => {
-            cb(data, component);
-            meta.cnt++;
-            meta.loaded.push(component);
-            if (meta.cnt >= total && !meta.calledFinal) {
-                meta.calledFinal = true;
-                 allready(dataH, meta);
-            }
-        }
-    };
-
-    let result = component.data.call(dataH, callback(meta), {});
-
-    if (!result || typeof result.then !== "function") {
- 
-        callback(meta)(result);
-    }
-
-    for (let i in component.components) {
-        fetchData(component.components[i], cb, allready, total, meta, dataH);
-    }
- 
-}
-
-function countForData(component, cnt) {
-    for (let i in component.components)
-        cnt = countForData(component.components[i], cnt);
-    return ++cnt;
-}
 
 function getModules(meta) {
     let mod = (e) => `<script type="module" src="${e.path}"></script>`;
     meta.loaded.push({ path: "/app.js" });
+    meta.loaded.push({ path: "/index.js" });
     return meta.loaded.map(mod).join("\n\r");
 }
 
-function getCSS(meta) { 
+function getCSS(meta) {
     let mod = (e) => e.style ? `<style>${e.style}</style>` : undefined;
     return meta.loaded.map(mod).join("\n\r");
 }
 
-export const html_loader = asyncHandler(async function (req, res, next) {
+let componentsHandler = {};
+
+export const html_loader = asyncHandler( async function (req, res, next) {
 
     let dataH = new dataHandler(new eventHandler(), environment);
 
@@ -81,54 +53,51 @@ export const html_loader = asyncHandler(async function (req, res, next) {
 
     console.log("./public/build/dev/page/" + pageName + ".js");
 
-    import("../public/build/dev/page/" + pageName + ".js").then(function (page) {
+    let page = await import("../public/build/dev/page/" + pageName + ".js");
 
-        let count = countForData(page[pageName], 0);
-        let met = { cnt: 0, loaded: [] };
-        
-        fetchData(page[pageName], (data, component) => {
+    let count = await lookupComponents(page[pageName], 0, componentsHandler);
+    let met = { cnt: 0, loaded: [] };
 
-            console.log("fetched datastore", data);
-            if(typeof component.loaded === "function"){
-                environment.path = ()=> path;
-                component.environment = environment;
-                component.loaded.call(component, data);
-            }
+    fetchDataStores(page[pageName], componentsHandler, (data, component) => {
 
-        }, (stores, meta) => {
+        console.log("fetched datastore", data);
 
-            let renderedHTML = '';
+        if (typeof component.loaded === "function") {
+            environment.path = () => path;
+            component.environment = environment;
+            component.loaded.call(component, data);
+        }
 
-            let _t = (text, lang) => internationalize._t(text, lang);
+    }, (stores, meta) => {
 
-            let storeData = stores.store.toObject();
- 
-            try {
+        let renderedHTML = '';
 
-                let pageHTML = eval(`(${page[pageName].views[pageName].toString()})`).call(stores, { change: { value: "" }, ...storeData, _t });
-                
-                let layoutStore = stores.createStore("index", {
-                    html: pageHTML.replace(regexSectionHead, ""),
-                    head: REGEX_HEAD(pageHTML),
-                    js: getModules(meta),
-                    css: getCSS(meta),
-                    env: { language: "en_EN" }, 
-                });
+        let _t = (text, lang) => internationalize._t(text, lang);
 
-                renderedHTML = eval("(( index, _t )=>`" + layout + "`)").apply(stores, [layoutStore.data, _t]);
+        let storeData = stores.store.toObject();
 
-            } catch (e) {
-                console.log(renderedHTML, pageName, e);
-            }
-            res.send(renderedHTML);
+        try {
 
-            next();
+            let pageHTML = eval(`(${page[pageName].views[pageName].toString()})`).call(stores, { change: { value: "" }, ...storeData, _t });
 
-        }, count, met, dataH);
-    }).catch((e)=>{
+            let layoutStore = stores.createStore("index", {
+                html: pageHTML.replace(regexSectionHead, ""),
+                head: REGEX_HEAD(pageHTML),
+                js: getModules(meta),
+                css: getCSS(meta),
+                env: { language: "en_EN" },
+            });
 
-        console.log("ERROR CATCH ",e);
+            renderedHTML = eval("(( index, _t )=>`" + layout + "`)").apply(stores, [layoutStore.data, _t]);
 
-    });
+        } catch (e) {
+            console.log(renderedHTML, pageName, e);
+        }
+        res.send(renderedHTML);
+
+        next();
+
+    }, count, met, dataH);
+
 
 });

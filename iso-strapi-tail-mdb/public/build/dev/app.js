@@ -1,7 +1,28 @@
-import { getFile } from "./routes.js";
-import { environment } from "./client.dev.js";
+import { getFile } from "./config/routes.js";
+
+/**
+ * shared components
+ */
+import { topmenu } from './component/topmenu.js';
 
 export class myApp extends radbod.app {
+
+    constructor(environment) {
+        super(environment);
+
+        this.mountComponent("topmenu#mainmenu", topmenu, function (stores, data, component)  {
+            console.log(stores, data, component);
+            try{
+                document.querySelector('#mytopmenu').innerHTML = "";
+                document.querySelector('#mytopmenu').append(component.dom.$el);
+            }catch(e){
+                console.log(e);
+            }
+          
+        });
+
+     }
+
     /**
      * 
      * @param {*} stores 
@@ -15,7 +36,8 @@ export class myApp extends radbod.app {
         document.querySelector('#section').innerHTML = "";
         document.querySelector('#section').append(component.dom.$el);
         this.loaded(path);
-    }
+    } 
+
     /**
      * 
      * @param {*} uri 
@@ -59,10 +81,6 @@ export class myApp extends radbod.app {
 
 
 }
+import { environment } from "./config/client.dev.js";
 
 window.buildApp = new myApp(environment);
-
-window.onpopstate = (event) => window.buildApp.loadPage(event.state);
-
-//initial page load
-window.buildApp.loadPage(window.location.pathname);
