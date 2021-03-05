@@ -3,6 +3,7 @@ import { compileViews } from './scripts/compile_views.js';
 import { copyFiles } from './scripts/copyFiles.js';
 import { internationalize, loadAllTranslations } from './scripts/translation.js';
 
+let v = new compileViews();
 
 (async () => {
     
@@ -12,7 +13,7 @@ import { internationalize, loadAllTranslations } from './scripts/translation.js'
     
     await internationalize(process.argv[3]);
     
-    let v = new compileViews();
+   
     await v.compileMultiple(process.argv[3]);
     
 }) ();

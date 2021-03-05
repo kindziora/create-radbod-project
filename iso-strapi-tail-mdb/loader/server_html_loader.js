@@ -37,13 +37,14 @@ function getModules(meta) {
 }
 
 function getCSS(meta) {
-    let mod = (e) => e.style ? `<style>${e.style}</style>` : undefined;
-    return meta.loaded.map(mod).join("\n\r");
+    //  let mod = (e) => e.style ? `<style>${e.style}</style>` : undefined;
+    //  return meta.loaded.map(mod).join("\n\r");
+    return "";
 }
 
 let componentsHandler = {};
 
-export const html_loader = asyncHandler( async function (req, res, next) {
+export const html_loader = asyncHandler(async function (req, res, next) {
 
     let dataH = new dataHandler(new eventHandler(), environment);
 

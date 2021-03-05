@@ -3,8 +3,9 @@
         <title>404 oops Seite nicht gefunden</title>
     </extend-head>
     <page>
+        <topmenu-component type="component" data-name="/$topmenu"></topmenu-component>
 
-        <h1>Hallo not FOUND</h1>
+        <h1>Hallo ${notFound.name}</h1>
         <section class="todoapp">
             <todo-component data-name="/$items"></todo-component>
         </section>
@@ -23,14 +24,14 @@
 <style language="scss"></style>
 
 <script language="js">
-    import { todo } from '../component/todo';
+     import { topmenu } from '../component/topmenu';
 
     export let notFound = {
         components: function () {
             return { "topmenu-component": topmenu };
         },
         data() {
-            return this.createStore("home", { name: "AK home" });
+            return this.createStore("notFound", { name: "AK not Found" });
         },
         interactions() {
             return {}

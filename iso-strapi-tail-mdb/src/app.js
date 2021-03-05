@@ -7,19 +7,14 @@ import { topmenu } from './component/topmenu.js';
 
 export class myApp extends radbod.app {
 
-    constructor(environment) {
+    constructor(environment, $appEL) {
         super(environment);
+        this.sharedComponents = {};
+        this.$appEL = $appEL;
 
-        this.mountComponent("topmenu#mainmenu", topmenu, function (stores, data, component)  {
-            console.log(stores, data, component);
-            try{
-                document.querySelector('#mytopmenu').innerHTML = "";
-                document.querySelector('#mytopmenu').append(component.dom.$el);
-            }catch(e){
-                console.log(e);
-            }
-          
-        });
+        this.mountComponent("topmenu#mainmenu", topmenu,  (stores, data, component) => {
+            this.sharedComponents["topmenu#mainmenu"] = component;
+        }); 
 
      }
 
@@ -56,6 +51,26 @@ export class myApp extends radbod.app {
 
     /**
      * 
+     * @param {*} component 
+     */
+    renderSharedComponents(component) {
+
+        for(let i in this.sharedComponents){
+            let tagName = i.split("#")[0] + "-component";
+            let shared = component.dom.$el.getElementsByTagName(tagName);
+            if(shared[0]){
+                
+                if(shared[0].innerHTML.trim() !==""){
+                    shared[0].appendChild(this.sharedComponents[i].dom.$el);
+                } 
+                
+            }
+        }
+
+    }
+
+    /**
+     * 
      * @param {*} path 
      */
     loadPage(path, callback) {
@@ -64,6 +79,9 @@ export class myApp extends radbod.app {
         this.loading(page);
 
         if (this.components[page]) {
+
+            this.renderSharedComponents(this.components[page]);
+
             this.render(null, null, this.components[page], path);
             if (typeof callback === "function")
                 callback(this.components[page]);
@@ -79,8 +97,8 @@ export class myApp extends radbod.app {
         }
     }
 
-
 }
+
 import { environment } from "./config/client.dev.js";
 
-window.buildApp = new myApp(environment);
+window.buildApp = new myApp(environment, document.querySelector('#section'));

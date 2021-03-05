@@ -21,22 +21,28 @@ export function fetchDataStores(component, componentsHandler, cb, allready, tota
             }
         }
     };
-    
-    let result;
-    
-    if (typeof component !== "string") { 
-        result = component.data.call(dataH, callback(meta), {});
-    }else{
-        let componentID = component.components[i];
 
-        result = componentsHandler[componentID].store;
+    let result;
+
+    if (typeof component !== "string") {
+        
+        console.log("COMPONENT", component);
+
+        if (component.store) {
+            result = component.store;
+        } else {
+            result = component.data.call(dataH, callback(meta), {});
+        }
+    } else { 
+        let componentID = component.components[i]; 
+        result = componentsHandler[componentID].store; 
     }
-    
-    if (!result || typeof result.then !== "function") { 
+
+    if (!result || typeof result.then !== "function") {
         callback(meta)(result);
     }
 
-    for (let i in component.components) {  
+    for (let i in component.components) {
         fetchDataStores(component.components[i], componentsHandler, cb, allready, total, meta, dataH);
     }
 
@@ -57,8 +63,9 @@ export async function lookupComponents(component, cnt, componentHandler) {
             if (componentHandler[componentID]) {
                 component.components[i] = componentHandler[componentID];
             } else {
-                componentHandler[componentID] = await import(`../public/build/dev/component/${name}.js`);
-                component.components[i] = componentHandler[componentID][name];
+                let tmpModule = await import(`../public/build/dev/component/${name}.js`);
+                componentHandler[componentID] = tmpModule[name];
+                component.components[i] = componentHandler[componentID];
             }
         }
 
