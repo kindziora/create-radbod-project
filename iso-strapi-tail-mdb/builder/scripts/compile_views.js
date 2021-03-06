@@ -3,7 +3,8 @@ import puppeteer from "puppeteer";
 import { promises as fs } from 'fs';
 
 import { parse, stringify } from 'flatted';
- 
+import { time } from 'console';
+
 const htmlProperty = /"html":".*?",/gmi;
 const viewProperty = /(views(["']|)\s*?:\s*)/mig;
 
@@ -121,17 +122,16 @@ export class compileViews {
     async setupPuppeteer() {
 
         const browser = await puppeteer.launch({
-            //         headless: false,
-            //        devtools: true,
+            headless: false,
+            devtools: true, 
             args: ["--disable-web-security"],
         });
         const page = await browser.newPage();
+
         await page.setBypassCSP(true);
         await page.addScriptTag({ path: "./node_modules/radbod/dist/radbod.js" });
         await page.addScriptTag({ path: "./public/build/dist/full.bundle.js" });
-
-
-
+        
         return { browser, page };
     }
 
@@ -154,7 +154,7 @@ export class compileViews {
             await this.compileSingleFile(file, page);
         }
 
-        await browser.close();
+        // await browser.close();
 
     }
 
@@ -172,17 +172,17 @@ export class compileViews {
                 // Get the "viewport" of the page, as reported by the page.
                 let componentSerialized = JSON.stringify(component, (k, v) => typeof v === "function" ? v.toString() : v);
                 let compiledComponent;
-            
-                try{
-                    compiledComponent =  parse(await page.evaluate(this.insidePuppeteer, componentName, componentSerialized));
-                    if(compiledComponent.error){
+
+                try {
+                    compiledComponent = parse(await page.evaluate(this.insidePuppeteer, componentName, componentSerialized));
+                    if (compiledComponent.error) {
                         throw compiledComponent;
                     }
                     await this.writeToJSFile(file, compiledComponent);
-                }catch(e){
+                } catch (e) {
                     console.log(e);
                 }
-              
+
             }
 
         } catch (e) {
@@ -191,12 +191,21 @@ export class compileViews {
 
     }
 
-    insidePuppeteer = (componentName, componentSerialized) => {
+    insidePuppeteer =   async (componentName, componentSerialized) => {
+        function timeout(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+        async function sleep(fn, ...args) {
+            await timeout(3000);
+            return fn(...args);
+        }
+        await timeout(1000);
+        debugger;
         let Flatted = function (n) {
             "use strict";
                /*! (c) 2020 Andrea Giammarchi */var t = JSON.parse, r = JSON.stringify, e = Object.keys, a = String, u = "string", f = {}, i = "object", c = function (n, t) { return t }, l = function (n) { return n instanceof a ? a(n) : n }, o = function (n, t) { return typeof t === u ? new a(t) : t }, s = function (n, t, r) { var e = a(t.push(r) - 1); return n.set(r, e), e }; return n.parse = function (n, r) { var u = t(n, o).map(l), s = u[0], p = r || c, v = typeof s === i && s ? function n(t, r, u, c) { for (var l = [], o = e(u), s = o.length, p = 0; p < s; p++) { var v = o[p], y = u[v]; if (y instanceof a) { var g = t[y]; typeof g !== i || r.has(g) ? u[v] = c.call(u, v, g) : (r.add(g), u[v] = f, l.push({ k: v, a: [t, r, g, c] })) } else u[v] !== f && (u[v] = c.call(u, v, y)) } for (var h = l.length, d = 0; d < h; d++) { var w = l[d], O = w.k, S = w.a; u[O] = c.call(u, O, n.apply(null, S)) } return u }(u, new Set, s, p) : s; return p.call({ "": v }, "", v) }, n.stringify = function (n, t, e) { for (var a = t && typeof t === i ? function (n, r) { return "" === n || -1 < t.indexOf(n) ? r : void 0 } : t || c, f = new Map, l = [], o = [], p = +s(f, l, a.call({ "": n }, "", n)), v = !p; p < l.length;)v = !0, o[p] = r(l[p++], y, e); return "[" + o.join(",") + "]"; function y(n, t) { if (v) return v = !v, t; var r = a.call(this, n, t); switch (typeof r) { case i: if (null === r) return r; case u: return f.get(r) || s(f, l, r) }return r } }, n
         }({});
-
+        
         let component = JSON.parse(componentSerialized,
             (k, v) => typeof v === "string" ?
                 (/(.*)\(/.exec(v) !== null && k !== "html" ? ((v) => {
@@ -221,14 +230,12 @@ export class compileViews {
 
         views[componentName] = component.html;
 
-        let store = component.data; //? component.data.call(buildApp.dataH) : {};
+        let store =  component.data.call(buildApp.dataH)  ;
         try {
             let compo = buildApp.createComponent(
                 componentName,
-                views,
                 store,
-                component.interactions,
-                component.components
+                component
             );
 
             let strVws = [];
@@ -252,10 +259,11 @@ export class compileViews {
                    ${strVws.join(`,
                    `).replace(/=""/g, '')} }`;
 
-       
+
             return Flatted.stringify(component);
         } catch (e) {
-            return Flatted.stringify({"error": {msg : e.message, trace: e.stack }});
+            console.log(e, component);
+            return Flatted.stringify({ "error": { name: componentName, component: component, msg: e.message, trace: e.stack } });
         }
 
 

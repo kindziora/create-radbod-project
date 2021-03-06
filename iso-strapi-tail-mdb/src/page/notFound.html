@@ -27,9 +27,7 @@
      import { topmenu } from '../component/topmenu';
 
     export let notFound = {
-        components: function () {
-            return { "topmenu-component": topmenu };
-        },
+        components: { "topmenu-component": topmenu },
         data() {
             return this.createStore("notFound", { name: "AK not Found" });
         },

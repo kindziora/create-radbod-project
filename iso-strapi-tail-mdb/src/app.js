@@ -9,9 +9,9 @@ export class myApp extends radbod.app {
 
     constructor(environment, $appEL) {
         super(environment);
-        this.sharedComponents = {};
         this.$appEL = $appEL;
-
+        this.sharedComponents = {};
+        
         this.mountComponent("topmenu#mainmenu", topmenu,  (stores, data, component) => {
             this.sharedComponents["topmenu#mainmenu"] = component;
         }); 
