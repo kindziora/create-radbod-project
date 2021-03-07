@@ -59,11 +59,7 @@ export class myApp extends radbod.app {
             let tagName = i.split("#")[0] + "-component";
             let shared = component.dom.$el.getElementsByTagName(tagName);
             if(shared[0]){
-                
-                if(shared[0].innerHTML.trim() !==""){
-                    shared[0].appendChild(this.sharedComponents[i].dom.$el);
-                } 
-                
+                shared[0].appendChild(this.sharedComponents[i].dom.$el);
             }
         }
 
@@ -89,6 +85,8 @@ export class myApp extends radbod.app {
             import(`./page/${page}.js`).then((module) => {
                 this.mountComponent(page, module[page], (stores, data, component) => {
                     this.render(stores, data, component, path);
+                    this.renderSharedComponents(this.components[page]);
+
                     if (typeof callback === "function")
                         callback(component);
                 });

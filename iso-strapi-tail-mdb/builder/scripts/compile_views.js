@@ -158,7 +158,7 @@ export class compileViews {
             await this.compileSingleFile(file, page);
         }
 
-        await browser.close();
+     //   await browser.close();
 
     }
 
