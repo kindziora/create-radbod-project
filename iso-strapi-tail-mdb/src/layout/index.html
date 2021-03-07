@@ -70,13 +70,12 @@
         <!-- End Google Tag Manager (noscript) -->
         <noscript>
             <a>${ _t('please enable your javascript...') }</a>
-        </noscript>
-
-        <progress id="progress" class="progress loading is-info" data-name="progress"
-            value="0" max="100" style="width: 100%;"></progress>
+        </noscript> 
         
-        <span id="status"></span>
-        
+        <div class="progress-bar">
+            <span class="progress-bar-fill" style="width: 0%;"></span>
+        </div>
+       
         <app class="section" id="section" data-defaultvalues="model">
             ${index.html}
         </app>
