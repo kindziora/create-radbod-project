@@ -115,8 +115,12 @@ export class compileViews {
             console.log(e);
         }
 
-        await fs.writeFile(file, newFileData);
-
+        let fncPath = "_fnc_" + file.split("/").pop();
+        let l = file.split("/");
+        l.pop();
+        l.push(fncPath);
+       // await fs.writeFile( l.join("/"), newFileData);
+       await fs.writeFile(file, newFileData);
     }
 
     async setupPuppeteer() {
@@ -154,7 +158,7 @@ export class compileViews {
             await this.compileSingleFile(file, page);
         }
 
-        // await browser.close();
+        await browser.close();
 
     }
 
@@ -195,12 +199,8 @@ export class compileViews {
         function timeout(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
-        async function sleep(fn, ...args) {
-            await timeout(3000);
-            return fn(...args);
-        }
-        await timeout(1000);
-        debugger;
+
+      
         let Flatted = function (n) {
             "use strict";
                /*! (c) 2020 Andrea Giammarchi */var t = JSON.parse, r = JSON.stringify, e = Object.keys, a = String, u = "string", f = {}, i = "object", c = function (n, t) { return t }, l = function (n) { return n instanceof a ? a(n) : n }, o = function (n, t) { return typeof t === u ? new a(t) : t }, s = function (n, t, r) { var e = a(t.push(r) - 1); return n.set(r, e), e }; return n.parse = function (n, r) { var u = t(n, o).map(l), s = u[0], p = r || c, v = typeof s === i && s ? function n(t, r, u, c) { for (var l = [], o = e(u), s = o.length, p = 0; p < s; p++) { var v = o[p], y = u[v]; if (y instanceof a) { var g = t[y]; typeof g !== i || r.has(g) ? u[v] = c.call(u, v, g) : (r.add(g), u[v] = f, l.push({ k: v, a: [t, r, g, c] })) } else u[v] !== f && (u[v] = c.call(u, v, y)) } for (var h = l.length, d = 0; d < h; d++) { var w = l[d], O = w.k, S = w.a; u[O] = c.call(u, O, n.apply(null, S)) } return u }(u, new Set, s, p) : s; return p.call({ "": v }, "", v) }, n.stringify = function (n, t, e) { for (var a = t && typeof t === i ? function (n, r) { return "" === n || -1 < t.indexOf(n) ? r : void 0 } : t || c, f = new Map, l = [], o = [], p = +s(f, l, a.call({ "": n }, "", n)), v = !p; p < l.length;)v = !0, o[p] = r(l[p++], y, e); return "[" + o.join(",") + "]"; function y(n, t) { if (v) return v = !v, t; var r = a.call(this, n, t); switch (typeof r) { case i: if (null === r) return r; case u: return f.get(r) || s(f, l, r) }return r } }, n
@@ -230,7 +230,14 @@ export class compileViews {
 
         views[componentName] = component.html;
 
-        let store =  component.data.call(buildApp.dataH)  ;
+        let store;
+        try{
+            store =  component.data.call(buildApp.dataH);
+        }catch(e) {
+            console.log(e);
+            store = {};
+        }
+        
         try {
             let compo = buildApp.createComponent(
                 componentName,
@@ -240,7 +247,7 @@ export class compileViews {
 
             let strVws = [];
 
-            strVws.push(`'${componentName}' : ${compo.dom.template.toString()}`);
+          //  strVws.push(`'${componentName}' : ${compo.dom.template.toString()}`);
 
             for (let i in compo.dom.element) {
                 if (i.charAt(0) === "/") continue;
@@ -261,7 +268,7 @@ export class compileViews {
 
 
             return Flatted.stringify(component);
-        } catch (e) {
+        } catch (e) { 
             console.log(e, component);
             return Flatted.stringify({ "error": { name: componentName, component: component, msg: e.message, trace: e.stack } });
         }
