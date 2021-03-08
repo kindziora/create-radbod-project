@@ -1,0 +1,3 @@
+.container{display:flex}@media only screen and (max-width: 640px){.container{flex-direction:column}}.item{min-height:100px;flex-grow:1;width:50%}@media only screen and (max-width: 640px){.item{width:100%}}.progress-bar{width:100%;opacity:0;background-color:#e0e0e0;box-shadow:inset 0 1px 3px rgba(0,0,0,0.2);transition:opacity 500ms ease-in-out}.progress-bar .progress-bar-fill{display:block;height:2px;background-color:#659cef;transition:width 500ms ease-in-out}.progress-bar.loading{opacity:1}.progress-bar.loading .progress-bar-fill{width:50%}.progress-bar.loaded .progress-bar-fill{width:100%}
+
+/*# sourceMappingURL=index.css.map */

@@ -12,8 +12,7 @@ let v = new compileViews();
     await buildSFC(process.argv[2]);
     
     await internationalize(process.argv[3]);
-    
-   
+     
     await v.compileMultiple(process.argv[3]);
     
 }) ();

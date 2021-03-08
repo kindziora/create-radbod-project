@@ -1,25 +1,31 @@
 import { getFiles } from './files.js';
+import { renderSCSSFile } from './styles.js';
+
 import { promises as fs } from 'fs';
 import { createFolderAndFiles } from './translation.js';
 
 export async function copyFiles(folder, options) {
 
-/**
- * @TODO copyImages BIDLER AUS SRC ORDNER IN PUBLIC KOPIEREN
- * @param {*} filePath 
- */
-    async function copyImages(filePath) {
+    /**
+     * @TODO copyImages BIDLER AUS SRC ORDNER IN PUBLIC KOPIEREN
+     * @param {*} filePath 
+     */
+    async function copyImages(folder, buildPath) {
 
-        if (filePath.indexOf("/img/") !== -1) {
+        for await (const file of getFiles(folder || '/home/akindziora/projekte/radbod/test/todoMVC/src/')) {
 
-            await fs.mkdir(folderPath.join("/"), { recursive: true });
+            let folderPath = file.replace("src", buildPath).split("/");
 
-            if (filename.indexOf("server_") === -1) {
-
-                await fs.copyFile(file, destF);
-                console.log("COPY FILES ", file, destF);
+            let pos = folderPath.indexOf("img");
+            if (pos !== -1) {
+                let path = "./" + buildPath + "/" + folderPath.slice(pos).join("/");
+                let finalfolder = path.split("/");
+                finalfolder.pop(); 
+                await fs.mkdir(finalfolder.join("/"), { recursive: true });
+                console.log(finalfolder, "IMAGES", file, path);
+                await fs.copyFile(file, path);
+                
             }
-
         }
     }
 
@@ -91,12 +97,20 @@ export async function copyFiles(folder, options) {
 
     await fs.mkdir(buildP + "/css", { recursive: true });
     await fs.copyFile(folder + "/../node_modules/water.css/out/water.min.css", buildP + "/css/water.css");
+   
 
+    let indexCSS = await renderSCSSFile(folder + "/styles/index.scss", buildP + "/css/index.css");
+
+    fs.writeFile(buildP + "/css/index.css", indexCSS.css, function(err){
+        console.log(err);
+    });
+
+    await copyImages(folder, buildPath);
 
     await fs.mkdir(buildP + "/deps", { recursive: true });
 
     copyUsedNodeModules(buildP);
 
-
+    
 
 }

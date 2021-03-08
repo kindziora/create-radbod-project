@@ -38,7 +38,8 @@ export class myApp extends radbod.app {
      * @param {*} uri 
      */
     loading(uri) {
-        document.querySelector('.progress-bar-fill').style.width = "0%";
+        document.querySelector('.progress-bar').classList.remove("loaded"); 
+        document.querySelector('.progress-bar').classList.add("loading");
     }
     /**
      * 
@@ -46,7 +47,8 @@ export class myApp extends radbod.app {
      */
     loaded(uri) {
         console.log("loaded");
-        document.querySelector('.progress-bar-fill').style.width = "100%";
+        document.querySelector('.progress-bar').classList.remove("loading"); 
+        document.querySelector('.progress-bar').classList.add("loaded"); 
     }
 
     /**
