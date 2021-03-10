@@ -1,6 +1,6 @@
 <template language="js-template">
     <navgation>
-        <div class="logo"><img src="/img/topmenu/logo64.png" /></div>
+        <div class="logo"><img src="/img/topmenu/logo64.png" alt="no image" /></div>
         <div class="hamburger" data-events="hamburger:click">
             <div class="hamburg">
                 <span class="line"></span>
@@ -9,9 +9,9 @@
             </div>
         </div>
         <ul id="menu">
-           <li data-name="/$topmenu/link"><a href="/home" class="${topmenu.isActive('home')}">home</a></li> 
-           <li data-name="/$topmenu/link"><a href="/form" class="${topmenu.isActive('form')}">form</a></li> 
-           <li data-name="/$topmenu/link"><a href="/extra" class="${topmenu.isActive('extra')}">extra</a></li> 
+            <li data-name="/$topmenu/link"><a href="/home" class="${topmenu.isActive('home')}">home</a></li>
+            <li data-name="/$topmenu/link"><a href="/form" class="${topmenu.isActive('form')}">form</a></li>
+            <li data-name="/$topmenu/link"><a href="/extra" class="${topmenu.isActive('extra')}">extra</a></li>
         </ul>
     </navgation>
 </template>
@@ -24,7 +24,7 @@
     }
 
     .logo {
-        padding: 0.5em; 
+        padding: 0.5em;
     }
 
     .hamburger {
@@ -94,22 +94,23 @@
         display: block;
     }
 
-    #menu li{
+    #menu li {
         display: block;
         line-height: 50px;
         text-align: center;
     }
 
     #menu a.active {
-        font-weight:bold;
+        font-weight: bold;
     }
 
+    .hamburger.checked~#menu,
     .hamburger:hover~#menu {
         display: block;
-    }
-
-    .hamburger.checked~#menu {
-        display: block;
+        padding: 0;
+        margin: 0;
+        left: 0;
+        right: 0;
     }
 
     @media only screen and (min-width: 768px) {
@@ -139,34 +140,32 @@
 <script language="js">
 
     export let topmenu = {
-        loaded(data) { //pipeline after data has been loaded
-          
-            console.log("loaded", this);
-            
-            data._data.isActive = (path) => this.environment.path().split("/")[1] === path ?"active" :"";
+         loaded(data) { //pipeline after data has been loaded
+
+            console.log("LOADED TOPMENU", data);
+            data._data.isActive = (path) => this.environment.path().split("/")[1] === path ? "active" : "";
         },
         data(data, runtime) {
-            console.log(this);
             return this.createStore("topmenu", {
                 link: "runtime.path"
             })
         },
-        interactions : () => ({
-                "hamburger": {
-                    "click"(sender, dataStore) {
-                        sender.field.$el.classList.toggle("checked");
-                    }
-                },
-                "/$topmenu/link": {
-                    "click"(sender, dataStore) {
-                        sender.ev.preventDefault();
-
-                        buildApp.loadPage(sender.field.$el.firstChild.getAttribute("href"), ()=> {
-                            dataStore.link = sender.field.$el.firstChild.getAttribute("href");
-                        });
-
-                    }
+        interactions: () => ({
+            "hamburger": {
+                "click"(sender, dataStore) {
+                    sender.field.$el.classList.toggle("checked");
                 }
-            })
+            },
+            "/$topmenu/link": {
+                "click"(sender, dataStore) {
+                    sender.ev.preventDefault();
+
+                    buildApp.loadPage(sender.field.$el.firstChild.getAttribute("href"), () => {
+                        dataStore.link = sender.field.$el.firstChild.getAttribute("href");
+                    });
+
+                }
+            }
+        })
     }
 </script>

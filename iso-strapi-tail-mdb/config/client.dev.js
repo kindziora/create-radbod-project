@@ -7,7 +7,7 @@ export let environment = {
         find(query, onResultCallback) {
 
             setTimeout(() => onResultCallback.call({ dataH: {} }, {
-                name: "AK TODOS c asdfsdf sdf",
+                name: "name",
                 tab: "all",
                 items: [{
                     id: 0,
@@ -22,7 +22,7 @@ export let environment = {
                     label: "Testdaten3",
                     checked: false
                 }]
-            }), 1000);
+            }), 1110);
 
         }
     }

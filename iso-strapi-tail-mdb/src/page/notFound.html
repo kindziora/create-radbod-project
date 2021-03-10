@@ -13,8 +13,7 @@
         <footer class="info">
             <p>Double-click to edit a todo</p>
             <p>Written by <a href="http://twitter.com/lukeed05">Luke Edwards</a></p>
-            <p>Refactored by <a href="https://github.com/xorgy">Aaron Muir
-                    Hamilton</a></p>
+            <p>Refactored by <a href="https://github.com/xorgy">Aaron Muir Hamilton</a></p>
             <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
         </footer>
     </page>
@@ -24,10 +23,9 @@
 <style language="scss"></style>
 
 <script language="js">
-     import { topmenu } from '../component/topmenu';
-
+ 
     export let notFound = {
-        components: { "topmenu-component": topmenu },
+        components: { "topmenu-component": "topmenu#mainmenu" },
         data() {
             return this.createStore("notFound", { name: "AK not Found" });
         },

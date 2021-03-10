@@ -2,6 +2,7 @@
 import path from 'path';
 import { promises as fs } from 'fs';
 import {getCSS} from './styles.js';
+import {purgeCSSFromString} from './styles.js';
 
 const __dirname = path.resolve();
 const template = /<template.*>([^]+)?<\/template>/igm;
@@ -81,8 +82,9 @@ export async function buildFile(file, opts) {
 
     let { html, js, css } = await extract(content);
     try {
-        css = await getCSS(css, styleScope);
-
+        css = await getCSS(css, styleScope); 
+      //  let purgedCssData = await purgeCSSFromString(css, html);
+     //   css = purgedCssData[0].css;
     }catch(e) {
         console.log("SCSS ERROR: ", e);
     }

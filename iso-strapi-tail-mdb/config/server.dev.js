@@ -14,6 +14,10 @@ export let environment = {
                 id: 2,
                 label: "Testdaten3 server",
                 checked: false
+            }, {
+                id: 3,
+                label: "Testdaten4 server",
+                checked: false
             }]}), 0);
         }
     }

@@ -8,9 +8,9 @@
  * @param {*} meta 
  * @param {*} dataH 
  */
-export function fetchDataStores(component, componentsHandler, cb, allready, total, meta, dataH) {
+export function fetchDataStores(component, componentsHandler, cb, allready, total, meta, dataH, name) {
 
-    let callback = function (meta) {
+    let ready = function (meta) {
         return (data) => {
             cb(data, component);
             meta.cnt++;
@@ -24,26 +24,26 @@ export function fetchDataStores(component, componentsHandler, cb, allready, tota
 
     let result;
 
-    if (typeof component !== "string") {
-        
-        console.log("COMPONENT", component);
+    if (component.lazyLoading) {
+        if (typeof component.data !== "undefined") {
 
-        if (component.store) {
-            result = component.store;
+            result = component.data.call(dataH, (meta) => meta, {});
+            ready(meta)(result || {});
         } else {
-            result = component.data.call(dataH, callback(meta), {});
+            console.log("NAME", component, name.split("-component")[0]); 
+            result = componentsHandler[name.split("-component")[0]].data.call(dataH, ready(meta), {});
         }
-    } else { 
-        let componentID = component.components[i]; 
-        result = componentsHandler[componentID].store; 
-    }
 
+    } else {
+        result = component.data.call(dataH, ready(meta), {});
+    }
+    
     if (!result || typeof result.then !== "function") {
-        callback(meta)(result);
+        ready(meta)(result);
     }
 
     for (let i in component.components) {
-        fetchDataStores(component.components[i], componentsHandler, cb, allready, total, meta, dataH);
+        fetchDataStores(component.components[i], componentsHandler, cb, allready, total, meta, dataH, i);
     }
 
 }
@@ -65,6 +65,7 @@ export async function lookupComponents(component, cnt, componentHandler) {
             } else {
                 let tmpModule = await import(`../public/build/dev/component/${name}.js`);
                 componentHandler[componentID] = tmpModule[name];
+                componentHandler[name] = tmpModule[name];
                 component.components[i] = componentHandler[componentID];
             }
         }

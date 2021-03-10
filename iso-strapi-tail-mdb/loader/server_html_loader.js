@@ -61,7 +61,6 @@ export const html_loader = asyncHandler(async function (req, res, next) {
 
     fetchDataStores(page[pageName], componentsHandler, (data, component) => {
 
-        console.log("fetched datastore", data);
 
         if (typeof component.loaded === "function") {
             environment.path = () => path;
@@ -98,7 +97,7 @@ export const html_loader = asyncHandler(async function (req, res, next) {
 
         next();
 
-    }, count, met, dataH);
+    }, count, met, dataH, pageName);
 
 
 });

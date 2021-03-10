@@ -101,10 +101,9 @@
     /**
      * @TODO
      * 
-     * form validation geht nicht richtig
-     * 
      **/
     export let todo = {
+        lazyLoading: true, /* server side rendering does not wait for store "todo" for rendering */
         mounted() {
            console.log("mounted", this);
 
@@ -136,10 +135,10 @@
 
         },
         data(dataReady) {
-
+             
             return this.createStore("todo", {}).find({ id: 1 }, function (data) {
 
-                console.log("LOAD DATA todo", data);
+                
                 if (typeof dataReady === "function")
                     dataReady(data);
 

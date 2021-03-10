@@ -22,7 +22,6 @@ export async function copyFiles(folder, options) {
                 let finalfolder = path.split("/");
                 finalfolder.pop(); 
                 await fs.mkdir(finalfolder.join("/"), { recursive: true });
-                console.log(finalfolder, "IMAGES", file, path);
                 await fs.copyFile(file, path);
                 
             }
