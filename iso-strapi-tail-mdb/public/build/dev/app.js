@@ -4,6 +4,7 @@ import { getFile } from "./config/routes.js";
  * shared components
  */
 import { topmenu } from './component/topmenu.js';
+import { bottommenu } from './component/bottommenu.js';
 
 export class myApp extends radbod.app {
 
@@ -14,8 +15,12 @@ export class myApp extends radbod.app {
         
         this.mountComponent("topmenu#mainmenu", topmenu,  (stores, data, component) => {
             this.sharedComponents["topmenu#mainmenu"] = component;
-        }); 
+        });  
 
+        this.mountComponent("bottommenu#footermenu", bottommenu,  (stores, data, component) => {
+            this.sharedComponents["bottommenu#footermenu"] = component;
+        }); 
+        
      }
 
     /**

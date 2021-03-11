@@ -17,8 +17,7 @@
 </template>
 
 <style language="scss">
-    navgation {
-        background: #EEE;
+    navgation { 
         display: flex;
         justify-content: space-between;
     }
@@ -29,17 +28,15 @@
 
     .hamburger {
         padding: 0 0.5em;
-        font-size: 1.5em;
-        line-height: 3em;
+        font-size: 1em;
         display: flex;
         z-index: 2;
     }
 
     .hamburg {
         display: block;
-        background: #555;
-        width: 3.14em;
-        height: 2.1em;
+        width: 2.14em;
+        height: 2em;
         position: relative;
         margin: auto;
         border-radius: 4px;
@@ -48,11 +45,10 @@
 
     .line {
         position: absolute;
-        left: 10px;
-        height: 4px;
-        width: 55px;
-        background: #fff;
-        border-radius: 2px;
+        height: 5px;
+        width: inherit;
+        background: #403d3d;
+        border-radius: 32px;
         display: block;
         transition: 0.5s;
         transform-origin: center;
@@ -85,9 +81,12 @@
     #menu {
         position: absolute;
         width: 100%;
-        background: #eee;
         display: none;
+        background: white;
         list-style-type: none;
+        top: 0;
+        margin: 0;
+        padding: 0;
     }
 
     #menu:hover {
@@ -99,28 +98,36 @@
         line-height: 50px;
         text-align: center;
     }
-
-    #menu a.active {
-        font-weight: bold;
+    #menu a{
+        color:#999;
+    }
+    
+    #menu a:hover {
+        text-decoration: none;
+        color:#0076d1;
     }
 
-    .hamburger.checked~#menu,
-    .hamburger:hover~#menu {
+    #menu a.active {
+        color:#0076d1;
+        font-weight: 500;
+    }
+
+    .hamburger:hover~#menu ,.hamburger.checked~#menu {
         display: block;
         padding: 0;
         margin: 0;
         left: 0;
         right: 0;
-    }
+     }
 
     @media only screen and (min-width: 768px) {
         .hamburger {
             display: none;
         }
 
-        #menu {
-            position: static;
+        #menu { 
             display: flex;
+            position: static;
             background: none;
             clear: none;
             flex: 1;

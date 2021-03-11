@@ -1,3 +1,16 @@
+
+button, input[type=button], input[type=submit] {
+  font-weight:500;
+  background-color: #4fc1ea;
+  color: white;
+}
+
+button:hover {
+    box-shadow: 0px 0px 10px 0px grey;
+    background-color: #367288;
+}
+
+
 .container {
     display: flex;
     @media only screen and (max-width: 640px) {

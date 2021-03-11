@@ -12,9 +12,8 @@
 
         <todo-component type="component" data-name="/$todo"></todo-component>
 
-        <footer class="info">
+        <bottommenu-component data-name="/$bottommenu"></bottommenu-component>
 
-        </footer> ${_t("asas")}
     </page>
 </template>
 
@@ -31,7 +30,10 @@
             console.log("mounted", this);
         },
         components: 
-             { "todo-component": todo, "topmenu-component": "topmenu#mainmenu"}
+             { "todo-component": todo,
+              "topmenu-component": "topmenu#mainmenu", 
+              "bottommenu-component": "bottommenu#footermenu"
+            }
         ,
         data() {
             return this.createStore("home", { name: "AK home" });

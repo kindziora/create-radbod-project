@@ -42,10 +42,8 @@
         </div>
       </form>
     </section>
+    <bottommenu-component data-name="/$bottommenu"></bottommenu-component>
 
-    <footer class="info">
-
-    </footer>
   </page>
 </template>
 
@@ -82,7 +80,10 @@
     mounted() {
       console.log("mounted", this);
     },
-    components: { "topmenu-component": "topmenu#mainmenu" },
+    components: { 
+      "topmenu-component": "topmenu#mainmenu",
+      "bottommenu-component": "bottommenu#footermenu"
+    },
     data() {
       return this
         .createStore("user", { name: "user login" })

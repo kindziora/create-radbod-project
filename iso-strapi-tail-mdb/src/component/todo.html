@@ -8,7 +8,7 @@
     <span> hier ist nochmal der name ${todo.name} </span>
     <div data-name="/$todo/name"></div>
 
-    <section class="main">
+    <section id="todos">
 
         <label for="toggle-all">
             <input id="toggle-all" data-events="toggle:click" class="toggle-all" type="checkbox" data-name="/$todo/items" />
@@ -51,7 +51,7 @@
     </section>
 </template>
 
-<style language="scss">
+<style language="scss" scope="#todos">
     input.toggle {
         vertical-align: middle;
     }
@@ -60,6 +60,7 @@
         color: crimson;
         font-weight: 900;
         padding: 0;
+        background: none;
     }
 
     li.todo-item {
