@@ -1,0 +1,1 @@
+export const translations = {"en_EN":{"Products":"Products","Blog":"Blog","Follow us":"Follow us","home":"home","form":"form","extra":"extra"}}

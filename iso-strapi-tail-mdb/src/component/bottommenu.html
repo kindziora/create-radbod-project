@@ -1,0 +1,77 @@
+<template language="js-template">
+    <footer> 
+        <div class="logo">
+            
+        </div>
+        <div class="PRODUCT">
+            <h3>Products</h3>
+        </div>
+        <div class="BLOG">
+            <h3>Blog</h3>
+        </div>
+        <div class="followus">
+            <h3>Follow us</h3>
+        </div>
+    </footer>
+</template>
+
+<style language="scss">
+
+    footer {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr;
+        gap: 0px 0px;
+        grid-template-areas:
+            "logo PRODUCT BLOG followus";
+    }
+
+    .logo {
+        grid-area: logo;
+    }
+
+    .PRODUCT {
+        grid-area: PRODUCT;
+    }
+
+    .BLOG {
+        grid-area: BLOG;
+    }
+
+    .followus {
+        grid-area: followus;
+    }
+</style>
+
+<script language="js">
+
+    export let bottommenu = {
+        loaded(data) { //pipeline after data has been loaded
+
+            console.log("LOADED bottommenu", data);
+            data._data.isActive = (path) => this.environment.path().split("/")[1] === path ? "active" : "";
+        },
+        data(data, runtime) {
+            return this.createStore("bottommenu", {
+                link: "runtime.path"
+            })
+        },
+        interactions: () => ({
+            "hamburger": {
+                "click"(sender, dataStore) {
+                    sender.field.$el.classList.toggle("checked");
+                }
+            },
+            "/$bottommenu/link": {
+                "click"(sender, dataStore) {
+                    sender.ev.preventDefault();
+
+                    buildApp.loadPage(sender.field.$el.firstChild.getAttribute("href"), () => {
+                        dataStore.link = sender.field.$el.firstChild.getAttribute("href");
+                    });
+
+                }
+            }
+        })
+    }
+</script>
