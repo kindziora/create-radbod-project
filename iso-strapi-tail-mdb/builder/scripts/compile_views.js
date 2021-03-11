@@ -11,6 +11,39 @@ const viewProperty = /(views(["']|)\s*?:\s*)/mig;
 
 const componentObjectString = /export.*?\s({.*})/gims;
 
+/**
+ * @todo
+ * bei den view functionen könnte eine weitere stufe eingeführt werden.
+ * 
+ * {
+                   'topmenu-e-1' : function (args) { let {change, todo,topmenu, _t} = args; return `<div class="logo"><img src="/img/topmenu/logo64.png" alt="no image"></div> <div class="hamburger" data-events="hamburger:click"> <div class="hamburg"> <span class="line"></span> <span class="line"></span> <span class="line"></span> </div> </div> <ul id="menu"> <li data-name="/$topmenu/link"><a href="/home" class="${topmenu.isActive('home')}">${_t('home')}</a></li> <li data-name="/$topmenu/link"><a href="/form" class="${topmenu.isActive('form')}">${_t('form')}</a></li> <li data-name="/$topmenu/link"><a href="/extra" class="${topmenu.isActive('extra')}">${_t('extra')}</a></li> </ul>`},
+                   'topmenu-e-2' : function (args) { let {change, todo,topmenu, _t} = args; return `<img src="/img/topmenu/logo64.png" alt="no image">`},
+                   'topmenu-e-4' : function (args) { let {change, todo,topmenu, _t} = args; return `<div class="hamburg"> <span class="line"></span> <span class="line"></span> <span class="line"></span> </div>`},
+                   'topmenu-e-5' : function (args) { let {change, todo,topmenu, _t} = args; return `<span class="line"></span> <span class="line"></span> <span class="line"></span>`},
+                   'topmenu-e-9' : function (args) { let {change, todo,topmenu, _t} = args; return `<li data-name="/$topmenu/link"><a href="/home" class="${topmenu.isActive('home')}">${_t('home')}</a></li> <li data-name="/$topmenu/link"><a href="/form" class="${topmenu.isActive('form')}">${_t('form')}</a></li> <li data-name="/$topmenu/link"><a href="/extra" class="${topmenu.isActive('extra')}">${_t('extra')}</a></li>`},
+                   'topmenu-e-10' : function (args) { let {change, todo,topmenu, _t} = args; return `<a href="/home" class="${topmenu.isActive('home')}">${_t('home')}</a>`},
+                   'topmenu-e-11' : function (args) { let {change, todo,topmenu, _t} = args; return `${_t('home')}`},
+                   'topmenu-e-12' : function (args) { let {change, todo,topmenu, _t} = args; return `<a href="/form" class="${topmenu.isActive('form')}">${_t('form')}</a>`},
+                   'topmenu-e-13' : function (args) { let {change, todo,topmenu, _t} = args; return `${_t('form')}`},
+                   'topmenu-e-14' : function (args) { let {change, todo,topmenu, _t} = args; return `<a href="/extra" class="${topmenu.isActive('extra')}">${_t('extra')}</a>`},
+                   'topmenu-e-15' : function (args) { let {change, todo,topmenu, _t} = args; return `${_t('extra')}`},
+                   'topmenu' : function (args) { let {change, todo,topmenu, _t} = args; return `<navgation data-id="topmenu-e-1" data-view="topmenu-e-1"> <div class="logo" data-id="topmenu-e-2" data-view="topmenu-e-2"><img src="/img/topmenu/logo64.png" alt="no image" data-id="topmenu-e-3" data-view="topmenu-e-3"></div> <div class="hamburger" data-events="hamburger:click" data-id="topmenu-e-4" data-view="topmenu-e-4"> <div class="hamburg" data-id="topmenu-e-5" data-view="topmenu-e-5"> <span class="line" data-id="topmenu-e-6" data-view="topmenu-e-6"></span> <span class="line" data-id="topmenu-e-7" data-view="topmenu-e-7"></span> <span class="line" data-id="topmenu-e-8" data-view="topmenu-e-8"></span> </div> </div> <ul id="menu" data-type="list" data-id="topmenu-e-9" data-view="topmenu-e-9"> <li data-name="/$topmenu/link" data-id="topmenu-e-10" data-view="topmenu-e-10"><a href="/home" class="${topmenu.isActive('home')}" data-id="topmenu-e-11" data-view="topmenu-e-11">${_t('home')}</a></li> <li data-name="/$topmenu/link" data-id="topmenu-e-12" data-view="topmenu-e-12"><a href="/form" class="${topmenu.isActive('form')}" data-id="topmenu-e-13" data-view="topmenu-e-13">${_t('form')}</a></li> <li data-name="/$topmenu/link" data-id="topmenu-e-14" data-view="topmenu-e-14"><a href="/extra" class="${topmenu.isActive('extra')}" data-id="topmenu-e-15" data-view="topmenu-e-15">${_t('extra')}</a></li> </ul> </navgation>`} 
+                }
+ innerhalb der string templates könnten aufrufe auf die jeweiligen view functionen stehen, damit würde die Größe reduziert und SSR würde vllt besser gehen
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
 export class compileViews {
     constructor() {
 
