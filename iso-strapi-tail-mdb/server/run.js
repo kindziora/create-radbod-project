@@ -15,18 +15,13 @@ async function run() {
   //process.argv[2] ? await import(process.argv[2]) : false;
   //let { data_loader } = process.argv[3] ? await import(process.argv[3]) : false;
 
-  let statics = (process.argv[5] || "public/build/dev").split(';');
-  for (let s of statics)
-    app.use(express.static(path.join(__dirname, s)));
+  let staticPath = (process.argv[5] || "public/build/dev");
+
+  app.use(express.static(path.join(__dirname, staticPath)));
 
   if (typeof html_loader === "function") {
     app.use(html_loader);
   }
-
-  if (typeof data_loader === "function")
-    app.use(data_loader);
-
-  //SSR IMPLEMENTATION
 
   // make the server listen to requests
   app.listen(PORT, () => {

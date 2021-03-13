@@ -1,4 +1,4 @@
-import { getFile } from "./config/routes.js";
+import { parseRoute } from "./config/routes.js";
 
 /**
  * shared components
@@ -61,7 +61,7 @@ export class myApp extends radbod.app {
      * @param {*} component 
      */
     renderSharedComponents(component) {
-
+        
         for(let i in this.sharedComponents){
             let tagName = i.split("#")[0] + "-component";
             let shared = component.dom.$el.getElementsByTagName(tagName);
@@ -71,13 +71,17 @@ export class myApp extends radbod.app {
         }
 
     }
-
+ 
     /**
      * 
      * @param {*} path 
+     * @param {*} callback 
      */
     loadPage(path, callback) {
-        let page = getFile(path);
+        let routeInfo = parseRoute(path);
+        let page = routeInfo.filename;
+        
+        this.setLanguage(routeInfo.language); 
 
         this.loading(page);
 

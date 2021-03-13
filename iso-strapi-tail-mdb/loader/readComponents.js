@@ -30,7 +30,7 @@ export function fetchDataStores(component, componentsHandler, cb, allready, tota
             result = component.data.call(dataH, (meta) => meta, {});
             ready(meta)(result || {});
         } else {
-            console.log("NAME", component, name.split("-component")[0]); 
+           // console.log("NAME", component, name.split("-component")[0]); 
             result = componentsHandler[name.split("-component")[0]].data.call(dataH, ready(meta), {});
         }
 

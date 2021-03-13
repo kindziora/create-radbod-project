@@ -29,9 +29,9 @@
             <label for="passwd">Passwort</label>
             <input type="password" data-name="/$user/password" id="passwd" required
               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$" />
-
-            <button type="submit" data-name="/$user/submit">Anmelden</button>
-
+              <div class="button-container">   
+                  <button type="submit" data-name="/$user/submit">Anmelden</button>
+              </div>
           </div>
 
           <div class="item biefroest">
@@ -48,6 +48,26 @@
 </template>
 
 <style language="scss">
+  [data-name="form"]{
+
+    .container {
+        display: flex;
+        @media only screen and (max-width: 640px) {
+            flex-direction: column;
+        }
+    }
+
+    .item {
+        min-height: 100px;
+        flex-grow: 1;
+        width: 50%;
+        @media only screen and (max-width: 640px) {
+            width: 100%;
+        }
+    }
+
+  }
+
   .error {
     box-shadow: #f31010 0px 0px 4px 0px;
     border: 1px solid red;
@@ -114,7 +134,7 @@
 
       });
     },
-    translations(language) {
+    translations() {
       return {};
     }
   }

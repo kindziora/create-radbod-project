@@ -3,8 +3,7 @@ import puppeteer from "puppeteer";
 import { promises as fs } from 'fs';
 
 import { parse, stringify } from 'flatted';
-import { time } from 'console';
-
+ 
 const htmlProperty = /"html":".*?",/gmi;
 const viewProperty = /(views(["']|)\s*?:\s*)/mig;
 

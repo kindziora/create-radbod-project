@@ -1,16 +1,6 @@
 {
  "en_EN": {
   "404 oops Seite nicht gefunden": "404 oops Seite nicht gefunden",
-  "Hallo": "Hallo",
-  "Written by": "Written by",
-  "Luke Edwards": "Luke Edwards",
-  "Refactored by": "Refactored by",
-  "Aaron Muir Hamilton": "Aaron Muir Hamilton",
-  "Part of": "Part of",
-  "TodoMVC": "TodoMVC",
-  "Hallo not FOUND": "Hallo not FOUND",
-  "Double-click to edit a todo": "Double-click to edit a todo",
-  "oops Seite nicht gefunden": "oops Seite nicht gefunden",
-  "Seite nicht gefunden": "Seite nicht gefunden"
+  "Hallo": "Hallo"
  }
 }

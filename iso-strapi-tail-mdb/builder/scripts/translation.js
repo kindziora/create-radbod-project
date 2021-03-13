@@ -1,4 +1,4 @@
-const regex = /[>}]([\s\w]*)[$<]/gmi; // /[>](.*?)[<]|[>|}]([\s\w].*?)[<|$]/gmi
+const regex = /[>}]([\s\w\.\,\?\-\_\–\!ßäöü\|]*)[$<]/gmi; // /[>](.*?)[<]|[>|}]([\s\w].*?)[<|$]/gmi
 const fetchTranslationCalls = /\${_t\(([\s\S]*?)\)/igm;
 
 import { getFiles, folderViewList } from './files.js';

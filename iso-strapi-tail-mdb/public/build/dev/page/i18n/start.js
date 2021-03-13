@@ -1,0 +1,1 @@
+export const translations = {"en_EN":{"Willkommen start":"Willkommen start","einfach | gute | Texte":"simple | pleasing | content","Lorem ipsum sit dolor ametc, is a dummy text used by typography industry":"Lorem ipsum sit dolor ametc, is a dummy text used by typography industry","Get Started":"Get Started","Discover":"Discover"}}
