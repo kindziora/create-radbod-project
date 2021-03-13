@@ -130,8 +130,7 @@
 
     export let bottommenu = {
         loaded(data) { //pipeline after data has been loaded
-            
-            data._data.isActive = (path) => this.environment.path().split("/")[1] === path ? "active" : "";
+  
         },
         data(data, runtime) {
             return this.createStore("bottommenu", {

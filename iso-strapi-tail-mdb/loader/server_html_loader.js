@@ -1,6 +1,7 @@
 
 import { fetchDataStores, lookupComponents } from "./readComponents.js"
 import { environment } from "../config/server.dev.js";
+import viewMiddleware from '../src/middleware/view/view.js';
 
 import {
     dataHandler,
@@ -32,12 +33,12 @@ function getModules(meta) {
 }
 
 function getPageCSS(e) {
-    return `<style>${e.style}</style>`; 
+    return `<style>${e.style}</style>`;
 }
 
 function getAllCSS(meta) {
-      let mod = (e) => e.style ? `<style>${e.style}</style>` : undefined;
-      return meta.loaded.map(mod).join("\n\r"); 
+    let mod = (e) => e.style ? `<style>${e.style}</style>` : undefined;
+    return meta.loaded.map(mod).join("\n\r");
     return "";
 }
 
@@ -63,10 +64,11 @@ export const html_loader = asyncHandler(async function (req, res, next) {
     fetchDataStores(page[pageName], componentsHandler, (data, component) => {
 
         dataH.internationalize.addTranslation(typeof component.translations === "function" ? component.translations.call() : component.translations);
+        environment.isLinkActive = viewMiddleware(path).isLinkActive;
+        component.environment = environment;
 
         if (typeof component.loaded === "function") {
-            environment.path = () => path;
-            component.environment = environment;
+
             component.loaded.call(component, data);
         }
 
@@ -77,10 +79,9 @@ export const html_loader = asyncHandler(async function (req, res, next) {
         let _t = (text, lang) => stores.internationalize._t(text, lang);
 
         let storeData = stores.store.toObject();
-
         try {
 
-            let pageHTML = eval(`(${page[pageName].views[pageName].toString()})`).call(stores, { change: { value: "" }, ...storeData, _t });
+            let pageHTML = eval(`(${page[pageName].views[pageName].toString()})`).call(stores, { change: { value: "" }, ...storeData, _t, env: dataH.environment });
 
             let layoutStore = stores.createStore("index", {
                 html: pageHTML.replace(regexSectionHead, ""),
@@ -95,10 +96,10 @@ export const html_loader = asyncHandler(async function (req, res, next) {
         } catch (e) {
             console.log(renderedHTML, pageName, e);
         }
+
         res.send(renderedHTML);
 
         next();
-
     }, count, met, dataH, pageName);
 
 

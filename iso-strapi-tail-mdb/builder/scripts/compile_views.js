@@ -158,8 +158,8 @@ export class compileViews {
     async setupPuppeteer() {
 
         const browser = await puppeteer.launch({
-        //    headless: false,
-       //     devtools: true, 
+         //   headless: false,
+        //    devtools: true, 
             args: ["--disable-web-security"],
         });
         const page = await browser.newPage();
@@ -276,15 +276,17 @@ export class compileViews {
                 store,
                 component
             );
-
+         //  await timeout(1000);
             let strVws = [];
 
           //  strVws.push(`'${componentName}' : ${compo.dom.template.toString()}`);
+          
 
             for (let i in compo.dom.element) {
                 if (i.charAt(0) === "/") continue;
-                let element = compo.dom.element[i];
-
+                
+                let element = compo.dom.element[i]; 
+ 
                 if (typeof element.template === "function") {
                     strVws.push(`'${element.id}' : ${element.template.toString()}`);
                 }
@@ -298,7 +300,7 @@ export class compileViews {
                    ${strVws.join(`,
                    `).replace(/=""/g, '')} }`;
 
-
+                
             return Flatted.stringify(component);
         } catch (e) { 
             console.log(e, component);

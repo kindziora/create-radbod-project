@@ -12,7 +12,7 @@ export class myApp extends radbod.app {
         super(environment);
         this.$appEL = $appEL;
         this.sharedComponents = {};
-        
+  
         this.mountComponent("topmenu#mainmenu", topmenu,  (stores, data, component) => {
             this.sharedComponents["topmenu#mainmenu"] = component;
         });  
@@ -21,6 +21,7 @@ export class myApp extends radbod.app {
             this.sharedComponents["bottommenu#footermenu"] = component;
         }); 
         
+       
      }
 
     /**
@@ -80,7 +81,7 @@ export class myApp extends radbod.app {
     loadPage(path, callback) {
         let routeInfo = parseRoute(path);
         let page = routeInfo.filename;
-        
+
         this.setLanguage(routeInfo.language); 
 
         this.loading(page);

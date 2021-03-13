@@ -1,8 +1,6 @@
  
 export let environment = {
-    path : function(){
-        return window.location.pathname;
-    },
+    isLinkActive : (name) => window.location.pathname.split("/")[1] === name ? "active" : "",
     data_loader: {
         find(query, onResultCallback) {
 

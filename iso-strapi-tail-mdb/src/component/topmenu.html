@@ -9,10 +9,10 @@
             </div>
         </div>
         <ul id="menu">
-            <li data-name="/$topmenu/link"><a href="/start" class="${topmenu.isActive('start')}">start</a></li>
-            <li data-name="/$topmenu/link"><a href="/home" class="${topmenu.isActive('home')}">home</a></li>
-            <li data-name="/$topmenu/link"><a href="/form" class="${topmenu.isActive('form')}">form</a></li>
-            <li data-name="/$topmenu/link"><a href="/extra" class="${topmenu.isActive('extra')}">extra</a></li>
+             <li data-name="/$topmenu/link"><a href="/start" class="${env.isLinkActive('start')}">start</a></li>
+            <li data-name="/$topmenu/link"><a href="/home" class="${env.isLinkActive('home')}">home</a></li>
+            <li data-name="/$topmenu/link"><a href="/form" class="${ env.isLinkActive('form') }">form</a></li>
+            <li data-name="/$topmenu/link"><a href="/extra" class="${env.isLinkActive('extra')}">extra</a></li>
         </ul>
     </navgation>
 </template>
@@ -152,8 +152,6 @@
     export let topmenu = {
         loaded(data) { //pipeline after data has been loaded
 
-            
-            data._data.isActive = (path) => this.environment.path().split("/")[1] === path ? "active" : "";
         },
         data(data, runtime) {
             return this.createStore("topmenu", {

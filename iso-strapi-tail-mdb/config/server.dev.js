@@ -1,5 +1,5 @@
 export let environment = {
-   
+    isLinkActive : function(){}, //set on runtine inside server_html_loader
     data_loader: {
         find(options, cb) {
             setTimeout(() => cb.call({ dataH: {} }, { name: "test load asynchronous server",    items: [{
