@@ -9,6 +9,9 @@ import { bottommenu } from './component/bottommenu.js';
 export class myApp extends radbod.app {
 
     constructor(environment, $appEL) {
+
+        environment.view.path = () => window.location.pathname;
+
         super(environment);
         this.$appEL = $appEL;
         this.sharedComponents = {};
@@ -21,8 +24,8 @@ export class myApp extends radbod.app {
             this.sharedComponents["bottommenu#footermenu"] = component;
         }); 
         
-       
      }
+
 
     /**
      * 
@@ -102,6 +105,9 @@ export class myApp extends radbod.app {
                     if (typeof callback === "function")
                         callback(component);
                 });
+            }).catch((err)=>{
+                console.log(err);
+                this.loadPage("notFound");
             });
 
         }

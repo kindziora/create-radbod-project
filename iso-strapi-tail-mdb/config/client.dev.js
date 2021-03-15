@@ -1,6 +1,8 @@
- 
+import {viewFunctions} from '../middleware/view/view.js';
+
+
 export let environment = {
-    isLinkActive : (name) => window.location.pathname.split("/")[1] === name ? "active" : "",
+    view : new viewFunctions(this),
     data_loader: {
         find(query, onResultCallback) {
 

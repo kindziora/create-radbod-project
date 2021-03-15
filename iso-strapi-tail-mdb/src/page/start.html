@@ -6,7 +6,7 @@
         <topmenu-component type="component" data-name="/$topmenu"></topmenu-component>
 
         <div class="hero-body">
-            <div class="centered"> 
+            <div class="centered">
                 <div class="container">
                     <h1>einfach | gute | Texte</h1>
                     <h3>Lorem ipsum sit dolor ametc, is a dummy text used by typography industry </h3>
@@ -26,12 +26,92 @@
                 </div>
             </div>
         </div>
+
+        <div class="text-container">
+            <hr/>
+            <h1 >Great Power Comes </h1>
+            <h3>With great Responsability</h3>
+            <hr/>
+        </div>
+
+        <div class="card-container">
+
+            <div class="card-item">
+                <div class="card-title">
+                    <h4>Addons & Plugins</h4>
+                </div>
+                <div class="card-icon">
+                    <img src="img/icons/rocket.svg">
+                </div>
+                <div class="card-text">
+                    <p>This is some explanatory text that is on two rows</p>
+                </div>
+                <button class="submit">
+                  Get Started 
+                </button>
+            </div>
+
+            <div class="card-item">
+                <div class="card-title">
+                    <h4>Cloud integration</h4>
+                </div>
+                <div class="card-icon">
+                    <img src="img/icons/rocket.svg">
+                </div>
+                <div class="card-text">
+                    <p>This is some explanatory text that is on two rows</p>
+                </div>
+                <button class="submit">
+                    Get Started 
+                </button>
+            </div>
+
+            <div class="card-item">
+                <div class="card-title">
+                    <h4>Cloud integration</h4>
+                </div>
+                <div class="card-icon">
+                    <img src="img/icons/rocket.svg">
+                </div>
+                <div class="card-text">
+                    <p>This is some explanatory text that is on two rows</p>
+                </div>
+                <button class="submit">
+                    Get Started 
+                </button>
+            </div>
+        </div>
+
+
         <bottommenu-component data-name="/$bottommenu"></bottommenu-component>
 
     </page>
 </template>
 
 <style language="scss">
+
+    .text-container{
+        text-align: center;
+        margin:8em 0;
+    }
+
+    .card-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr;
+        gap: 0em 7em;
+        grid-template-areas: ". . .";
+
+        .card-item{
+          text-align: center;
+          padding:1em;
+          button{
+              font-weight:400;
+          }
+        }
+           
+    }
+
     .hero-body {
 
         display: flex;
@@ -44,6 +124,7 @@
             grid-template-columns: 1fr 1fr;
             align-items: center;
             justify-content: center;
+
             .container {
                 display: block;
                 color: #444f60;
@@ -54,15 +135,15 @@
                 }
             }
         }
-        @media only screen and (max-width: 768px) {
-            .centered {
+ 
+    }
+
+    @media only screen and (max-width: 768px) {
+            .centered,.card-container {
                 width: 100%;
                 display: block;
-
-            }
+            }  
         }
-
-    }
 </style>
 
 <script language="js">
@@ -70,7 +151,7 @@
 
     export let start = {
         mounted() {
-         //   console.log("mounted", this);
+            //   console.log("mounted", this);
         },
         components:
         {

@@ -1,5 +1,9 @@
+
+import {viewFunctions} from '../src/middleware/view/view.js';
+
+
 export let environment = {
-    isLinkActive : function(){}, //set on runtine inside server_html_loader
+    view : new viewFunctions(this),
     data_loader: {
         find(options, cb) {
             setTimeout(() => cb.call({ dataH: {} }, { name: "test load asynchronous server",    items: [{

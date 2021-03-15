@@ -1,8 +1,7 @@
 
 import { fetchDataStores, lookupComponents } from "./readComponents.js"
 import { environment } from "../config/server.dev.js";
-import viewMiddleware from '../src/middleware/view/view.js';
-
+ 
 import {
     dataHandler,
     eventHandler,
@@ -61,10 +60,12 @@ export const html_loader = asyncHandler(async function (req, res, next) {
     let count = await lookupComponents(page[pageName], 0, componentsHandler);
     let met = { cnt: 0, loaded: [] };
 
+    environment.view.path = (name) => path;
+
     fetchDataStores(page[pageName], componentsHandler, (data, component) => {
 
         dataH.internationalize.addTranslation(typeof component.translations === "function" ? component.translations.call() : component.translations);
-        environment.isLinkActive = viewMiddleware(path).isLinkActive;
+          
         component.environment = environment;
 
         if (typeof component.loaded === "function") {
