@@ -3,7 +3,7 @@ export const routes = {
     "^home": "home",
     "^start": "start",
     "^$": "start",
-    "^user/login": "form",
+    "^register": "register",
     "^form": "form",
     "_not_found": "notFound"
 };

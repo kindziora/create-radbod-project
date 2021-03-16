@@ -1,1 +1,0 @@
-export const translations = {"en_EN":{"\\":"\\","Hallo from from":"Hallo from from","Alter":"Alter","Geburtsdatum":"Geburtsdatum","Benutzername":"Benutzername","E-Mail":"E-Mail","Passwort":"Passwort","Anmelden":"Anmelden"}}

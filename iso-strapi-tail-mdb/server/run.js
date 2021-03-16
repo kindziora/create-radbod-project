@@ -17,6 +17,12 @@ async function run() {
 
   let staticPath = (process.argv[5] || "public/build/dev");
 
+  app.use( function ( req, res, next ) {
+    const { url, path: routePath }  = req ;
+    console.log( '### common TimeStamp:', Date.now(), ' - my LOGGER - URL (' + url + '), PATH (' + routePath + ').' ) ;
+    next() ;
+} ) ;
+
   app.use(express.static(path.join(__dirname, staticPath)));
 
   if (typeof html_loader === "function") {

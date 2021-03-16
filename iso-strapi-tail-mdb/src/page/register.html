@@ -1,0 +1,245 @@
+<template language="js-template">
+  <extend-head>
+    <title>${_t("Hier kannst du dich einloggen")}</title>
+  </extend-head>
+  <page>
+    <topmenu-component data-name="/$topmenu"></topmenu-component>
+
+    <section>
+      <form>
+        <h2>Account anlegen</h2>
+        <div class="container">
+
+          <div class="item biefroest">
+          </div>
+
+          <div class="item">
+
+            <label for="vname">Vorname</label>
+            <input id="vname" data-name="/$user/vname" required data-validations="required_validator" />
+
+            <label for="street">Straße</label>
+            <div class="address">
+              <input id="street" placeholder="${_t('Straßenname')}" data-name="/$user/street" required
+                data-validations="required_validator" />
+              <input id="nr" placeholder="${_t('Nr.')}" type="number" data-name="/$user/nr" required
+                data-validations="required_validator" />
+            </div>
+            <label for="country">Land</label>
+            <input id="country" data-name="/$user/country" required data-validations="required_validator" />
+
+            <label for="bname">Benutzername</label>
+            <input id="bname" data-name="/$user/bname" required data-validations="required_validator" />
+
+            <label for="passwd">Passwort</label>
+            <input type="password" data-name="/$user/password" id="passwd" required
+              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$" />
+          </div>
+
+          <div class="item">
+            <label for="nname">Nachname</label>
+            <input id="nname" data-name="/$user/nname" required data-validations="required_validator" />
+
+            <label for="street">Wo?</label>
+            <div class="location">
+              <input id="pcode" placeholder="${_t('PLZ')}" data-name="/$user/pcode" type="number" required
+                data-validations="required_validator" />
+              <input id="city" placeholder="${_t('Stadt')}" data-name="/$user/city" required
+                data-validations="required_validator" />
+            </div>
+
+
+
+            <label for="birthday">Geburtsdatum</label>
+            <input id="birthday" data-name="/$user/birthday" type="date" />
+
+            <label for="email">E-Mail</label>
+            <input id="email" type="email" data-name="/$user/email" required
+              data-validations="mail_validator,required_validator" />
+
+            <span data-name="/_state/$user/email" class="msg ${ change.value.msg ? 'error':''}">${ change.value.msg ?
+              change.value.msg.map(function(e){return e}) : ""
+              }</span>
+
+            <label for="passwdr">Passwort wiederholen</label>
+            <input type="password" data-name="/$user/passwordr" id="passwdr" required
+              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$" />
+   
+          </div>
+          <div class="button-container">
+            <button type="submit" data-name="/$user/submit">Anmelden</button>
+          </div>
+        </div>
+
+
+
+        <div class="step-container">
+          <span class="step"></span>
+          <span class="step"></span>
+          <span class="step"></span>
+          <span class="step"></span>
+        </div>
+
+      </form>
+    </section>
+    <bottommenu-component data-name="/$bottommenu"></bottommenu-component>
+
+  </page>
+</template>
+
+<style language="scss">
+  form {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+
+    .step-container {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .address {
+      display: flex;
+
+      input:nth-child(1) {
+        width: 11.8em;
+      }
+
+      input:nth-child(2) {
+        width: 2em;
+      }
+    }
+
+    .location {
+      display: flex;
+
+      input:nth-child(1) {
+        width: 4.8em;
+      }
+
+      input:nth-child(2) {
+        width: 9em;
+      }
+    }
+
+
+
+
+    /* Make circles that indicate the steps of the form: */
+    .step {
+      cursor: pointer;
+      height: 2em;
+      width: 2em;
+      margin: 0 1em;
+      background-color: #bbbbbb;
+      border: none;
+      border-radius: 50%;
+      display: inline-block;
+      opacity: 0.5;
+    }
+
+    /* Mark the active step: */
+    .step.active {
+      opacity: 1;
+    }
+
+    /* Mark the steps that are finished and valid: */
+    .step.finish {
+      background-color: #4CAF50;
+    }
+
+    .container {
+      width: min-content;
+      display: grid;
+      grid-template-columns: 20px 1fr 1fr;
+      grid-template-rows: 1fr;
+      gap: 0px 1.5em;
+      grid-template-areas:
+        ". . .";
+
+      @media only screen and (max-width: 640px) {
+        flex-direction: column;
+      }
+    }
+
+    .item {
+      min-height: 450px;
+
+      @media only screen and (max-width: 640px) {
+        width: 100%;
+      }
+    }
+
+
+
+    .error {
+      box-shadow: #f31010 0px 0px 4px 0px;
+      border: 1px solid red;
+      display: block;
+    }
+
+    span.msg {
+      position: absolute;
+      background-color: lightgoldenrodyellow;
+      border: 1px solid lightgray;
+      border-radius: 0 10px 10px 10px;
+    }
+
+    .biefroest {
+      background-image: url("img/register/biefrost.jpg");
+      background-size: cover;
+      background-position-x: center;
+    }
+  }
+</style>
+
+<script language="js">
+
+  import { magic_form } from '../middleware/magic_form';
+  import { mail_validator } from '../middleware/validator/email';
+  import { required_validator } from '../middleware/validator/required';
+
+
+  export let register = {
+    mounted() {
+      console.log("mounted", this);
+    },
+    components: {
+      "topmenu-component": "topmenu#mainmenu",
+      "bottommenu-component": "bottommenu#footermenu"
+    },
+    data() {
+      return this
+        .createStore("user", { name: "user login" })
+        .addValidations({ mail_validator, required_validator });
+    },
+    interactions() {
+      return magic_form.call(this, {
+        "/$user/submit": {
+          click(change, state) {
+            change.ev.preventDefault();
+            alert("SUBMIT");
+          }
+        },
+        "/_state/$user/email/msg": {
+          change(change, state) {
+            if (!state.isValid) {
+              document.querySelector("#email").classList.add("error");
+            } else {
+              document.querySelector("#email").classList.remove("error");
+            }
+            console.log(change, state);
+          }
+        }
+
+      }, "/$user", function (data) {
+
+        console.log("CHANGE PLEASE BACKEND SYNC", data)
+
+      });
+    },
+    translations() {
+      return {};
+    }
+  }
+</script>

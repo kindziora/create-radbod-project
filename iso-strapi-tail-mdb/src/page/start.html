@@ -4,18 +4,18 @@
     </extend-head>
     <page>
         <topmenu-component type="component" data-name="/$topmenu"></topmenu-component>
-
+        <script src="/deps/autotyper.js"></script>
         <div class="hero-body">
             <div class="centered">
                 <div class="container">
-                    <h1>einfach | gute | Texte</h1>
-                    <h3>Lorem ipsum sit dolor ametc, is a dummy text used by typography industry </h3>
+                    <div id="headline-animated" class="typerTarget">einfach | gute | Texte</div>
+                    <h3>Es ist keine Selbstverständlichkeit perfekte Inhalte zu schreiben, aber wir Arbeiten daran.</h3>
                     <div class="button-container">
                         <button class="submit">
-                            Get Started
+                            Texte kaufen
                         </button>
                         <button>
-                            Discover
+                            Texte schreiben
                         </button>
                     </div>
                 </div>
@@ -28,57 +28,63 @@
         </div>
 
         <div class="text-container">
-            <hr/>
-            <h1 >Great Power Comes </h1>
-            <h3>With great Responsability</h3>
-            <hr/>
+            <hr />
+            <h1>Suchmaschinenoptimierte Texte</h1>
+            <h3>&bdquo;verantwortungsvoll und transparent&quot;</h3>
+            <div class="divider"></div>
         </div>
 
         <div class="card-container">
 
             <div class="card-item">
                 <div class="card-title">
-                    <h4>Addons & Plugins</h4>
+                    <h4>Integration</h4>
                 </div>
                 <div class="card-icon">
-                    <img src="img/icons/rocket.svg">
+                    <img src="img/start/light-bulb.svg">
                 </div>
                 <div class="card-text">
-                    <p>This is some explanatory text that is on two rows</p>
+                    <p>Einfach in Wordpress oder Drupal unser Plugin nutzen und Texte erhalten.</p>
                 </div>
-                <button class="submit">
-                  Get Started 
-                </button>
+                <div class="button-container">
+                    <button class="submit">
+                        Los geht's
+                    </button>
+                </div>
             </div>
 
             <div class="card-item">
                 <div class="card-title">
-                    <h4>Cloud integration</h4>
+                    <h4>Qualitätssicherung</h4>
                 </div>
                 <div class="card-icon">
-                    <img src="img/icons/rocket.svg">
+                    <img src="img/start/rocket.svg">
                 </div>
                 <div class="card-text">
-                    <p>This is some explanatory text that is on two rows</p>
+                    <p>Individuellen und einzigartigen Inhalt in 3 Qualitätsstufen: normal, gesichtet, lektoriert.</p>
                 </div>
-                <button class="submit">
-                    Get Started 
-                </button>
+                <div class="button-container">
+                    <button class="submit">
+                        Beispiele
+                    </button>
+                </div>
             </div>
 
             <div class="card-item">
                 <div class="card-title">
-                    <h4>Cloud integration</h4>
+                    <h4>Zahlungen</h4>
                 </div>
                 <div class="card-icon">
-                    <img src="img/icons/rocket.svg">
+                    <img src="img/start/web.svg">
                 </div>
                 <div class="card-text">
-                    <p>This is some explanatory text that is on two rows</p>
+                    <p>Wir sind fair und günstig. Ihr bestimmt das Budget und erhaltet das was ihr zahlt.</p>
                 </div>
-                <button class="submit">
-                    Get Started 
-                </button>
+                <div class="button-container">
+                    <button class="submit">
+                        Budget im Blick
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -89,10 +95,17 @@
 </template>
 
 <style language="scss">
-
-    .text-container{
+    .text-container {
         text-align: center;
-        margin:8em 0;
+        margin: 8em 0;
+    }
+
+    .divider {
+        height: 3px;
+        border-radius: 50px;
+        background: #f39200;
+        width: 60px;
+        margin: auto;
     }
 
     .card-container {
@@ -102,17 +115,51 @@
         gap: 0em 7em;
         grid-template-areas: ". . .";
 
-        .card-item{
-          text-align: center;
-          padding:1em;
-          button{
-              font-weight:400;
-          }
+        .card-item {
+            text-align: center;
+            padding: 1em;
+            border: 1px solid #ededed;
+
+            button {
+                font-weight: 400;
+            }
+
+            .card-icon {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 50%;
+
+                img {
+                    width: 100px;
+                }
+            }
+
         }
-           
+
     }
 
     .hero-body {
+
+        @-webkit-keyframes blink-caret {
+            50% {
+                border-color: transparent;
+            }
+        }
+
+        .typerTarget {
+            border-right: 1px solid #404145;
+            -webkit-animation: blink-caret 0.5s step-end infinite alternate;
+            animation: blink-caret 0.5s step-end infinite alternate;
+        }
+
+        #headline-animated {
+            font-size: 2.5em;
+            height: 1.5em;
+            font-weight: 400;
+            width: fit-content;
+            overflow: auto;
+        }
 
         display: flex;
         align-items: center;
@@ -135,15 +182,22 @@
                 }
             }
         }
- 
+
+        @media only screen and (max-width: 768px) {
+            .centered {
+                width: 100%;
+                display: block;
+            }
+        }
+
     }
 
     @media only screen and (max-width: 768px) {
-            .centered,.card-container {
-                width: 100%;
-                display: block;
-            }  
+        .card-container {
+            width: 100%;
+            display: block;
         }
+    }
 </style>
 
 <script language="js">
@@ -152,6 +206,20 @@
     export let start = {
         mounted() {
             //   console.log("mounted", this);
+
+            window.setTimeout(() => {
+                var options = {
+                    delay: 6100,
+                    selector: "#headline-animated",
+                    words: ["einfach | gute | Texte...", "...Texte | einfach | gut", "...Texte | einfach | gut"]
+                };
+
+                // start auto typer
+                var typer = new autoTyper(options);
+                typer.start();
+
+            }, 1000);
+
         },
         components:
         {

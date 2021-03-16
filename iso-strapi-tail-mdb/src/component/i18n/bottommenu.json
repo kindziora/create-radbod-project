@@ -1,9 +1,10 @@
 {
  "en_EN": {
-  "Products": "Products",
+  "Mehr": "Mehr",
   "Website Content": "Website Content",
   "Blog Artikel": "Blog Artikel",
   "Seo Optimierte Inhalte": "Seo Optimierte Inhalte",
+  "Impressum": "Impressum",
   "Blog": "Blog",
   "Wie schreibt man richtig?": "Wie schreibt man richtig?",
   "SEO-Tricks": "SEO-Tricks",
@@ -13,6 +14,7 @@
   "youtube-with-circle": "youtube-with-circle",
   "instagram-with-circle": "instagram-with-circle",
   "facebook-with-circle": "facebook-with-circle",
+  "Products": "Products",
   "a": "a",
   "b": "b",
   "c": "c",
