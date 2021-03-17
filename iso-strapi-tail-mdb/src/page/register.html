@@ -6,30 +6,34 @@
     <topmenu-component data-name="/$topmenu"></topmenu-component>
 
     <section>
-      <form>
+      <form id="register">
         <h2>Account anlegen</h2>
-        <div class="container">
 
+
+        <div class="container">
           <div class="item biefroest">
+            <div id="triangle-right"></div>
           </div>
 
           <div class="item">
 
             <label for="vname">Vorname</label>
-            <input id="vname" data-name="/$user/vname" required data-validations="required_validator" />
+            <input id="vname" data-name="/$user/vname" name="forename" tabindex="0" required
+              data-validations="required_validator" />
 
             <label for="street">Straße</label>
             <div class="address">
-              <input id="street" placeholder="${_t('Straßenname')}" data-name="/$user/street" required
+              <input id="street" name="street" placeholder="${_t('Straßenname')}" data-name="/$user/street" required
                 data-validations="required_validator" />
-              <input id="nr" placeholder="${_t('Nr.')}" type="number" data-name="/$user/nr" required
+              <input id="nr" name="number" placeholder="${_t('Nr.')}" type="number" data-name="/$user/nr" required
                 data-validations="required_validator" />
             </div>
             <label for="country">Land</label>
-            <input id="country" data-name="/$user/country" required data-validations="required_validator" />
+            <input id="country" name="country" data-name="/$user/country" required
+              data-validations="required_validator" />
 
             <label for="bname">Benutzername</label>
-            <input id="bname" data-name="/$user/bname" required data-validations="required_validator" />
+            <input id="bname" name="username" data-name="/$user/bname" required data-validations="required_validator" />
 
             <label for="passwd">Passwort</label>
             <input type="password" data-name="/$user/password" id="passwd" required
@@ -38,23 +42,22 @@
 
           <div class="item">
             <label for="nname">Nachname</label>
-            <input id="nname" data-name="/$user/nname" required data-validations="required_validator" />
+            <input id="nname" name="surname" data-name="/$user/nname" required data-validations="required_validator" />
 
             <label for="street">Wo?</label>
             <div class="location">
-              <input id="pcode" placeholder="${_t('PLZ')}" data-name="/$user/pcode" type="number" required
-                data-validations="required_validator" />
-              <input id="city" placeholder="${_t('Stadt')}" data-name="/$user/city" required
+              <input id="pcode" name="postalcode" placeholder="${_t('PLZ')}" data-name="/$user/pcode" type="number"
+                required data-validations="required_validator" />
+              <input id="city" name="city" placeholder="${_t('Stadt')}" data-name="/$user/city" required
                 data-validations="required_validator" />
             </div>
 
-
-
             <label for="birthday">Geburtsdatum</label>
-            <input id="birthday" data-name="/$user/birthday" type="date" />
+            <input id="birthday" name="birthday" data-name="/$user/birthday" type="date" />
 
             <label for="email">E-Mail</label>
-            <input id="email" type="email" data-name="/$user/email" required
+
+            <input id="email" name="email" type="email" data-name="/$user/email" required
               data-validations="mail_validator,required_validator" />
 
             <span data-name="/_state/$user/email" class="msg ${ change.value.msg ? 'error':''}">${ change.value.msg ?
@@ -64,20 +67,145 @@
             <label for="passwdr">Passwort wiederholen</label>
             <input type="password" data-name="/$user/passwordr" id="passwdr" required
               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$" />
-   
+
+
           </div>
-          <div class="button-container">
-            <button type="submit" data-name="/$user/submit">Anmelden</button>
-          </div>
+
         </div>
 
 
+        <div class="container">
+          <div class="item biefroest">
 
-        <div class="step-container">
-          <span class="step"></span>
-          <span class="step"></span>
-          <span class="step"></span>
-          <span class="step"></span>
+          </div>
+
+          <div class="item">
+       <label><input type="checkbox" name="expertise[]"
+                value="Sachwerte (z.B. Haus, Gold, etc.)">Sachwerte (z.B. Haus, Gold, etc.)</label><label><input
+                type="checkbox" name="expertise[]" value="Kredite">Kredite</label><label><input type="checkbox"
+                name="expertise[]" value="Steuern">Steuern</label><label><input type="checkbox" name="expertise[]"
+                value="Zahlungsverkehr &amp; Konten">Zahlungsverkehr & Konten</label><label><input type="checkbox"
+                name="expertise[]" value="Kaufen &amp; Mieten">Kaufen & Mieten</label><label><input type="checkbox"
+                name="expertise[]" value="Bauen &amp; Renovieren">Bauen & Renovieren</label><label><input
+                type="checkbox" name="expertise[]" value="Haus &amp; Wohnung">Haus & Wohnung</label><label><input
+                type="checkbox" name="expertise[]" checked="checked" value="Garten">Garten</label><label><input
+                type="checkbox" name="expertise[]" value="Immobilien allgemein">Immobilien
+              allgemein</label><label><input type="checkbox" name="expertise[]" value="Strom &amp; Gas">Strom &
+              Gas</label><label><input type="checkbox" name="expertise[]" value="alternative Energien">alternative
+              Energien</label><label><input type="checkbox" name="expertise[]"
+                value="Wirtschaft">Wirtschaft</label><label><input type="checkbox" name="expertise[]"
+                value="Maschinenbau">Maschinenbau</label><label><input type="checkbox" name="expertise[]"
+                checked="checked" value="sonstige Technik">sonstige Technik</label><label><input type="checkbox"
+                name="expertise[]" value="Haushaltsgeräte">Haushaltsgeräte</label><label><input type="checkbox"
+                name="expertise[]" value="Hifi &amp;TV &amp; Co.">Hifi &TV & Co.</label><label><input type="checkbox"
+                name="expertise[]" checked="checked" value="Technik allgemein">Technik allgemein</label><label><input
+                type="checkbox" name="expertise[]" value="Uhren">Uhren</label><label><input type="checkbox"
+                name="expertise[]" value="Haus- &amp; Nutztiere">Haus- & Nutztiere</label><label><input type="checkbox"
+                name="expertise[]" value="Heimtierbedarf">Heimtierbedarf</label><label><input type="checkbox"
+                name="expertise[]" value="Tiere allgemein">Tiere allgemein</label><label><input type="checkbox"
+                name="expertise[]" value="Essen &amp; Trinken">Essen & Trinken</label><label><input type="checkbox"
+                name="expertise[]" value="Diät">Diät</label><label><input type="checkbox" name="expertise[]"
+                value="Nahrungsergänzung">Nahrungsergänzung</label><label><input type="checkbox" name="expertise[]"
+                value="Ernährung allgemein">Ernährung allgemein</label><label><input type="checkbox" name="expertise[]"
+                value="Bücher">Bücher</label><label><input type="checkbox" name="expertise[]"
+                value="Musikinstrumente">Musikinstrumente</label><label><input type="checkbox" name="expertise[]"
+                value="Musik">Musik</label><label><input type="checkbox" name="expertise[]"
+                value="Hörbücher &amp; E-Books">Hörbücher & E-Books</label><label><input type="checkbox"
+                name="expertise[]" value="Podcast">Podcast</label><label><input type="checkbox" name="expertise[]"
+                value="Filme &amp; Serien">Filme & Serien</label><label><input type="checkbox" name="expertise[]"
+                value="Zeitschriften">Zeitschriften</label><label><input type="checkbox" name="expertise[]"
+                value="Medien allgemein">Medien allgemein</label><label><input type="checkbox" name="expertise[]"
+                value="Onlinemarketing &amp; PP">Onlinemarketing & PP</label><label><input type="checkbox"
+                name="expertise[]" value="Social Media">Social Media</label><label><input type="checkbox"
+                name="expertise[]" value="Event &amp; Promotion">Event & Promotion</label><label><input type="checkbox"
+                name="expertise[]" value="Gewinnspiele &amp; Aktionen">Gewinnspiele & Aktionen</label><label><input
+                type="checkbox" name="expertise[]" value="Marketing allgemein">Marketing allgemein</label><label><input
+                type="checkbox" name="expertise[]" value="Sonstiges">Sonstiges</label><label><input type="checkbox"
+                name="expertise[]" value="erotische Geschichten">erotische Geschichten</label><label><input
+                type="checkbox" name="expertise[]" value="Toys und Hilfsmittel">Toys und
+              Hilfsmittel</label><label><input type="checkbox" name="expertise[]"
+                value="erotische Dienstleistungen">erotische Dienstleistungen</label><label><input type="checkbox"
+                name="expertise[]" value="Erotik allgemein">Erotik allgemein</label><label><input type="checkbox"
+                name="expertise[]" value="Wissenschaft allgemein">Wissenschaft allgemein</label><label><input
+                type="checkbox" name="expertise[]" value="Medizin">Medizin</label><label><input type="checkbox"
+                name="expertise[]" value="Wirtschaftswissenschaften">Wirtschaftswissenschaften</label><label><input
+                type="checkbox" name="expertise[]" value="Naturwissenschaften">Naturwissenschaften</label><label><input
+                type="checkbox" name="expertise[]" value="Geisteswissenschaften">Geisteswissenschaften</label>
+          </div>
+
+          <div class="item">
+            <label><input type="checkbox" name="expertise[]" checked="checked"
+              value="Reisen">Reisen</label><label><input type="checkbox" name="expertise[]"
+              value="Hotelbeschreibungen">Hotelbeschreibungen</label><label><input type="checkbox" name="expertise[]"
+              checked="checked" value="Sehenswürdigkeiten">Sehenswürdigkeiten</label><label><input type="checkbox"
+              name="expertise[]" checked="checked" value="Städte &amp; Länder">Städte & Länder</label><label><input
+              type="checkbox" name="expertise[]" value="Seetouristik">Seetouristik</label><label><input
+              type="checkbox" name="expertise[]" checked="checked" value="Tourismus allgemein">Tourismus
+            allgemein</label><label><input type="checkbox" name="expertise[]"
+              value="Hochzeit">Hochzeit</label><label><input type="checkbox" name="expertise[]"
+              value="Großveranstaltungen">Großveranstaltungen</label><label><input type="checkbox" name="expertise[]"
+              value="saisonale Ereignisse">saisonale Ereignisse</label><label><input type="checkbox"
+              name="expertise[]" value="Geschenke">Geschenke</label><label><input type="checkbox" name="expertise[]"
+              value="Events allgemein">Events allgemein</label><label><input type="checkbox" name="expertise[]"
+              value="Schule &amp; Studium">Schule & Studium</label><label><input type="checkbox" name="expertise[]"
+              value="Gesellschaft &amp; Politik">Gesellschaft & Politik</label><label><input type="checkbox"
+              name="expertise[]" value="Karriere">Karriere</label><label><input type="checkbox" name="expertise[]"
+              value="Familie &amp; Kind">Familie & Kind</label><label><input type="checkbox" name="expertise[]"
+              value="Recht &amp; Gesetz">Recht & Gesetz</label><label><input type="checkbox" name="expertise[]"
+              value="Gesellschaft allgemein">Gesellschaft allgemein</label><label><input type="checkbox"
+              name="expertise[]" value="Mode &amp; Heimtextilien">Mode & Heimtextilien</label><label><input
+              type="checkbox" name="expertise[]" value="Party">Party</label><label><input type="checkbox"
+              name="expertise[]" value="Schmuck">Schmuck</label><label><input type="checkbox" name="expertise[]"
+              value="Rauchen">Rauchen</label><label><input type="checkbox" name="expertise[]"
+              value="Spielzeug">Spielzeug</label><label><input type="checkbox" name="expertise[]"
+              value="Möbel &amp; Inneneinrichtung">Möbel & Inneneinrichtung</label><label><input type="checkbox"
+              name="expertise[]" value="Foto &amp; Kunst">Foto & Kunst</label><label><input type="checkbox"
+              name="expertise[]" value="Gesundheit &amp; Kosmetik">Gesundheit & Kosmetik</label><label><input
+              type="checkbox" name="expertise[]" value="Automobile &amp; Motorräder">Automobile &
+            Motorräder</label><label><input type="checkbox" name="expertise[]"
+              value="Esoterik">Esoterik</label><label><input type="checkbox" name="expertise[]"
+              value="Hobby &amp; Freizeit">Hobby & Freizeit</label><label><input type="checkbox" name="expertise[]"
+              value="Medizin">Medizin</label><label><input type="checkbox" name="expertise[]"
+              value="Liebe &amp; Partnerschaften">Liebe & Partnerschaften</label><label><input type="checkbox"
+              name="expertise[]" value="Lampen &amp; Beleuchtung">Lampen & Beleuchtung</label><label><input
+              type="checkbox" name="expertise[]" checked="checked" value="Kraft- &amp; Ausdauertraining">Kraft- &
+            Ausdauertraining</label><label><input type="checkbox" name="expertise[]"
+              value="Reitsport">Reitsport</label><label><input type="checkbox" name="expertise[]"
+              value="Fußball">Fußball</label><label><input type="checkbox" name="expertise[]"
+              value="Wasser- &amp; Wintersport">Wasser- & Wintersport</label><label><input type="checkbox"
+              name="expertise[]" value="Golf">Golf</label><label><input type="checkbox" name="expertise[]"
+              checked="checked" value="Fahrrad">Fahrrad</label><label><input type="checkbox" name="expertise[]"
+              checked="checked" value="Sonstige Sportarten">Sonstige Sportarten</label><label><input type="checkbox"
+              name="expertise[]" checked="checked" value="Sport allgemein">Sport allgemein</label><label><input
+              type="checkbox" name="expertise[]" checked="checked"
+              value="Computerspiele">Computerspiele</label><label><input type="checkbox" name="expertise[]"
+              checked="checked" value="Software &amp; Programmieren">Software & Programmieren</label><label><input
+              type="checkbox" name="expertise[]" value="Communities &amp; Flirtbörsen">Communities &
+            Flirtbörsen</label><label><input type="checkbox" name="expertise[]" checked="checked"
+              value="Computer &amp; Netzwerktechnik">Computer & Netzwerktechnik</label><label><input type="checkbox"
+              name="expertise[]" checked="checked" value="Webhosting &amp; Webdesign">Webhosting &
+            Webdesign</label><label><input type="checkbox" name="expertise[]"
+              value="Handys">Handys</label><label><input type="checkbox" name="expertise[]"
+              value="iPod &amp; iPad &amp; Co.">iPod & iPad & Co.</label><label><input type="checkbox"
+              name="expertise[]" value="Tarife">Tarife</label><label><input type="checkbox" name="expertise[]"
+              value="Telekommunikation allgemein">Telekommunikation allgemein</label><label><input type="checkbox"
+              name="expertise[]" value="Geldanlagen (z.B. Aktien, WePa, etc.)">Geldanlagen (z.B. Aktien, WePa,
+            etc.)</label><label><input type="checkbox" name="expertise[]"
+              value="Versicherungen">Versicherungen</label>
+          </div>
+
+        </div>
+
+        <div>
+          <div class="step-container s ">
+            <span class="step active">1</span>
+            <span class="step">2</span>
+            <span class="step">3</span>
+          </div>
+        </div>
+
+        <div class="button-container">
+          <button type="submit" data-name="/$user/submit">Anmelden</button>
         </div>
 
       </form>
@@ -95,7 +223,7 @@
 
     .step-container {
       text-align: center;
-      margin-top: 40px;
+      margin: 40px;
     }
 
     .address {
@@ -122,6 +250,25 @@
       }
     }
 
+    #triangle-right {
+      transition: all ease 500ms;
+      transition-property: margin-left, margin-top, border-color;
+      z-index: 1;
+      position: absolute;
+      margin-top: 21px;
+      margin-left: -6px;
+      width: 0;
+      height: 0;
+      border-radius: 24px;
+      border-top: 25px solid transparent;
+      border-left: 50px solid #66c166;
+      border-bottom: 25px solid transparent;
+      opacity: 0.78;
+    }
+
+    #triangle-right.triangle-error {
+      border-left: 50px solid red;
+    }
 
 
 
@@ -130,17 +277,21 @@
       cursor: pointer;
       height: 2em;
       width: 2em;
-      margin: 0 1em;
+      margin: 0 0.5em;
       background-color: #bbbbbb;
       border: none;
       border-radius: 50%;
       display: inline-block;
       opacity: 0.5;
+      line-height: 2em;
+      font-weight: 400;
+      box-shadow: 0px 3px 7px #737171;
     }
 
     /* Mark the active step: */
     .step.active {
       opacity: 1;
+      font-weight: 800;
     }
 
     /* Mark the steps that are finished and valid: */
@@ -149,28 +300,33 @@
     }
 
     .container {
+      position: relative;
       width: min-content;
       display: grid;
       grid-template-columns: 20px 1fr 1fr;
-      grid-template-rows: 1fr;
+      grid-template-rows: 1fr 0fr;
       gap: 0px 1.5em;
       grid-template-areas:
-        ". . .";
+        ". . ."
+        "s s s";
 
       @media only screen and (max-width: 640px) {
         flex-direction: column;
+        display: flex;
       }
     }
 
+    .s {
+      grid-area: s;
+    }
+
     .item {
-      min-height: 450px;
+      min-height: auto;
 
       @media only screen and (max-width: 640px) {
         width: 100%;
       }
     }
-
-
 
     .error {
       box-shadow: #f31010 0px 0px 4px 0px;
@@ -179,10 +335,9 @@
     }
 
     span.msg {
-      position: absolute;
-      background-color: lightgoldenrodyellow;
-      border: 1px solid lightgray;
-      border-radius: 0 10px 10px 10px;
+      position: relative;
+      background-color: #fbfbd7;
+      display: block;
     }
 
     .biefroest {
@@ -203,6 +358,9 @@
   export let register = {
     mounted() {
       console.log("mounted", this);
+      window.onresize = function () {
+        document.querySelector("#triangle-right").style.display = "none";
+      };
     },
     components: {
       "topmenu-component": "topmenu#mainmenu",
@@ -229,6 +387,27 @@
               document.querySelector("#email").classList.remove("error");
             }
             console.log(change, state);
+          }
+        },
+        "/_state": {
+          change(change, state) {
+            let $elTriangle = document.querySelector("#triangle-right");
+
+            if (document.querySelector("#register")
+              && document.querySelector("#register").contains(document.activeElement)
+              && document.activeElement.tagName !== "BUTTON") {
+              $elTriangle.style.display = "block";
+              if (state.isValid) {
+                $elTriangle.style.marginTop = (document.activeElement.offsetTop - 5) + "px";
+                $elTriangle.style.marginLeft = (document.activeElement.offsetLeft - 45) + "px";
+                $elTriangle.classList.remove("triangle-error");
+              } else {
+                $elTriangle.style.marginTop = (document.activeElement.offsetTop - 5) + "px";
+                $elTriangle.style.marginLeft = (document.activeElement.offsetLeft - 45) + "px";
+                $elTriangle.classList.add("triangle-error");
+              }
+            }
+
           }
         }
 
