@@ -28,18 +28,22 @@ export const magic_form = function (elementEvents, dataScope = "/", onSync, dela
      
     let kup = {
         change: function (sender, dataState) {
+            if(sender.field.$el.tagName ==="DIV")return;
             let name = sender.field.$el.getAttribute("data-name").split("/").pop();
             addValidators(sender.field, sender.field.$el.getAttribute("data-name"));
             dataState[name] = sender.field.getValue();
         },
         keyup: function (sender, dataState) {
+            if(sender.field.$el.tagName ==="DIV")return;
             let name = sender.field.$el.getAttribute("data-name").split("/").pop();
             addValidators(sender.field, sender.field.$el.getAttribute("data-name"));
             dataState[name] = sender.field.getValue();
         }
     };
 
-    for (let e in this.dom.elementByName) elementEvents[e] = Object.assign({}, elementEvents[e], kup);
+    for (let e in this.dom.elementByName){ 
+        elementEvents[e] = Object.assign({}, elementEvents[e], kup);
+    } 
 
     elementEvents[dataScope] = {
         "change"(change, store) {

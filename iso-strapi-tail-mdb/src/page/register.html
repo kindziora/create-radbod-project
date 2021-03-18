@@ -99,8 +99,13 @@
             </div>
 
             <div class="item">
-              <label for="langs">Sprachfähigkeiten</label>
+              <label for="langs">Sprachen</label>
               <select multiple id="langs" name="langs" data-name="/$user/langs"></select>
+
+              <label for="refs">Erfahrung</label>
+              <select multiple id="refs" name="refs" data-name="/$user/refs"></select>
+
+              <div data-name="/$user/refs" data-view="refsList" data-type="list"></div>
 
             </div>
 
@@ -357,7 +362,14 @@
         let { user } = args;
         let seoLevel = ["keine", "wenig", "beginner", "mittel", "fortgeschritten", "Experte"];
         return seoLevel[parseInt(user.seoLevel / (100 / (seoLevel.length - 1)))];
+      },
+      "refsList": function (args) {
+        let { change, user, _t } = args;
+        return `<div data-name="/$todo/refs/${change.index}" data-type="list-item" >
+          <strong>${change.value}</strong> <input data-name="/$todo/refsdetail/${change.index}" value="" placeholder="${change.value} eingeben" />
+        </div>`;
       }
+
     },
     mounted() {
 
@@ -373,7 +385,7 @@
     },
     data() {
       return this
-        .createStore("user", { name: "user login" })
+        .createStore("user", { name: "user login", refs: [] })
         .addValidations({ mail_validator, required_validator });
     },
     interactions() {
@@ -383,7 +395,7 @@
             import('../deps/slimselect.js')
               .then((slimSelect) => {
 
-                import('/page/i18n/de_DE/countries.js')
+                import('./i18n/de_DE/countries.js')
                   .then((module) => {
                     if (typeof window.countryS === "undefined")
                       window.countryS = new slimSelect.default({
@@ -392,7 +404,7 @@
                       });
                   });
 
-                import('/page/i18n/de_DE/topics.js')
+                import('./i18n/de_DE/topics.js')
                   .then((module) => {
                     new slimSelect.default({
                       select: '#skills',
@@ -400,13 +412,22 @@
                     });
                   });
 
-                import('/page/i18n/de_DE/langs.js')
+                import('./i18n/de_DE/langs.js')
                   .then((module) => {
                     new slimSelect.default({
                       select: '#langs',
                       data: module.langs
                     });
                   });
+
+                import('./i18n/de_DE/refs.js')
+                  .then((module) => {
+                    new slimSelect.default({
+                      select: '#refs',
+                      data: module.refs
+                    });
+                  });
+
               });
           }
         },
@@ -441,7 +462,7 @@
                 && document.activeElement.tagName !== "BUTTON") {
 
                 $elTriangle = $elTriangle.querySelector(':scope .triangle-right');
-                
+
                 $elTriangle.style.display = "block";
                 if (state.isValid) {
                   $elTriangle.style.marginTop = (document.activeElement.offsetTop - 5) + "px";
