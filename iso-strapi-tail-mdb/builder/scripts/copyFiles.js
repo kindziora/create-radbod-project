@@ -96,8 +96,8 @@ export async function copyFiles(folder, options) {
 
     await fs.mkdir(buildP + "/css", { recursive: true });
     await fs.copyFile(folder + "/../node_modules/water.css/out/water.min.css", buildP + "/css/water.css");
-   
-
+    await fs.copyFile(folder + "/../node_modules/slim-select/dist/slimselect.css", buildP + "/css/slimselect.css");
+ 
     let indexCSS = await renderSCSSFile(folder + "/styles/index.scss", buildP + "/css/index.css");
 
     fs.writeFile(buildP + "/css/index.css", indexCSS.css, function(err){

@@ -15,16 +15,16 @@ export class myApp extends radbod.app {
         super(environment);
         this.$appEL = $appEL;
         this.sharedComponents = {};
-  
-        this.mountComponent("topmenu#mainmenu", topmenu,  (stores, data, component) => {
-            this.sharedComponents["topmenu#mainmenu"] = component;
-        });  
 
-        this.mountComponent("bottommenu#footermenu", bottommenu,  (stores, data, component) => {
+        this.mountComponent("topmenu#mainmenu", topmenu, (stores, data, component) => {
+            this.sharedComponents["topmenu#mainmenu"] = component;
+        });
+
+        this.mountComponent("bottommenu#footermenu", bottommenu, (stores, data, component) => {
             this.sharedComponents["bottommenu#footermenu"] = component;
-        }); 
-        
-     }
+        });
+
+    }
 
 
     /**
@@ -40,14 +40,14 @@ export class myApp extends radbod.app {
         document.querySelector('#section').innerHTML = "";
         document.querySelector('#section').append(component.dom.$el);
         this.loaded(path);
-    } 
+    }
 
     /**
      * 
      * @param {*} uri 
      */
     loading(uri) {
-        document.querySelector('.progress-bar').classList.remove("loaded"); 
+        document.querySelector('.progress-bar').classList.remove("loaded");
         document.querySelector('.progress-bar').classList.add("loading");
     }
     /**
@@ -56,8 +56,8 @@ export class myApp extends radbod.app {
      */
     loaded(uri) {
         console.log("loaded");
-        document.querySelector('.progress-bar').classList.remove("loading"); 
-        document.querySelector('.progress-bar').classList.add("loaded"); 
+        document.querySelector('.progress-bar').classList.remove("loading");
+        document.querySelector('.progress-bar').classList.add("loaded");
     }
 
     /**
@@ -65,17 +65,23 @@ export class myApp extends radbod.app {
      * @param {*} component 
      */
     renderSharedComponents(component) {
-        
-        for(let i in this.sharedComponents){
+
+        for (let i in this.sharedComponents) {
             let tagName = i.split("#")[0] + "-component";
             let shared = component.dom.$el.getElementsByTagName(tagName);
-            if(shared[0]){
+            if (shared[0]) {
                 shared[0].appendChild(this.sharedComponents[i].dom.$el);
+                if(this.sharedComponents[i].interactions[tagName] && this.sharedComponents[i].interactions[tagName]["postRender"]){
+                    this.sharedComponents[i].interactions[tagName]["postRender"]();
+                }
             }
-        }
 
+        }
+        if(component.interactions[component.getName()] && component.interactions[component.getName()]["postRender"]){
+            component.interactions[component.getName()]["postRender"]();
+        }
     }
- 
+
     /**
      * 
      * @param {*} path 
@@ -85,7 +91,7 @@ export class myApp extends radbod.app {
         let routeInfo = parseRoute(path);
         let page = routeInfo.filename;
 
-        this.setLanguage(routeInfo.language); 
+        this.setLanguage(routeInfo.language);
 
         this.loading(page);
 
@@ -105,9 +111,9 @@ export class myApp extends radbod.app {
                     if (typeof callback === "function")
                         callback(component);
                 });
-            }).catch((err)=>{
+            }).catch((err) => {
                 console.log(err);
-                this.loadPage("notFound");
+                //    this.loadPage("notFound");
             });
 
         }
