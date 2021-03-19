@@ -72,13 +72,13 @@ export class myApp extends radbod.app {
             if (shared[0]) {
                 shared[0].appendChild(this.sharedComponents[i].dom.$el);
                 if(this.sharedComponents[i].interactions[tagName] && this.sharedComponents[i].interactions[tagName]["postRender"]){
-                    this.sharedComponents[i].interactions[tagName]["postRender"]();
+                    this.sharedComponents[i].interactions[tagName]["postRender"](component);
                 }
             }
 
         }
         if(component.interactions[component.getName()] && component.interactions[component.getName()]["postRender"]){
-            component.interactions[component.getName()]["postRender"]();
+            component.interactions[component.getName()]["postRender"](component);
         }
     }
 
