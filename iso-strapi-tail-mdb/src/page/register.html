@@ -556,6 +556,15 @@
         "/$user/submit": {
           click(change, state) {
             change.ev.preventDefault();
+
+            let inputs = document.querySelector("form").elements;
+            let paths = [];
+            for (let i = 0; i < inputs.length; i++) {
+              if(inputs[i].hasAttribute("data-name"))
+                paths.push(inputs[i].getAttribute("data-name"));
+            }
+
+            console.log(this.store.validateFields(paths));
             alert("SUBMIT");
           }
         },
