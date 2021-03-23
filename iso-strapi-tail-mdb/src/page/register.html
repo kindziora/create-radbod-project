@@ -63,10 +63,7 @@
               <input id="email" name="email" type="email" data-name="/$user/email" required
                 data-validations="mail_validator,required_validator" />
 
-              <span data-name="/_state/$user/email" class="msg ${ change.value.msg ? 'error':''}">${ change.value.msg
-                ?
-                change.value.msg.map(function(e){return e}) : ""
-                }</span>
+              <span data-name="/_state/$user/email" class="msg ${ change.value.msg ? 'error':''}">${ change.value.msg ? change.value.msg.map(function(e){return e}) : "" }</span>
 
               <label for="passwdr">Passwort wiederholen</label>
               <input type="password" data-validations="required_validator" data-name="/$user/passwordr" id="passwdr" required
