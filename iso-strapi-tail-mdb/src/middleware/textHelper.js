@@ -1,4 +1,6 @@
 export const countWords = function (text) {
+
+    text = text||"";
     let normalizedText = text.replace(/(\r\n|\n|\r)/gm, " ").replace(/^\s+|\s+$/g, "")
         .replace("&nbsp;", " ");
 

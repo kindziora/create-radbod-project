@@ -1,4 +1,9 @@
 export let countries = [
+  {
+    "text": "Bitte auswählen",
+    "placeholder" : true,
+    "value": ""
+  },
     {
       "text": "Deutschland",
       "value": "DE"

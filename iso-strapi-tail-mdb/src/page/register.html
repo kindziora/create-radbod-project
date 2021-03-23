@@ -38,7 +38,7 @@
                 data-validations="required_validator" />
 
               <label for="passwd">Passwort</label>
-              <input type="password" data-name="/$user/password" id="passwd" required
+              <input type="password" data-validations="required_validator" data-name="/$user/password" id="passwd" required
                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$" />
             </div>
 
@@ -69,7 +69,7 @@
                 }</span>
 
               <label for="passwdr">Passwort wiederholen</label>
-              <input type="password" data-name="/$user/passwordr" id="passwdr" required
+              <input type="password" data-validations="required_validator" data-name="/$user/passwordr" id="passwdr" required
                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$" />
 
 
@@ -138,8 +138,12 @@
             </div>
           </div>
           <hr />
-          <textarea class="sample-text" data-name="/$user/sampletext"></textarea>
-          Wörter:<span data-name="/$user/sampletext" data-view="wordcount"></span>
+          <textarea class="sample-text" data-name="/$user/sampletext" data-validations="wordlength_validator" placeholder="Keine Angst, es ist noch kein Meister vom Himmel gefallen!"></textarea>
+          
+          <span data-name="/$user/sampletext" data-view="wordcount"></span>
+
+          <span data-name="/_state/$user/sampletext">${change.value.msg}</span>
+
         </div>
 
 
@@ -176,9 +180,9 @@
       justify-content: stretch;
     }
 
-    .topic-container{
+    .topic-container {
       display: flex;
-    flex-direction: column;
+      flex-direction: column;
     }
 
     .stepTab {
@@ -307,6 +311,10 @@
     .ss-main .ss-multi-selected .ss-values .ss-value {
       font-size: inherit;
     }
+    
+    .ss-main .ss-single-selected .placeholder .ss-disabled {
+    color: #a08888;
+}
 
     .ss-main .ss-multi-selected .ss-add {
       margin: auto 10px auto 0;
@@ -445,8 +453,9 @@
 
 <script language="js">
 
-  import { magic_form } from '../middleware/magic_form';
+  import { magic_form } from '../middleware/magicForm';
   import { mail_validator } from '../middleware/validator/email';
+  import { wordlength_validator } from '../middleware/validator/wordlength';
   import { required_validator } from '../middleware/validator/required';
   import { getParent } from '../middleware/domHelper';
   import { countWords } from '../middleware/textHelper';
@@ -460,7 +469,7 @@
       },
       wordcount: function (args) {
         let { change } = args;
-        return countWords(change.value);
+        return "Wörter:" + countWords(change.value);
       },
       "refsList": function (args) {
         let { change, user, _t } = args;
@@ -484,8 +493,8 @@
     },
     data() {
       return this
-        .createStore("user", { name: "user login", refs: [], refsdetail: [], topicInfo: {} })
-        .addValidations({ mail_validator, required_validator });
+        .createStore("user", { name: "user login", refs: [], refsdetail: [], topicInfo: {}, step: 1, latest: 1 })
+        .addValidations({ mail_validator, required_validator, wordlength_validator });
     },
     interactions() {
       return magic_form.call(this, {
@@ -497,7 +506,7 @@
                 import('./i18n/de_DE/countries.js')
                   .then((module) => {
                     if (typeof window.countryS === "undefined")
-                      window.countryS = new slimSelect.default({
+                      window.countryS = new slimSelect.default({ 
                         select: '#country',
                         data: module.countries
                       });
@@ -533,7 +542,7 @@
               .then((module) => {
 
                 component.store._data.topicInfo = module.textTopics[0];
-                component.store._data.sampletext = module.textTopics[0].starter;
+               // component.store._data.sampletext = module.textTopics[0].starter;
                 component.store._data.variante = 0;
                 window.textVarianten = module.textTopics;
 
@@ -544,13 +553,19 @@
         "step": {
           click(change, state) {
             change.ev.preventDefault();
-            let step = change.field.$el.getAttribute("data-index");
-            document.querySelectorAll(".stepTab").forEach((e) => e.classList.remove("show"));
-            document.querySelector(`.step${step}`).classList.add("show");
 
-            document.querySelectorAll(".step").forEach((e) => e.classList.remove("active"));
-            document.querySelector(`.step[data-index="${step}"]`).classList.add("active");
-            window.scrollTo(0, 0);
+            let step = change.field.$el.getAttribute("data-index");
+            if (state.step >= step) {
+              document.querySelectorAll(".stepTab").forEach((e) => e.classList.remove("show"));
+              document.querySelector(`.step${step}`).classList.add("show");
+
+              document.querySelectorAll(".step").forEach((e) => e.classList.remove("active"));
+              document.querySelector(`.step[data-index="${step}"]`).classList.add("active");
+              window.scrollTo(0, 0);
+              state.step = parseInt(step);
+              if (state.latest <= state.step) state.latest = state.step;
+            }
+
           }
         },
         "/$user/submit": {
@@ -558,14 +573,45 @@
             change.ev.preventDefault();
 
             let inputs = document.querySelector("form").elements;
-            let paths = [];
+            let paths = { "step1": { fields: [] }, "step2": {  fields: [] }, "step3": { fields: [] } };
+           
             for (let i = 0; i < inputs.length; i++) {
-              if(inputs[i].hasAttribute("data-name"))
-                paths.push(inputs[i].getAttribute("data-name"));
+              for (let s in paths) {
+                if(!paths.hasOwnProperty(s))continue;
+                if (inputs[i].hasAttribute("data-name")) {
+                  if (document.querySelector(`form .${s}`).contains(inputs[i])) {
+
+                    let n = inputs[i].getAttribute("data-name");
+                    let tr = this.store.validateField(n, this.store.accessByPath(n));
+                    if(!tr.isValid){
+                      paths[s].fields.push(tr);
+                    }  
+
+                  }
+                }
+              }
+            }
+ 
+            let latestCorrect = false;
+            for (let s in paths) {
+                if(!paths.hasOwnProperty(s))continue;
+                if(paths[s].fields.length > 0){
+                  break;
+                }else{
+                  latestCorrect = parseInt(s.replace(/^.*?(\d+).*/,'$1'));
+                }
             }
 
-            console.log(this.store.validateFields(paths));
-            alert("SUBMIT");
+            if(latestCorrect) { 
+              if(latestCorrect === 3) {
+                //submit all
+              }else{ // next step
+                state.step = latestCorrect + 1;
+                document.querySelector(`.step[data-index="${state.step}"]`).click();
+              }
+             
+            }
+           
           }
         },
         "variante": {
