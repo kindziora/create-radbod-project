@@ -19,55 +19,71 @@
             <div class="item">
 
               <label for="vname">Vorname</label>
-              <input id="vname" data-name="/$user/vname" name="forename" tabindex="0" required
+              <input id="vname" data-name="/$user/forename" name="forename"
+                tabindex="0" required
                 data-validations="required_validator" />
 
               <label for="street">Straße</label>
               <div class="address">
-                <input id="street" name="street" placeholder="${_t('Straßenname')}" data-name="/$user/street" required
+                <input id="street" name="street"
+                  placeholder="${_t('Straßenname')}" data-name="/$user/street"
+                  required
                   data-validations="required_validator" />
-                <input id="nr" name="number" placeholder="${_t('Nr.')}" type="number" data-name="/$user/nr" required
+                <input id="nr" name="number" placeholder="${_t('Nr.')}"
+                  type="number" data-name="/$user/nr" required
                   data-validations="required_validator" />
               </div>
               <label for="country">Land</label>
-              <select id="country" name="country" data-name="/$user/country" required
+              <select id="country" name="country" data-name="/$user/country"
+                required
                 data-validations="required_validator"></select>
 
               <label for="bname">Benutzername</label>
-              <input id="bname" name="username" data-name="/$user/bname" required
+              <input id="bname" name="username" data-name="/$user/username"
+                required
                 data-validations="required_validator" />
 
               <label for="passwd">Passwort</label>
-              <input type="password" data-validations="required_validator" data-name="/$user/password" id="passwd" required
-                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$" />
+              <input type="password" data-validations="required_validator"
+                data-name="/$user/password" id="passwd" required
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$"
+                />
             </div>
 
             <div class="item">
               <label for="nname">Nachname</label>
-              <input id="nname" name="surname" data-name="/$user/nname" required
+              <input id="nname" name="surname" data-name="/$user/surname" required
                 data-validations="required_validator" />
 
               <label for="street">Wo?</label>
               <div class="location">
-                <input id="pcode" name="postalcode" placeholder="${_t('PLZ')}" data-name="/$user/pcode" type="number"
+                <input id="pcode" name="postalcode" placeholder="${_t('PLZ')}"
+                  data-name="/$user/pcode" type="number"
                   required data-validations="required_validator" />
-                <input id="city" name="city" placeholder="${_t('Stadt')}" data-name="/$user/city" required
+                <input id="city" name="city" placeholder="${_t('Stadt')}"
+                  data-name="/$user/city" required
                   data-validations="required_validator" />
               </div>
 
               <label for="birthday">Geburtsdatum</label>
-              <input id="birthday" name="birthday" data-name="/$user/birthday" type="date" />
+              <input id="birthday" name="birthday" data-name="/$user/birthday"
+                type="date" />
 
               <label for="email">E-Mail</label>
 
-              <input id="email" name="email" type="email" data-name="/$user/email" required
+              <input id="email" name="email" type="email"
+                data-name="/$user/email" required
                 data-validations="mail_validator,required_validator" />
 
-              <span data-name="/_state/$user/email" class="msg ${ change.value.msg ? 'error':''}">${ change.value.msg ? change.value.msg.map(function(e){return e}) : "" }</span>
+              <span data-name="/_state/$user/email" class="msg ${
+                change.value.msg ? 'error':''}">${ change.value.msg ?
+                change.value.msg.map(function(e){return e}) : "" }</span>
 
               <label for="passwdr">Passwort wiederholen</label>
-              <input type="password" data-validations="required_validator" data-name="/$user/passwordr" id="passwdr" required
-                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$" />
+              <input type="password" data-validations="required_validator"
+                data-name="/$user/passwordr" id="passwdr" required
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$"
+                />
 
 
             </div>
@@ -87,13 +103,16 @@
             <div class="item">
 
               <label for="skills">Lieblings-Themen</label>
-              <select multiple id="skills" name="skills" data-name="/$user/skills" required
+              <select multiple id="skills" name="skills"
+                data-name="/$user/skills" required
                 data-validations="required_validator"></select>
 
-              <label for="skills">SEO Erfahrung <span class="seometer" data-name="/$user/seoLevel"
+              <label for="skills">SEO Erfahrung <span class="seometer"
+                  data-name="/$user/seoLevel"
                   data-view="seometer">keine</span></label>
               <div class="slidecontainer">
-                <input type="range" min="1" max="100" value="0" data-name="/$user/seoLevel" class="slider" id="myRange">
+                <input type="range" min="1" max="100" value="0"
+                  data-name="/$user/seoLevel" class="slider" id="myRange">
               </div>
 
             </div>
@@ -101,11 +120,10 @@
             <div class="item">
               <label for="langs">Sprachen</label>
               <select multiple id="langs" name="langs" data-name="/$user/langs"></select>
-
               <label for="refs">Erfahrung mit Texten</label>
               <select multiple id="refs" name="refs" data-name="/$user/refs"></select>
-
-              <div data-name="/$user/refs" data-view="refsList" data-type="list"></div>
+              <div data-name="/$user/refs" data-view="refsList"
+                data-type="list"></div>
 
             </div>
 
@@ -115,7 +133,8 @@
 
         <div class="step3 stepTab">
           <h2>Kurzer Text</h2>
-          <p><i>Bitte schreibe uns doch ein paar Worte damit wir deine Fähigkeiten besser <strong>einschätzen</strong>
+          <p><i>Bitte schreibe uns doch ein paar Worte damit wir deine
+              Fähigkeiten besser <strong>einschätzen</strong>
               können.</i></p>
           <hr />
           <div class="topic-container">
@@ -135,12 +154,12 @@
             </div>
           </div>
           <hr />
-          <textarea class="sample-text" data-name="/$user/sampletext" data-validations="wordlength_validator" placeholder="Keine Angst, es ist noch kein Meister vom Himmel gefallen!"></textarea>
-          
+          <textarea class="sample-text" data-name="/$user/sampletext"
+            data-validations="wordlength_validator" placeholder="Keine Angst, es
+            ist noch kein Meister vom Himmel gefallen!"></textarea>
+
           <span data-name="/$user/sampletext" data-view="wordcount"></span>
-
           <span data-name="/_state/$user/sampletext">${change.value.msg}</span>
-
         </div>
 
 
@@ -159,8 +178,6 @@
       </form>
     </section>
     <bottommenu-component data-name="/$bottommenu"></bottommenu-component>
-
-
   </page>
 </template>
 
@@ -490,7 +507,7 @@
     },
     data() {
       return this
-        .createStore("user", { name: "user login", refs: [], refsdetail: [], topicInfo: {}, step: 1, latest: 1 })
+        .createStore("user", { name: "user login", refs: [], refsdetail: [], topicInfo: {}, step: 3, latest: 3 })
         .addValidations({ mail_validator, required_validator, wordlength_validator });
     },
     interactions() {
@@ -582,7 +599,10 @@
                     let tr = this.store.validateField(n, this.store.accessByPath(n));
                     if(!tr.isValid){
                       paths[s].fields.push(tr);
-                    }  
+                      inputs[i].classList.add("error");
+                    }  else{
+                      inputs[i].classList.remove("error");
+                    }
 
                   }
                 }
@@ -598,10 +618,37 @@
                   latestCorrect = parseInt(s.replace(/^.*?(\d+).*/,'$1'));
                 }
             }
-
-            if(latestCorrect) { 
-              if(latestCorrect === 3) {
+let test = true;
+            if(latestCorrect || test) { 
+              if(latestCorrect === 3 || test) {
                 //submit all
+                 let uData = JSON.parse(JSON.stringify(state));
+                 uData.seoLevel = parseInt(uData.seoLevel);
+                 uData.country = uData.country[0];
+
+                fetch('http://localhost:1337/auth/local/register', {
+                  method: 'POST',  
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify(uData),
+                })
+                .then(response => {
+                    // Handle success.
+                    console.log('Well done!');
+                    console.log('User profile', response.data.user);
+                    console.log('User token', response.data.jwt);
+                    
+                })
+                .catch(error => {
+                    // Handle error.
+                    console.log('An error occurred:', error);
+                   
+                });
+ 
+
+                console.log(state);
+
               }else{ // next step
                 state.step = latestCorrect + 1;
                 document.querySelector(`.step[data-index="${state.step}"]`).click();
@@ -649,10 +696,13 @@
                   $elTriangle.style.marginTop = (document.activeElement.offsetTop - 5) + "px";
                   $elTriangle.style.marginLeft = (document.activeElement.offsetLeft - 45) + "px";
                   $elTriangle.classList.remove("triangle-error");
+                  document.activeElement.classList.remove("error");
                 } else {
                   $elTriangle.style.marginTop = (document.activeElement.offsetTop - 5) + "px";
                   $elTriangle.style.marginLeft = (document.activeElement.offsetLeft - 45) + "px";
                   $elTriangle.classList.add("triangle-error");
+                  document.activeElement.classList.add("error");
+
                 }
               }
             }
