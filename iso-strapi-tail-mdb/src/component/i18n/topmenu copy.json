@@ -1,5 +1,9 @@
 {
  "en_EN": {
+  "start": "start",
+  "login": "login",
+  "registrieren": "registrieren",
+  "blog": "blog",
   "home": "home",
   "form": "form",
   "extra": "extra"

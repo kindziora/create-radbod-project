@@ -4,10 +4,9 @@
   </extend-head>
   <page>
     <topmenu-component data-name="/$topmenu"></topmenu-component>
-
     <section>
       <form id="register">
-
+        <modal-component data-name="/$modal"></modal-component>
         <div class="step1 stepTab show">
           <h2>Persönliche Daten</h2>
           <div class="container">
@@ -19,35 +18,27 @@
             <div class="item">
 
               <label for="vname">Vorname</label>
-              <input id="vname" data-name="/$user/forename" name="forename"
-                tabindex="0" required
+              <input id="vname" data-name="/$user/forename" name="forename" tabindex="0" required
                 data-validations="required_validator" />
 
               <label for="street">Straße</label>
               <div class="address">
-                <input id="street" name="street"
-                  placeholder="${_t('Straßenname')}" data-name="/$user/street"
-                  required
+                <input id="street" name="street" placeholder="${_t('Straßenname')}" data-name="/$user/street" required
                   data-validations="required_validator" />
-                <input id="nr" name="number" placeholder="${_t('Nr.')}"
-                  type="number" data-name="/$user/nr" required
+                <input id="nr" name="number" placeholder="${_t('Nr.')}" type="number" data-name="/$user/nr" required
                   data-validations="required_validator" />
               </div>
               <label for="country">Land</label>
-              <select id="country" name="country" data-name="/$user/country"
-                required
+              <select id="country" name="country" data-name="/$user/country" required
                 data-validations="required_validator"></select>
 
               <label for="bname">Benutzername</label>
-              <input id="bname" name="username" data-name="/$user/username"
-                required
+              <input id="bname" name="username" data-name="/$user/username" required
                 data-validations="required_validator" />
 
               <label for="passwd">Passwort</label>
-              <input type="password" data-validations="required_validator"
-                data-name="/$user/password" id="passwd" required
-                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$"
-                />
+              <input type="password" data-validations="required_validator" data-name="/$user/password" id="passwd"
+                required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$" />
             </div>
 
             <div class="item">
@@ -57,22 +48,18 @@
 
               <label for="street">Wo?</label>
               <div class="location">
-                <input id="pcode" name="postalcode" placeholder="${_t('PLZ')}"
-                  data-name="/$user/pcode" type="number"
+                <input id="pcode" name="postalcode" placeholder="${_t('PLZ')}" data-name="/$user/pcode" type="number"
                   required data-validations="required_validator" />
-                <input id="city" name="city" placeholder="${_t('Stadt')}"
-                  data-name="/$user/city" required
+                <input id="city" name="city" placeholder="${_t('Stadt')}" data-name="/$user/city" required
                   data-validations="required_validator" />
               </div>
 
               <label for="birthday">Geburtsdatum</label>
-              <input id="birthday" name="birthday" data-name="/$user/birthday"
-                type="date" />
+              <input id="birthday" name="birthday" data-name="/$user/birthday" type="date" />
 
               <label for="email">E-Mail</label>
 
-              <input id="email" name="email" type="email"
-                data-name="/$user/email" required
+              <input id="email" name="email" type="email" data-name="/$user/email" required
                 data-validations="mail_validator,required_validator" />
 
               <span data-name="/_state/$user/email" class="msg ${
@@ -80,10 +67,8 @@
                 change.value.msg.map(function(e){return e}) : "" }</span>
 
               <label for="passwdr">Passwort wiederholen</label>
-              <input type="password" data-validations="required_validator"
-                data-name="/$user/passwordr" id="passwdr" required
-                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$"
-                />
+              <input type="password" data-validations="required_validator" data-name="/$user/passwordr" id="passwdr"
+                required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$" />
 
 
             </div>
@@ -103,16 +88,13 @@
             <div class="item">
 
               <label for="skills">Lieblings-Themen</label>
-              <select multiple id="skills" name="skills"
-                data-name="/$user/skills" required
+              <select multiple id="skills" name="skills" data-name="/$user/skills" required
                 data-validations="required_validator"></select>
 
-              <label for="skills">SEO Erfahrung <span class="seometer"
-                  data-name="/$user/seoLevel"
+              <label for="skills">SEO Erfahrung <span class="seometer" data-name="/$user/seoLevel"
                   data-view="seometer">keine</span></label>
               <div class="slidecontainer">
-                <input type="range" min="1" max="100" value="0"
-                  data-name="/$user/seoLevel" class="slider" id="myRange">
+                <input type="range" min="1" max="100" value="0" data-name="/$user/seoLevel" class="slider" id="myRange">
               </div>
 
             </div>
@@ -122,8 +104,7 @@
               <select multiple id="langs" name="langs" data-name="/$user/langs"></select>
               <label for="refs">Erfahrung mit Texten</label>
               <select multiple id="refs" name="refs" data-name="/$user/refs"></select>
-              <div data-name="/$user/refs" data-view="refsList"
-                data-type="list"></div>
+              <div data-name="/$user/refs" data-view="refsList" data-type="list"></div>
 
             </div>
 
@@ -154,9 +135,8 @@
             </div>
           </div>
           <hr />
-          <textarea class="sample-text" data-name="/$user/sampletext"
-            data-validations="wordlength_validator" placeholder="Keine Angst, es
-            ist noch kein Meister vom Himmel gefallen!"></textarea>
+          <textarea class="sample-text" data-name="/$user/sampletext" data-validations="wordlength_validator"
+            placeholder="Keine Angst, es ist noch kein Meister vom Himmel gefallen!"></textarea>
 
           <span data-name="/$user/sampletext" data-view="wordcount"></span>
           <span data-name="/_state/$user/sampletext">${change.value.msg}</span>
@@ -325,10 +305,10 @@
     .ss-main .ss-multi-selected .ss-values .ss-value {
       font-size: inherit;
     }
-    
+
     .ss-main .ss-single-selected .placeholder .ss-disabled {
-    color: #a08888;
-}
+      color: #a08888;
+    }
 
     .ss-main .ss-multi-selected .ss-add {
       margin: auto 10px auto 0;
@@ -473,6 +453,8 @@
   import { required_validator } from '../middleware/validator/required';
   import { getParent } from '../middleware/domHelper';
   import { countWords } from '../middleware/textHelper';
+  import { modal } from '../component/modal';
+  import cookie from '../deps/cookie';
 
   export let register = {
     views: {
@@ -490,8 +472,17 @@
         return `<div data-name="/$user/refs/${change.index}" data-type="list-item" >
           <strong>${change.value}</strong> <input data-name="/$user/refsdetail/${change.index}" data-index="${change.index}" data-events="refsdetail:keyup" value="${user.refsdetail[change.index] ? user.refsdetail[change.index] : ''}" placeholder="${change.value} angeben" />
         </div>`;
-      }
-
+      },
+      "success": function (args) {
+        let { change, user } = args;
+        return `<p>Schön das du da bist ${user.forename}, bitte prüfe noch deine E-Mails.</p>
+        <p>Sobald du den Bestätigungslink aufgerufen hast wird dein Account aktiviert.</p>`;
+      },
+      "failed": function (args) {
+        let { change, user, modal } = args;
+        return `<p>Hallo ${user.forename}, bitte prüfe nochmal deine Angaben.</p>
+        <p>Unser System sagt nämlich: ${modal.error}</p>`;
+      },
     },
     mounted() {
 
@@ -503,7 +494,8 @@
     },
     components: {
       "topmenu-component": "topmenu#mainmenu",
-      "bottommenu-component": "bottommenu#footermenu"
+      "bottommenu-component": "bottommenu#footermenu",
+      "modal-component": modal
     },
     data() {
       return this
@@ -520,7 +512,7 @@
                 import('./i18n/de_DE/countries.js')
                   .then((module) => {
                     if (typeof window.countryS === "undefined")
-                      window.countryS = new slimSelect.default({ 
+                      window.countryS = new slimSelect.default({
                         select: '#country',
                         data: module.countries
                       });
@@ -556,7 +548,7 @@
               .then((module) => {
 
                 component.store._data.topicInfo = module.textTopics[0];
-               // component.store._data.sampletext = module.textTopics[0].starter;
+                // component.store._data.sampletext = module.textTopics[0].starter;
                 component.store._data.variante = 0;
                 window.textVarianten = module.textTopics;
 
@@ -587,20 +579,20 @@
             change.ev.preventDefault();
 
             let inputs = document.querySelector("form").elements;
-            let paths = { "step1": { fields: [] }, "step2": {  fields: [] }, "step3": { fields: [] } };
-           
+            let paths = { "step1": { fields: [] }, "step2": { fields: [] }, "step3": { fields: [] } };
+
             for (let i = 0; i < inputs.length; i++) {
               for (let s in paths) {
-                if(!paths.hasOwnProperty(s))continue;
+                if (!paths.hasOwnProperty(s)) continue;
                 if (inputs[i].hasAttribute("data-name")) {
                   if (document.querySelector(`form .${s}`).contains(inputs[i])) {
 
                     let n = inputs[i].getAttribute("data-name");
                     let tr = this.store.validateField(n, this.store.accessByPath(n));
-                    if(!tr.isValid){
+                    if (!tr.isValid) {
                       paths[s].fields.push(tr);
                       inputs[i].classList.add("error");
-                    }  else{
+                    } else {
                       inputs[i].classList.remove("error");
                     }
 
@@ -608,54 +600,54 @@
                 }
               }
             }
- 
+
             let latestCorrect = false;
             for (let s in paths) {
-                if(!paths.hasOwnProperty(s))continue;
-                if(paths[s].fields.length > 0){
-                  break;
-                }else{
-                  latestCorrect = parseInt(s.replace(/^.*?(\d+).*/,'$1'));
-                }
+              if (!paths.hasOwnProperty(s)) continue;
+              if (paths[s].fields.length > 0) {
+                break;
+              } else {
+                latestCorrect = parseInt(s.replace(/^.*?(\d+).*/, '$1'));
+              }
             }
-let test = true;
-            if(latestCorrect || test) { 
-              if(latestCorrect === 3 || test) {
+
+            if (latestCorrect) {
+              if (latestCorrect === 3) {
                 //submit all
-                 let uData = JSON.parse(JSON.stringify(state));
-                 uData.seoLevel = parseInt(uData.seoLevel);
-                 uData.country = uData.country[0];
+                let uData = JSON.parse(JSON.stringify(state));
+                uData.seoLevel = parseInt(uData.seoLevel);
+                uData.country = uData.country[0];
 
                 fetch('http://localhost:1337/auth/local/register', {
-                  method: 'POST',  
+                  method: 'POST',
                   headers: {
                     'Content-Type': 'application/json',
                   },
                   body: JSON.stringify(uData),
                 })
-                .then(response => {
-                    // Handle success.
-                    console.log('Well done!');
-                    console.log('User profile', response.data.user);
-                    console.log('User token', response.data.jwt);
+                  .then(response => {
+                    this.store.dataH.pxy.$modal.show = true;
+                    this.store.dataH.pxy.$modal.body = this.dom.views.success.call(this, { change, user: state })
+
+                    cookie.set('tk', response.jwt, { expires: 7 });
+                    cookie.set('user', JSON.stringify(response.user), { expires: 7 });
                     
-                })
-                .catch(error => {
-                    // Handle error.
-                    console.log('An error occurred:', error);
-                   
-                });
- 
+                  })
+                  .catch(error => {
+                    this.store.dataH.pxy.$modal.error = JSON.stringify(error);
+                    this.store.dataH.pxy.$modal.body = this.dom.views.error.call(this, { change, user: state, modal: this.store.dataH.pxy.$modal })
+                  });
+
 
                 console.log(state);
 
-              }else{ // next step
+              } else { // next step
                 state.step = latestCorrect + 1;
                 document.querySelector(`.step[data-index="${state.step}"]`).click();
               }
-             
+
             }
-           
+
           }
         },
         "variante": {

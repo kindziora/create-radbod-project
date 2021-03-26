@@ -1,5 +1,5 @@
 import { parseRoute } from "./config/routes.js";
-
+import cookie from './deps/cookie.js';
 /**
  * shared components
  */
@@ -23,7 +23,8 @@ export class myApp extends radbod.app {
         this.mountComponent("bottommenu#footermenu", bottommenu, (stores, data, component) => {
             this.sharedComponents["bottommenu#footermenu"] = component;
         });
-
+      
+        this.cookie = cookie; 
     }
 
 
