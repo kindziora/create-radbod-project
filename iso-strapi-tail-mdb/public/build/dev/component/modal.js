@@ -25,7 +25,7 @@
                 header: "Hello",
                 body: "body",
                 footer: "footer",
-                show:true
+                show:false
             })
         },
         interactions: () => ({

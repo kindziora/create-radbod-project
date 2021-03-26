@@ -561,7 +561,7 @@
             change.ev.preventDefault();
 
             let step = change.field.$el.getAttribute("data-index");
-            if (state.step >= step) {
+            if (change.step >= step) {
               document.querySelectorAll(".stepTab").forEach((e) => e.classList.remove("show"));
               document.querySelector(`.step${step}`).classList.add("show");
 
@@ -612,11 +612,21 @@
             }
 
             if (latestCorrect) {
-              if (latestCorrect === 3) {
+
+              if (latestCorrect < 3) {
+                state.step = latestCorrect + 1;
+                document.querySelector(`.step[data-index="${state.step}"]`).click();
+              }else if (latestCorrect === 3) {
                 //submit all
                 let uData = JSON.parse(JSON.stringify(state));
                 uData.seoLevel = parseInt(uData.seoLevel);
                 uData.country = uData.country[0];
+
+                let errorFnc = (error) => {
+                  this.store.dataH.pxy.$modal.error = JSON.stringify(error);
+                  this.store.dataH.pxy.$modal.body = this.dom.views.error.call(this, { change, user: state, modal: this.store.dataH.pxy.$modal });
+                  this.store.dataH.pxy.$modal.show = true;
+                };
 
                 fetch('http://localhost:1337/auth/local/register', {
                   method: 'POST',
@@ -626,25 +636,20 @@
                   body: JSON.stringify(uData),
                 })
                   .then(response => {
+                    if(!response.bodyUsed) return errorFnc.call(this, response);
+
+                    this.store.dataH.pxy.$modal.body = this.dom.views.success.call(this, { change, user: state });
+
                     this.store.dataH.pxy.$modal.show = true;
-                    this.store.dataH.pxy.$modal.body = this.dom.views.success.call(this, { change, user: state })
 
                     cookie.set('tk', response.jwt, { expires: 7 });
                     cookie.set('user', JSON.stringify(response.user), { expires: 7 });
                     
                   })
-                  .catch(error => {
-                    this.store.dataH.pxy.$modal.error = JSON.stringify(error);
-                    this.store.dataH.pxy.$modal.body = this.dom.views.error.call(this, { change, user: state, modal: this.store.dataH.pxy.$modal })
-                  });
+                  .catch(errorFnc);
+                  
 
-
-                console.log(state);
-
-              } else { // next step
-                state.step = latestCorrect + 1;
-                document.querySelector(`.step[data-index="${state.step}"]`).click();
-              }
+              }  
 
             }
 
