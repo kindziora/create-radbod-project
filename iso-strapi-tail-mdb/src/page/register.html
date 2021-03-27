@@ -18,14 +18,14 @@
             <div class="item">
 
               <label for="vname">Vorname</label>
-              <input id="vname" data-name="/$user/forename" name="forename" tabindex="0" required
+              <input id="vname" data-name="/$user/forename" name="forename" value="${user.forename}" tabindex="0" required
                 data-validations="required_validator" />
 
               <label for="street">Straße</label>
               <div class="address">
-                <input id="street" name="street" placeholder="${_t('Straßenname')}" data-name="/$user/street" required
+                <input id="street" name="street" placeholder="${_t('Straßenname')}" value="${user.street}"  data-name="/$user/street" required
                   data-validations="required_validator" />
-                <input id="nr" name="number" placeholder="${_t('Nr.')}" type="number" data-name="/$user/nr" required
+                <input id="nr" name="number" placeholder="${_t('Nr.')}" type="number" value="${user.nr}"  data-name="/$user/nr" required
                   data-validations="required_validator" />
               </div>
               <label for="country">Land</label>
@@ -33,33 +33,33 @@
                 data-validations="required_validator"></select>
 
               <label for="bname">Benutzername</label>
-              <input id="bname" name="username" data-name="/$user/username" required
+              <input id="bname" name="username" data-name="/$user/username" required value="${user.username}" 
                 data-validations="required_validator" />
 
               <label for="passwd">Passwort</label>
-              <input type="password" data-validations="required_validator" data-name="/$user/password" id="passwd"
+              <input type="password" data-validations="required_validator" data-name="/$user/password" id="passwd" 
                 required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$" />
             </div>
 
             <div class="item">
               <label for="nname">Nachname</label>
-              <input id="nname" name="surname" data-name="/$user/surname" required
+              <input id="nname" name="surname" data-name="/$user/surname" required  value="${user.surname}" 
                 data-validations="required_validator" />
 
               <label for="street">Wo?</label>
               <div class="location">
-                <input id="pcode" name="postalcode" placeholder="${_t('PLZ')}" data-name="/$user/pcode" type="number"
+                <input id="pcode" name="postalcode" placeholder="${_t('PLZ')}" data-name="/$user/pcode" type="number"  value="${user.pcode}" 
                   required data-validations="required_validator" />
-                <input id="city" name="city" placeholder="${_t('Stadt')}" data-name="/$user/city" required
+                <input id="city" name="city" placeholder="${_t('Stadt')}" data-name="/$user/city" required value="${user.city}" 
                   data-validations="required_validator" />
               </div>
 
               <label for="birthday">Geburtsdatum</label>
-              <input id="birthday" name="birthday" data-name="/$user/birthday" type="date" />
+              <input id="birthday" name="birthday" data-name="/$user/birthday" type="date" value="${user.date}" />
 
               <label for="email">E-Mail</label>
 
-              <input id="email" name="email" type="email" data-name="/$user/email" required
+              <input id="email" name="email" type="email" data-name="/$user/email" required value="${user.email}" 
                 data-validations="mail_validator,required_validator" />
 
               <span data-name="/_state/$user/email" class="msg ${
@@ -94,7 +94,7 @@
               <label for="skills">SEO Erfahrung <span class="seometer" data-name="/$user/seoLevel"
                   data-view="seometer">keine</span></label>
               <div class="slidecontainer">
-                <input type="range" min="1" max="100" value="0" data-name="/$user/seoLevel" class="slider" id="myRange">
+                <input type="range" min="1" max="100" value="${user.seoLevel}" data-name="/$user/seoLevel" class="slider" id="myRange">
               </div>
 
             </div>
@@ -481,7 +481,7 @@
       "failed": function (args) {
         let { change, user, modal } = args;
         return `<p>Hallo ${user.forename}, bitte prüfe nochmal deine Angaben.</p>
-        <p>Unser System sagt nämlich: ${modal.error}</p>`;
+        <p>Unser System sagt nämlich: <strong>${modal.error}</strong></p>`;
       },
     },
     mounted() {
@@ -499,7 +499,59 @@
     },
     data() {
       return this
-        .createStore("user", { name: "user login", refs: [], refsdetail: [], topicInfo: {}, step: 3, latest: 3 })
+        .createStore("user", { name: "user login",  "refs": [
+        "Beruf",
+        "Ausbildung",
+        "Studium",
+        "Kurse",
+        "Hobby",
+        "Freizeit"
+    ],
+    "refsdetail": [
+        "b",
+        "k",
+        "h",
+        "f",
+        "a",
+        "f"
+    ],
+    "topicInfo": {
+        "type": "Ein kurzer Teaser über ein Hotel, der neugierig machen soll.",
+        "name": "Reiseort deiner Wahl",
+        "wordrange": "150-200 Wörter",
+        "keyword": "Hotel MoriMut (muss 1 mal im Text vorkommen)",
+        "style": "Stilvoll, nicht zu gehoben",
+        "aim": "Touristen sollen angesprochen werden das Hotel zu nutzen",
+        "starter": "Keine Angst, es ist noch kein Meister vom Himmel gefallen!"
+    },
+    "step": 1,
+    "latest": 1,
+    "variante": 0,
+    "forename": "Alex",
+    "surname": "Kindziora",
+    "street": "Friedrichsbrunner str ",
+    "country": [
+        "DE"
+    ],
+    "pcode": "12347",
+    "city": "Berlin - Neukölln",
+    "email": "kindziora@live.de",
+    "nr": "1",
+    "birthday": "2021-03-05",
+    "username": "Akkindziora",
+    "password": "aaaaaaa",
+    "passwordr": "aaaaaaa",
+    "seoLevel": "44",
+    "skills": [
+        "Sehenswürdigkeiten",
+        "Städte & Länder",
+        "Geschenke"
+    ],
+    "langs": [
+        "ach",
+        "ada"
+    ],
+    "sampletext": "Typ:\nEin kurzer Teaser über ein Hotel, der neugierig machen soll.\nThema:\nReiseort deiner Wahl\nLänge:\n150-200 Wörter\nKeyword:\nHotel MoriMut (muss 1 mal im Text vorkommen)\nSchreibstil:\nStilvoll, nicht zu gehoben\nZielgruppe:\nTouristen sollen angesprochen werden das Hotel zu nutzenTyp:\nEin kurzer Teaser über ein Hotel, der neugierig machen soll.\nThema:\nReiseort deiner Wahl\nLänge:\n150-200 Wörter\nKeyword:\nHotel MoriMut (muss 1 mal im Text vorkommen)\nSchreibstil:\nStilvoll, nicht zu gehoben\nZielgruppe:\nTouristen sollen angesprochen werden das Hotel zu nutzenTyp:\nEin kurzer Teaser über ein Hotel, der neugierig machen soll.\nThema:\nReiseort deiner Wahl\nLänge:\n150-200 Wörter\nKeyword:\nHotel MoriMut (muss 1 mal im Text vorkommen)\nSchreibstil:\nStilvoll, nicht zu gehoben\nZielgruppe:\nTouristen sollen angesprochen werden das Hotel zu nutzenTyp:\nEin kurzer Teaser über ein Hotel, der neugierig machen soll.\nThema:\nReiseort deiner Wahl\nLänge:\n150-200 Wörter\nKeyword:\nHotel MoriMut (muss 1 mal im Text vorkommen)\nSchreibstil:\nStilvoll, nicht zu gehoben\nZielgruppe: \nTouristen sollen angesprochen werden das Hotel zu nutzen"})
         .addValidations({ mail_validator, required_validator, wordlength_validator });
     },
     interactions() {
@@ -622,9 +674,10 @@
                 uData.seoLevel = parseInt(uData.seoLevel);
                 uData.country = uData.country[0];
 
-                let errorFnc = (error) => {
-                  this.store.dataH.pxy.$modal.error = JSON.stringify(error);
-                  this.store.dataH.pxy.$modal.body = this.dom.views.error.call(this, { change, user: state, modal: this.store.dataH.pxy.$modal });
+                let errorFnc = async (error) => {
+                  let tmpE = await error.json();
+                  this.store.dataH.pxy.$modal.error = tmpE.message.map(e=>e.messages.map(a => a.message)).join(" ");
+                  this.store.dataH.pxy.$modal.body = this.dom.views.failed.call(this, { change, user: state, modal: this.store.dataH.pxy.$modal });
                   this.store.dataH.pxy.$modal.show = true;
                 };
 
@@ -635,8 +688,8 @@
                   },
                   body: JSON.stringify(uData),
                 })
-                  .then(response => {
-                    if(!response.bodyUsed) return errorFnc.call(this, response);
+                  .then(async response => {
+                    if(!response.bodyUsed) return await errorFnc.call(this, response);
 
                     this.store.dataH.pxy.$modal.body = this.dom.views.success.call(this, { change, user: state });
 

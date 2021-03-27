@@ -4,7 +4,6 @@
         <!-- Modal content -->
         <div class="modal-content">
             <div class="modal-header">
-                <span class="close" data-events="close:click">&times;</span>
                 <h2>${modal.header}</h2>
             </div>
             <div class="modal-body">
@@ -17,7 +16,7 @@
 
         <style>
             #${modal.name}{
-                display:${modal.show?'block':'none'};
+                display:${modal.show?'flex':'none'};
             }
         </style> 
     </div>
@@ -30,7 +29,7 @@
         /* Hidden by default */
         position: fixed;
         /* Stay in place */
-        z-index: 1;
+        z-index: 2;
         /* Sit on top */
         left: 0;
         top: 0;
@@ -47,29 +46,27 @@
 
         /* Modal Header */
         .modal-header {
-            padding: 2px 16px;
-            background-color: #5cb85c;
-            color: white;
+           
         }
 
         /* Modal Body */
         .modal-body {
-            padding: 2px 16px;
+            padding: 1em;
+            overflow: auto;
+            max-height: 70vh;
         }
 
         /* Modal Footer */
         .modal-footer {
-            padding: 2px 16px;
-            background-color: #5cb85c;
-            color: white;
         }
 
         /* Modal Content */
         .modal-content {
+            max-height: 100vh;
             position: relative;
             background-color: #fefefe;
             margin: auto;
-            padding: 0;
+            padding: 1em;
             border: 1px solid #888;
             width: 80%;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
