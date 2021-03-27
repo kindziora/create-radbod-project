@@ -475,7 +475,8 @@
       },
       "success": function (args) {
         let { change, user } = args;
-        return `<p>Schön das du da bist ${user.forename}, bitte prüfe noch deine E-Mails.</p>
+        return `<p>Schön das du da bist <strong>${user.forename}</strong>!</p>
+        <p>bitte prüfe noch deine E-Mails.</p>
         <p>Sobald du den Bestätigungslink aufgerufen hast wird dein Account aktiviert.</p>`;
       },
       "failed": function (args) {
@@ -689,8 +690,9 @@
                   body: JSON.stringify(uData),
                 })
                   .then(async response => {
-                    if(!response.bodyUsed) return await errorFnc.call(this, response);
-
+                    if(response.status !== 200) return await errorFnc.call(this, response);
+                    
+                    this.store.dataH.pxy.$modal.header = "Danke für deinen Einsatz";
                     this.store.dataH.pxy.$modal.body = this.dom.views.success.call(this, { change, user: state });
 
                     this.store.dataH.pxy.$modal.show = true;

@@ -46,7 +46,9 @@
 
         /* Modal Header */
         .modal-header {
-           
+            h2{
+                margin:0;
+            }
         }
 
         /* Modal Body */
@@ -58,6 +60,7 @@
 
         /* Modal Footer */
         .modal-footer {
+            color:gray;
         }
 
         /* Modal Content */
@@ -77,7 +80,7 @@
         /* Add Animation */
         @keyframes animatetop {
             from {
-                top: -300px;
+                top: -50vh;
                 opacity: 0
             }
 
@@ -129,9 +132,9 @@
             return this.createStore("modal", {
                 link: "runtime.path",
                 name: "modal1",
-                header: "Hello",
-                body: "body",
-                footer: "footer",
+                header: "Hinweis",
+                body: "...",
+                footer: "proudly presented by serialtexter.de",
                 show:false
             })
         },
