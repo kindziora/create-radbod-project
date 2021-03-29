@@ -8,7 +8,7 @@ This is a sample radbod project it offers the following:
 * optional lazy loading components
 * single file components and pages
 
-##Start development
+## Start development
 
 execute `npm run dev`
 
