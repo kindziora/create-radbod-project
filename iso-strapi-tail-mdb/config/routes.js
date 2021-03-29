@@ -4,7 +4,8 @@ export const routes = {
     "^start": "start",
     "^$": "start",
     "^register": "register",
-    "^form": "form",
+    "^login": "login",
+    "^impressum": "impressum",
     "_not_found": "notFound"
 };
 

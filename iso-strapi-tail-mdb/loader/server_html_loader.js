@@ -26,8 +26,14 @@ const asyncHandler = fn => (req, res, next) =>
 
 function getModules(meta) {
     let mod = (e) => `<script type="module" src="${e.path}"></script>`;
+
+    meta.loaded = []; //empty because it's not needed to load deps because of import modules in es6
+
     meta.loaded.push({ path: "/app.js" });
     meta.loaded.push({ path: "/index.js" });
+
+
+
     return meta.loaded.map(mod).join("\n\r");
 }
 

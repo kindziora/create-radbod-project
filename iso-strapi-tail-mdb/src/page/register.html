@@ -1,6 +1,6 @@
 <template language="js-template">
   <extend-head>
-    <title>${_t("Hier kannst du dich einloggen")}</title>
+    <title>${_t("Hier kannst du dich registrieren")}</title>
   </extend-head>
   <page>
     <topmenu-component data-name="/$topmenu"></topmenu-component>
@@ -38,7 +38,7 @@
 
               <label for="passwd">Passwort</label>
               <input type="password" data-validations="required_validator" data-name="/$user/password" id="passwd" 
-                required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$" />
+                required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,12}$" />
             </div>
 
             <div class="item">
@@ -68,7 +68,7 @@
 
               <label for="passwdr">Passwort wiederholen</label>
               <input type="password" data-validations="required_validator" data-name="/$user/passwordr" id="passwdr"
-                required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$" />
+                required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,12}$" />
 
 
             </div>
@@ -162,7 +162,7 @@
 </template>
 
 <style language="scss">
-  form {
+  #register {
 
     @import "/css/slimselect.css";
 
@@ -500,59 +500,28 @@
     },
     data() {
       return this
-        .createStore("user", { name: "user login",  "refs": [
-        "Beruf",
-        "Ausbildung",
-        "Studium",
-        "Kurse",
-        "Hobby",
-        "Freizeit"
-    ],
-    "refsdetail": [
-        "b",
-        "k",
-        "h",
-        "f",
-        "a",
-        "f"
-    ],
-    "topicInfo": {
-        "type": "Ein kurzer Teaser über ein Hotel, der neugierig machen soll.",
-        "name": "Reiseort deiner Wahl",
-        "wordrange": "150-200 Wörter",
-        "keyword": "Hotel MoriMut (muss 1 mal im Text vorkommen)",
-        "style": "Stilvoll, nicht zu gehoben",
-        "aim": "Touristen sollen angesprochen werden das Hotel zu nutzen",
-        "starter": "Keine Angst, es ist noch kein Meister vom Himmel gefallen!"
-    },
-    "step": 1,
-    "latest": 1,
-    "variante": 0,
-    "forename": "Alex",
-    "surname": "Kindziora",
-    "street": "Friedrichsbrunner str ",
-    "country": [
-        "DE"
-    ],
-    "pcode": "12347",
-    "city": "Berlin - Neukölln",
-    "email": "kindziora@live.de",
-    "nr": "1",
-    "birthday": "2021-03-05",
-    "username": "Akkindziora",
-    "password": "aaaaaaa",
-    "passwordr": "aaaaaaa",
-    "seoLevel": "44",
-    "skills": [
-        "Sehenswürdigkeiten",
-        "Städte & Länder",
-        "Geschenke"
-    ],
-    "langs": [
-        "ach",
-        "ada"
-    ],
-    "sampletext": "Typ:\nEin kurzer Teaser über ein Hotel, der neugierig machen soll.\nThema:\nReiseort deiner Wahl\nLänge:\n150-200 Wörter\nKeyword:\nHotel MoriMut (muss 1 mal im Text vorkommen)\nSchreibstil:\nStilvoll, nicht zu gehoben\nZielgruppe:\nTouristen sollen angesprochen werden das Hotel zu nutzenTyp:\nEin kurzer Teaser über ein Hotel, der neugierig machen soll.\nThema:\nReiseort deiner Wahl\nLänge:\n150-200 Wörter\nKeyword:\nHotel MoriMut (muss 1 mal im Text vorkommen)\nSchreibstil:\nStilvoll, nicht zu gehoben\nZielgruppe:\nTouristen sollen angesprochen werden das Hotel zu nutzenTyp:\nEin kurzer Teaser über ein Hotel, der neugierig machen soll.\nThema:\nReiseort deiner Wahl\nLänge:\n150-200 Wörter\nKeyword:\nHotel MoriMut (muss 1 mal im Text vorkommen)\nSchreibstil:\nStilvoll, nicht zu gehoben\nZielgruppe:\nTouristen sollen angesprochen werden das Hotel zu nutzenTyp:\nEin kurzer Teaser über ein Hotel, der neugierig machen soll.\nThema:\nReiseort deiner Wahl\nLänge:\n150-200 Wörter\nKeyword:\nHotel MoriMut (muss 1 mal im Text vorkommen)\nSchreibstil:\nStilvoll, nicht zu gehoben\nZielgruppe: \nTouristen sollen angesprochen werden das Hotel zu nutzen"})
+        .createStore("user", { name: "user login",  "refs": [],
+        "refsdetail": [],
+        "topicInfo": {},
+        "step": 1,
+        "latest": 1,
+        "variante": 0,
+        "forename": "",
+        "surname": "",
+        "street": "",
+        "country": [],
+        "pcode": 0,
+        "city": "",
+        "email": "",
+        "nr": 0,
+        "birthday": "",
+        "username": "",
+        "password": "",
+        "passwordr": "",
+        "seoLevel": "",
+        "skills": [],
+        "langs": [],
+        "sampletext": ""})
         .addValidations({ mail_validator, required_validator, wordlength_validator });
     },
     interactions() {

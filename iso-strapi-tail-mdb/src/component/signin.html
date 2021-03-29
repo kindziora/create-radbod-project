@@ -1,0 +1,146 @@
+<template language="js-template">
+    <modal-component data-name="/$modal"></modal-component>
+
+    <div class="bg"></div>
+    <form>
+        <div class="container">
+            <h2>Willkommen zurück</h2>
+
+            <div class="form-field">
+                <label class="user" for="login-email"><span class="hidden">E-Mail</span></label>
+                <input id="login-email" type="text" placeholder="email@xyz.de" required data-name="/$user/email"
+                    data-validations="mail_validator,required_validator" />
+
+
+            </div>
+
+            <div class="form-field">
+                <label class="lock" for="login-password"><span class="hidden">Password</span></label>
+                <input id="login-password" type="password" placeholder="Password" data-name="/$user/password" required
+                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,12}$">
+            </div>
+
+            <div class="button-container">
+                <button type="submit" data-events="submit:click">Anmelden</button>
+            </div>
+        </div>
+    </form>
+
+</template>
+
+<style language="scss">
+    signin-component {
+
+        button {
+            margin-top: 1em;
+            width: 100%;
+            padding: 1em;
+        }
+
+        .bg {
+            opacity: 0.5;
+            background-image: url('img/login/biefrost-opac.png');
+            background-size: cover;
+            height: 85vh;
+            position: absolute;
+            left: 0;
+            right: 0;
+            z-index: -1;
+        }
+
+        display: grid;
+        justify-content: center;
+        align-content: center;
+        height: 85vh;
+
+        .container {
+            padding: 1em;
+            box-shadow: 0 0 60px black;
+            background-color: white;
+            border: 1px solid #ababab;
+        }
+
+        input,
+        button {
+            margin-right: 0;
+        }
+    }
+</style>
+
+<script language="js">
+
+    import { mail_validator } from '../middleware/validator/email';
+    import { required_validator } from '../middleware/validator/required';
+    import { magic_form } from '../middleware/magicForm';
+    import { modal } from '../component/modal';
+
+    export let signin = {
+        views: {
+            "failed": function (args) {
+                let { change, user, modal } = args;
+                return `<p>Hallo ${user.forename}, bitte prüfe nochmal deine Angaben.</p>
+        <p>Unser System sagt nämlich: <strong>${modal.error}</strong></p>`;
+            }
+        },
+        components: {
+            "modal-component": modal
+        },
+        data(data, runtime) {
+            return this.createStore("user", { "email": "", "password": "" })
+                .addValidations({ mail_validator, required_validator });
+        },
+        interactions: function () {
+            return magic_form.call(this, {
+                "submit": {
+                    "click"(sender, dataStore) {
+                        sender.ev.preventDefault();
+
+                        let errorFnc = (errorMsg) => {
+                            this.store.dataH.pxy.$modal.error = errorMsg;
+                            this.store.dataH.pxy.$modal.body = this.dom.views.failed.call(this, { user: dataStore, modal: this.store.dataH.pxy.$modal });
+                            this.store.dataH.pxy.$modal.show = true;
+                        };
+
+                        let fieldStates = this.store.validateFields(['password', 'email'])
+                            .filter(e => !e.isValid);
+
+                        let isValid = fieldStates.length === 0;
+
+                        if (isValid) {
+                            let errorWrapper = async (error) => {
+                                let tmpE = await error.json();
+                                errorFnc(tmpE.message.map(e => e.messages.map(a => a.message)).join(" "));
+                            };
+
+                            fetch('http://localhost:1337/auth/local',
+                                {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        identifier: dataStore.email,
+                                        password: dataStore.password,
+                                    })
+                                }).then(async response => {
+                                    if (response.status !== 200) {
+                                        errorWrapper.call(this, response);
+                                    }
+
+                                    // Handle success.
+                                    cookie.set('tk', response.jwt, { expires: 7 });
+                                    cookie.set('user', JSON.stringify(response.user), { expires: 7 });
+                                })
+                                .catch(errorWrapper);
+                        } else {
+                            errorFnc(fieldStates.map(e => e.msg.join(", ")));
+                        }
+
+
+
+                    }
+                }
+            });
+        }
+    }
+</script>

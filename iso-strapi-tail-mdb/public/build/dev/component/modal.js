@@ -32,16 +32,6 @@
                 "click"(sender, dataStore) {
                     dataStore.show = false; 
                 }
-            },
-            "/$topmenu/link": {
-                "click"(sender, dataStore) {
-                    sender.ev.preventDefault();
-
-                    buildApp.loadPage(sender.field.$el.firstChild.getAttribute("href"), () => {
-                        dataStore.link = sender.field.$el.firstChild.getAttribute("href");
-                    });
-
-                }
-            }
+            } 
         })
     }
