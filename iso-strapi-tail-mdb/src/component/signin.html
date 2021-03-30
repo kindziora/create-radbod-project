@@ -12,8 +12,8 @@
                     data-validations="mail_validator,required_validator" />
               
                     <span data-name="/_state/$user/email" class="msg ${
-                        change.value.msg ? 'error':''}">${ change.value.msg ?
-                        change.value.msg.map(function(e){return e}) : "" }</span>
+                        change.value.msg ? 'error':''}">${ change.value ?
+                        change.value.map(function(e){return e}) : "" }</span>
             </div>
 
             <div class="form-field">
