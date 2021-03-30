@@ -10,8 +10,10 @@
                 <label class="user" for="login-email"><span class="hidden">E-Mail</span></label>
                 <input id="login-email" type="text" placeholder="email@xyz.de" required data-name="/$user/email"
                     data-validations="mail_validator,required_validator" />
-
-
+              
+                    <span data-name="/_state/$user/email" class="msg ${
+                        change.value.msg ? 'error':''}">${ change.value.msg ?
+                        change.value.msg.map(function(e){return e}) : "" }</span>
             </div>
 
             <div class="form-field">
@@ -30,6 +32,11 @@
 
 <style language="scss">
     signin-component {
+        span.msg {
+            position: relative;
+            background-color: #fbfbd7;
+            display: block;
+        }
 
         button {
             margin-top: 1em;
@@ -78,8 +85,7 @@
         views: {
             "failed": function (args) {
                 let { change, user, modal } = args;
-                return `<p>Hallo ${user.forename}, bitte prüfe nochmal deine Angaben.</p>
-        <p>Unser System sagt nämlich: <strong>${modal.error}</strong></p>`;
+                return `<p>Bitte überprüfe nochmal: <ul>${modal.error.map(e => `<li>${e}</li>`).join("")}</ul></p>`;
             }
         },
         components: {
@@ -93,6 +99,7 @@
             return magic_form.call(this, {
                 "submit": {
                     "click"(sender, dataStore) {
+
                         sender.ev.preventDefault();
 
                         let errorFnc = (errorMsg) => {
@@ -100,16 +107,21 @@
                             this.store.dataH.pxy.$modal.body = this.dom.views.failed.call(this, { user: dataStore, modal: this.store.dataH.pxy.$modal });
                             this.store.dataH.pxy.$modal.show = true;
                         };
+                        
+                        let fieldStates = this.store.validateFields(["/$user/email", "/$user/password"]);
+                        let filtered = [];
+                        for (let e in fieldStates) {
+                            if (!fieldStates[e].isValid) {
+                                filtered.push(...fieldStates[e].msg);
+                            }
+                        }
 
-                        let fieldStates = this.store.validateFields(['password', 'email'])
-                            .filter(e => !e.isValid);
-
-                        let isValid = fieldStates.length === 0;
+                        let isValid = filtered.length === 0;
 
                         if (isValid) {
                             let errorWrapper = async (error) => {
                                 let tmpE = await error.json();
-                                errorFnc(tmpE.message.map(e => e.messages.map(a => a.message)).join(" "));
+                                errorFnc(tmpE.message.map(e => e.messages.map(a => a.message)));
                             };
 
                             fetch('http://localhost:1337/auth/local',
@@ -133,9 +145,8 @@
                                 })
                                 .catch(errorWrapper);
                         } else {
-                            errorFnc(fieldStates.map(e => e.msg.join(", ")));
+                            errorFnc(filtered);
                         }
-
 
 
                     }

@@ -19,6 +19,7 @@
         },
         data(data, runtime) {
             return this.createStore("modal", {
+                error: [],
                 link: "runtime.path",
                 name: "modal1",
                 header: "Hinweis",

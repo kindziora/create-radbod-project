@@ -22,10 +22,9 @@
                    'signin' : function (args) { let {change, bottommenu,modal,signin,topmenu,user, _t, env} = args; return `<modal-component data-name="modal" data-id="modal" data-view="modal"><div id="${modal.name}" class="modal" data-events="close:click" data-name="/$modal/show" data-id="/$modal-e-1" data-view="/$modal-e-1"> <!-- Modal content --> <div class="modal-content" data-id="/$modal-e-2" data-view="/$modal-e-2"> <div class="modal-header" data-id="/$modal-e-3" data-view="/$modal-e-3"> <h2 data-id="/$modal-e-4" data-view="/$modal-e-4" data-name="/$modal/header">${modal.header}</h2> </div> <div class="modal-body" data-id="/$modal-e-5" data-view="/$modal-e-5" data-name="/$modal/body"> ${modal.body} </div> <div class="modal-footer" data-id="/$modal-e-6" data-view="/$modal-e-6" data-name="/$modal/footer"> ${modal.footer} </div> </div> <style data-id="/$modal-e-7" data-view="/$modal-e-7"> #${modal.name}{ display:${modal.show?'flex':'none'}; } </style> </div><style data-id="signin-e-20" data-view="signin-e-20">/* The Modal (background) */ .modal { display: none; /* Hidden by default */ position: fixed; /* Stay in place */ z-index: 2; /* Sit on top */ left: 0; top: 0; width: 100%; /* Full width */ height: 100%; /* Full height */ overflow: auto; /* Enable scroll if needed */ background-color: black; /* Fallback color */ background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */ /* Modal Header */ /* Modal Body */ /* Modal Footer */ /* Modal Content */ /* Add Animation */ } .modal .modal-header h2 { margin: 0; } .modal .modal-body { padding: 1em; overflow: auto; max-height: 70vh; } .modal .modal-footer { color: gray; } .modal .modal-content { max-height: 100vh; position: relative; background-color: #fefefe; margin: auto; padding: 1em; border: 1px solid #888; width: 80%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); animation-name: animatetop; animation-duration: 0.4s; } @keyframes animatetop { from { top: -50vh; opacity: 0; } to { top: 0; opacity: 1; } } /* Modal Content/Box */ .modal-content { background-color: #fefefe; margin: 15% auto; /* 15% from the top and centered */ padding: 20px; border: 1px solid #888; width: 80%; /* Could be more or less, depending on screen size */ } /* The Close Button */ .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; } .close:hover, .close:focus { color: black; text-decoration: none; cursor: pointer; }</style></modal-component> <div class="bg" data-id="signin-e-2" data-view="signin-e-2"></div> <form data-id="signin-e-3" data-view="signin-e-3"> <div class="container" data-id="signin-e-4" data-view="signin-e-4"> <h2 data-id="signin-e-5" data-view="signin-e-5">${_t('Willkommen zurück')}</h2> <div class="form-field" data-id="signin-e-6" data-view="signin-e-6"> <label class="user" for="login-email" data-id="signin-e-7" data-view="signin-e-7"><span class="hidden" data-id="signin-e-8" data-view="signin-e-8">${_t('E-Mail')}</span></label> <input id="login-email" type="text" placeholder="email@xyz.de" required data-name="/$user/email" data-validations="mail_validator,required_validator" data-id="signin-e-9" data-view="signin-e-9"> </div> <div class="form-field" data-id="signin-e-10" data-view="signin-e-10"> <label class="lock" for="login-password" data-id="signin-e-11" data-view="signin-e-11"><span class="hidden" data-id="signin-e-12" data-view="signin-e-12">${_t('Password')}</span></label> <input id="login-password" type="password" placeholder="Password" data-name="/$user/password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,12}$" data-id="signin-e-13" data-view="signin-e-13"> </div> <div class="button-container" data-id="signin-e-14" data-view="signin-e-14"> <button type="submit" data-events="submit:click" data-id="signin-e-15" data-view="signin-e-15">${_t('Anmelden')}</button> </div> </div> </form>`},
                    'failed' : function (args) {
                 let { change, user, modal } = args;
-                return `<p>Hallo ${user.forename}, bitte prüfe nochmal deine Angaben.</p>
-        <p>Unser System sagt nämlich: <strong>${modal.error}</strong></p>`;
+                return `<p>Bitte überprüfe nochmal: <ul>${modal.error.map(e => `<li>${e}</li>`).join("")}</ul></p>`;
             } },
-            "style":"signin-component { display: grid; justify-content: center; align-content: center; height: 85vh; } signin-component button { margin-top: 1em; width: 100%; padding: 1em; } signin-component .bg { opacity: 0.5; background-image: url(\"img/login/biefrost-opac.png\"); background-size: cover; height: 85vh; position: absolute; left: 0; right: 0; z-index: -1; } signin-component .container { padding: 1em; box-shadow: 0 0 60px black; background-color: white; border: 1px solid #ababab; } signin-component input, signin-component button { margin-right: 0; }","path":"/component/signin.js",
+            "style":"signin-component { display: grid; justify-content: center; align-content: center; height: 85vh; } signin-component span.msg { position: relative; background-color: #fbfbd7; display: block; } signin-component button { margin-top: 1em; width: 100%; padding: 1em; } signin-component .bg { opacity: 0.5; background-image: url(\"img/login/biefrost-opac.png\"); background-size: cover; height: 85vh; position: absolute; left: 0; right: 0; z-index: -1; } signin-component .container { padding: 1em; box-shadow: 0 0 60px black; background-color: white; border: 1px solid #ababab; } signin-component input, signin-component button { margin-right: 0; }","path":"/component/signin.js",
         components: {
             "modal-component": modal
         },
@@ -37,6 +36,7 @@
             return magic_form.call(this, {
                 "submit": {
                     "click"(sender, dataStore) {
+
                         sender.ev.preventDefault();
 
                         let errorFnc = (errorMsg) => {
@@ -44,16 +44,21 @@
                             this.store.dataH.pxy.$modal.body = this.dom.views.failed.call(this, { user: dataStore, modal: this.store.dataH.pxy.$modal });
                             this.store.dataH.pxy.$modal.show = true;
                         };
+                        
+                        let fieldStates = this.store.validateFields(["/$user/email", "/$user/password"]);
+                        let filtered = [];
+                        for (let e in fieldStates) {
+                            if (!fieldStates[e].isValid) {
+                                filtered.push(...fieldStates[e].msg);
+                            }
+                        }
 
-                        let fieldStates = this.store.validateFields(['password', 'email'])
-                            .filter(e => !e.isValid);
-
-                        let isValid = fieldStates.length === 0;
+                        let isValid = filtered.length === 0;
 
                         if (isValid) {
                             let errorWrapper = async (error) => {
                                 let tmpE = await error.json();
-                                errorFnc(tmpE.message.map(e => e.messages.map(a => a.message)).join(" "));
+                                errorFnc(tmpE.message.map(e => e.messages.map(a => a.message)));
                             };
 
                             fetch('http://localhost:1337/auth/local',
@@ -77,9 +82,8 @@
                                 })
                                 .catch(errorWrapper);
                         } else {
-                            errorFnc(fieldStates.map(e => e.msg.join(", ")));
+                            errorFnc(filtered);
                         }
-
 
 
                     }
