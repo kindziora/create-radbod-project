@@ -10,9 +10,9 @@
                 <label class="user" for="login-email"><span class="hidden">E-Mail</span></label>
                 <input id="login-email" type="text" placeholder="email@xyz.de" required data-name="/$user/email"
                     data-validations="mail_validator,required_validator" />
-              
-                    <span data-name="/_state/$user/email" class="msg ${
-                        change.value.msg ? 'error':''}">${ change.value ?
+                  
+                    <span data-name="/_state/$user/email/msg" class="msg ${
+                        change.value ? 'error':''}">${ change.value ?
                         change.value.map(function(e){return e}) : "" }</span>
             </div>
 
@@ -80,6 +80,7 @@
     import { required_validator } from '../middleware/validator/required';
     import { magic_form } from '../middleware/magicForm';
     import { modal } from '../component/modal';
+    import cookie from '../deps/cookie';
 
     export let signin = {
         views: {
@@ -134,14 +135,18 @@
                                         identifier: dataStore.email,
                                         password: dataStore.password,
                                     })
-                                }).then(async response => {
-                                    if (response.status !== 200) {
-                                        errorWrapper.call(this, response);
-                                    }
+                                }).then( async response => {
 
+                                    if (response.status !== 200) {
+                                       await errorWrapper.call(this, response);
+                                       return;
+                                    }
+                                    
+                                    let res = await response.json();
                                     // Handle success.
-                                    cookie.set('tk', response.jwt, { expires: 7 });
-                                    cookie.set('user', JSON.stringify(response.user), { expires: 7 });
+                                    cookie.set('tk', res.jwt, { expires: 7 });
+                                    cookie.set('user', JSON.stringify(res.user), { expires: 7 });
+
                                 })
                                 .catch(errorWrapper);
                         } else {

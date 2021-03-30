@@ -18,40 +18,40 @@
             <div class="item">
 
               <label for="vname">Vorname</label>
-              <input id="vname" data-name="/$user/forename" name="forename" value="${user.forename}" tabindex="0" required
-                data-validations="required_validator" />
+              <input id="vname" data-name="/$user/forename" name="forename" value="${user.forename}" tabindex="0"
+                required data-validations="required_validator" />
 
               <label for="street">Straße</label>
               <div class="address">
-                <input id="street" name="street" placeholder="${_t('Straßenname')}" value="${user.street}"  data-name="/$user/street" required
-                  data-validations="required_validator" />
-                <input id="nr" name="number" placeholder="${_t('Nr.')}" type="number" value="${user.nr}"  data-name="/$user/nr" required
-                  data-validations="required_validator" />
+                <input id="street" name="street" placeholder="${_t('Straßenname')}" value="${user.street}"
+                  data-name="/$user/street" required data-validations="required_validator" />
+                <input id="nr" name="number" placeholder="${_t('Nr.')}" type="number" value="${user.nr}"
+                  data-name="/$user/nr" required data-validations="required_validator" />
               </div>
               <label for="country">Land</label>
               <select id="country" name="country" data-name="/$user/country" required
                 data-validations="required_validator"></select>
 
               <label for="bname">Benutzername</label>
-              <input id="bname" name="username" data-name="/$user/username" required value="${user.username}" 
+              <input id="bname" name="username" data-name="/$user/username" required value="${user.username}"
                 data-validations="required_validator" />
 
               <label for="passwd">Passwort</label>
-              <input type="password" data-validations="required_validator" data-name="/$user/password" id="passwd" 
+              <input type="password" data-validations="required_validator" data-name="/$user/password" id="passwd"
                 required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,12}$" />
             </div>
 
             <div class="item">
               <label for="nname">Nachname</label>
-              <input id="nname" name="surname" data-name="/$user/surname" required  value="${user.surname}" 
+              <input id="nname" name="surname" data-name="/$user/surname" required value="${user.surname}"
                 data-validations="required_validator" />
 
               <label for="street">Wo?</label>
               <div class="location">
-                <input id="pcode" name="postalcode" placeholder="${_t('PLZ')}" data-name="/$user/pcode" type="number"  value="${user.pcode}" 
-                  required data-validations="required_validator" />
-                <input id="city" name="city" placeholder="${_t('Stadt')}" data-name="/$user/city" required value="${user.city}" 
-                  data-validations="required_validator" />
+                <input id="pcode" name="postalcode" placeholder="${_t('PLZ')}" data-name="/$user/pcode" type="number"
+                  value="${user.pcode}" required data-validations="required_validator" />
+                <input id="city" name="city" placeholder="${_t('Stadt')}" data-name="/$user/city" required
+                  value="${user.city}" data-validations="required_validator" />
               </div>
 
               <label for="birthday">Geburtsdatum</label>
@@ -59,7 +59,7 @@
 
               <label for="email">E-Mail</label>
 
-              <input id="email" name="email" type="email" data-name="/$user/email" required value="${user.email}" 
+              <input id="email" name="email" type="email" data-name="/$user/email" required value="${user.email}"
                 data-validations="mail_validator,required_validator" />
 
               <span data-name="/_state/$user/email" class="msg ${
@@ -94,7 +94,8 @@
               <label for="skills">SEO Erfahrung <span class="seometer" data-name="/$user/seoLevel"
                   data-view="seometer">keine</span></label>
               <div class="slidecontainer">
-                <input type="range" min="1" max="100" value="${user.seoLevel}" data-name="/$user/seoLevel" class="slider" id="myRange">
+                <input type="range" min="1" max="100" value="${user.seoLevel}" data-name="/$user/seoLevel"
+                  class="slider" id="myRange">
               </div>
 
             </div>
@@ -500,243 +501,245 @@
     },
     data() {
       return this
-        .createStore("user", { name: "user login",  "refs": [],
-        "refsdetail": [],
-        "topicInfo": {},
-        "step": 1,
-        "latest": 1,
-        "variante": 0,
-        "forename": "",
-        "surname": "",
-        "street": "",
-        "country": [],
-        "pcode": 0,
-        "city": "",
-        "email": "",
-        "nr": 0,
-        "birthday": "",
-        "username": "",
-        "password": "",
-        "passwordr": "",
-        "seoLevel": "",
-        "skills": [],
-        "langs": [],
-        "sampletext": ""})
+        .createStore("user", {
+          name: "user login", "refs": [],
+          "refsdetail": [],
+          "topicInfo": {},
+          "step": 1,
+          "latest": 1,
+          "variante": 0,
+          "forename": "",
+          "surname": "",
+          "street": "",
+          "country": [],
+          "pcode": "",
+          "city": "",
+          "email": "",
+          "nr": "",
+          "birthday": "",
+          "username": "",
+          "password": "",
+          "passwordr": "",
+          "seoLevel": "",
+          "skills": [],
+          "langs": [],
+          "sampletext": ""
+        })
         .addValidations({ mail_validator, required_validator, wordlength_validator });
     },
     interactions() {
       return magic_form.call(this, {
         "register": {
-          postRender(component) {
-            import('../deps/slimselect.js')
-              .then((slimSelect) => {
+            postRender(component) {
+              import('../deps/slimselect.js')
+                .then((slimSelect) => {
 
-                import('./i18n/de_DE/countries.js')
-                  .then((module) => {
-                    if (typeof window.countryS === "undefined")
-                      window.countryS = new slimSelect.default({
-                        select: '#country',
-                        data: module.countries
+                  import('./i18n/de_DE/countries.js')
+                    .then((module) => {
+                      if (typeof window.countryS === "undefined")
+                        window.countryS = new slimSelect.default({
+                          select: '#country',
+                          data: module.countries
+                        });
+                    });
+
+                  import('./i18n/de_DE/topics.js')
+                    .then((module) => {
+                      new slimSelect.default({
+                        select: '#skills',
+                        data: module.topics
                       });
-                  });
-
-                import('./i18n/de_DE/topics.js')
-                  .then((module) => {
-                    new slimSelect.default({
-                      select: '#skills',
-                      data: module.topics
                     });
-                  });
 
-                import('./i18n/de_DE/langs.js')
-                  .then((module) => {
-                    new slimSelect.default({
-                      select: '#langs',
-                      data: module.langs
+                  import('./i18n/de_DE/langs.js')
+                    .then((module) => {
+                      new slimSelect.default({
+                        select: '#langs',
+                        data: module.langs
+                      });
                     });
-                  });
 
-                import('./i18n/de_DE/refs.js')
-                  .then((module) => {
-                    new slimSelect.default({
-                      select: '#refs',
-                      data: module.refs
+                  import('./i18n/de_DE/refs.js')
+                    .then((module) => {
+                      new slimSelect.default({
+                        select: '#refs',
+                        data: module.refs
+                      });
                     });
-                  });
 
-              });
+                });
 
-            import('./i18n/de_DE/textTopics.js')
-              .then((module) => {
+              import('./i18n/de_DE/textTopics.js')
+                .then((module) => {
 
-                component.store._data.topicInfo = module.textTopics[0];
-                // component.store._data.sampletext = module.textTopics[0].starter;
-                component.store._data.variante = 0;
-                window.textVarianten = module.textTopics;
+                  component.store._data.topicInfo = module.textTopics[0];
+                  // component.store._data.sampletext = module.textTopics[0].starter;
+                  component.store._data.variante = 0;
+                  window.textVarianten = module.textTopics;
 
-              });
+                });
 
-          }
-        },
-        "step": {
-          click(change, state) {
-            change.ev.preventDefault();
-
-            let step = change.field.$el.getAttribute("data-index");
-            if (change.step >= step) {
-              document.querySelectorAll(".stepTab").forEach((e) => e.classList.remove("show"));
-              document.querySelector(`.step${step}`).classList.add("show");
-
-              document.querySelectorAll(".step").forEach((e) => e.classList.remove("active"));
-              document.querySelector(`.step[data-index="${step}"]`).classList.add("active");
-              window.scrollTo(0, 0);
-              state.step = parseInt(step);
-              if (state.latest <= state.step) state.latest = state.step;
             }
+          },
+          "step": {
+            click(change, state) {
+              change.ev.preventDefault();
 
-          }
-        },
-        "/$user/submit": {
-          click(change, state) {
-            change.ev.preventDefault();
+              let step = change.field.$el.getAttribute("data-index");
+              if (change.step >= step) {
+                document.querySelectorAll(".stepTab").forEach((e) => e.classList.remove("show"));
+                document.querySelector(`.step${step}`).classList.add("show");
 
-            let inputs = document.querySelector("form").elements;
-            let paths = { "step1": { fields: [] }, "step2": { fields: [] }, "step3": { fields: [] } };
+                document.querySelectorAll(".step").forEach((e) => e.classList.remove("active"));
+                document.querySelector(`.step[data-index="${step}"]`).classList.add("active");
+                window.scrollTo(0, 0);
+                state.step = parseInt(step);
+                if (state.latest <= state.step) state.latest = state.step;
+              }
 
-            for (let i = 0; i < inputs.length; i++) {
+            }
+          },
+          "/$user/submit": {
+            click(change, state) {
+              change.ev.preventDefault();
+
+              let inputs = document.querySelector("form").elements;
+              let paths = { "step1": { fields: [] }, "step2": { fields: [] }, "step3": { fields: [] } };
+
+              for (let i = 0; i < inputs.length; i++) {
+                for (let s in paths) {
+                  if (!paths.hasOwnProperty(s)) continue;
+                  if (inputs[i].hasAttribute("data-name")) {
+                    if (document.querySelector(`form .${s}`).contains(inputs[i])) {
+
+                      let n = inputs[i].getAttribute("data-name");
+                      let tr = this.store.validateField(n, this.store.accessByPath(n));
+                      if (!tr.isValid) {
+                        paths[s].fields.push(tr);
+                        inputs[i].classList.add("error");
+                      } else {
+                        inputs[i].classList.remove("error");
+                      }
+
+                    }
+                  }
+                }
+              }
+
+              let latestCorrect = false;
               for (let s in paths) {
                 if (!paths.hasOwnProperty(s)) continue;
-                if (inputs[i].hasAttribute("data-name")) {
-                  if (document.querySelector(`form .${s}`).contains(inputs[i])) {
+                if (paths[s].fields.length > 0) {
+                  break;
+                } else {
+                  latestCorrect = parseInt(s.replace(/^.*?(\d+).*/, '$1'));
+                }
+              }
 
-                    let n = inputs[i].getAttribute("data-name");
-                    let tr = this.store.validateField(n, this.store.accessByPath(n));
-                    if (!tr.isValid) {
-                      paths[s].fields.push(tr);
-                      inputs[i].classList.add("error");
-                    } else {
-                      inputs[i].classList.remove("error");
-                    }
+              if (latestCorrect) {
+
+                if (latestCorrect < 3) {
+                  state.step = latestCorrect + 1;
+                  document.querySelector(`.step[data-index="${state.step}"]`).click();
+                } else if (latestCorrect === 3) {
+                  //submit all
+                  let uData = JSON.parse(JSON.stringify(state));
+                  uData.seoLevel = parseInt(uData.seoLevel);
+                  uData.country = uData.country[0];
+
+                  let errorFnc = async (error) => {
+                    let tmpE = await error.json();
+                    this.store.dataH.pxy.$modal.error = tmpE.message.map(e => e.messages.map(a => a.message)).join(" ");
+                    this.store.dataH.pxy.$modal.body = this.dom.views.failed.call(this, { change, user: state, modal: this.store.dataH.pxy.$modal });
+                    this.store.dataH.pxy.$modal.show = true;
+                  };
+
+                  fetch('http://localhost:1337/auth/local/register', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(uData),
+                  })
+                    .then(async response => {
+                      if (response.status !== 200) return await errorFnc.call(this, response);
+
+                      this.store.dataH.pxy.$modal.header = "Danke für deinen Einsatz";
+                      this.store.dataH.pxy.$modal.body = this.dom.views.success.call(this, { change, user: state });
+
+                      this.store.dataH.pxy.$modal.show = true;
+
+                      cookie.set('tk', response.jwt, { expires: 7 });
+                      cookie.set('user', JSON.stringify(response.user), { expires: 7 });
+
+                    })
+                    .catch(errorFnc);
+
+
+                }
+
+              }
+
+            }
+          },
+          "variante": {
+            change(sender, state) {
+
+              let val = sender.field.getValue();
+              state.topicInfo = textVarianten[val];
+            }
+          },
+          "refsdetail": {
+            keyup(sender, dataStore) {
+              let id = parseInt(sender.field.$el.getAttribute("data-index"));
+              dataStore.refsdetail[id] = sender.field.getValue();
+            }
+          },
+          "/_state/$user/email/msg": {
+            change(change, state) {
+              if (!state.isValid) {
+                this.$el.querySelector("#email").classList.add("error");
+              } else {
+                this.$el.querySelector("#email").classList.remove("error");
+              }
+              console.log(change, state);
+            }
+          },
+          "/_state": {
+            change(change, state) {
+              if (document.activeElement) {
+                let $elTriangle = getParent(document.activeElement, '.container');
+                if (document.querySelector("#register") && $elTriangle
+                  && document.querySelector("#register").contains(document.activeElement)
+                  && document.activeElement.tagName !== "BUTTON") {
+
+                  $elTriangle = $elTriangle.querySelector(':scope .triangle-right');
+
+                  $elTriangle.style.display = "block";
+                  if (state.isValid) {
+                    $elTriangle.style.marginTop = (document.activeElement.offsetTop - 5) + "px";
+                    $elTriangle.style.marginLeft = (document.activeElement.offsetLeft - 45) + "px";
+                    $elTriangle.classList.remove("triangle-error");
+                    document.activeElement.classList.remove("error");
+                  } else {
+                    $elTriangle.style.marginTop = (document.activeElement.offsetTop - 5) + "px";
+                    $elTriangle.style.marginLeft = (document.activeElement.offsetLeft - 45) + "px";
+                    $elTriangle.classList.add("triangle-error");
+                    document.activeElement.classList.add("error");
 
                   }
                 }
               }
-            }
 
-            let latestCorrect = false;
-            for (let s in paths) {
-              if (!paths.hasOwnProperty(s)) continue;
-              if (paths[s].fields.length > 0) {
-                break;
-              } else {
-                latestCorrect = parseInt(s.replace(/^.*?(\d+).*/, '$1'));
-              }
-            }
-
-            if (latestCorrect) {
-
-              if (latestCorrect < 3) {
-                state.step = latestCorrect + 1;
-                document.querySelector(`.step[data-index="${state.step}"]`).click();
-              }else if (latestCorrect === 3) {
-                //submit all
-                let uData = JSON.parse(JSON.stringify(state));
-                uData.seoLevel = parseInt(uData.seoLevel);
-                uData.country = uData.country[0];
-
-                let errorFnc = async (error) => {
-                  let tmpE = await error.json();
-                  this.store.dataH.pxy.$modal.error = tmpE.message.map(e=>e.messages.map(a => a.message)).join(" ");
-                  this.store.dataH.pxy.$modal.body = this.dom.views.failed.call(this, { change, user: state, modal: this.store.dataH.pxy.$modal });
-                  this.store.dataH.pxy.$modal.show = true;
-                };
-
-                fetch('http://localhost:1337/auth/local/register', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify(uData),
-                })
-                  .then(async response => {
-                    if(response.status !== 200) return await errorFnc.call(this, response);
-                    
-                    this.store.dataH.pxy.$modal.header = "Danke für deinen Einsatz";
-                    this.store.dataH.pxy.$modal.body = this.dom.views.success.call(this, { change, user: state });
-
-                    this.store.dataH.pxy.$modal.show = true;
-
-                    cookie.set('tk', response.jwt, { expires: 7 });
-                    cookie.set('user', JSON.stringify(response.user), { expires: 7 });
-                    
-                  })
-                  .catch(errorFnc);
-                  
-
-              }  
 
             }
-
           }
-        },
-        "variante": {
-          change(sender, state) {
 
-            let val = sender.field.getValue();
-            state.topicInfo = textVarianten[val];
-          }
-        },
-        "refsdetail": {
-          keyup(sender, dataStore) {
-            let id = parseInt(sender.field.$el.getAttribute("data-index"));
-            dataStore.refsdetail[id] = sender.field.getValue();
-          }
-        },
-        "/_state/$user/email/msg": {
-          change(change, state) {
-            if (!state.isValid) {
-              document.querySelector("#email").classList.add("error");
-            } else {
-              document.querySelector("#email").classList.remove("error");
-            }
-            console.log(change, state);
-          }
-        },
-        "/_state": {
-          change(change, state) {
-            if (document.activeElement) {
-              let $elTriangle = getParent(document.activeElement, '.container');
-              if (document.querySelector("#register") && $elTriangle
-                && document.querySelector("#register").contains(document.activeElement)
-                && document.activeElement.tagName !== "BUTTON") {
+        }, "/$user", function(data) {
 
-                $elTriangle = $elTriangle.querySelector(':scope .triangle-right');
+          console.log("CHANGE PLEASE BACKEND SYNC", data)
 
-                $elTriangle.style.display = "block";
-                if (state.isValid) {
-                  $elTriangle.style.marginTop = (document.activeElement.offsetTop - 5) + "px";
-                  $elTriangle.style.marginLeft = (document.activeElement.offsetLeft - 45) + "px";
-                  $elTriangle.classList.remove("triangle-error");
-                  document.activeElement.classList.remove("error");
-                } else {
-                  $elTriangle.style.marginTop = (document.activeElement.offsetTop - 5) + "px";
-                  $elTriangle.style.marginLeft = (document.activeElement.offsetLeft - 45) + "px";
-                  $elTriangle.classList.add("triangle-error");
-                  document.activeElement.classList.add("error");
-
-                }
-              }
-            }
-
-
-          }
-        }
-
-      }, "/$user", function (data) {
-
-        console.log("CHANGE PLEASE BACKEND SYNC", data)
-
-      });
+        });
     },
     translations() {
       return {};
