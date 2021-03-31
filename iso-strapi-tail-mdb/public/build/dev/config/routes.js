@@ -1,4 +1,5 @@
 //import routes from "./routes/website.js";
+
 let routes = {
     "^([a-z]{2}_[A-Z]{2})/([.-\w]*)$": 2, // regex input : match group 
     "^home": "website/home.js",
@@ -7,7 +8,9 @@ let routes = {
     "^register": "website/register.js",
     "^login": "website/login.js",
     "^impressum": "website/impressum.js",
-    "_not_found": "website/notFound.js"
+    "_not_found": "website/notFound.js",
+
+    "^profile": "backend/profile.js",
 };
 
 

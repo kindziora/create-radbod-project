@@ -159,7 +159,7 @@ export class compileViews {
 
         const browser = await puppeteer.launch({
        //     headless: false,
-        //    devtools: true, 
+        //     devtools: true, 
             args: ["--disable-web-security"],
         });
         const page = await browser.newPage();
@@ -182,7 +182,7 @@ export class compileViews {
 
         console.log("BUILD VIEW FOR FOLDER: " + folder);
 
-        for await (const file of getFiles(folder || './test/todoMVC/public/build/dev/')) {
+        for await (const file of getFiles(folder)) {
 
             if (file.split(".")[1] !== "js" || file.indexOf("i18n") >= 0) continue;
             if (folderViewList(file)) continue;
@@ -199,6 +199,7 @@ export class compileViews {
         console.log("BUILD VIEW: " + file);
 
         try {
+
             let componentModule = await import(file + "?t=" + new Date());
 
             let componentName = Object.keys(componentModule)[0];

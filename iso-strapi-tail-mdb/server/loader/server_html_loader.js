@@ -59,11 +59,10 @@ export const html_loader = asyncHandler(async function (req, res, next) {
     dataH.internationalize.addTranslation(translations);
     dataH.internationalize.setLanguage(routeInfo.language);
 
-    console.log("./public/build/dev/" + routeInfo.filename);
+    console.log("./public/build/dev/" + routeInfo.filename, routeInfo);
 
     let page = await import("../../public/build/dev/" + routeInfo.filename);
-     
-
+      console.log(page);
     let count = await lookupComponents(page[pageName], 0, componentsHandler);
     let met = { cnt: 0, loaded: [] };
 
