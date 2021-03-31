@@ -40,7 +40,7 @@ export class viewFunctions {
     isActive(name, path) {
         path = path || this.path();
         path = path.replace(/(\/[a-z]{2}_[A-Z]{2})/, "");
-        return path.split("/")[1] === name ? "active" : "";
+        return path === name ? "active" : "";
     }
 
     /**

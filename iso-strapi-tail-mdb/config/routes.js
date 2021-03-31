@@ -11,6 +11,8 @@ let routes = {
     "_not_found": "website/notFound.js",
 
     "^backend/profile": "backend/profile.js",
+    "^backend/tasklist": "backend/tasklist.js",
+    "^backend/write": "backend/write.js",
 };
 
 
