@@ -158,7 +158,7 @@ export class compileViews {
     async setupPuppeteer() {
 
         const browser = await puppeteer.launch({
-         //   headless: false,
+       //     headless: false,
         //    devtools: true, 
             args: ["--disable-web-security"],
         });

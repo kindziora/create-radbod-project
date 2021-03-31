@@ -7,9 +7,9 @@
   "scripts": {
     "dev": "nodemon -e html,js -w ./src/ builder/build.js ./src ./public/build/dev & npm run bundle & npm run server",
     "bundle": "npm --prefix ./builder/cmonjs/ run bundle",
-    "prod": "node server/run.js 8801 ../loader/server_html_loader.js",
+    "prod": "node server/run.js 8801 ./loader/server_html_loader.js",
     "build:scss": "node-sass -w ./src/styles/ -o ./public/build/dev/css/",
-    "server": "nodemon -e js -w ./public/build/dev server/run.js 8801 ../loader/server_html_loader.js"
+    "server": "nodemon -e js -w ./public/build/dev server/run.js 8801 ./loader/server_html_loader.js"
   },
   "author": "Alexander Kindziora",
   "license": "ISC",

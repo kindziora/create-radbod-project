@@ -64,7 +64,7 @@ export async function lookupComponents(component, cnt, componentHandler) {
             if (componentHandler[componentID]) {
                 component.components[i] = componentHandler[componentID];
             } else {
-                let tmpModule = await import(`../public/build/dev/component/${name}.js`);
+                let tmpModule = await import(`../../public/build/dev/component/${name}.js`);
                 componentHandler[componentID] = tmpModule[name];
                 componentHandler[name] = tmpModule[name];
                 component.components[i] = componentHandler[componentID];

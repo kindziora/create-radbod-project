@@ -1,13 +1,15 @@
-export const routes = {
+//import routes from "./routes/website.js";
+let routes = {
     "^([a-z]{2}_[A-Z]{2})/([.-\w]*)$": 2, // regex input : match group 
-    "^home": "home",
-    "^start": "start",
-    "^$": "start",
-    "^register": "register",
-    "^login": "login",
-    "^impressum": "impressum",
-    "_not_found": "notFound"
+    "^home": "website/home.js",
+    "^start": "website/start.js",
+    "^$": "website/start.js",
+    "^register": "website/register.js",
+    "^login": "website/login.js",
+    "^impressum": "website/impressum.js",
+    "_not_found": "website/notFound.js"
 };
+
 
 export function parseRoute(path) {
     let lang = false;

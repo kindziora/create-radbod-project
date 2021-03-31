@@ -95,7 +95,7 @@ export class myApp extends radbod.app {
      */
     loadPage(path, callback) {
         let routeInfo = parseRoute(path);
-        let page = routeInfo.filename;
+        let page = routeInfo.filename.split("/").pop().split(".")[0];
 
         this.setLanguage(routeInfo.language);
 
@@ -109,7 +109,7 @@ export class myApp extends radbod.app {
             if (typeof callback === "function")
                 callback(this.components[page]);
         } else {
-            import(`./page/${page}.js`).then((module) => {
+            import(`./${routeInfo.filename}`).then((module) => {
                 this.mountComponent(page, module[page], (stores, data, component) => {
                     this.render(stores, data, component, path);
                     this.renderSharedComponents(this.components[page]);

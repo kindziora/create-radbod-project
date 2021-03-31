@@ -1,13 +1,13 @@
 
 import { fetchDataStores, lookupComponents } from "./readComponents.js"
-import { environment } from "../config/server.dev.js";
+import { environment } from "../../config/server.dev.js";
  
 import {
     dataHandler,
     eventHandler,
     parseRoute,
     translations
-} from "../config/env.js";
+} from "../../config/env.js";
 
 import { promises as fs } from 'fs';
 const regexSectionHead = /<extend-head[\w\s\d-'"=]*\>(.*)<\/extend-head>/igs;
@@ -55,13 +55,13 @@ export const html_loader = asyncHandler(async function (req, res, next) {
     let path = req.path;
 
     let routeInfo = parseRoute(path);
-    let pageName = routeInfo.filename;
+    let pageName = routeInfo.filename.split("/").pop().split(".")[0];
     dataH.internationalize.addTranslation(translations);
     dataH.internationalize.setLanguage(routeInfo.language);
 
-    console.log("./public/build/dev/page/" + pageName + ".js");
+    console.log("./public/build/dev/" + routeInfo.filename);
 
-    let page = await import("../public/build/dev/page/" + pageName + ".js");
+    let page = await import("../../public/build/dev/" + routeInfo.filename);
      
 
     let count = await lookupComponents(page[pageName], 0, componentsHandler);
