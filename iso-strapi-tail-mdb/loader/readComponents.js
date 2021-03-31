@@ -55,6 +55,7 @@ export function fetchDataStores(component, componentsHandler, cb, allready, tota
  * @param {*} componentHandler 
  */
 export async function lookupComponents(component, cnt, componentHandler) {
+     
     for (let i in component.components) {
         if (typeof component.components[i] === "string") {
             let componentID = component.components[i];
@@ -70,7 +71,7 @@ export async function lookupComponents(component, cnt, componentHandler) {
             }
         }
 
-        cnt = await lookupComponents(component.components[i], cnt);
+        cnt = await lookupComponents(component.components[i], cnt, componentHandler);
     }
     return ++cnt;
 }

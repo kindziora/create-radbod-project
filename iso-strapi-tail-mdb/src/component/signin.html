@@ -8,17 +8,17 @@
 
             <div class="form-field">
                 <label class="user" for="login-email"><span class="hidden">E-Mail</span></label>
-                <input id="login-email" type="text" placeholder="email@xyz.de" required data-name="/$user/email"
+                <input id="login-email" type="text" placeholder="email@xyz.de" required data-name="/$login/email"
                     data-validations="mail_validator,required_validator" />
                   
-                    <span data-name="/_state/$user/email/msg" class="msg ${
+                    <span data-name="/_state/$login/email/msg" class="msg ${
                         change.value ? 'error':''}">${ change.value ?
                         change.value.map(function(e){return e}) : "" }</span>
             </div>
 
             <div class="form-field">
                 <label class="lock" for="login-password"><span class="hidden">Password</span></label>
-                <input id="login-password" type="password" placeholder="Password" data-name="/$user/password" required
+                <input id="login-password" type="password" placeholder="Password" data-name="/$login/password" required
                     pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,12}$">
             </div>
 
@@ -79,7 +79,6 @@
     import { mail_validator } from '../middleware/validator/email';
     import { required_validator } from '../middleware/validator/required';
     import { magic_form } from '../middleware/magicForm';
-    import { modal } from '../component/modal';
     import cookie from '../deps/cookie';
 
     export let signin = {
@@ -88,12 +87,12 @@
                 let { change, user, modal } = args;
                 return `<p>Bitte überprüfe nochmal: <ul>${modal.error.map(e => `<li>${e}</li>`).join("")}</ul></p>`;
             }
-        },
-        components: {
-            "modal-component": modal
+        } ,
+        components: { 
+            "modal-component": "modal#partial"
         },
         data(data, runtime) {
-            return this.createStore("user", { "email": "", "password": "" })
+            return this.createStore("login", { "email": "", "password": "" })
                 .addValidations({ mail_validator, required_validator });
         },
         interactions: function () {
@@ -108,8 +107,10 @@
                             this.store.dataH.pxy.$modal.body = this.dom.views.failed.call(this, { user: dataStore, modal: this.store.dataH.pxy.$modal });
                             this.store.dataH.pxy.$modal.show = true;
                         };
+                        let mailValidation = this.dom.elementByName["/$login/email"][0].validate();
+                        let passwordValidation =  this.dom.elementByName["/$login/password"][0].validate();
                         
-                        let fieldStates = this.store.validateFields(["/$user/email", "/$user/password"]);
+                        let fieldStates = [mailValidation, passwordValidation];
                         let filtered = [];
                         for (let e in fieldStates) {
                             if (!fieldStates[e].isValid) {

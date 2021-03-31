@@ -5,6 +5,7 @@ import cookie from './deps/cookie.js';
  */
 import { topmenu } from './component/topmenu.js';
 import { bottommenu } from './component/bottommenu.js';
+import { modal } from './component/modal.js';
 
 export class myApp extends radbod.app {
 
@@ -23,7 +24,11 @@ export class myApp extends radbod.app {
         this.mountComponent("bottommenu#footermenu", bottommenu, (stores, data, component) => {
             this.sharedComponents["bottommenu#footermenu"] = component;
         });
-      
+
+        this.mountComponent("modal#partial", modal, (stores, data, component) => {
+            this.sharedComponents["modal#partial"] = component;
+        });
+
         this.cookie = cookie; 
     }
 

@@ -62,6 +62,7 @@ export const html_loader = asyncHandler(async function (req, res, next) {
     console.log("./public/build/dev/page/" + pageName + ".js");
 
     let page = await import("../public/build/dev/page/" + pageName + ".js");
+     
 
     let count = await lookupComponents(page[pageName], 0, componentsHandler);
     let met = { cnt: 0, loaded: [] };
@@ -87,7 +88,7 @@ export const html_loader = asyncHandler(async function (req, res, next) {
 
         let storeData = stores.store.toObject();
         try {
-
+            
             let pageHTML = eval(`(${page[pageName].views[pageName].toString()})`).call(stores, { change: { value: "" }, ...storeData, _t, env: dataH.environment });
 
             let layoutStore = stores.createStore("index", {
