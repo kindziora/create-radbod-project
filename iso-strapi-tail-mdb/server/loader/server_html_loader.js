@@ -1,7 +1,6 @@
 
 import { fetchDataStores, lookupComponents } from "./readComponents.js"
 import { environment } from "../../config/server.dev.js";
- 
 
 import {
     dataHandler,
@@ -11,6 +10,9 @@ import {
 } from "../../config/env.js";
 
 import { promises as fs } from 'fs';
+
+import {backend} from '../../src/middleware/strapi.js';
+
 const regexSectionHead = /<extend-head[\w\s\d-'"=]*\>(.*)<\/extend-head>/igs;
 const REGEX_HEAD = (data) => data.match(regexSectionHead) ? [...data.matchAll(regexSectionHead)][0][1] : "<title>";
 
@@ -48,12 +50,37 @@ function getAllCSS(meta) {
 
 let componentsHandler = {};
 
+let authHandler = new backend(environment);
+ 
 export const html_loader = asyncHandler(async function (req, res, next) {
 
     let dataH = new dataHandler(new eventHandler(), environment);
     let path = req.path;
 
     let routeInfo = parseRoute(path);
+
+    if(routeInfo.private) {
+        let _no_auth = "403 Access denied";
+        let ck = authHandler.parseCookie(req.headers.cookie);
+        if(ck && ck.tk) {
+            authHandler.setAuthToken(ck.tk);
+
+            let auth = await authHandler.isAuthorized();
+   
+            if(!auth){
+                return res.status(403).send(_no_auth);
+            } 
+        }else{
+            return res.status(403).send(_no_auth);
+        }
+    } 
+
+    if(path.split("/").pop().split(".").length > 1){
+        //regular file
+        next();
+        return;
+    }
+
     let pageName = routeInfo.filename.split("/").pop().split(".")[0];
     dataH.internationalize.addTranslation(translations);
     dataH.internationalize.setLanguage(routeInfo.language);
@@ -61,7 +88,7 @@ export const html_loader = asyncHandler(async function (req, res, next) {
     console.log("./public/build/dev/" + routeInfo.filename, routeInfo);
 
     let page = await import("../../public/build/dev/" + routeInfo.filename);
-      console.log(page);
+
     let count = await lookupComponents(page[pageName], 0, componentsHandler);
     let met = { cnt: 0, loaded: [] };
 

@@ -1,8 +1,10 @@
 
 import {viewFunctions} from '../src/middleware/view/view.js';
+import fetch from 'node-fetch';
 
 
 export let environment = {
+    fetch: fetch,
     view : new viewFunctions(this),
     data_loader: {
         find(options, cb) {

@@ -23,11 +23,11 @@ async function run() {
     next() ;
 } ) ;
 
-  app.use(express.static(path.join(__dirname, staticPath)));
 
   if (typeof html_loader === "function") {
     app.use(html_loader);
   }
+  app.use(express.static(path.join(__dirname, staticPath)));
 
   // make the server listen to requests
   app.listen(PORT, () => {

@@ -10,7 +10,7 @@ let routes = {
     "^impressum": "website/impressum.js",
     "_not_found": "website/notFound.js",
 
-    "^profile": "backend/profile.js",
+    "^backend/profile": "backend/profile.js",
 };
 
 
@@ -35,9 +35,9 @@ export function parseRoute(path) {
                 lang = match[1];
             }
 
-            return { filename: file, language: lang };
+            return { filename: file, language: lang, private: pathCleaned.indexOf("backend") !==-1, requested: pathCleaned };
         }
     }
 
-    return { filename: routes._not_found, language: lang };
+    return { filename: routes._not_found, language: lang, private: pathCleaned.indexOf("backend") !==-1, requested: pathCleaned };
 }
