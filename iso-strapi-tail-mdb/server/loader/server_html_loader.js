@@ -2,6 +2,7 @@
 import { fetchDataStores, lookupComponents } from "./readComponents.js"
 import { environment } from "../../config/server.dev.js";
  
+
 import {
     dataHandler,
     eventHandler,
@@ -31,9 +32,7 @@ function getModules(meta) {
 
     meta.loaded.push({ path: "/app.js" });
     meta.loaded.push({ path: "/index.js" });
-
-
-
+    
     return meta.loaded.map(mod).join("\n\r");
 }
 
