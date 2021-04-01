@@ -15,7 +15,7 @@
         return `<div class="Rtable-row" data-name="/$textlist/items/${change.value.id}" data-type="list-item"> 
                   <div class="Rtable-cell date-cell">
                     <div class="Rtable-cell--heading">Von</div>
-                    <div class="Rtable-cell--content date-content"><span class="webinar-date">${change.value.createdAt}</div>
+                    <div class="Rtable-cell--content date-content"><span class="webinar-date">${change.value.createdAt.substr(5,14).replace("T"," ")}</div>
                   </div>
                   <div class="Rtable-cell topic-cell">
                     <div class="Rtable-cell--content title-content">${change.value.name}</div>
@@ -26,17 +26,17 @@
                   </div>
                   <div class="Rtable-cell replay-link-cell">
                     <div class="Rtable-cell--heading">Bezahlung</div>
-                    <div class="Rtable-cell--content replay-link-content">${change.value.wordcent}</div>
+                    <div class="Rtable-cell--content replay-link-content">${change.value.wordcent} cent / Wort</div>
                   </div>
                   <div class="Rtable-cell Rtable-cell--foot pdf-cell">
                     <div class="Rtable-cell--heading">Aktion</div>
-                    <div class="Rtable-cell--content pdf-content">start</div>
+                    <div class="Rtable-cell--content pdf-content"><i>start</i></div>
                   </div> 
               </div>`;
       },
                    'textlist-e-22' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="Rtable-cell date-cell">
                     <div class="Rtable-cell--heading">Von</div>
-                    <div class="Rtable-cell--content date-content"><span class="webinar-date">2021-04-01T17:01:39.499Z</span></div>
+                    <div class="Rtable-cell--content date-content"><span class="webinar-date">04-01 17:01:39</span></div>
                   </div>
                   <div class="Rtable-cell topic-cell">
                     <div class="Rtable-cell--content title-content">Business Profile schreiben</div>
@@ -47,17 +47,17 @@
                   </div>
                   <div class="Rtable-cell replay-link-cell">
                     <div class="Rtable-cell--heading">Bezahlung</div>
-                    <div class="Rtable-cell--content replay-link-content">2.3</div>
+                    <div class="Rtable-cell--content replay-link-content">2.3 cent / Wort</div>
                   </div>
                   <div class="Rtable-cell Rtable-cell--foot pdf-cell">
                     <div class="Rtable-cell--heading">Aktion</div>
-                    <div class="Rtable-cell--content pdf-content">start</div>
+                    <div class="Rtable-cell--content pdf-content"><i>start</i></div>
                   </div>`},
                    'textlist-e-23' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="Rtable-cell--heading">Von</div>
-                    <div class="Rtable-cell--content date-content"><span class="webinar-date">2021-04-01T17:01:39.499Z</span></div>`},
+                    <div class="Rtable-cell--content date-content"><span class="webinar-date">04-01 17:01:39</span></div>`},
                    'textlist-e-24' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `Von`},
-                   'textlist-e-25' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<span class="webinar-date">2021-04-01T17:01:39.499Z</span>`},
-                   'textlist-e-26' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `2021-04-01T17:01:39.499Z`},
+                   'textlist-e-25' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<span class="webinar-date">04-01 17:01:39</span>`},
+                   'textlist-e-26' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `04-01 17:01:39`},
                    'textlist-e-27' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="Rtable-cell--content title-content">Business Profile schreiben</div>`},
                    'textlist-e-28' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `Business Profile schreiben`},
                    'textlist-e-29' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="Rtable-cell--heading">Anzahl</div>
@@ -65,16 +65,17 @@
                    'textlist-e-30' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `Anzahl`},
                    'textlist-e-31' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `0`},
                    'textlist-e-32' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="Rtable-cell--heading">Bezahlung</div>
-                    <div class="Rtable-cell--content replay-link-content">2.3</div>`},
+                    <div class="Rtable-cell--content replay-link-content">2.3 cent / Wort</div>`},
                    'textlist-e-33' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `Bezahlung`},
-                   'textlist-e-34' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `2.3`},
+                   'textlist-e-34' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `2.3 cent / Wort`},
                    'textlist-e-35' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="Rtable-cell--heading">Aktion</div>
-                    <div class="Rtable-cell--content pdf-content">start</div>`},
+                    <div class="Rtable-cell--content pdf-content"><i>start</i></div>`},
                    'textlist-e-36' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `Aktion`},
-                   'textlist-e-37' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `start`},
-                   'textlist-e-38' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="Rtable-cell date-cell">
+                   'textlist-e-37' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<i>start</i>`},
+                   'textlist-e-38' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `start`},
+                   'textlist-e-39' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="Rtable-cell date-cell">
                     <div class="Rtable-cell--heading">Von</div>
-                    <div class="Rtable-cell--content date-content"><span class="webinar-date">2021-04-01T17:48:34.116Z</span></div>
+                    <div class="Rtable-cell--content date-content"><span class="webinar-date">04-01 17:48:34</span></div>
                   </div>
                   <div class="Rtable-cell topic-cell">
                     <div class="Rtable-cell--content title-content">Webseiten Texte schreiben</div>
@@ -85,35 +86,36 @@
                   </div>
                   <div class="Rtable-cell replay-link-cell">
                     <div class="Rtable-cell--heading">Bezahlung</div>
-                    <div class="Rtable-cell--content replay-link-content">3.3</div>
+                    <div class="Rtable-cell--content replay-link-content">3.3 cent / Wort</div>
                   </div>
                   <div class="Rtable-cell Rtable-cell--foot pdf-cell">
                     <div class="Rtable-cell--heading">Aktion</div>
-                    <div class="Rtable-cell--content pdf-content">start</div>
+                    <div class="Rtable-cell--content pdf-content"><i>start</i></div>
                   </div>`},
-                   'textlist-e-39' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="Rtable-cell--heading">Von</div>
-                    <div class="Rtable-cell--content date-content"><span class="webinar-date">2021-04-01T17:48:34.116Z</span></div>`},
-                   'textlist-e-40' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `Von`},
-                   'textlist-e-41' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<span class="webinar-date">2021-04-01T17:48:34.116Z</span>`},
-                   'textlist-e-42' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `2021-04-01T17:48:34.116Z`},
-                   'textlist-e-43' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="Rtable-cell--content title-content">Webseiten Texte schreiben</div>`},
-                   'textlist-e-44' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `Webseiten Texte schreiben`},
-                   'textlist-e-45' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="Rtable-cell--heading">Anzahl</div>
+                   'textlist-e-40' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="Rtable-cell--heading">Von</div>
+                    <div class="Rtable-cell--content date-content"><span class="webinar-date">04-01 17:48:34</span></div>`},
+                   'textlist-e-41' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `Von`},
+                   'textlist-e-42' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<span class="webinar-date">04-01 17:48:34</span>`},
+                   'textlist-e-43' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `04-01 17:48:34`},
+                   'textlist-e-44' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="Rtable-cell--content title-content">Webseiten Texte schreiben</div>`},
+                   'textlist-e-45' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `Webseiten Texte schreiben`},
+                   'textlist-e-46' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="Rtable-cell--heading">Anzahl</div>
                     <div class="Rtable-cell--content access-link-content">0</div>`},
-                   'textlist-e-46' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `Anzahl`},
-                   'textlist-e-47' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `0`},
-                   'textlist-e-48' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="Rtable-cell--heading">Bezahlung</div>
-                    <div class="Rtable-cell--content replay-link-content">3.3</div>`},
-                   'textlist-e-49' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `Bezahlung`},
-                   'textlist-e-50' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `3.3`},
-                   'textlist-e-51' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="Rtable-cell--heading">Aktion</div>
-                    <div class="Rtable-cell--content pdf-content">start</div>`},
-                   'textlist-e-52' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `Aktion`},
-                   'textlist-e-53' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `start`},
+                   'textlist-e-47' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `Anzahl`},
+                   'textlist-e-48' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `0`},
+                   'textlist-e-49' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="Rtable-cell--heading">Bezahlung</div>
+                    <div class="Rtable-cell--content replay-link-content">3.3 cent / Wort</div>`},
+                   'textlist-e-50' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `Bezahlung`},
+                   'textlist-e-51' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `3.3 cent / Wort`},
+                   'textlist-e-52' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="Rtable-cell--heading">Aktion</div>
+                    <div class="Rtable-cell--content pdf-content"><i>start</i></div>`},
+                   'textlist-e-53' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `Aktion`},
+                   'textlist-e-54' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<i>start</i>`},
+                   'textlist-e-55' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `start`},
                    'textlist' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="wrapper textlist" data-id="textlist-e-1" data-view="textlist-e-1"> <div class="Rtable Rtable--5cols Rtable--collapse" data-id="textlist-e-2" data-view="textlist-e-2"> <div class="Rtable-row Rtable-row--head" data-id="textlist-e-3" data-view="textlist-e-3"> <div class="Rtable-cell date-cell column-heading" data-id="textlist-e-4" data-view="textlist-e-4">${_t('Von')}</div> <div class="Rtable-cell topic-cell column-heading" data-id="textlist-e-5" data-view="textlist-e-5">${_t('Auftrag')}</div> <div class="Rtable-cell access-link-cell column-heading" data-id="textlist-e-6" data-view="textlist-e-6">${_t('Anzahl')}</div> <div class="Rtable-cell replay-link-cell column-heading" data-id="textlist-e-7" data-view="textlist-e-7">${_t('Bezahlung')}</div> <div class="Rtable-cell pdf-cell column-heading" data-id="textlist-e-8" data-view="textlist-e-8">${_t('Ansehen')}</div> </div> <div class="tlist" data-name="/$textlist/items" data-view="text" data-type="list" data-id="textlist-e-9"><div class="Rtable-row" data-name="/$textlist/items/6065fc7327b6b3004e467327" data-type="list-item" data-id="textlist-e-22" data-view="textlist-e-22"> 
                   <div class="Rtable-cell date-cell" data-id="textlist-e-23" data-view="textlist-e-23">
                     <div class="Rtable-cell--heading" data-id="textlist-e-24" data-view="textlist-e-24">Von</div>
-                    <div class="Rtable-cell--content date-content" data-id="textlist-e-25" data-view="textlist-e-25"><span class="webinar-date" data-id="textlist-e-26" data-view="textlist-e-26">2021-04-01T17:01:39.499Z</span></div>
+                    <div class="Rtable-cell--content date-content" data-id="textlist-e-25" data-view="textlist-e-25"><span class="webinar-date" data-id="textlist-e-26" data-view="textlist-e-26">04-01 17:01:39</span></div>
                   </div>
                   <div class="Rtable-cell topic-cell" data-id="textlist-e-27" data-view="textlist-e-27">
                     <div class="Rtable-cell--content title-content" data-id="textlist-e-28" data-view="textlist-e-28">Business Profile schreiben</div>
@@ -124,32 +126,32 @@
                   </div>
                   <div class="Rtable-cell replay-link-cell" data-id="textlist-e-32" data-view="textlist-e-32">
                     <div class="Rtable-cell--heading" data-id="textlist-e-33" data-view="textlist-e-33">Bezahlung</div>
-                    <div class="Rtable-cell--content replay-link-content" data-id="textlist-e-34" data-view="textlist-e-34">2.3</div>
+                    <div class="Rtable-cell--content replay-link-content" data-id="textlist-e-34" data-view="textlist-e-34">2.3 cent / Wort</div>
                   </div>
                   <div class="Rtable-cell Rtable-cell--foot pdf-cell" data-id="textlist-e-35" data-view="textlist-e-35">
                     <div class="Rtable-cell--heading" data-id="textlist-e-36" data-view="textlist-e-36">Aktion</div>
-                    <div class="Rtable-cell--content pdf-content" data-id="textlist-e-37" data-view="textlist-e-37">start</div>
+                    <div class="Rtable-cell--content pdf-content" data-id="textlist-e-37" data-view="textlist-e-37"><i data-id="textlist-e-38" data-view="textlist-e-38">start</i></div>
                   </div> 
               </div>
-<div class="Rtable-row" data-name="/$textlist/items/6066077283b04a0182db2fb3" data-type="list-item" data-id="textlist-e-38" data-view="textlist-e-38"> 
-                  <div class="Rtable-cell date-cell" data-id="textlist-e-39" data-view="textlist-e-39">
-                    <div class="Rtable-cell--heading" data-id="textlist-e-40" data-view="textlist-e-40">Von</div>
-                    <div class="Rtable-cell--content date-content" data-id="textlist-e-41" data-view="textlist-e-41"><span class="webinar-date" data-id="textlist-e-42" data-view="textlist-e-42">2021-04-01T17:48:34.116Z</span></div>
+<div class="Rtable-row" data-name="/$textlist/items/6066077283b04a0182db2fb3" data-type="list-item" data-id="textlist-e-39" data-view="textlist-e-39"> 
+                  <div class="Rtable-cell date-cell" data-id="textlist-e-40" data-view="textlist-e-40">
+                    <div class="Rtable-cell--heading" data-id="textlist-e-41" data-view="textlist-e-41">Von</div>
+                    <div class="Rtable-cell--content date-content" data-id="textlist-e-42" data-view="textlist-e-42"><span class="webinar-date" data-id="textlist-e-43" data-view="textlist-e-43">04-01 17:48:34</span></div>
                   </div>
-                  <div class="Rtable-cell topic-cell" data-id="textlist-e-43" data-view="textlist-e-43">
-                    <div class="Rtable-cell--content title-content" data-id="textlist-e-44" data-view="textlist-e-44">Webseiten Texte schreiben</div>
+                  <div class="Rtable-cell topic-cell" data-id="textlist-e-44" data-view="textlist-e-44">
+                    <div class="Rtable-cell--content title-content" data-id="textlist-e-45" data-view="textlist-e-45">Webseiten Texte schreiben</div>
                   </div>
-                  <div class="Rtable-cell access-link-cell" data-id="textlist-e-45" data-view="textlist-e-45">
-                    <div class="Rtable-cell--heading" data-id="textlist-e-46" data-view="textlist-e-46">Anzahl</div>
-                    <div class="Rtable-cell--content access-link-content" data-id="textlist-e-47" data-view="textlist-e-47">0</div>
+                  <div class="Rtable-cell access-link-cell" data-id="textlist-e-46" data-view="textlist-e-46">
+                    <div class="Rtable-cell--heading" data-id="textlist-e-47" data-view="textlist-e-47">Anzahl</div>
+                    <div class="Rtable-cell--content access-link-content" data-id="textlist-e-48" data-view="textlist-e-48">0</div>
                   </div>
-                  <div class="Rtable-cell replay-link-cell" data-id="textlist-e-48" data-view="textlist-e-48">
-                    <div class="Rtable-cell--heading" data-id="textlist-e-49" data-view="textlist-e-49">Bezahlung</div>
-                    <div class="Rtable-cell--content replay-link-content" data-id="textlist-e-50" data-view="textlist-e-50">3.3</div>
+                  <div class="Rtable-cell replay-link-cell" data-id="textlist-e-49" data-view="textlist-e-49">
+                    <div class="Rtable-cell--heading" data-id="textlist-e-50" data-view="textlist-e-50">Bezahlung</div>
+                    <div class="Rtable-cell--content replay-link-content" data-id="textlist-e-51" data-view="textlist-e-51">3.3 cent / Wort</div>
                   </div>
-                  <div class="Rtable-cell Rtable-cell--foot pdf-cell" data-id="textlist-e-51" data-view="textlist-e-51">
-                    <div class="Rtable-cell--heading" data-id="textlist-e-52" data-view="textlist-e-52">Aktion</div>
-                    <div class="Rtable-cell--content pdf-content" data-id="textlist-e-53" data-view="textlist-e-53">start</div>
+                  <div class="Rtable-cell Rtable-cell--foot pdf-cell" data-id="textlist-e-52" data-view="textlist-e-52">
+                    <div class="Rtable-cell--heading" data-id="textlist-e-53" data-view="textlist-e-53">Aktion</div>
+                    <div class="Rtable-cell--content pdf-content" data-id="textlist-e-54" data-view="textlist-e-54"><i data-id="textlist-e-55" data-view="textlist-e-55">start</i></div>
                   </div> 
               </div></div> </div> </div>`},
                    'text' : function (args) {
@@ -157,7 +159,7 @@
         return `<div class="Rtable-row" data-name="/$textlist/items/${change.value.id}" data-type="list-item"> 
                   <div class="Rtable-cell date-cell">
                     <div class="Rtable-cell--heading">Von</div>
-                    <div class="Rtable-cell--content date-content"><span class="webinar-date">${change.value.createdAt}</div>
+                    <div class="Rtable-cell--content date-content"><span class="webinar-date">${change.value.createdAt.substr(5,14).replace("T"," ")}</div>
                   </div>
                   <div class="Rtable-cell topic-cell">
                     <div class="Rtable-cell--content title-content">${change.value.name}</div>
@@ -168,15 +170,15 @@
                   </div>
                   <div class="Rtable-cell replay-link-cell">
                     <div class="Rtable-cell--heading">Bezahlung</div>
-                    <div class="Rtable-cell--content replay-link-content">${change.value.wordcent}</div>
+                    <div class="Rtable-cell--content replay-link-content">${change.value.wordcent} cent / Wort</div>
                   </div>
                   <div class="Rtable-cell Rtable-cell--foot pdf-cell">
                     <div class="Rtable-cell--heading">Aktion</div>
-                    <div class="Rtable-cell--content pdf-content">start</div>
+                    <div class="Rtable-cell--content pdf-content"><i>start</i></div>
                   </div> 
               </div>`;
       } },
-            "style":".textlist { /* Table column sizing ================================== */ /* Apply styles ================================== */ /* Responsive ==================================== */ } .textlist * { box-sizing: border-box; } .textlist .tlist { display: contents; } .textlist .wrapper { width: 100%; max-width: 1000px; margin: 1em auto; padding: 1em; } .textlist .is-striped { background-color: rgba(233, 200, 147, 0.2); } .textlist .date-cell { width: 20%; } .textlist .topic-cell { width: 41%; } .textlist .access-link-cell { width: 13%; } .textlist .replay-link-cell { width: 13%; } .textlist .pdf-cell { width: 13%; } .textlist .Rtable { display: flex; flex-wrap: wrap; margin: 0 0 3em 0; padding: 0; box-shadow: 0 0 40px rgba(0, 0, 0, 0.2); } .textlist .Rtable .Rtable-row { width: 100%; display: flex; } .textlist .Rtable .Rtable-row .Rtable-cell { box-sizing: border-box; flex-grow: 1; padding: 0.8em 1.2em; overflow: hidden; list-style: none; } .textlist .Rtable .Rtable-row .Rtable-cell.column-heading { background-color: #43BAC0; color: white; padding: 1em; } .textlist .Rtable .Rtable-row .Rtable-cell .Rtable-cell--heading { display: none; } .textlist .Rtable .Rtable-row .Rtable-cell .Rtable-cell--content a { font-size: 2em; color: #333; } .textlist .Rtable .Rtable-row .Rtable-cell .Rtable-cell--content .webinar-date { font-weight: 700; } @media all and (max-width: 750px) { .textlist .is-striped { background-color: white; } .textlist .Rtable--collapse { display: block; width: 100%; padding: 1em; box-shadow: none; } .textlist .Rtable--collapse .Rtable-row { box-sizing: border-box; width: 100%; display: flex; flex-wrap: wrap; margin-bottom: 2em; box-shadow: 0 0 40px rgba(0, 0, 0, 0.2); } .textlist .Rtable--collapse .Rtable-row .Rtable-cell { width: 100% !important; display: flex; align-items: center; } .textlist .Rtable--collapse .Rtable-row .Rtable-cell .Rtable-cell--heading { display: inline-block; flex: 1; max-width: 120px; min-width: 120px; color: #43BAC0; font-weight: 700; border-right: 1px solid #ccc; margin-right: 1em; } .textlist .Rtable--collapse .Rtable-row .Rtable-cell .Rtable-cell--content { flex: 2; padding-left: 1em; } .textlist .Rtable--collapse .topic-cell { background-color: #43BAC0; color: white; font-weight: 700; order: -1; } .textlist .Rtable--collapse .topic-cell .Rtable-cell--content { padding-left: 0 !important; } .textlist .Rtable--collapse .Rtable-row--head { display: none; } } .textlist .no-flexbox .Rtable { display: block; } .textlist .no-flexbox .Rtable.Rtable-cell { width: 100%; }","path":"/component/textlist.js",
+            "style":".textlist { /* Table column sizing ================================== */ /* Apply styles ================================== */ /* Responsive ==================================== */ } .textlist * { box-sizing: border-box; } .textlist .tlist { display: contents; } .textlist .wrapper { width: 100%; max-width: 1000px; margin: 1em auto; padding: 1em; } .textlist .is-striped { background-color: rgba(233, 200, 147, 0.2); } .textlist .date-cell { width: 20%; } .textlist .topic-cell { width: 41%; } .textlist .access-link-cell { width: 13%; } .textlist .replay-link-cell { width: 13%; } .textlist .pdf-cell { width: 13%; } .textlist .Rtable { display: flex; flex-wrap: wrap; margin: 0 0 3em 0; padding: 0; box-shadow: 0 0 40px rgba(0, 0, 0, 0.2); } .textlist .Rtable .Rtable-row { width: 100%; display: flex; } .textlist .Rtable .Rtable-row .Rtable-cell { box-sizing: border-box; flex-grow: 1; padding: 0.8em 1.2em; overflow: hidden; list-style: none; } .textlist .Rtable .Rtable-row .Rtable-cell.column-heading { background-color: #43BAC0; color: white; padding: 1em; } .textlist .Rtable .Rtable-row .Rtable-cell .Rtable-cell--heading { display: none; } .textlist .Rtable .Rtable-row .Rtable-cell .Rtable-cell--content a { font-size: 2em; color: #333; } .textlist .Rtable .Rtable-row .Rtable-cell .Rtable-cell--content .webinar-date { font-weight: 700; } @media all and (max-width: 750px) { .textlist .is-striped { background-color: white; } .textlist .Rtable--collapse { display: block; width: 100%; padding: 1em; box-shadow: none; } .textlist .Rtable--collapse .Rtable-row { box-sizing: border-box; width: 100%; display: flex; flex-wrap: wrap; margin-bottom: 2em; box-shadow: 0 0 40px rgba(0, 0, 0, 0.2); } .textlist .Rtable--collapse .Rtable-row .Rtable-cell { width: 100% !important; display: flex; align-items: center; } .textlist .Rtable--collapse .Rtable-row .Rtable-cell .Rtable-cell--heading { display: inline-block; flex: 1; max-width: 120px; min-width: 90px; color: #43BAC0; font-weight: 700; border-right: 1px solid #ccc; margin-right: 1em; } .textlist .Rtable--collapse .Rtable-row .Rtable-cell .Rtable-cell--content { flex: 2; padding-left: 1em; } .textlist .Rtable--collapse .topic-cell { background-color: #43BAC0; color: white; font-weight: 700; order: -1; } .textlist .Rtable--collapse .topic-cell .Rtable-cell--content { padding-left: 0 !important; } .textlist .Rtable--collapse .Rtable-row--head { display: none; } } .textlist .no-flexbox .Rtable { display: block; } .textlist .no-flexbox .Rtable.Rtable-cell { width: 100%; }","path":"/component/textlist.js",
     loaded(data) { //pipeline after data has been loaded
 
     },

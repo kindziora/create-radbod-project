@@ -140,7 +140,7 @@
             display: inline-block;
             flex: 1;
             max-width: 120px;
-            min-width: 120px;
+            min-width: 90px;
             color: $heading-color;
             font-weight: 700;
             border-right: 1px solid #ccc;
@@ -190,7 +190,7 @@
         return `<div class="Rtable-row" data-name="/$textlist/items/${change.value.id}" data-type="list-item"> 
                   <div class="Rtable-cell date-cell">
                     <div class="Rtable-cell--heading">Von</div>
-                    <div class="Rtable-cell--content date-content"><span class="webinar-date">${change.value.createdAt}</div>
+                    <div class="Rtable-cell--content date-content"><span class="webinar-date">${change.value.createdAt.substr(5,14).replace("T"," ")}</div>
                   </div>
                   <div class="Rtable-cell topic-cell">
                     <div class="Rtable-cell--content title-content">${change.value.name}</div>
@@ -201,11 +201,11 @@
                   </div>
                   <div class="Rtable-cell replay-link-cell">
                     <div class="Rtable-cell--heading">Bezahlung</div>
-                    <div class="Rtable-cell--content replay-link-content">${change.value.wordcent}</div>
+                    <div class="Rtable-cell--content replay-link-content">${change.value.wordcent} cent / Wort</div>
                   </div>
                   <div class="Rtable-cell Rtable-cell--foot pdf-cell">
                     <div class="Rtable-cell--heading">Aktion</div>
-                    <div class="Rtable-cell--content pdf-content">start</div>
+                    <div class="Rtable-cell--content pdf-content"><i>start</i></div>
                   </div> 
               </div>`;
       }
