@@ -29,6 +29,7 @@
     "express": "^4.17.1",
     "node-fetch": "^2.6.1",
     "radbod": "git+https://068ab122bfafcf4145337707a89da0677ef46c50:x-oauth-basic@github.com/kindziora/radbod.git",
-    "slim-select": "^1.27.0"
+    "slim-select": "^1.27.0",
+    "tinymce": "^5.7.1"
   }
 }

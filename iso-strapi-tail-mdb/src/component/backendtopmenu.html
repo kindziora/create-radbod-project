@@ -1,150 +1,153 @@
 <template language="js-template">
-    <navgation>
-        <div class="logo"><img src="/img/topmenu/logo_serialtexter.png" alt="no image" /></div>
-        <div class="hamburger" data-events="hamburger:click">
-            <div class="hamburg">
-                <span class="line"></span>
-                <span class="line"></span>
-                <span class="line"></span>
-            </div>
-        </div>
-        <ul id="menu">
-            <li data-name="/$backendtopmenu/link"><a href="${env.view.url('backend/tasklist')}" class="${env.view.isActive('/backend/tasklist')}">Aufträge</a></li>
-            <li data-name="/$backendtopmenu/link"><a href="${env.view.url('backend/profile')}" class="${env.view.isActive('/backend/profile')}">Profil</a></li>
-            <li data-name="/$backendtopmenu/link"><a href="${env.view.url('backend/logout')}" class="${ env.view.isActive('/backend/logout') }">Abmelden</a></li>
-            <li data-name="/$backendtopmenu/link"><a href="${env.view.url('blog')}" class="${env.view.isActive('blog')}">blog</a></li>
-        </ul>
-    </navgation>
+   
+    <svg style="display:none;">
+   
+        <symbol id="down" viewBox="0 0 16 16">
+          <polygon points="3.81 4.38 8 8.57 12.19 4.38 13.71 5.91 8 11.62 2.29 5.91 3.81 4.38" />
+        </symbol> 
+        <symbol id="collection" viewBox="0 0 16 16">
+          <rect width="7" height="7" />
+          <rect y="9" width="7" height="7" />
+          <rect x="9" width="7" height="7" />
+          <rect x="9" y="9" width="7" height="7" />
+        </symbol>
+        <symbol id="charts" viewBox="0 0 16 16">
+          <polygon points="0.64 7.38 -0.02 6.63 2.55 4.38 4.57 5.93 9.25 0.78 12.97 4.37 15.37 2.31 16.02 3.07 12.94 5.72 9.29 2.21 4.69 7.29 2.59 5.67 0.64 7.38" />
+          <rect y="9" width="2" height="7" />
+          <rect x="12" y="8" width="2" height="8" />
+          <rect x="8" y="6" width="2" height="10" />
+          <rect x="4" y="11" width="2" height="5" />
+        </symbol>
+        <symbol id="comments" viewBox="0 0 16 16">
+          <path d="M0,16.13V2H15V13H5.24ZM1,3V14.37L5,12h9V3Z" />
+          <rect x="3" y="5" width="9" height="1" />
+          <rect x="3" y="7" width="7" height="1" />
+          <rect x="3" y="9" width="5" height="1" />
+        </symbol>
+        <symbol id="pages" viewBox="0 0 16 16">
+          <rect x="4" width="12" height="12" transform="translate(20 12) rotate(-180)" />
+          <polygon points="2 14 2 2 0 2 0 14 0 16 2 16 14 16 14 14 2 14" />
+        </symbol>
+        <symbol id="appearance" viewBox="0 0 16 16">
+          <path d="M3,0V7A2,2,0,0,0,5,9H6v5a2,2,0,0,0,4,0V9h1a2,2,0,0,0,2-2V0Zm9,7a1,1,0,0,1-1,1H9v6a1,1,0,0,1-2,0V8H5A1,1,0,0,1,4,7V6h8ZM4,5V1H6V4H7V1H9V4h1V1h2V5Z" />
+        </symbol>
+        <symbol id="trends" viewBox="0 0 16 16">
+          <polygon points="0.64 11.85 -0.02 11.1 2.55 8.85 4.57 10.4 9.25 5.25 12.97 8.84 15.37 6.79 16.02 7.54 12.94 10.2 9.29 6.68 4.69 11.76 2.59 10.14 0.64 11.85" />
+        </symbol>
+        <symbol id="settings" viewBox="0 0 16 16">
+          <rect x="9.78" y="5.34" width="1" height="7.97" />
+          <polygon points="7.79 6.07 10.28 1.75 12.77 6.07 7.79 6.07" />
+          <rect x="4.16" y="1.75" width="1" height="7.97" />
+          <polygon points="7.15 8.99 4.66 13.31 2.16 8.99 7.15 8.99" />
+          <rect x="1.28" width="1" height="4.97" />
+          <polygon points="3.28 4.53 1.78 7.13 0.28 4.53 3.28 4.53" />
+          <rect x="12.84" y="11.03" width="1" height="4.97" />
+          <polygon points="11.85 11.47 13.34 8.88 14.84 11.47 11.85 11.47" />
+        </symbol>
+        <symbol id="options" viewBox="0 0 16 16">
+          <path d="M8,11a3,3,0,1,1,3-3A3,3,0,0,1,8,11ZM8,6a2,2,0,1,0,2,2A2,2,0,0,0,8,6Z" />
+          <path d="M8.5,16h-1A1.5,1.5,0,0,1,6,14.5v-.85a5.91,5.91,0,0,1-.58-.24l-.6.6A1.54,1.54,0,0,1,2.7,14L2,13.3a1.5,1.5,0,0,1,0-2.12l.6-.6A5.91,5.91,0,0,1,2.35,10H1.5A1.5,1.5,0,0,1,0,8.5v-1A1.5,1.5,0,0,1,1.5,6h.85a5.91,5.91,0,0,1,.24-.58L2,4.82A1.5,1.5,0,0,1,2,2.7L2.7,2A1.54,1.54,0,0,1,4.82,2l.6.6A5.91,5.91,0,0,1,6,2.35V1.5A1.5,1.5,0,0,1,7.5,0h1A1.5,1.5,0,0,1,10,1.5v.85a5.91,5.91,0,0,1,.58.24l.6-.6A1.54,1.54,0,0,1,13.3,2L14,2.7a1.5,1.5,0,0,1,0,2.12l-.6.6a5.91,5.91,0,0,1,.24.58h.85A1.5,1.5,0,0,1,16,7.5v1A1.5,1.5,0,0,1,14.5,10h-.85a5.91,5.91,0,0,1-.24.58l.6.6a1.5,1.5,0,0,1,0,2.12L13.3,14a1.54,1.54,0,0,1-2.12,0l-.6-.6a5.91,5.91,0,0,1-.58.24v.85A1.5,1.5,0,0,1,8.5,16ZM5.23,12.18l.33.18a4.94,4.94,0,0,0,1.07.44l.36.1V14.5a.5.5,0,0,0,.5.5h1a.5.5,0,0,0,.5-.5V12.91l.36-.1a4.94,4.94,0,0,0,1.07-.44l.33-.18,1.12,1.12a.51.51,0,0,0,.71,0l.71-.71a.5.5,0,0,0,0-.71l-1.12-1.12.18-.33a4.94,4.94,0,0,0,.44-1.07l.1-.36H14.5a.5.5,0,0,0,.5-.5v-1a.5.5,0,0,0-.5-.5H12.91l-.1-.36a4.94,4.94,0,0,0-.44-1.07l-.18-.33L13.3,4.11a.5.5,0,0,0,0-.71L12.6,2.7a.51.51,0,0,0-.71,0L10.77,3.82l-.33-.18a4.94,4.94,0,0,0-1.07-.44L9,3.09V1.5A.5.5,0,0,0,8.5,1h-1a.5.5,0,0,0-.5.5V3.09l-.36.1a4.94,4.94,0,0,0-1.07.44l-.33.18L4.11,2.7a.51.51,0,0,0-.71,0L2.7,3.4a.5.5,0,0,0,0,.71L3.82,5.23l-.18.33a4.94,4.94,0,0,0-.44,1.07L3.09,7H1.5a.5.5,0,0,0-.5.5v1a.5.5,0,0,0,.5.5H3.09l.1.36a4.94,4.94,0,0,0,.44,1.07l.18.33L2.7,11.89a.5.5,0,0,0,0,.71l.71.71a.51.51,0,0,0,.71,0Z" />
+        </symbol>
+        <symbol id="collapse" viewBox="0 0 16 16">
+          <polygon points="11.62 3.81 7.43 8 11.62 12.19 10.09 13.71 4.38 8 10.09 2.29 11.62 3.81" />
+        </symbol>
+        <symbol id="search" viewBox="0 0 16 16">
+          <path d="M6.57,1A5.57,5.57,0,1,1,1,6.57,5.57,5.57,0,0,1,6.57,1m0-1a6.57,6.57,0,1,0,6.57,6.57A6.57,6.57,0,0,0,6.57,0Z" />
+          <rect x="11.84" y="9.87" width="2" height="5.93" transform="translate(-5.32 12.84) rotate(-45)" />
+        </symbol>
+      </svg>
+
+      <header class="page-header">
+        <nav>
+          <a href="#0" aria-label="forecastr logo" class="logo">
+            <img src="/img/topmenu/logo_serialtexter.png" alt="no image" />
+          </a>
+          <button class="toggle-mob-menu" aria-expanded="false" aria-label="open menu">
+            <svg width="20" height="20" aria-hidden="true">
+              <use xlink:href="#down"></use>
+            </svg>
+          </button>
+          <ul class="admin-menu">
+            <li class="menu-heading">
+              <h3>Schreiben</h3>
+            </li>
+            <li>
+              <a href="#0">
+                <svg>
+                  <use xlink:href="#pages"></use>
+                </svg>
+                <span>Aufträge</span>
+              </a>
+            </li> 
+            <li>
+              <a href="#0">
+                <svg>
+                  <use xlink:href="#trends"></use>
+                </svg>
+                <span>Trends</span>
+              </a>
+            </li>
+            <li>
+              <a href="#0">
+                <svg>
+                  <use xlink:href="#collection"></use>
+                </svg>
+                <span>Collection</span>
+              </a>
+            </li>
+            <li>
+              <a href="#0">
+                <svg>
+                  <use xlink:href="#comments"></use>
+                </svg>
+                <span>Comments</span>
+              </a>
+            </li>
+            <li>
+              <a href="#0">
+                <svg>
+                  <use xlink:href="#appearance"></use>
+                </svg>
+                <span>Appearance</span>
+              </a>
+            </li>
+            <li class="menu-heading">
+              <h3>Einstellungen</h3>
+            </li>
+            <li>
+              <a href="#0">
+                <svg>
+                  <use xlink:href="#settings"></use>
+                </svg>
+                <span>Profil</span>
+              </a>
+            </li>
+            <li>
+              <a href="#0">
+                <svg>
+                  <use xlink:href="#options"></use>
+                </svg>
+                <span>Bezahlung</span>
+              </a>
+            </li>
+            <li>
+              <a href="#0">
+                <svg>
+                  <use xlink:href="#charts"></use>
+                </svg>
+                <span>Statistiken</span>
+              </a>
+            </li>
+            <li>
+            <a>Hilfe</a> 
+            </li>
+          </ul>
+        </nav>
+      </header>
 </template>
 
 <style language="scss">
-    navgation {
-        display: flex;
-        justify-content: space-between;
-
-        .logo {
-            width:15em;
-        }
-
-        .hamburger { 
-            top: 0;  
-            font-size: 1em;
-            display: block;
-            z-index: 2;
-        }
-
-        .hamburg {
-            display: block;
-            width: 2.14em;
-            height: 2em;
-            position: relative;
-            margin: auto;
-            border-radius: 4px;
-            transition: border-radius .5s;
-        }
-
-        .line {
-            position: absolute;
-            height: 5px;
-            width: inherit;
-            background: #403d3d;
-            border-radius: 32px;
-            display: block;
-            transition: 0.5s;
-            transform-origin: center;
-        }
-
-        .line:nth-child(1) {
-            top: 12px;
-        }
-
-        .line:nth-child(2) {
-            top: 24px;
-        }
-
-        .line:nth-child(3) {
-            top: 36px;
-        }
-
-        .hamburger.checked .line:nth-child(1) {
-            transform: translateY(12px) rotate(-45deg);
-        }
-
-        .hamburger.checked .line:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.checked .line:nth-child(3) {
-            transform: translateY(-12px) rotate(45deg);
-        }
-
-        #menu {
-            position: absolute;
-            width: 100%;
-            display: none;
-            background: white;
-            list-style-type: none;
-            top: 0;
-            margin: 0;
-            padding: 0;
-        }
-
-        #menu:hover {
-            display: block;
-        }
-
-        #menu li {
-            display: block;
-            line-height: 50px;
-            text-align: center;
-        }
-
-        #menu a {
-            color: #999;
-        }
-
-        #menu a:hover {
-            text-decoration: none;
-            color: #0076d1;
-        }
-
-        #menu a.active {
-            color: #0076d1;
-            font-weight: 500;
-        }
-
-        .hamburger:hover~#menu,
-        .hamburger.checked~#menu {
-            display: block;
-            padding: 0;
-            margin: 0;
-            left: 0;
-            right: 0;
-        }
-
-        @media only screen and (min-width: 768px) {
-            .hamburger {
-                display: none;
-            }
-
-            #menu {
-                display: flex;
-                position: static;
-                background: none;
-                clear: none;
-                flex: 1;
-                justify-content: flex-end;
-            }
-
-            #menu:hover {
-                display: flex;
-            }
-
-            #menu li {
-                padding: 0 1em;
-            }
-        }
-    }
+    
 </style>
 
 <script language="js">
