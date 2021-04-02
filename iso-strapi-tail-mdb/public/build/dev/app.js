@@ -7,13 +7,16 @@ import { topmenu } from './component/topmenu.js';
 import { bottommenu } from './component/bottommenu.js';
 import { modal } from './component/modal.js';
 import { backendtopmenu } from './component/backendtopmenu.js';
- 
+import { backend } from './middleware/strapi.js';
+
 
 export class myApp extends radbod.app {
 
     constructor(environment, $appEL) {
 
         environment.view.path = () => window.location.pathname;
+
+        environment.data_loader = new backend(environment);
 
         super(environment);
         this.$appEL = $appEL;

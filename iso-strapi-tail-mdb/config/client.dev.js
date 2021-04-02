@@ -1,6 +1,5 @@
 import {viewFunctions} from '../middleware/view/view.js';
-
-
+ 
 export let environment = {
     view : new viewFunctions(this),
     fetch: fetch,

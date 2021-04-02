@@ -159,7 +159,7 @@ export class compileViews {
 
         const browser = await puppeteer.launch({
        //     headless: false,
-        //     devtools: true, 
+       //      devtools: true, 
             args: ["--disable-web-security"],
         });
         const page = await browser.newPage();
