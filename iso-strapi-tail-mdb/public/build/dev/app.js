@@ -57,8 +57,7 @@ export class myApp extends radbod.app {
      * @param {*} path 
      */
     render(stores, data, component, path) {
-        let title = component.dom.$el.querySelector('title') ? component.dom.$el.querySelector('page').innerTEXT : path;
-        history.pushState(path, title, path);
+       
         document.querySelector('#section').innerHTML = "";
         document.querySelector('#section').append(component.dom.$el);
         this.loaded(path);
@@ -117,6 +116,13 @@ export class myApp extends radbod.app {
 
         this.loading(page);
 
+       // let title = component.dom.$el.querySelector('title') ? component.dom.$el.querySelector('page').innerTEXT : path;
+/**
+ * @TODO put title and meta infos in js component file as attributes
+ */
+
+        history.pushState(path, path, path);
+
         if (this.components[page]) {
 
             this.renderSharedComponents(this.components[page]);
@@ -126,6 +132,7 @@ export class myApp extends radbod.app {
                 callback(this.components[page]);
         } else {
             import(`./${routeInfo.filename}`).then((module) => {
+               
                 this.mountComponent(page, module[page], (stores, data, component) => {
                     this.render(stores, data, component, path);
                     this.renderSharedComponents(this.components[page]);
