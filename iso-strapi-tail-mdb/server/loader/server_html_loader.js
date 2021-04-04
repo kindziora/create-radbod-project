@@ -51,9 +51,10 @@ function getAllCSS(meta) {
 let componentsHandler = {};
 
 let authHandler = new backend(environment);
- 
-export const html_loader = asyncHandler(async function (req, res, next) {
 
+export const html_loader = asyncHandler(async function (req, res, next) {
+    environment.data_loader = authHandler;
+    
     let dataH = new dataHandler(new eventHandler(), environment);
     let path = req.path;
 
@@ -93,7 +94,8 @@ export const html_loader = asyncHandler(async function (req, res, next) {
     let met = { cnt: 0, loaded: [] };
 
     environment.view.path = (name) => path;
-
+   
+     
     fetchDataStores(page[pageName], componentsHandler, (data, component) => {
 
         dataH.internationalize.addTranslation(typeof component.translations === "function" ? component.translations.call() : component.translations);

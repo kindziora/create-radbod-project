@@ -34,66 +34,7 @@
                   </div> 
               </div>`;
       },
-                   'textlist-e-22' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="Rtable-cell date-cell">
-                    <div class="Rtable-cell--heading">Von</div>
-                    <div class="Rtable-cell--content date-content"><span class="webinar-date">04-01 17:01:39</span></div>
-                  </div>
-                  <div class="Rtable-cell topic-cell">
-                    <div class="Rtable-cell--content title-content">Business Profile schreiben</div>
-                  </div>
-                  <div class="Rtable-cell access-link-cell">
-                    <div class="Rtable-cell--heading">Anzahl</div>
-                    <div class="Rtable-cell--content access-link-content">0</div>
-                  </div>
-                  <div class="Rtable-cell replay-link-cell">
-                    <div class="Rtable-cell--heading">Bezahlung</div>
-                    <div class="Rtable-cell--content replay-link-content">2.3 cent / Wort</div>
-                  </div>
-                  <div class="Rtable-cell Rtable-cell--foot pdf-cell">
-                    <div class="Rtable-cell--heading">Aktion</div>
-                    <div class="Rtable-cell--content pdf-content"><i>start</i></div>
-                  </div>`},
-                   'textlist-e-23' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="Rtable-cell--heading">Von</div>
-                    <div class="Rtable-cell--content date-content"><span class="webinar-date">04-01 17:01:39</span></div>`},
-                   'textlist-e-24' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `Von`},
-                   'textlist-e-25' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<span class="webinar-date">04-01 17:01:39</span>`},
-                   'textlist-e-26' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `04-01 17:01:39`},
-                   'textlist-e-27' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="Rtable-cell--content title-content">Business Profile schreiben</div>`},
-                   'textlist-e-28' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `Business Profile schreiben`},
-                   'textlist-e-29' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="Rtable-cell--heading">Anzahl</div>
-                    <div class="Rtable-cell--content access-link-content">0</div>`},
-                   'textlist-e-30' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `Anzahl`},
-                   'textlist-e-31' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `0`},
-                   'textlist-e-32' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="Rtable-cell--heading">Bezahlung</div>
-                    <div class="Rtable-cell--content replay-link-content">2.3 cent / Wort</div>`},
-                   'textlist-e-33' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `Bezahlung`},
-                   'textlist-e-34' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `2.3 cent / Wort`},
-                   'textlist-e-35' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="Rtable-cell--heading">Aktion</div>
-                    <div class="Rtable-cell--content pdf-content"><i>start</i></div>`},
-                   'textlist-e-36' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `Aktion`},
-                   'textlist-e-37' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<i>start</i>`},
-                   'textlist-e-38' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `start`},
-                   'textlist' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="wrapper textlist" data-id="textlist-e-1" data-view="textlist-e-1"> <div class="Rtable Rtable--5cols Rtable--collapse" data-id="textlist-e-2" data-view="textlist-e-2"> <div class="Rtable-row Rtable-row--head" data-id="textlist-e-3" data-view="textlist-e-3"> <div class="Rtable-cell date-cell column-heading" data-id="textlist-e-4" data-view="textlist-e-4">${_t('Von')}</div> <div class="Rtable-cell topic-cell column-heading" data-id="textlist-e-5" data-view="textlist-e-5">${_t('Auftrag')}</div> <div class="Rtable-cell access-link-cell column-heading" data-id="textlist-e-6" data-view="textlist-e-6">${_t('Anzahl')}</div> <div class="Rtable-cell replay-link-cell column-heading" data-id="textlist-e-7" data-view="textlist-e-7">${_t('Bezahlung')}</div> <div class="Rtable-cell pdf-cell column-heading" data-id="textlist-e-8" data-view="textlist-e-8">${_t('Ansehen')}</div> </div> <div class="tlist" data-name="/$textlist/items" data-view="text" data-type="list" data-id="textlist-e-9"><div class="Rtable-row" data-name="/$textlist/items/6065fc7327b6b3004e467327" data-type="list-item" data-id="textlist-e-22" data-view="textlist-e-22"> 
-                  <div class="Rtable-cell date-cell" data-id="textlist-e-23" data-view="textlist-e-23">
-                    <div class="Rtable-cell--heading" data-id="textlist-e-24" data-view="textlist-e-24">Von</div>
-                    <div class="Rtable-cell--content date-content" data-id="textlist-e-25" data-view="textlist-e-25"><span class="webinar-date" data-id="textlist-e-26" data-view="textlist-e-26">04-01 17:01:39</span></div>
-                  </div>
-                  <div class="Rtable-cell topic-cell" data-id="textlist-e-27" data-view="textlist-e-27">
-                    <div class="Rtable-cell--content title-content" data-id="textlist-e-28" data-view="textlist-e-28">Business Profile schreiben</div>
-                  </div>
-                  <div class="Rtable-cell access-link-cell" data-id="textlist-e-29" data-view="textlist-e-29">
-                    <div class="Rtable-cell--heading" data-id="textlist-e-30" data-view="textlist-e-30">Anzahl</div>
-                    <div class="Rtable-cell--content access-link-content" data-id="textlist-e-31" data-view="textlist-e-31">0</div>
-                  </div>
-                  <div class="Rtable-cell replay-link-cell" data-id="textlist-e-32" data-view="textlist-e-32">
-                    <div class="Rtable-cell--heading" data-id="textlist-e-33" data-view="textlist-e-33">Bezahlung</div>
-                    <div class="Rtable-cell--content replay-link-content" data-id="textlist-e-34" data-view="textlist-e-34">2.3 cent / Wort</div>
-                  </div>
-                  <div class="Rtable-cell Rtable-cell--foot pdf-cell" data-id="textlist-e-35" data-view="textlist-e-35">
-                    <div class="Rtable-cell--heading" data-id="textlist-e-36" data-view="textlist-e-36">Aktion</div>
-                    <div class="Rtable-cell--content pdf-content" data-id="textlist-e-37" data-view="textlist-e-37"><i data-id="textlist-e-38" data-view="textlist-e-38">start</i></div>
-                  </div> 
-              </div></div> </div> </div>`},
+                   'textlist' : function (args) { let {change, backendtopmenu,bottommenu,home,login,modal,signin,tasklist,textlist,topmenu, _t, env} = args; return `<div class="wrapper textlist" data-id="textlist-e-1" data-view="textlist-e-1"> <div class="Rtable Rtable--5cols Rtable--collapse" data-id="textlist-e-2" data-view="textlist-e-2"> <div class="Rtable-row Rtable-row--head" data-id="textlist-e-3" data-view="textlist-e-3"> <div class="Rtable-cell date-cell column-heading" data-id="textlist-e-4" data-view="textlist-e-4">${_t('Von')}</div> <div class="Rtable-cell topic-cell column-heading" data-id="textlist-e-5" data-view="textlist-e-5">${_t('Auftrag')}</div> <div class="Rtable-cell access-link-cell column-heading" data-id="textlist-e-6" data-view="textlist-e-6">${_t('Anzahl')}</div> <div class="Rtable-cell replay-link-cell column-heading" data-id="textlist-e-7" data-view="textlist-e-7">${_t('Bezahlung')}</div> <div class="Rtable-cell pdf-cell column-heading" data-id="textlist-e-8" data-view="textlist-e-8">${_t('Ansehen')}</div> </div> <div class="tlist" data-name="/$textlist/items" data-view="text" data-type="list" data-id="textlist-e-9"> </div> </div> </div>`},
                    'text' : function (args) {
         let { change, textlist, _t } = args;
         return `<div class="Rtable-row" data-name="/$textlist/items/${change.value.id}" data-type="list-item"> 
@@ -122,7 +63,7 @@
     loaded(data) { //pipeline after data has been loaded
 
     },
-    data(data, runtime) {
+    data() {
       return this.createStore("textlist", {
         items: [
           {
@@ -168,7 +109,11 @@
             "id": "6065fc7327b6b3004e467327"
           },
         ]
-      })
+      }).db().find().then(function(res){
+        let {data, model} = res;
+        model._data.items = data;
+        return data;
+      });
     },
     interactions: () => ({
       "hamburger": {

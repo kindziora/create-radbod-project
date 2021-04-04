@@ -213,7 +213,7 @@
     loaded(data) { //pipeline after data has been loaded
 
     },
-    data(data, runtime) {
+    data() {
       return this.createStore("textlist", {
         items: [
           {
@@ -259,7 +259,11 @@
             "id": "6065fc7327b6b3004e467327"
           },
         ]
-      })
+      }).db().find().then(function(res){
+        let {data, model} = res;
+        model._data.items = data;
+        return data;
+      });
     },
     interactions: () => ({
       "hamburger": {

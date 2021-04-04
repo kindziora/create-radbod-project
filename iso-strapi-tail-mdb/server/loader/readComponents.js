@@ -40,6 +40,10 @@ export function fetchDataStores(component, componentsHandler, cb, allready, tota
     
     if (!result || typeof result.then !== "function") {
         ready(meta)(result);
+    }else{
+        if(result && typeof result.then === "function"){
+            result.then((d)=> ready(meta, dataH)(d));
+        }
     }
 
     for (let i in component.components) {

@@ -158,8 +158,9 @@ export class compileViews {
     async setupPuppeteer() {
 
         const browser = await puppeteer.launch({
-       //     headless: false,
-       //      devtools: true, 
+     //       headless: false,
+    //        devtools: true, 
+       dumpio: true,
             args: ["--disable-web-security"],
         });
         const page = await browser.newPage();
@@ -264,10 +265,12 @@ export class compileViews {
         views[componentName] = component.html;
 
         let store;
+        let orherErrors = [];
         try{
             store =  component.data.call(buildApp.dataH);
         }catch(e) {
             console.log(e);
+            orherErrors.push(e);
             store = {};
         }
         
@@ -305,7 +308,7 @@ export class compileViews {
             return Flatted.stringify(component);
         } catch (e) { 
             console.log(e, component);
-            return Flatted.stringify({ "error": { name: componentName, component: component, msg: e.message, trace: e.stack } });
+            return Flatted.stringify({ "error": {orherErrors, name: componentName, component: component, e} });
         }
 
 

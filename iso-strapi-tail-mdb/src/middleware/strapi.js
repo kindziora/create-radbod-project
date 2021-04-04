@@ -25,13 +25,12 @@ export class backend {
 
         this.fetch = env.fetch;
         this.baseUrl = env.baseUrl || 'http://localhost:1337'; 
-
-        
-
+           
     }
 
-    async getJobs(){
-      return await this.request(this.baseUrl + "/content");
+    find(model){
+        console.log(arguments);
+       return this.requestP(this.baseUrl + "/projects", model);
     }
 
     async me(){
@@ -47,10 +46,24 @@ export class backend {
         return false;
     }
 
-    
-    async request(url) {
+    requestP(url, model) {
+        let res = (typeof fetch !=='undefined'? fetch: this.fetch)(url,
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': this.Authorization
+            }
+         }).then(r =>   r.json() )
+         .then(d => new Promise(function(resolve, reject) { return resolve( {data : d, "model": model}) }));
+ 
+        return res;
+    }
 
-        let response = await this.fetch(url,
+
+    async request(url) {
+         
+        let response = await (typeof fetch !=='undefined'? fetch: this.fetch)(url,
         {
             method: 'GET',
             headers: {

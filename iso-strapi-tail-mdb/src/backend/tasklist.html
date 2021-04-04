@@ -550,31 +550,9 @@ svg {
             "textlist-component" : textlist,
             "bottommenu-component": "bottommenu#footermenu"
         },
-        views: {
-            "tasklist-list": function (args) {
-                let { change, tasklist, _t } = args;
-                return `<li data-name="/$tasklist/items/${change.value.id}" data-type="list-item" class="tasklist-item">
-                     <label>${change.value.label}</label> 
-                </li>`;
-            },
-            "tasklist-list-active": function (args) {
-                let { change, tasklist, _t } = args;
-                return !change.value.status ? this.dom.views["tasklist-list"].call(this, args) : "";
-            },
-            "tasklist-list-completed": function (args) {
-                let { change, tasklist, _t } = args;
-                return change.value.status ? this.dom.views["tasklist-list"].call(this, args) : "";
-            }
+        data( ) {
 
-        },
-        data(dataReady) {
-
-            return this.createStore("tasklist", {}).find({ id: 1 }, function (data) {
-
-                if (typeof dataReady === "function")
-                    dataReady(data);
-
-            });
+            return this.createStore("tasklist", {});
 
         },
         interactions() {

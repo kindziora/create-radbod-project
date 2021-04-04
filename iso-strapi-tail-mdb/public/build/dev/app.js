@@ -17,6 +17,13 @@ export class myApp extends radbod.app {
         environment.view.path = () => window.location.pathname;
 
         environment.data_loader = new backend(environment);
+        try {
+            let tk = cookie.get('tk'); 
+            if (tk)
+                environment.data_loader.setAuthToken(tk);
+        } catch (e) {
+            console.log(e);
+        }
 
         super(environment);
         this.$appEL = $appEL;
@@ -33,12 +40,12 @@ export class myApp extends radbod.app {
         this.mountComponent("modal#partial", modal, (stores, data, component) => {
             this.sharedComponents["modal#partial"] = component;
         });
-        
+
         this.mountComponent("backendtopmenu#mainmenu", backendtopmenu, (stores, data, component) => {
             this.sharedComponents["backendtopmenu#mainmenu"] = component;
         });
 
-        this.cookie = cookie; 
+        this.cookie = cookie;
     }
 
 
@@ -86,13 +93,13 @@ export class myApp extends radbod.app {
             let shared = component.dom.$el.getElementsByTagName(tagName);
             if (shared[0]) {
                 shared[0].appendChild(this.sharedComponents[i].dom.$el);
-                if(this.sharedComponents[i].interactions[tagName] && this.sharedComponents[i].interactions[tagName]["postRender"]){
+                if (this.sharedComponents[i].interactions[tagName] && this.sharedComponents[i].interactions[tagName]["postRender"]) {
                     this.sharedComponents[i].interactions[tagName]["postRender"](component);
                 }
             }
 
         }
-        if(component.interactions[component.getName()] && component.interactions[component.getName()]["postRender"]){
+        if (component.interactions[component.getName()] && component.interactions[component.getName()]["postRender"]) {
             component.interactions[component.getName()]["postRender"](component);
         }
     }
