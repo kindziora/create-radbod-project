@@ -52,4 +52,19 @@ export class viewFunctions {
     url(pageName, language) {
         return [language || this.getLanguage() ||"" , pageName].join("/");
     }
+
+    date(date){
+    
+        try{
+            let d = new Date(date.substr(0, 8));
+            let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+            let mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(d);
+            let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
+            return `${da}-${mo}-${ye}`;
+        }catch(e){
+            return date + e;
+        }
+        
+        
+    }
 }

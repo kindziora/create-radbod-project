@@ -32,6 +32,11 @@ export class backend {
         return this.requestP(this.baseUrl + "/projects", model);
     }
 
+    findProject(id, model){
+
+        return this.requestP(this.baseUrl + "/projects/" + id, model);
+    }
+
     async me(){
         return await this.request(this.baseUrl + "/users/me");
     }

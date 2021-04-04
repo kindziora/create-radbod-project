@@ -28,7 +28,7 @@
     box-sizing: border-box;
   }
 
-  .tlist{
+  .tlist {
     display: contents;
   }
 
@@ -83,7 +83,7 @@
         box-sizing: border-box;
         flex-grow: 1;
         padding: 0.8em 1.2em;
-        overflow: hidden;  
+        overflow: hidden;
         list-style: none;
 
         &.column-heading {
@@ -186,11 +186,11 @@
   export let textlist = {
     views: {
       "text": function (args) {
-        let { change, textlist, _t } = args;
+        let { change, textlist, _t, env } = args;
         return `<div class="Rtable-row" data-name="/$textlist/items/${change.value.id}" data-type="list-item"> 
                   <div class="Rtable-cell date-cell">
                     <div class="Rtable-cell--heading">Von</div>
-                    <div class="Rtable-cell--content date-content"><span class="webinar-date">${change.value.createdAt.substr(5,14).replace("T"," ")}</div>
+                    <div class="Rtable-cell--content date-content"><span class="webinar-date">${change.value.createdAt.substr(5, 14).replace("T", " ")}</div>
                   </div>
                   <div class="Rtable-cell topic-cell">
                     <div class="Rtable-cell--content title-content">${change.value.name}</div>
@@ -205,7 +205,7 @@
                   </div>
                   <div class="Rtable-cell Rtable-cell--foot pdf-cell">
                     <div class="Rtable-cell--heading">Aktion</div>
-                    <div class="Rtable-cell--content pdf-content"><i>start</i></div>
+                    <div class="Rtable-cell--content pdf-content"><a href="${env.view.url('backend/briefing/'+change.value.id)}" data-events="job:click" data-index="${change.value.id}">start</a></div>
                   </div> 
               </div>`;
       }
@@ -213,20 +213,21 @@
     loaded(data) { //pipeline after data has been loaded
 
     },
+     
     data() {
       return this.createStore("textlist", {
         items: [
           {
             "i": 0,
             "sourcetype": null,
-            "_id": "6065fc7327b6b3004e467327",
-            "name": "Business Profile schreiben",
-            "briefing": "Lieber Autor, \n\nin diesem Job sollen wir Unternehmenstexte ",
-            "published_at": "2021-04-01T17:02:06.913Z",
-            "createdAt": "2021-04-01T17:01:39.499Z",
-            "updatedAt": "2021-04-01T17:03:47.781Z",
+            "_id": "-",
+            "name": "-",
+            "briefing": "-",
+            "published_at": "-",
+            "createdAt": "-",
+            "updatedAt": "-",
             "__v": 0,
-            "wordcent": 2.3,
+            "wordcent": "-",
             "input": null,
             "output": null,
             "contents": [
@@ -259,18 +260,25 @@
             "id": "6065fc7327b6b3004e467327"
           },
         ]
-      }).db().find().then(function(res){
-        let {data, model} = res;
+      }).db().find().then(function (res) {
+        let { data, model } = res;
         model._data.items = data;
         return data;
       });
     },
     interactions: () => ({
-      "hamburger": {
-        "click"(sender, dataStore) {
-          sender.field.$el.classList.toggle("checked");
+      "job": {
+          click(context, store) {
+            context.ev.preventDefault();
+            let url = context.field.$el.getAttribute("href");
+           
+            buildApp.loadPage(url, () => {
+                 console.log(arguments);
+            });
+
+
+          }
         }
-      }
     })
   }
 </script>

@@ -13,6 +13,7 @@ let routes = {
     "^backend/profile": "backend/profile.js",
     "^backend/tasklist": "backend/tasklist.js",
     "^backend/write": "backend/write.js",
+    "^backend/briefing/([.-\w]*)": "backend/briefing.js",
 };
 
 

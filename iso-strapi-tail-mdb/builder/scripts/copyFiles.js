@@ -104,6 +104,14 @@ export async function copyFiles(folder, options) {
         console.log(err);
     });
 
+ 
+    let iCSS = await renderSCSSFile(folder + "/styles/backend.scss", buildP + "/css/backend.css");
+
+    fs.writeFile(buildP + "/css/backend.css", iCSS.css, function(err){
+        console.log(err);
+    });
+
+
     await copyImages(folder, buildPath);
 
     await fs.mkdir(buildP + "/deps", { recursive: true });

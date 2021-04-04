@@ -1,0 +1,1 @@
+export const translations = {"en_EN":{"1":"1","Auftragsbriefing":"Auftragsbriefing","Hi Alex":"Hi Alex","Willkommen zurück":"Willkommen zurück"}}
