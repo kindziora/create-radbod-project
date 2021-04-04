@@ -15,8 +15,15 @@
             <span class="date">${env.view.date(briefing.createdAt)}</span>
             <h2>${briefing.name}</h2>
 
-            <p>${briefing.briefing}</p>
+            ${briefing.briefing}
+
+            <div class="button-container">
+              <label class="checkb"><input type="checkbox" name="gelesen" /> habe das Briefing gelesen und
+                verstanden</label>
+              <button type="submit" data-name="/$briefing/submit" class="submit">Verstanden :)</button>
+            </div>
           </div>
+
 
         </article>
 
@@ -38,7 +45,24 @@
   }
 
   .briefing-content {
+    text-align: justify;
     padding: 1em;
+  }
+
+
+  @media screen and (max-width: 767px) {
+    .briefing-content {
+      padding: 0;
+    }
+  }
+
+  .button-container {
+    text-align: center;
+    padding: 3em 0;
+  }
+
+  .checkb {
+    width: 100%;
   }
 </style>
 
@@ -48,7 +72,6 @@
    * 
    **/
 
-  import { textlist } from '../component/textlist';
 
   export let briefing = {
     lazyLoading: false, /* server side rendering does not wait for store "tasklist" for rendering */

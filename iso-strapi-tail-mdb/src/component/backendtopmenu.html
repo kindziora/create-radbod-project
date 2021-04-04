@@ -57,7 +57,7 @@
         </symbol>
       </svg>
 
-      <header class="page-header">
+      <header class="page-header" >
         <nav>
           <a href="#0" aria-label="forecastr logo" class="logo">
             <img src="/img/topmenu/logo_serialtexter.png" alt="no image" />
@@ -153,9 +153,9 @@
 <script language="js">
 
     export let backendtopmenu = {
-        loaded(data) { //pipeline after data has been loaded
-
-        },
+      mounted(){
+        document.querySelector(".page-header").style.opacity ="1";
+      }, 
         data(data, runtime) {
             return this.createStore("backendtopmenu", {
                 link: "runtime.path"
