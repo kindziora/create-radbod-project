@@ -54,7 +54,7 @@ let authHandler = new backend(environment);
 
 export const html_loader = asyncHandler(async function (req, res, next) {
     environment.data_loader = authHandler;
-    
+
     let dataH = new dataHandler(new eventHandler(), environment);
     let path = req.path;
 
@@ -114,6 +114,8 @@ export const html_loader = asyncHandler(async function (req, res, next) {
         let _t = (text, lang) => stores.internationalize._t(text, lang);
 
         let storeData = stores.store.toObject();
+ 
+
         try {
             
             let pageHTML = eval(`(${page[pageName].views[pageName].toString()})`).call(stores, { change: { value: "" }, ...storeData, _t, env: dataH.environment });

@@ -29,8 +29,7 @@ export class backend {
     }
 
     find(model){
-        console.log(arguments);
-       return this.requestP(this.baseUrl + "/projects", model);
+        return this.requestP(this.baseUrl + "/projects", model);
     }
 
     async me(){
@@ -70,10 +69,7 @@ export class backend {
                 'Content-Type': 'application/json',
                 'Authorization': this.Authorization
             }
-        });
-
-        console.log(response);
-
+        });     
        return await response.json();
     }
 
