@@ -7,6 +7,10 @@ This is a sample radbod project it offers the following:
 * isomorphic codebase 
 * optional lazy loading components
 * single file components and pages
+* public and Private area(frontend / backend)
+* register user / login, strapi jwt
+* auth with strapi, Server side and Client side
+
 
 ## Start development
 
