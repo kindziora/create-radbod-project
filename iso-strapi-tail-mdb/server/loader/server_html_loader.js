@@ -56,6 +56,8 @@ export const html_loader = asyncHandler(async function (req, res, next) {
     environment.data_loader = authHandler;
 
     let dataH = new dataHandler(new eventHandler(), environment);
+    console.log(dataHandler.toString() );
+
     let path = req.path;
 
     let routeInfo = parseRoute(path);
@@ -83,6 +85,7 @@ export const html_loader = asyncHandler(async function (req, res, next) {
     }
 
     let pageName = routeInfo.filename.split("/").pop().split(".")[0];
+ 
     dataH.internationalize.addTranslation(translations);
     dataH.internationalize.setLanguage(routeInfo.language);
 
