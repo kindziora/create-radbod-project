@@ -158,8 +158,8 @@ export class compileViews {
     async setupPuppeteer() {
 
         const browser = await puppeteer.launch({
-            headless: false,
-            devtools: true, 
+       //     headless: false,
+         //   devtools: true, 
        dumpio: true,
             args: ["--disable-web-security"],
         });
@@ -191,7 +191,7 @@ export class compileViews {
             await this.compileSingleFile(file, page);
         }
 
-      // await browser.close();
+       await browser.close();
 
     }
 
@@ -229,7 +229,7 @@ export class compileViews {
 
     }
 
-    insidePuppeteer =   async (componentName, componentSerialized) => {
+    insidePuppeteer = async (componentName, componentSerialized) => {
         function timeout(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
@@ -262,6 +262,8 @@ export class compileViews {
         //window.buildApp
         let views = {};
 
+        buildApp.dataH.buildMode = true;
+        
         views[componentName] = component.html;
 
         let store;

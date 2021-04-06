@@ -56,8 +56,7 @@ export const html_loader = asyncHandler(async function (req, res, next) {
     environment.data_loader = authHandler;
 
     let dataH = new dataHandler(new eventHandler(), environment);
-    console.log(dataHandler.toString() );
-
+ 
     let path = req.path;
 
     let routeInfo = parseRoute(path);
