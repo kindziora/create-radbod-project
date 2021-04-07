@@ -40,7 +40,7 @@ export class myApp extends radbod.app {
         this.mountComponent("modal#partial", modal, (stores, data, component) => {
             this.sharedComponents["modal#partial"] = component;
         });
-        
+
       //  this.mountComponent("backendtopmenu#mainmenu", backendtopmenu, (stores, data, component) => {
       //      this.sharedComponents["backendtopmenu#mainmenu"] = component;
       //  });
@@ -117,9 +117,9 @@ export class myApp extends radbod.app {
         this.loading(page);
 
        // let title = component.dom.$el.querySelector('title') ? component.dom.$el.querySelector('page').innerTEXT : path;
-/**
- * @TODO put title and meta infos in js component file as attributes
- */
+        /**
+         * @TODO put title and meta infos in js component file as attributes
+         */
 
         history.pushState(path, path, path);
 

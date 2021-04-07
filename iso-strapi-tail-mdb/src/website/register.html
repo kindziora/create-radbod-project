@@ -505,8 +505,7 @@
           name: "user login", "refs": [],
           "refsdetail": [],
           "topicInfo": {},
-          "step": 1,
-          "latest": 1,
+          "step": 1, 
           "variante": 0,
           "forename": "",
           "surname": "",
@@ -520,10 +519,7 @@
           "username": "",
           "password": "",
           "passwordr": "",
-          "seoLevel": "",
-          "skills": [],
-          "langs": [],
-          "sampletext": ""
+          "seoLevel": "", 
         })
         .addValidations({ mail_validator, required_validator, wordlength_validator });
     },
@@ -586,7 +582,7 @@
               change.ev.preventDefault();
 
               let step = change.field.$el.getAttribute("data-index");
-              if (change.step >= step) {
+              if (step >= state.step) {
                 document.querySelectorAll(".stepTab").forEach((e) => e.classList.remove("show"));
                 document.querySelector(`.step${step}`).classList.add("show");
 

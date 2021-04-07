@@ -43,7 +43,7 @@ export class backend {
 
     async isAuthorized(){
         let me = await this.me(); 
- 
+        console.log(me);
         if( me.role.name !=="Public"){
             return true;
         }

@@ -2,7 +2,7 @@
 
     export let backendtopmenu = {
         views : {
-                   'backendtopmenu' : function (args) { let {change, backendtopmenu,bottommenu,briefing,home,modal,tasklist,textlist,topmenu, _t, env} = args; return `loading`} },
+                    },
             "style":"","path":"/component/backendtopmenu.js",
         
       lazyLoading :true,
