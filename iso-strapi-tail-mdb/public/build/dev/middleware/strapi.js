@@ -43,7 +43,10 @@ export class backend {
 
     async isAuthorized(){
         let me = await this.me(); 
-        console.log(me);
+        if (me.statusCode !== 200){
+            console.log(me);
+            return false;
+        }
         if( me.role.name !=="Public"){
             return true;
         }
