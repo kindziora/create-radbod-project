@@ -664,11 +664,11 @@
                       this.store.dataH.pxy.$modal.body = this.dom.views.success.call(this, { change, user: state });
 
                       this.store.dataH.pxy.$modal.show = true;
+                      let rs = await response.json();
+                      cookie.set('tk', rs.jwt, { expires: 7 });
+                      cookie.set('user', JSON.stringify(rs.user), { expires: 7 });
 
-                      cookie.set('tk', response.jwt, { expires: 7 });
-                      cookie.set('user', JSON.stringify(response.user), { expires: 7 });
 
-                      
 
                     })
                     .catch(errorFnc);
