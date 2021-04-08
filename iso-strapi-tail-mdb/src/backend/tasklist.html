@@ -51,10 +51,11 @@
      * @tasklist
      * 
      **/
+     import { backendtopmenu } from '../component/backendtopmenu';
 
     import { textlist } from '../component/textlist';
 
-    export let tasklist = {
+    export let tasklist = { 
         lazyLoading: false, /* server side rendering does not wait for store "tasklist" for rendering */
         mounted() {
             //  console.log("mounted", this);

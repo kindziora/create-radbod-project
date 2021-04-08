@@ -43,7 +43,7 @@ export class backend {
 
     async isAuthorized(){
         let me = await this.me(); 
-        if (me.statusCode !== 200){
+        if (me.statusCode){
             console.log(me);
             return false;
         }
