@@ -74,6 +74,14 @@
         },
         interactions() {
             return {
+                "tasklist" : {
+                    "postRender" : function(comp) {
+                         this.mountComponent("backendtopmenu#mainmenu", backendtopmenu, (stores, data, component) => {
+                            this.sharedComponents["backendtopmenu#mainmenu"] = component;
+                          });
+
+                    }
+                },
                 "tab": {
                     "click"(sender, dataStore) {
                         sender.ev.preventDefault();

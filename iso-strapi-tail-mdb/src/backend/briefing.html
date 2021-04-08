@@ -82,7 +82,7 @@
     components:
     {
       "backendtopmenu-component": "backendtopmenu#mainmenu",
-      "bottommenu-component": "bottommenu#footermenu"
+       "bottommenu-component": "bottommenu#footermenu"
     },
     data(cb, env) {
 
@@ -138,6 +138,14 @@
     },
     interactions() {
       return {
+        "briefing" : {
+                    "postRender" : function(comp) {
+                         this.mountComponent("backendtopmenu#mainmenu", backendtopmenu, (stores, data, component) => {
+                            this.sharedComponents["backendtopmenu#mainmenu"] = component;
+                          });
+
+                    }
+                },
         "tab": {
           "click"(sender, dataStore) {
             sender.ev.preventDefault();

@@ -72,7 +72,7 @@
               <h3>Schreiben</h3>
             </li>
             <li>
-              <a href="#0">
+              <a href="${env.view.url('backend/tasklist')}" class="${env.view.isActive('/backend/tasklist')}">
                 <svg>
                   <use xlink:href="#pages"></use>
                 </svg>
@@ -147,7 +147,10 @@
 </template>
 
 <style language="scss">
-    
+    .admin-menu a.active {
+      font-weight: 600;
+      background: #fbfbfb;
+    }
 </style>
 
 <script language="js">

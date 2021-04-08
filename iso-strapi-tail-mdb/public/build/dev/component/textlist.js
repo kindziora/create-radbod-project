@@ -110,7 +110,7 @@
             "id": "6065fc7327b6b3004e467327"
           },
         ]
-      }).db().find().then(function (res) {
+      }).db().findByName( this.environment.view.path().split("backend/tasklist").pop() ).then(function (res) {
         let { data, model } = res;
         model._data.items = data;
         return data;

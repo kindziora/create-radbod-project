@@ -86,6 +86,10 @@
                                     cookie.set('tk', res.jwt, { expires: 7 });
                                     cookie.set('user', JSON.stringify(res.user), { expires: 7 });
 
+                                    buildApp.loadPage("backend/tasklist", (e) => {
+                                        console.log(e);
+                                    });
+
                                 })
                                 .catch(errorWrapper);
                         } else {
