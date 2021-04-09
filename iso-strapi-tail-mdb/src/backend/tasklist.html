@@ -9,7 +9,7 @@
 
             <section class="search-and-user">
               <form>
-                <input type="search" placeholder="Aufträge suchen...">
+                <input type="search" data-name="/$tasklist/search" placeholder="Aufträge suchen...">
                 <button type="submit" aria-label="submit form">
                   <svg aria-hidden="true">
                     <use xlink:href="#search"></use>
@@ -74,6 +74,11 @@
         },
         interactions() {
             return {
+                "/$tasklist/search":{
+                    keyup(f,state){
+                        console.log(f, state);
+                    } 
+                },
                 "tasklist" : {
                     "postRender" : function(comp) {
                          this.mountComponent("backendtopmenu#mainmenu", backendtopmenu, (stores, data, component) => {
