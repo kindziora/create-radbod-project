@@ -48,6 +48,14 @@ export class backend {
         return this.requestP(this.baseUrl + "/projects/" + id, model);
     }
 
+    findText(id, model){
+        return this.requestP(this.baseUrl + "/contents/" + id, model);
+    }
+
+    findUnitsByProjectID(id, model){
+        return this.requestP(this.baseUrl + "/contents?project.id=" + id, model);
+    }
+
     async me(){
         return await this.request(this.baseUrl + "/users/me");
     }

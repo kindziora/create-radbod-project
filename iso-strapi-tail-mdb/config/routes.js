@@ -14,6 +14,7 @@ let routes = {
     "^backend/tasklist": "backend/tasklist.js",
     "^backend/write": "backend/write.js",
     "^backend/briefing/([.-\w]*)": "backend/briefing.js",
+    "^backend/units/([.-\w]*)": "backend/units.js"
 };
 
 

@@ -197,6 +197,13 @@
             console.log(dataStore);
           }
         },
+        "/$briefing/submit": {
+          "click"(sender, dataStore) {
+            buildApp.loadPage("backend/units/" + window.location.pathname.split("/").pop(), (e) => {
+                console.log(e);
+            });
+          }
+        },
         "/$tasklist/name": {
           "keyup#tasklist-myinput"(sender, dataStore) { //address specific element in dom
             dataStore.name = sender.field.getValue();

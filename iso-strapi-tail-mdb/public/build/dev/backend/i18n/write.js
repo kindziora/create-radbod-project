@@ -1,1 +1,1 @@
-export const translations = {"en_EN":{}}
+export const translations = {"en_EN":{"Auftragsbriefing":"Auftragsbriefing","habe das Briefing gelesen und verstanden":"habe das Briefing gelesen und verstanden","Willkommen zurück":"Willkommen zurück","test":"test"}}
