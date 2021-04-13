@@ -1,10 +1,6 @@
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-var prosemirrorState = require('prosemirror-state');
-var prosemirrorModel = require('prosemirror-model');
-var prosemirrorTransform = require('prosemirror-transform');
+import  { TextSelection, NodeSelection, Selection, AllSelection }  from "./prosemirror-state.js";
+import  { DOMSerializer, Fragment, Mark, DOMParser, Slice }  from "./prosemirror-model.js";
+import  { dropPoint }  from "./prosemirror-transform.js";
 
 var result = {};
 
@@ -1157,7 +1153,7 @@ var MarkViewDesc = /*@__PURE__*/(function (ViewDesc) {
     var custom = view.nodeViews[mark.type.name];
     var spec = custom && custom(mark, view, inline);
     if (!spec || !spec.dom)
-      { spec = prosemirrorModel.DOMSerializer.renderSpec(document, mark.type.spec.toDOM(mark, inline)); }
+      { spec = DOMSerializer.renderSpec(document, mark.type.spec.toDOM(mark, inline)); }
     return new MarkViewDesc(parent, mark, spec.dom, spec.contentDOM || spec.dom)
   };
 
@@ -1233,7 +1229,7 @@ var NodeViewDesc = /*@__PURE__*/(function (ViewDesc) {
       if (!dom) { dom = document.createTextNode(node.text); }
       else if (dom.nodeType != 3) { throw new RangeError("Text must be rendered as a DOM text node") }
     } else if (!dom) {
-((assign = prosemirrorModel.DOMSerializer.renderSpec(document, node.type.spec.toDOM(node)), dom = assign.dom, contentDOM = assign.contentDOM));
+((assign = DOMSerializer.renderSpec(document, node.type.spec.toDOM(node)), dom = assign.dom, contentDOM = assign.contentDOM));
     }
     if (!contentDOM && !node.isText && dom.nodeName != "BR") { // Chrome gets confused by <br contenteditable=false>
       if (!dom.hasAttribute("contenteditable")) { dom.contentEditable = false; }
@@ -1264,7 +1260,7 @@ var NodeViewDesc = /*@__PURE__*/(function (ViewDesc) {
     var rule = {node: this.node.type.name, attrs: this.node.attrs};
     if (this.node.type.spec.code) { rule.preserveWhitespace = "full"; }
     if (this.contentDOM && !this.contentLost) { rule.contentElement = this.contentDOM; }
-    else { rule.getContent = function () { return this$1.contentDOM ? prosemirrorModel.Fragment.empty : this$1.node.content; }; }
+    else { rule.getContent = function () { return this$1.contentDOM ? Fragment.empty : this$1.node.content; }; }
     return rule
   };
 
@@ -1291,7 +1287,7 @@ var NodeViewDesc = /*@__PURE__*/(function (ViewDesc) {
       if (widget.spec.marks)
         { updater.syncToMarks(widget.spec.marks, inline, view); }
       else if (widget.type.side >= 0 && !insideNode)
-        { updater.syncToMarks(i == this$1.node.childCount ? prosemirrorModel.Mark.none : this$1.node.child(i).marks, inline, view); }
+        { updater.syncToMarks(i == this$1.node.childCount ? Mark.none : this$1.node.child(i).marks, inline, view); }
       // If the next node is a desc matching this widget, reuse it,
       // otherwise insert the widget as a new view desc.
       updater.placeWidget(widget, view, off);
@@ -1328,7 +1324,7 @@ var NodeViewDesc = /*@__PURE__*/(function (ViewDesc) {
     var ref = view.state.selection;
     var from = ref.from;
     var to = ref.to;
-    if (!(view.state.selection instanceof prosemirrorState.TextSelection) || from < pos || to > pos + this.node.content.size) { return }
+    if (!(view.state.selection instanceof TextSelection) || from < pos || to > pos + this.node.content.size) { return }
     var sel = view.root.getSelection();
     var textNode = nearbyTextNode(sel.focusNode, sel.focusOffset);
     if (!textNode || !this.dom.contains(textNode.parentNode)) { return }
@@ -2023,10 +2019,10 @@ function selectionFromDOM(view, origin) {
   if (selectionCollapsed(domSel)) {
     $anchor = $head;
     while (nearestDesc && !nearestDesc.node) { nearestDesc = nearestDesc.parent; }
-    if (nearestDesc && nearestDesc.node.isAtom && prosemirrorState.NodeSelection.isSelectable(nearestDesc.node) && nearestDesc.parent
+    if (nearestDesc && nearestDesc.node.isAtom && NodeSelection.isSelectable(nearestDesc.node) && nearestDesc.parent
         && !(nearestDesc.node.isInline && isOnEdge(domSel.focusNode, domSel.focusOffset, nearestDesc.dom))) {
       var pos = nearestDesc.posBefore;
-      selection = new prosemirrorState.NodeSelection(head == pos ? $head : doc.resolve(pos));
+      selection = new NodeSelection(head == pos ? $head : doc.resolve(pos));
     }
   } else {
     var anchor = view.docView.posFromDOM(domSel.anchorNode, domSel.anchorOffset);
@@ -2060,7 +2056,7 @@ function selectionToDOM(view, force) {
     var anchor = sel.anchor;
     var head = sel.head;
     var resetEditableFrom, resetEditableTo;
-    if (brokenSelectBetweenUneditable && !(sel instanceof prosemirrorState.TextSelection)) {
+    if (brokenSelectBetweenUneditable && !(sel instanceof TextSelection)) {
       if (!sel.$from.parent.inlineContent)
         { resetEditableFrom = temporarilyEditableNear(view, sel.from); }
       if (!sel.empty && !sel.$from.parent.inlineContent)
@@ -2149,7 +2145,7 @@ function selectCursorWrapper(view) {
 }
 
 function syncNodeSelection(view, sel) {
-  if (sel instanceof prosemirrorState.NodeSelection) {
+  if (sel instanceof NodeSelection) {
     var desc = view.docView.descAt(sel.from);
     if (desc != view.lastSelectedViewDesc) {
       clearNodeSelection(view);
@@ -2172,7 +2168,7 @@ function clearNodeSelection(view) {
 
 function selectionBetween(view, $anchor, $head, bias) {
   return view.someProp("createSelectionBetween", function (f) { return f(view, $anchor, $head); })
-    || prosemirrorState.TextSelection.between($anchor, $head, bias)
+    || TextSelection.between($anchor, $head, bias)
 }
 
 function hasFocusAndSelection(view) {
@@ -2206,7 +2202,7 @@ function moveSelectionBlock(state, dir) {
   var $head = ref.$head;
   var $side = dir > 0 ? $anchor.max($head) : $anchor.min($head);
   var $start = !$side.parent.inlineContent ? $side : $side.depth ? state.doc.resolve(dir > 0 ? $side.after() : $side.before()) : null;
-  return $start && prosemirrorState.Selection.findFrom($start, dir)
+  return $start && Selection.findFrom($start, dir)
 }
 
 function apply(view, sel) {
@@ -2216,31 +2212,31 @@ function apply(view, sel) {
 
 function selectHorizontally(view, dir, mods) {
   var sel = view.state.selection;
-  if (sel instanceof prosemirrorState.TextSelection) {
+  if (sel instanceof TextSelection) {
     if (!sel.empty || mods.indexOf("s") > -1) {
       return false
     } else if (view.endOfTextblock(dir > 0 ? "right" : "left")) {
       var next = moveSelectionBlock(view.state, dir);
-      if (next && (next instanceof prosemirrorState.NodeSelection)) { return apply(view, next) }
+      if (next && (next instanceof NodeSelection)) { return apply(view, next) }
       return false
     } else if (!(result.mac && mods.indexOf("m") > -1)) {
       var $head = sel.$head, node = $head.textOffset ? null : dir < 0 ? $head.nodeBefore : $head.nodeAfter, desc;
       if (!node || node.isText) { return false }
       var nodePos = dir < 0 ? $head.pos - node.nodeSize : $head.pos;
       if (!(node.isAtom || (desc = view.docView.descAt(nodePos)) && !desc.contentDOM)) { return false }
-      if (prosemirrorState.NodeSelection.isSelectable(node)) {
-        return apply(view, new prosemirrorState.NodeSelection(dir < 0 ? view.state.doc.resolve($head.pos - node.nodeSize) : $head))
+      if (NodeSelection.isSelectable(node)) {
+        return apply(view, new NodeSelection(dir < 0 ? view.state.doc.resolve($head.pos - node.nodeSize) : $head))
       } else if (result.webkit) {
         // Chrome and Safari will introduce extra pointless cursor
         // positions around inline uneditable nodes, so we have to
         // take over and move the cursor past them (#937)
-        return apply(view, new prosemirrorState.TextSelection(view.state.doc.resolve(dir < 0 ? nodePos : nodePos + node.nodeSize)))
+        return apply(view, new TextSelection(view.state.doc.resolve(dir < 0 ? nodePos : nodePos + node.nodeSize)))
       } else {
         return false
       }
     }
-  } else if (sel instanceof prosemirrorState.NodeSelection && sel.node.isInline) {
-    return apply(view, new prosemirrorState.TextSelection(dir > 0 ? sel.$to : sel.$from))
+  } else if (sel instanceof NodeSelection && sel.node.isInline) {
+    return apply(view, new TextSelection(dir > 0 ? sel.$to : sel.$from))
   } else {
     var next$1 = moveSelectionBlock(view.state, dir);
     if (next$1) { return apply(view, next$1) }
@@ -2374,26 +2370,26 @@ function setSelFocus(view, sel, node, offset) {
 // browser)
 function selectVertically(view, dir, mods) {
   var sel = view.state.selection;
-  if (sel instanceof prosemirrorState.TextSelection && !sel.empty || mods.indexOf("s") > -1) { return false }
+  if (sel instanceof TextSelection && !sel.empty || mods.indexOf("s") > -1) { return false }
   if (result.mac && mods.indexOf("m") > -1) { return false }
   var $from = sel.$from;
   var $to = sel.$to;
 
   if (!$from.parent.inlineContent || view.endOfTextblock(dir < 0 ? "up" : "down")) {
     var next = moveSelectionBlock(view.state, dir);
-    if (next && (next instanceof prosemirrorState.NodeSelection))
+    if (next && (next instanceof NodeSelection))
       { return apply(view, next) }
   }
   if (!$from.parent.inlineContent) {
     var side = dir < 0 ? $from : $to;
-    var beyond = sel instanceof prosemirrorState.AllSelection ? prosemirrorState.Selection.near(side, dir) : prosemirrorState.Selection.findFrom(side, dir);
+    var beyond = sel instanceof AllSelection ? Selection.near(side, dir) : Selection.findFrom(side, dir);
     return beyond ? apply(view, beyond) : false
   }
   return false
 }
 
 function stopNativeHorizontalDelete(view, dir) {
-  if (!(view.state.selection instanceof prosemirrorState.TextSelection)) { return true }
+  if (!(view.state.selection instanceof TextSelection)) { return true }
   var ref = view.state.selection;
   var $head = ref.$head;
   var $anchor = ref.$anchor;
@@ -2505,7 +2501,7 @@ function parseBetween(view, from_, to_) {
     }
   }
   var startDoc = view.state.doc;
-  var parser = view.someProp("domParser") || prosemirrorModel.DOMParser.fromSchema(view.state.schema);
+  var parser = view.someProp("domParser") || DOMParser.fromSchema(view.state.schema);
   var $from = startDoc.resolve(from);
 
   var sel = null, doc = parser.parse(parent, {
@@ -2590,7 +2586,7 @@ function readDOMChange(view, from, to, typeOver, addedNodes) {
 
   var change = findDiff(compare.content, parse.doc.content, parse.from, preferredPos, preferredSide);
   if (!change) {
-    if (typeOver && sel instanceof prosemirrorState.TextSelection && !sel.empty && sel.$head.sameParent(sel.$anchor) &&
+    if (typeOver && sel instanceof TextSelection && !sel.empty && sel.$head.sameParent(sel.$anchor) &&
         !view.composing && !(parse.sel && parse.sel.anchor != parse.sel.head)) {
       change = {start: sel.from, endA: sel.to, endB: sel.to};
     } else if (result.ios && view.lastIOSEnter > Date.now() - 225 &&
@@ -2612,7 +2608,7 @@ function readDOMChange(view, from, to, typeOver, addedNodes) {
   // that's smaller than what was actually overwritten.
   if (view.state.selection.from < view.state.selection.to &&
       change.start == change.endB &&
-      view.state.selection instanceof prosemirrorState.TextSelection) {
+      view.state.selection instanceof TextSelection) {
     if (change.start > view.state.selection.from && change.start <= view.state.selection.from + 2) {
       change.start = view.state.selection.from;
     } else if (change.endA < view.state.selection.to && change.endA >= view.state.selection.to - 2) {
@@ -2641,7 +2637,7 @@ function readDOMChange(view, from, to, typeOver, addedNodes) {
   if (((result.ios && view.lastIOSEnter > Date.now() - 225 &&
         (!inlineChange || addedNodes.some(function (n) { return n.nodeName == "DIV" || n.nodeName == "P"; }))) ||
        (!inlineChange && $from.pos < parse.doc.content.size &&
-        (nextSel = prosemirrorState.Selection.findFrom(parse.doc.resolve($from.pos + 1), 1, true)) &&
+        (nextSel = Selection.findFrom(parse.doc.resolve($from.pos + 1), 1, true)) &&
         nextSel.head == $to.pos)) &&
       view.someProp("handleKeyDown", function (f) { return f(view, keyEvent(13, "Enter")); })) {
     view.lastIOSEnter = 0;
@@ -2746,7 +2742,7 @@ function isMarkChange(cur, prev) {
   }
   var updated = [];
   for (var i$2 = 0; i$2 < prev.childCount; i$2++) { updated.push(update(prev.child(i$2))); }
-  if (prosemirrorModel.Fragment.from(updated).eq(cur)) { return {mark: mark, type: type} }
+  if (Fragment.from(updated).eq(cur)) { return {mark: mark, type: type} }
 }
 
 function looksLikeJoin(old, start, end, $newStart, $newEnd) {
@@ -2825,7 +2821,7 @@ function serializeForClipboard(view, slice) {
     content = node.content;
   }
 
-  var serializer = view.someProp("clipboardSerializer") || prosemirrorModel.DOMSerializer.fromSchema(view.state.schema);
+  var serializer = view.someProp("clipboardSerializer") || DOMSerializer.fromSchema(view.state.schema);
   var doc = detachedDoc(), wrap = doc.createElement("div");
   wrap.appendChild(serializer.serializeFragment(content, {document: doc}));
 
@@ -2856,7 +2852,7 @@ function parseFromClipboard(view, text, html, plainText, $context) {
   var asText = text && (plainText || inCode || !html);
   if (asText) {
     view.someProp("transformPastedText", function (f) { text = f(text, inCode || plainText); });
-    if (inCode) { return new prosemirrorModel.Slice(prosemirrorModel.Fragment.from(view.state.schema.text(text.replace(/\r\n?/g, "\n"))), 0, 0) }
+    if (inCode) { return new Slice(Fragment.from(view.state.schema.text(text.replace(/\r\n?/g, "\n"))), 0, 0) }
     var parsed = view.someProp("clipboardTextParser", function (f) { return f(text, $context, plainText); });
     if (parsed) {
       slice = parsed;
@@ -2874,13 +2870,13 @@ function parseFromClipboard(view, text, html, plainText, $context) {
   var contextNode = dom && dom.querySelector("[data-pm-slice]");
   var sliceData = contextNode && /^(\d+) (\d+) (.*)/.exec(contextNode.getAttribute("data-pm-slice"));
   if (!slice) {
-    var parser = view.someProp("clipboardParser") || view.someProp("domParser") || prosemirrorModel.DOMParser.fromSchema(view.state.schema);
+    var parser = view.someProp("clipboardParser") || view.someProp("domParser") || DOMParser.fromSchema(view.state.schema);
     slice = parser.parseSlice(dom, {preserveWhitespace: !!(asText || sliceData), context: $context});
   }
   if (sliceData)
     { slice = addContext(closeSlice(slice, +sliceData[1], +sliceData[2]), sliceData[3]); }
   else // HTML wasn't created by ProseMirror. Make sure top-level siblings are coherent
-    { slice = prosemirrorModel.Slice.maxOpen(normalizeSiblings(slice.content, $context), false); }
+    { slice = Slice.maxOpen(normalizeSiblings(slice.content, $context), false); }
 
   view.someProp("transformPasted", function (f) { slice = f(slice); });
   return slice
@@ -2914,7 +2910,7 @@ function normalizeSiblings(fragment, $context) {
         lastWrap = wrap;
       }
     });
-    if (result) { return { v: prosemirrorModel.Fragment.from(result) } }
+    if (result) { return { v: Fragment.from(result) } }
   };
 
   for (var d = $context.depth; d >= 0; d--) {
@@ -2929,7 +2925,7 @@ function withWrappers(node, wrap, from) {
   if ( from === void 0 ) from = 0;
 
   for (var i = wrap.length - 1; i >= from; i--)
-    { node = wrap[i].create(null, prosemirrorModel.Fragment.from(node)); }
+    { node = wrap[i].create(null, Fragment.from(node)); }
   return node
 }
 
@@ -2941,14 +2937,14 @@ function addToSibling(wrap, lastWrap, node, sibling, depth) {
     if (inner) { return sibling.copy(sibling.content.replaceChild(sibling.childCount - 1, inner)) }
     var match = sibling.contentMatchAt(sibling.childCount);
     if (match.matchType(depth == wrap.length - 1 ? node.type : wrap[depth + 1]))
-      { return sibling.copy(sibling.content.append(prosemirrorModel.Fragment.from(withWrappers(node, wrap, depth + 1)))) }
+      { return sibling.copy(sibling.content.append(Fragment.from(withWrappers(node, wrap, depth + 1)))) }
   }
 }
 
 function closeRight(node, depth) {
   if (depth == 0) { return node }
   var fragment = node.content.replaceChild(node.childCount - 1, closeRight(node.lastChild, depth - 1));
-  var fill = node.contentMatchAt(node.childCount).fillBefore(prosemirrorModel.Fragment.empty, true);
+  var fill = node.contentMatchAt(node.childCount).fillBefore(Fragment.empty, true);
   return node.copy(fragment.append(fill))
 }
 
@@ -2957,15 +2953,15 @@ function closeRange(fragment, side, from, to, depth, openEnd) {
   if (depth < to - 1) { inner = closeRange(inner, side, from, to, depth + 1, openEnd); }
   if (depth >= from)
     { inner = side < 0 ? node.contentMatchAt(0).fillBefore(inner, fragment.childCount > 1 || openEnd <= depth).append(inner)
-      : inner.append(node.contentMatchAt(node.childCount).fillBefore(prosemirrorModel.Fragment.empty, true)); }
+      : inner.append(node.contentMatchAt(node.childCount).fillBefore(Fragment.empty, true)); }
   return fragment.replaceChild(side < 0 ? 0 : fragment.childCount - 1, node.copy(inner))
 }
 
 function closeSlice(slice, openStart, openEnd) {
   if (openStart < slice.openStart)
-    { slice = new prosemirrorModel.Slice(closeRange(slice.content, -1, openStart, slice.openStart, 0, slice.openEnd), openStart, slice.openEnd); }
+    { slice = new Slice(closeRange(slice.content, -1, openStart, slice.openStart, 0, slice.openEnd), openStart, slice.openEnd); }
   if (openEnd < slice.openEnd)
-    { slice = new prosemirrorModel.Slice(closeRange(slice.content, 1, openEnd, slice.openEnd, 0, 0), slice.openStart, openEnd); }
+    { slice = new Slice(closeRange(slice.content, 1, openEnd, slice.openEnd, 0, 0), slice.openStart, openEnd); }
   return slice
 }
 
@@ -3014,10 +3010,10 @@ function addContext(slice, context) {
   for (var i = array.length - 2; i >= 0; i -= 2) {
     var type = schema.nodes[array[i]];
     if (!type || type.hasRequiredAttrs()) { break }
-    content = prosemirrorModel.Fragment.from(type.create(array[i + 1], content));
+    content = Fragment.from(type.create(array[i + 1], content));
     openStart++; openEnd++;
   }
-  return new prosemirrorModel.Slice(content, openStart, openEnd)
+  return new Slice(content, openStart, openEnd)
 }
 
 var observeOptions = {
@@ -3390,7 +3386,7 @@ editHandlers.keypress = function (view, event) {
   }
 
   var sel = view.state.selection;
-  if (!(sel instanceof prosemirrorState.TextSelection) || !sel.$from.sameParent(sel.$to)) {
+  if (!(sel instanceof TextSelection) || !sel.$from.sameParent(sel.$to)) {
     var text = String.fromCharCode(event.charCode);
     if (!view.someProp("handleTextInput", function (f) { return f(view, sel.$from.pos, sel.$to.pos, text); }))
       { view.dispatch(view.state.tr.insertText(text).scrollIntoView()); }
@@ -3432,8 +3428,8 @@ function updateSelection(view, selection, origin) {
 function selectClickedLeaf(view, inside) {
   if (inside == -1) { return false }
   var $pos = view.state.doc.resolve(inside), node = $pos.nodeAfter;
-  if (node && node.isAtom && prosemirrorState.NodeSelection.isSelectable(node)) {
-    updateSelection(view, new prosemirrorState.NodeSelection($pos), "pointer");
+  if (node && node.isAtom && NodeSelection.isSelectable(node)) {
+    updateSelection(view, new NodeSelection($pos), "pointer");
     return true
   }
   return false
@@ -3442,12 +3438,12 @@ function selectClickedLeaf(view, inside) {
 function selectClickedNode(view, inside) {
   if (inside == -1) { return false }
   var sel = view.state.selection, selectedNode, selectAt;
-  if (sel instanceof prosemirrorState.NodeSelection) { selectedNode = sel.node; }
+  if (sel instanceof NodeSelection) { selectedNode = sel.node; }
 
   var $pos = view.state.doc.resolve(inside);
   for (var i = $pos.depth + 1; i > 0; i--) {
     var node = i > $pos.depth ? $pos.nodeAfter : $pos.node(i);
-    if (prosemirrorState.NodeSelection.isSelectable(node)) {
+    if (NodeSelection.isSelectable(node)) {
       if (selectedNode && sel.$from.depth > 0 &&
           i >= sel.$from.depth && $pos.before(sel.$from.depth + 1) == sel.$from.pos)
         { selectAt = $pos.before(sel.$from.depth); }
@@ -3458,7 +3454,7 @@ function selectClickedNode(view, inside) {
   }
 
   if (selectAt != null) {
-    updateSelection(view, prosemirrorState.NodeSelection.create(view.state.doc, selectAt), "pointer");
+    updateSelection(view, NodeSelection.create(view.state.doc, selectAt), "pointer");
     return true
   } else {
     return false
@@ -3486,7 +3482,7 @@ function defaultTripleClick(view, inside) {
   var doc = view.state.doc;
   if (inside == -1) {
     if (doc.inlineContent) {
-      updateSelection(view, prosemirrorState.TextSelection.create(doc, 0, doc.content.size), "pointer");
+      updateSelection(view, TextSelection.create(doc, 0, doc.content.size), "pointer");
       return true
     }
     return false
@@ -3497,9 +3493,9 @@ function defaultTripleClick(view, inside) {
     var node = i > $pos.depth ? $pos.nodeAfter : $pos.node(i);
     var nodePos = $pos.before(i);
     if (node.inlineContent)
-      { updateSelection(view, prosemirrorState.TextSelection.create(doc, nodePos + 1, nodePos + 1 + node.content.size), "pointer"); }
-    else if (prosemirrorState.NodeSelection.isSelectable(node))
-      { updateSelection(view, prosemirrorState.NodeSelection.create(doc, nodePos), "pointer"); }
+      { updateSelection(view, TextSelection.create(doc, nodePos + 1, nodePos + 1 + node.content.size), "pointer"); }
+    else if (NodeSelection.isSelectable(node))
+      { updateSelection(view, NodeSelection.create(doc, nodePos), "pointer"); }
     else
       { continue }
     return true
@@ -3561,7 +3557,7 @@ var MouseDown = function MouseDown(view, pos, event, flushed) {
   this.target = targetDesc ? targetDesc.dom : null;
 
   if (targetNode.type.spec.draggable && targetNode.type.spec.selectable !== false ||
-      view.state.selection instanceof prosemirrorState.NodeSelection && targetPos == view.state.selection.from)
+      view.state.selection instanceof NodeSelection && targetPos == view.state.selection.from)
     { this.mightDrag = {node: targetNode,
                       pos: targetPos,
                       addAttr: this.target && !this.target.draggable,
@@ -3615,9 +3611,9 @@ MouseDown.prototype.up = function up (event) {
              // (hidden) cursor is doesn't change the selection, and
              // thus doesn't get a reaction from ProseMirror. This
              // works around that.
-             (result.chrome && !(this.view.state.selection instanceof prosemirrorState.TextSelection) &&
+             (result.chrome && !(this.view.state.selection instanceof TextSelection) &&
               (pos.pos == this.view.state.selection.from || pos.pos == this.view.state.selection.to))) {
-    updateSelection(this.view, prosemirrorState.Selection.near(this.view.state.doc.resolve(pos.pos)), "pointer");
+    updateSelection(this.view, Selection.near(this.view.state.doc.resolve(pos.pos)), "pointer");
     event.preventDefault();
   } else {
     setSelectionOrigin(this.view, "pointer");
@@ -3796,7 +3792,7 @@ function capturePaste(view, e) {
 
 function doPaste(view, text, html, e) {
   var slice = parseFromClipboard(view, text, html, view.shiftKey, view.state.selection.$from);
-  if (view.someProp("handlePaste", function (f) { return f(view, e, slice || prosemirrorModel.Slice.empty); })) { return true }
+  if (view.someProp("handlePaste", function (f) { return f(view, e, slice || Slice.empty); })) { return true }
   if (!slice) { return false }
 
   var singleNode = sliceSingleNode(slice);
@@ -3825,12 +3821,12 @@ handlers.dragstart = function (view, e) {
 
   var sel = view.state.selection;
   var pos = sel.empty ? null : view.posAtCoords(eventCoords(e));
-  if (pos && pos.pos >= sel.from && pos.pos <= (sel instanceof prosemirrorState.NodeSelection ? sel.to - 1: sel.to)) ; else if (mouseDown && mouseDown.mightDrag) {
-    view.dispatch(view.state.tr.setSelection(prosemirrorState.NodeSelection.create(view.state.doc, mouseDown.mightDrag.pos)));
+  if (pos && pos.pos >= sel.from && pos.pos <= (sel instanceof NodeSelection ? sel.to - 1: sel.to)) ; else if (mouseDown && mouseDown.mightDrag) {
+    view.dispatch(view.state.tr.setSelection(NodeSelection.create(view.state.doc, mouseDown.mightDrag.pos)));
   } else if (e.target && e.target.nodeType == 1) {
     var desc = view.docView.nearestDesc(e.target, true);
     if (!desc || !desc.node.type.spec.draggable || desc == view.docView) { return }
-    view.dispatch(view.state.tr.setSelection(prosemirrorState.NodeSelection.create(view.state.doc, desc.posBefore)));
+    view.dispatch(view.state.tr.setSelection(NodeSelection.create(view.state.doc, desc.posBefore)));
   }
   var slice = view.state.selection.content();
   var ref = serializeForClipboard(view, slice);
@@ -3865,14 +3861,14 @@ editHandlers.drop = function (view, e) {
       parseFromClipboard(view, e.dataTransfer.getData(brokenClipboardAPI ? "Text" : "text/plain"),
                          brokenClipboardAPI ? null : e.dataTransfer.getData("text/html"), false, $mouse);
   var move = dragging && !e[dragCopyModifier];
-  if (view.someProp("handleDrop", function (f) { return f(view, e, slice || prosemirrorModel.Slice.empty, move); })) {
+  if (view.someProp("handleDrop", function (f) { return f(view, e, slice || Slice.empty, move); })) {
     e.preventDefault();
     return
   }
   if (!slice) { return }
 
   e.preventDefault();
-  var insertPos = slice ? prosemirrorTransform.dropPoint(view.state.doc, $mouse.pos, slice) : $mouse.pos;
+  var insertPos = slice ? dropPoint(view.state.doc, $mouse.pos, slice) : $mouse.pos;
   if (insertPos == null) { insertPos = $mouse.pos; }
 
   var tr = view.state.tr;
@@ -3888,9 +3884,9 @@ editHandlers.drop = function (view, e) {
   if (tr.doc.eq(beforeInsert)) { return }
 
   var $pos = tr.doc.resolve(pos);
-  if (isNode && prosemirrorState.NodeSelection.isSelectable(slice.content.firstChild) &&
+  if (isNode && NodeSelection.isSelectable(slice.content.firstChild) &&
       $pos.nodeAfter && $pos.nodeAfter.sameMarkup(slice.content.firstChild)) {
-    tr.setSelection(new prosemirrorState.NodeSelection($pos));
+    tr.setSelection(new NodeSelection($pos));
   } else {
     var end = tr.mapping.map(insertPos);
     tr.mapping.maps[tr.mapping.maps.length - 1].forEach(function (_from, _to, _newFrom, newTo) { return end = newTo; });
@@ -4804,7 +4800,7 @@ EditorView.prototype.updateStateInner = function updateStateInner (state, reconf
     var startDOM = this.root.getSelection().focusNode;
     if (this.someProp("handleScrollToSelection", function (f) { return f(this$1); }))
       ; // Handled
-    else if (state.selection instanceof prosemirrorState.NodeSelection)
+    else if (state.selection instanceof NodeSelection)
       { scrollRectIntoView(this, this.docView.domAfterPos(state.selection.from).getBoundingClientRect(), startDOM); }
     else
       { scrollRectIntoView(this, this.coordsAtPos(state.selection.head, 1), startDOM); }
@@ -5244,10 +5240,5 @@ function changedNodeViews(a, b) {
 //   [applied](#state.EditorState.apply). The callback will be bound to have
 //   the view instance as its `this` binding.
 
-exports.Decoration = Decoration;
-exports.DecorationSet = DecorationSet;
-exports.EditorView = EditorView;
-exports.__endComposition = endComposition;
-exports.__parseFromClipboard = parseFromClipboard;
-exports.__serializeForClipboard = serializeForClipboard;
-//# sourceMappingURL=index.js.map
+export { Decoration, DecorationSet, EditorView, endComposition as __endComposition, parseFromClipboard as __parseFromClipboard, serializeForClipboard as __serializeForClipboard };
+//# sourceMappingURL=index.es.js.map

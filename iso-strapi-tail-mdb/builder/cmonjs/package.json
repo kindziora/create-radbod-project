@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "radbod isomorphic/SSR es2015 i18n PWA",
   "main": "index.js",
-  "scripts": {
+  "scripts": { 
+    "prosemirror": "npx webpack --config ./webpack.config.js -w --entry ../../public/build/dev/deps/prosemirror-example-setup.js --output-path='../../public/build/dist' --output-filename='prosemirror.bundle.js' --mode development",
     "bundle": "npx webpack --config ./webpack.config.js -w --entry ../../public/build/dev/app.js --output-path='../../public/build/dist' --output-filename='full.bundle.js' --mode development"
   },
   "author": "Alexander Kindziora",

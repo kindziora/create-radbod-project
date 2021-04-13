@@ -3,7 +3,8 @@ import puppeteer from "puppeteer";
 import { promises as fs } from 'fs';
 
 import { parse, stringify } from 'flatted';
- 
+
+
 const htmlProperty = /"html":".*?",/gmi;
 const viewProperty = /(views(["']|)\s*?:\s*)/mig;
 
@@ -160,7 +161,7 @@ export class compileViews {
         const browser = await puppeteer.launch({
        //     headless: false,
          //   devtools: true, 
-       dumpio: true,
+      // dumpio: true,
             args: ["--disable-web-security"],
         });
         const page = await browser.newPage();

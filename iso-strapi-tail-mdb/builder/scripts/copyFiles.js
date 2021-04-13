@@ -2,7 +2,12 @@ import { getFiles } from './files.js';
 import { renderSCSSFile } from './styles.js';
 
 import { promises as fs } from 'fs';
+
+import { default as ff} from 'fs';
+
 import { createFolderAndFiles } from './translation.js';
+
+const importStatement = /import(.*?)from\s+("|')(.*?)("|');/ig;
 
 export async function copyFiles(folder, options) {
 
@@ -36,15 +41,24 @@ export async function copyFiles(folder, options) {
             let pkString = await fs.readFile("./node_modules/" + p + "/" + 'package.json', 'utf8')
             let pk = JSON.parse(pkString);
 
-            let word = pk.browser || pk.main || pk.index;
+            let word = pk.module || pk.browser || pk.main || pk.index;
 
             if (p === "express") continue;
 
             if (word) {
                 try {
-                    await fs.copyFile(
+                    
+
+                    let inputFile = await fs.readFile("./node_modules/" + p + "/" + word, 'utf8')
+                    let transformedImports = inputFile.replace(importStatement, 'import \$1 from ".\/\$3.js";');
+                    
+                    await fs.writeFile( 
+                        buildP + '/deps/' + p +  ".js", transformedImports, { flag: "wx" });
+
+                 /*   await fs.copyFile(
                         "./node_modules/" + p + "/" + word,
-                        buildP + '/deps/' + word.split('/').pop());
+                        buildP + '/deps/' + p +  ".js", ff.constants.COPYFILE_EXCL); */
+ 
                 } catch (e) {
                     console.log(e);
                 }

@@ -1,6 +1,16 @@
 {
  "en_EN": {
   "Auftragsbriefing": "Auftragsbriefing",
+  "Hello ProseMirror": "Hello ProseMirror",
+  "This is editable text. You can focus it and start typing.": "This is editable text. You can focus it and start typing.",
+  "To apply styling, you can select a piece of text and manipulate its styling from the menu. The basic schema supports": "To apply styling, you can select a piece of text and manipulate its styling from the menu. The basic schema supports",
+  "emphasis": "emphasis",
+  ",": ",",
+  "strong text": "strong text",
+  "links": "links",
+  "code font": "code font",
+  ", and": ", and",
+  "images.": "images.",
   "habe das Briefing gelesen und verstanden": "habe das Briefing gelesen und verstanden",
   "Willkommen zurück": "Willkommen zurück",
   "test": "test"
