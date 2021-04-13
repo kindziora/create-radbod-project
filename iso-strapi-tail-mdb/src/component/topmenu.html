@@ -1,18 +1,15 @@
 <template language="js-template">
     <navgation>
         <div class="logo"><img src="/img/topmenu/logo_serialtexter.png" alt="no image" /></div>
-        <div class="hamburger" data-events="hamburger:click">
-            <div class="hamburg">
-                <span class="line"></span>
-                <span class="line"></span>
-                <span class="line"></span>
-            </div>
-        </div>
         <ul id="menu">
-            <li data-name="/$topmenu/link"><a href="${env.view.url('start')}" class="${env.view.isActive('/start')}">start</a></li>
-            <li data-name="/$topmenu/link"><a href="${env.view.url('login')}" class="${env.view.isActive('/login')}">login</a></li>
-            <li data-name="/$topmenu/link"><a href="${env.view.url('register')}" class="${ env.view.isActive('/register') }">registrieren</a></li>
-            <li data-name="/$topmenu/link"><a href="${env.view.url('blog')}" class="${env.view.isActive('/blog')}">blog</a></li>
+            <li data-name="/$topmenu/link"><a href="${env.view.url('start')}"
+                    class="${env.view.isActive('/start')}">start</a></li>
+            <li data-name="/$topmenu/link"><a href="${env.view.url('login')}"
+                    class="${env.view.isActive('/login')}">login</a></li>
+            <li data-name="/$topmenu/link"><a href="${env.view.url('register')}"
+                    class="${ env.view.isActive('/register') }">registrieren</a></li>
+            <li data-name="/$topmenu/link"><a href="${env.view.url('blog')}"
+                    class="${env.view.isActive('/blog')}">blog</a></li>
         </ul>
     </navgation>
 </template>
@@ -23,62 +20,11 @@
         justify-content: space-between;
 
         .logo {
-            width:15em;
+            width: 15em;
         }
-
-        .hamburger { 
-            top: 0;  
-            font-size: 1em;
-            display: block;
-            z-index: 2;
-        }
-
-        .hamburg {
-            display: block;
-            width: 2.14em;
-            height: 2em;
-            position: relative;
-            margin: auto;
-            border-radius: 4px;
-            transition: border-radius .5s;
-        }
-
-        .line {
-            position: absolute;
-            height: 5px;
-            width: inherit;
-            background: #403d3d;
-            border-radius: 32px;
-            display: block;
-            transition: 0.5s;
-            transform-origin: center;
-        }
-
-        .line:nth-child(1) {
-            top: 12px;
-        }
-
-        .line:nth-child(2) {
-            top: 24px;
-        }
-
-        .line:nth-child(3) {
-            top: 36px;
-        }
-
-        .hamburger.checked .line:nth-child(1) {
-            transform: translateY(12px) rotate(-45deg);
-        }
-
-        .hamburger.checked .line:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.checked .line:nth-child(3) {
-            transform: translateY(-12px) rotate(45deg);
-        }
-
+   
         #menu {
+            z-index: 2;
             position: absolute;
             width: 100%;
             display: none;
@@ -88,11 +34,7 @@
             margin: 0;
             padding: 0;
         }
-
-        #menu:hover {
-            display: block;
-        }
-
+        
         #menu li {
             display: block;
             line-height: 50px;
@@ -113,20 +55,34 @@
             font-weight: 500;
         }
 
-        .hamburger:hover~#menu,
-        .hamburger.checked~#menu {
-            display: block;
-            padding: 0;
-            margin: 0;
-            left: 0;
-            right: 0;
+        @media only screen and (max-width: 768px) {
+
+            .logo{
+                display:none;
+            }
+            #menu {
+                display: flex;
+                padding: 0;
+                margin: 0;
+                font-size: 1.5em;
+                left: 0;
+                right: 0;
+                justify-content: center;
+                position: fixed;
+                box-shadow: 0 1px 8px black;
+
+                li {
+                    display: flex;
+                    line-height: 50px;
+                    flex-grow: 1;
+                    flex-flow: column;
+                    text-align: center;
+                }
+            }
         }
 
         @media only screen and (min-width: 768px) {
-            .hamburger {
-                display: none;
-            }
-
+           
             #menu {
                 display: flex;
                 position: static;
@@ -135,11 +91,7 @@
                 flex: 1;
                 justify-content: flex-end;
             }
-
-            #menu:hover {
-                display: flex;
-            }
-
+ 
             #menu li {
                 padding: 0 1em;
             }
@@ -158,12 +110,7 @@
                 link: "runtime.path"
             })
         },
-        interactions: () => ({
-            "hamburger": {
-                "click"(sender, dataStore) {
-                    sender.field.$el.classList.toggle("checked");
-                }
-            },
+        interactions: () => ({ 
             "/$topmenu/link": {
                 "click"(sender, dataStore) {
                     sender.ev.preventDefault();

@@ -502,6 +502,7 @@
     data() {
       return this
         .createStore("user", {
+          latest : 1,
           name: "user login", "refs": [],
           "refsdetail": [],
           "topicInfo": {},
@@ -582,7 +583,8 @@
               change.ev.preventDefault();
 
               let step = change.field.$el.getAttribute("data-index");
-              if (step >= state.step) {
+
+              if (state.latest >= step) {
                 document.querySelectorAll(".stepTab").forEach((e) => e.classList.remove("show"));
                 document.querySelector(`.step${step}`).classList.add("show");
 
@@ -635,7 +637,9 @@
               if (latestCorrect) {
 
                 if (latestCorrect < 3) {
+
                   state.step = latestCorrect + 1;
+                  state.latest = state.step;
                   document.querySelector(`.step[data-index="${state.step}"]`).click();
                 } else if (latestCorrect === 3) {
                   //submit all
