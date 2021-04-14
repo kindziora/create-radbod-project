@@ -476,8 +476,7 @@
   }
 
   .wrapper {
-    width: 100%;
-    max-width: 1000px;
+    width: 100%; 
     margin: 1em auto;
     padding: 1em;
   }
@@ -509,6 +508,7 @@
     width: 13%;
   }
 
+
   /* Apply styles
 ================================== */
   .Rtable {
@@ -522,17 +522,27 @@
       width: 100%;
       display: flex;
 
+      .Rtable-cell.pdf-cell {
+        width: 13%;
+        padding:0;
+        .pdf-content{
+          text-align: center;
+        }
+      }
+
       .Rtable-cell {
         box-sizing: border-box;
         flex-grow: 1;
-        padding: 0.8em 1.2em;
+        padding: .5em;
         overflow: hidden;
         list-style: none;
+
+       
 
         &.column-heading {
           background-color: $heading-color;
           color: white;
-          padding: 1em;
+          padding: .5em;
         }
 
         .Rtable-cell--heading {

@@ -2,17 +2,17 @@
 
   export let textlist = {
         views : {
-                   'textlist-e-1' : function (args) { let {change, backendtopmenu,bottommenu,briefing,home,login,modal,signin,tasklist,text,textlist,topmenu,units,write, _t, env} = args; return `<div class="Rtable Rtable--5cols Rtable--collapse"> <div class="Rtable-row Rtable-row--head"> <div class="Rtable-cell date-cell column-heading">${_t('Von')}</div> <div class="Rtable-cell topic-cell column-heading">${_t('Auftrag')}</div> <div class="Rtable-cell access-link-cell column-heading">${_t('Anzahl')}</div> <div class="Rtable-cell replay-link-cell column-heading">${_t('Bezahlung')}</div> <div class="Rtable-cell pdf-cell column-heading">${_t('Ansehen')}</div> </div> <div class="tlist" data-name="/$textlist/items" data-view="text" data-type="list"> </div> </div>`},
-                   'textlist-e-2' : function (args) { let {change, backendtopmenu,bottommenu,briefing,home,login,modal,signin,tasklist,text,textlist,topmenu,units,write, _t, env} = args; return `<div class="Rtable-row Rtable-row--head"> <div class="Rtable-cell date-cell column-heading">${_t('Von')}</div> <div class="Rtable-cell topic-cell column-heading">${_t('Auftrag')}</div> <div class="Rtable-cell access-link-cell column-heading">${_t('Anzahl')}</div> <div class="Rtable-cell replay-link-cell column-heading">${_t('Bezahlung')}</div> <div class="Rtable-cell pdf-cell column-heading">${_t('Ansehen')}</div> </div> <div class="tlist" data-name="/$textlist/items" data-view="text" data-type="list"> </div>`},
-                   'textlist-e-3' : function (args) { let {change, backendtopmenu,bottommenu,briefing,home,login,modal,signin,tasklist,text,textlist,topmenu,units,write, _t, env} = args; return `<div class="Rtable-cell date-cell column-heading">${_t('Von')}</div> <div class="Rtable-cell topic-cell column-heading">${_t('Auftrag')}</div> <div class="Rtable-cell access-link-cell column-heading">${_t('Anzahl')}</div> <div class="Rtable-cell replay-link-cell column-heading">${_t('Bezahlung')}</div> <div class="Rtable-cell pdf-cell column-heading">${_t('Ansehen')}</div>`},
-                   'textlist-e-4' : function (args) { let {change, backendtopmenu,bottommenu,briefing,home,login,modal,signin,tasklist,text,textlist,topmenu,units,write, _t, env} = args; return `${_t('Von')}`},
-                   'textlist-e-5' : function (args) { let {change, backendtopmenu,bottommenu,briefing,home,login,modal,signin,tasklist,text,textlist,topmenu,units,write, _t, env} = args; return `${_t('Auftrag')}`},
-                   'textlist-e-6' : function (args) { let {change, backendtopmenu,bottommenu,briefing,home,login,modal,signin,tasklist,text,textlist,topmenu,units,write, _t, env} = args; return `${_t('Anzahl')}`},
-                   'textlist-e-7' : function (args) { let {change, backendtopmenu,bottommenu,briefing,home,login,modal,signin,tasklist,text,textlist,topmenu,units,write, _t, env} = args; return `${_t('Bezahlung')}`},
-                   'textlist-e-8' : function (args) { let {change, backendtopmenu,bottommenu,briefing,home,login,modal,signin,tasklist,text,textlist,topmenu,units,write, _t, env} = args; return `${_t('Ansehen')}`},
+                   'textlist-e-1' : function (args) { let {change, backendtopmenu,bottommenu,breadcrumb,briefing,home,login,modal,signin,tasklist,text,textlist,topmenu,units,write, _t, env} = args; return `<div class="Rtable Rtable--5cols Rtable--collapse"> <div class="Rtable-row Rtable-row--head"> <div class="Rtable-cell date-cell column-heading">${_t('Von')}</div> <div class="Rtable-cell topic-cell column-heading">${_t('Auftrag')}</div> <div class="Rtable-cell access-link-cell column-heading">${_t('Anzahl')}</div> <div class="Rtable-cell replay-link-cell column-heading">${_t('Bezahlung')}</div> <div class="Rtable-cell pdf-cell column-heading">${_t('Ansehen')}</div> </div> <div class="tlist" data-name="/$textlist/items" data-view="text" data-type="list"> </div> </div>`},
+                   'textlist-e-2' : function (args) { let {change, backendtopmenu,bottommenu,breadcrumb,briefing,home,login,modal,signin,tasklist,text,textlist,topmenu,units,write, _t, env} = args; return `<div class="Rtable-row Rtable-row--head"> <div class="Rtable-cell date-cell column-heading">${_t('Von')}</div> <div class="Rtable-cell topic-cell column-heading">${_t('Auftrag')}</div> <div class="Rtable-cell access-link-cell column-heading">${_t('Anzahl')}</div> <div class="Rtable-cell replay-link-cell column-heading">${_t('Bezahlung')}</div> <div class="Rtable-cell pdf-cell column-heading">${_t('Ansehen')}</div> </div> <div class="tlist" data-name="/$textlist/items" data-view="text" data-type="list"> </div>`},
+                   'textlist-e-3' : function (args) { let {change, backendtopmenu,bottommenu,breadcrumb,briefing,home,login,modal,signin,tasklist,text,textlist,topmenu,units,write, _t, env} = args; return `<div class="Rtable-cell date-cell column-heading">${_t('Von')}</div> <div class="Rtable-cell topic-cell column-heading">${_t('Auftrag')}</div> <div class="Rtable-cell access-link-cell column-heading">${_t('Anzahl')}</div> <div class="Rtable-cell replay-link-cell column-heading">${_t('Bezahlung')}</div> <div class="Rtable-cell pdf-cell column-heading">${_t('Ansehen')}</div>`},
+                   'textlist-e-4' : function (args) { let {change, backendtopmenu,bottommenu,breadcrumb,briefing,home,login,modal,signin,tasklist,text,textlist,topmenu,units,write, _t, env} = args; return `${_t('Von')}`},
+                   'textlist-e-5' : function (args) { let {change, backendtopmenu,bottommenu,breadcrumb,briefing,home,login,modal,signin,tasklist,text,textlist,topmenu,units,write, _t, env} = args; return `${_t('Auftrag')}`},
+                   'textlist-e-6' : function (args) { let {change, backendtopmenu,bottommenu,breadcrumb,briefing,home,login,modal,signin,tasklist,text,textlist,topmenu,units,write, _t, env} = args; return `${_t('Anzahl')}`},
+                   'textlist-e-7' : function (args) { let {change, backendtopmenu,bottommenu,breadcrumb,briefing,home,login,modal,signin,tasklist,text,textlist,topmenu,units,write, _t, env} = args; return `${_t('Bezahlung')}`},
+                   'textlist-e-8' : function (args) { let {change, backendtopmenu,bottommenu,breadcrumb,briefing,home,login,modal,signin,tasklist,text,textlist,topmenu,units,write, _t, env} = args; return `${_t('Ansehen')}`},
                    'textlist-e-9' : function (args) {
         let { change, textlist, _t, env } = args;
-        return `<div class="Rtable-row" data-name="/$textlist/items/${change.value.id}" data-type="list-item"> 
+        return `<div class="Rtable-row ${change.index % 2!=0? 'is-striped' : ''}" data-name="/$textlist/items/${change.value.id}" data-type="list-item"> 
                   <div class="Rtable-cell date-cell">
                     <div class="Rtable-cell--heading">Von</div>
                     <div class="Rtable-cell--content date-content"><span class="webinar-date">${change.value.createdAt.substr(5, 14).replace("T", " ")}</div>
@@ -30,14 +30,14 @@
                   </div>
                   <div class="Rtable-cell Rtable-cell--foot pdf-cell">
                     <div class="Rtable-cell--heading">Aktion</div>
-                    <div class="Rtable-cell--content pdf-content"><a href="${env.view.url('backend/briefing/' + change.value.id)}" data-events="job:click" data-index="${change.value.id}"> &#9997;</a></div>
+                    <div class="Rtable-cell--content pdf-content"><a data-title="${change.value.name}" href="${env.view.url('backend/briefing/' + change.value.id)}" data-events="job:click" data-index="${change.value.id}"> &#9997;</a></div>
                   </div> 
               </div>`;
       },
-                   'textlist' : function (args) { let {change, backendtopmenu,bottommenu,briefing,home,login,modal,signin,tasklist,text,textlist,topmenu,units,write, _t, env} = args; return `<div class="wrapper textlist" data-id="textlist-e-1" data-view="textlist-e-1"> <div class="Rtable Rtable--5cols Rtable--collapse" data-id="textlist-e-2" data-view="textlist-e-2"> <div class="Rtable-row Rtable-row--head" data-id="textlist-e-3" data-view="textlist-e-3"> <div class="Rtable-cell date-cell column-heading" data-id="textlist-e-4" data-view="textlist-e-4">${_t('Von')}</div> <div class="Rtable-cell topic-cell column-heading" data-id="textlist-e-5" data-view="textlist-e-5">${_t('Auftrag')}</div> <div class="Rtable-cell access-link-cell column-heading" data-id="textlist-e-6" data-view="textlist-e-6">${_t('Anzahl')}</div> <div class="Rtable-cell replay-link-cell column-heading" data-id="textlist-e-7" data-view="textlist-e-7">${_t('Bezahlung')}</div> <div class="Rtable-cell pdf-cell column-heading" data-id="textlist-e-8" data-view="textlist-e-8">${_t('Ansehen')}</div> </div> <div class="tlist" data-name="/$textlist/items" data-view="text" data-type="list" data-id="textlist-e-9"> </div> </div> </div>`},
+                   'textlist' : function (args) { let {change, backendtopmenu,bottommenu,breadcrumb,briefing,home,login,modal,signin,tasklist,text,textlist,topmenu,units,write, _t, env} = args; return `<div class="wrapper textlist" data-id="textlist-e-1" data-view="textlist-e-1"> <div class="Rtable Rtable--5cols Rtable--collapse" data-id="textlist-e-2" data-view="textlist-e-2"> <div class="Rtable-row Rtable-row--head" data-id="textlist-e-3" data-view="textlist-e-3"> <div class="Rtable-cell date-cell column-heading" data-id="textlist-e-4" data-view="textlist-e-4">${_t('Von')}</div> <div class="Rtable-cell topic-cell column-heading" data-id="textlist-e-5" data-view="textlist-e-5">${_t('Auftrag')}</div> <div class="Rtable-cell access-link-cell column-heading" data-id="textlist-e-6" data-view="textlist-e-6">${_t('Anzahl')}</div> <div class="Rtable-cell replay-link-cell column-heading" data-id="textlist-e-7" data-view="textlist-e-7">${_t('Bezahlung')}</div> <div class="Rtable-cell pdf-cell column-heading" data-id="textlist-e-8" data-view="textlist-e-8">${_t('Ansehen')}</div> </div> <div class="tlist" data-name="/$textlist/items" data-view="text" data-type="list" data-id="textlist-e-9"> </div> </div> </div>`},
                    'text' : function (args) {
         let { change, textlist, _t, env } = args;
-        return `<div class="Rtable-row" data-name="/$textlist/items/${change.value.id}" data-type="list-item"> 
+        return `<div class="Rtable-row ${change.index % 2!=0? 'is-striped' : ''}" data-name="/$textlist/items/${change.value.id}" data-type="list-item"> 
                   <div class="Rtable-cell date-cell">
                     <div class="Rtable-cell--heading">Von</div>
                     <div class="Rtable-cell--content date-content"><span class="webinar-date">${change.value.createdAt.substr(5, 14).replace("T", " ")}</div>
@@ -55,7 +55,7 @@
                   </div>
                   <div class="Rtable-cell Rtable-cell--foot pdf-cell">
                     <div class="Rtable-cell--heading">Aktion</div>
-                    <div class="Rtable-cell--content pdf-content"><a href="${env.view.url('backend/briefing/' + change.value.id)}" data-events="job:click" data-index="${change.value.id}"> &#9997;</a></div>
+                    <div class="Rtable-cell--content pdf-content"><a data-title="${change.value.name}" href="${env.view.url('backend/briefing/' + change.value.id)}" data-events="job:click" data-index="${change.value.id}"> &#9997;</a></div>
                   </div> 
               </div>`;
       } },
@@ -121,6 +121,9 @@
         click(context, store) {
           context.ev.preventDefault();
           let url = context.field.$el.getAttribute("href");
+          let name = context.field.$el.getAttribute("data-title");
+          
+          this.store.dataH.pxy.$breadcrumb.path = [{ name: "Aufträge", url: "/backend/tasklist" }, { name, url }];
 
           buildApp.loadPage(url, () => {
             console.log(arguments);

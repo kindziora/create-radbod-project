@@ -86,7 +86,7 @@
                   </div>
                   <div class="Rtable-cell Rtable-cell--foot pdf-cell">
                     <div class="Rtable-cell--heading">Aktion</div>
-                    <div class="Rtable-cell--content pdf-content"><a href="${env.view.url('backend/write/' + change.value.id)}" data-events="job:click" data-index="${change.value.id}"> &#9997;</a></div>
+                    <div class="Rtable-cell--content pdf-content"><a data-title="${change.value.title}" href="${env.view.url('backend/write/' + change.value.id)}" data-events="job:click" data-index="${change.value.id}"> &#9997;</a></div>
                   </div> 
               </div>`;
             }
@@ -146,6 +146,14 @@
                 click(context, store) {
                     context.ev.preventDefault();
                     let url = context.field.$el.getAttribute("href");
+                    let name = context.field.$el.getAttribute("data-title"); 
+
+                    this.store.dataH.pxy.$breadcrumb.path = [
+                        { name: "Aufträge", url: "/backend/tasklist" }, 
+                        { name: store[0].project.name, url: "/backend/briefing/" + store[0].project.id}, 
+                        { name: "Texte", url: "/backend/units/" +  store[0].project.id }, 
+                        { name, url } 
+                    ];
 
                     buildApp.loadPage(url, () => {
                         console.log(arguments);
@@ -158,6 +166,12 @@
                     this.mountComponent("backendtopmenu#mainmenu", backendtopmenu, (stores, data, component) => {
                         this.sharedComponents["backendtopmenu#mainmenu"] = component;
                     });
+
+                    comp.store.dataH.pxy.$breadcrumb.path = [
+                        { name: "Aufträge", url: "/backend/tasklist" },
+                        { name: comp.store._data[0].project.name, url: "/backend/briefing/" + comp.store._data[0].project.id}, 
+                        { name: "Texte", url: "/backend/units/" +  comp.store._data[0].project.id }, 
+                    ];
 
                 }
             }

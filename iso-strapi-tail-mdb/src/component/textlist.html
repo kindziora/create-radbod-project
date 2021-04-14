@@ -30,7 +30,7 @@
     views: {
       "text": function (args) {
         let { change, textlist, _t, env } = args;
-        return `<div class="Rtable-row" data-name="/$textlist/items/${change.value.id}" data-type="list-item"> 
+        return `<div class="Rtable-row ${change.index % 2!=0? 'is-striped' : ''}" data-name="/$textlist/items/${change.value.id}" data-type="list-item"> 
                   <div class="Rtable-cell date-cell">
                     <div class="Rtable-cell--heading">Von</div>
                     <div class="Rtable-cell--content date-content"><span class="webinar-date">${change.value.createdAt.substr(5, 14).replace("T", " ")}</div>
@@ -48,7 +48,7 @@
                   </div>
                   <div class="Rtable-cell Rtable-cell--foot pdf-cell">
                     <div class="Rtable-cell--heading">Aktion</div>
-                    <div class="Rtable-cell--content pdf-content"><a href="${env.view.url('backend/briefing/' + change.value.id)}" data-events="job:click" data-index="${change.value.id}"> &#9997;</a></div>
+                    <div class="Rtable-cell--content pdf-content"><a data-title="${change.value.name}" href="${env.view.url('backend/briefing/' + change.value.id)}" data-events="job:click" data-index="${change.value.id}"> &#9997;</a></div>
                   </div> 
               </div>`;
       }
@@ -114,6 +114,9 @@
         click(context, store) {
           context.ev.preventDefault();
           let url = context.field.$el.getAttribute("href");
+          let name = context.field.$el.getAttribute("data-title");
+          
+          this.store.dataH.pxy.$breadcrumb.path = [{ name: "Aufträge", url: "/backend/tasklist" }, { name, url }];
 
           buildApp.loadPage(url, () => {
             console.log(arguments);

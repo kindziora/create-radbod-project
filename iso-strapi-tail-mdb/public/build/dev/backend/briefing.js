@@ -3,7 +3,7 @@
    * @tasklist
    * 
    **/
- import  { backendtopmenu }  from "../component/backendtopmenu.js";
+  import  { backendtopmenu }  from "../component/backendtopmenu.js";
 
   export let briefing = {
         views : {
@@ -32,7 +32,7 @@
     components:
     {
       "backendtopmenu-component": "backendtopmenu#mainmenu",
-       "bottommenu-component": "bottommenu#footermenu"
+      "bottommenu-component": "bottommenu#footermenu"
     },
     data(cb, env) {
 
@@ -88,83 +88,29 @@
     },
     interactions() {
       return {
-        "briefing" : {
-                    "postRender" : function(comp) {
-                         this.mountComponent("backendtopmenu#mainmenu", backendtopmenu, (stores, data, component) => {
-                            this.sharedComponents["backendtopmenu#mainmenu"] = component;
-                          });
-
-                    }
-                },
-        "tab": {
-          "click"(sender, dataStore) {
-            sender.ev.preventDefault();
-            let tabName = sender.field.$el.getAttribute("data-ref").split("/")[1];
-            let tab = document.querySelector('#' + tabName);
-            document.querySelectorAll(".tab").forEach(e => e.classList.remove("selected"));
-            tab.classList.add("selected");
-
-            document.querySelectorAll(".filters li").forEach(e => e.classList.remove("selected"));
-            dataStore.tab = tabName;
-            sender.field.$el.classList.add("selected");
-          }
-        },
-        "/$tasklist/clickItem": {
-          "click"(sender, dataStore) { //address specific element in dom
-            let index = parseInt(sender.field.$el.getAttribute("data-index"));
-            dataStore.items.some((v, k) => {
-              if (v.id == index) {
-                dataStore.items[k].status = !dataStore.items[k].status;
-                return true;
-              }
+        "briefing": {
+          "postRender": function (comp) {
+            this.mountComponent("backendtopmenu#mainmenu", backendtopmenu, (stores, data, component) => {
+              this.sharedComponents["backendtopmenu#mainmenu"] = component;
             });
-          }
-        },
-        "name": {
-          "input"(sender, dataStore) {
-            let index = parseInt(sender.field.$el.getAttribute("data-index"));
-            for (let k in dataStore.items) {
-              let v = dataStore.items[k];
-              if (v.id == index) {
-                dataStore.items[k].label = sender.field.$el.innerText;
-              }
-            }
-          }
-        },
-        "/$tasklist/deleteItem": {
-          "click"(sender, dataStore) { //address specific element in dom
-            let index = parseInt(sender.field.$el.getAttribute("data-index"));
-            dataStore.items.some((v, k) => {
-              if (v.id == index) {
-                delete dataStore.items[k];
-                return true;
-              }
-            });
-          }
-        },
-        "/$tasklist/items": {
-          "change"(sender, dataStore) {
-            console.log(dataStore);
+
+            comp.store.dataH.pxy.$breadcrumb.path = [
+              { name: "Aufträge", url: "/backend/tasklist" },
+              { name: comp.store._data.name, url: window.location.pathname }
+            ];
+
           }
         },
         "/$briefing/submit": {
           "click"(sender, dataStore) {
-            buildApp.loadPage("backend/units/" + window.location.pathname.split("/").pop(), (e) => {
-                console.log(e);
-            });
-          }
-        },
-        "/$tasklist/name": {
-          "keyup#tasklist-myinput"(sender, dataStore) { //address specific element in dom
-            dataStore.name = sender.field.getValue();
+            this.store.dataH.pxy.$breadcrumb.path = [{ name: "Aufträge", url: "/backend/tasklist" },
+              { name: dataStore.name, url: window.location.pathname },
+              { name: "Texte", url: "backend/units/" + window.location.pathname.split("/").pop() }
+            ];
 
-            if (sender.ev.keyCode === 13) {
-              dataStore.items.push({
-                id: dataStore.items.length,
-                label: dataStore.name,
-                status: false
-              });
-            }
+            buildApp.loadPage("backend/units/" + window.location.pathname.split("/").pop(), (e) => {
+              console.log(e);
+            });
           }
         }
       }

@@ -164,6 +164,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        padding-top: 5em;
 
         .centered {
             width: 75%;
@@ -192,11 +193,18 @@
 
     }
 
+    @media only screen and (max-width: 1024px) {
+        .hero-body #headline-animated {
+            font-size: 2em;
+        }
+    }
+
     @media only screen and (max-width: 768px) {
         .card-container {
             width: 100%;
             display: block;
         }
+       
     }
 </style>
 

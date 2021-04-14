@@ -471,6 +471,13 @@
                             this.sharedComponents["backendtopmenu#mainmenu"] = component;
                         });
 
+                        comp.store.dataH.pxy.$breadcrumb.path = [
+                            { name: "Aufträge", url: "/backend/tasklist" },
+                            { name: comp.store._data.project.name, url: "/backend/briefing/" + comp.store._data.project.id}, 
+                            { name: "Texte", url: "/backend/units/" +  comp.store._data.project.id }, 
+                            { name: comp.store._data.title, url: "/backend/write/" +  comp.store._data.id }, 
+                        ];
+
 
                         // Mix the nodes from prosemirror-schema-list into the basic schema to
                         // create a schema with list support.
@@ -488,71 +495,7 @@
 
 
                     }
-                },
-                "tab": {
-                    "click"(sender, dataStore) {
-                        sender.ev.preventDefault();
-                        let tabName = sender.field.$el.getAttribute("data-ref").split("/")[1];
-                        let tab = document.querySelector('#' + tabName);
-                        document.querySelectorAll(".tab").forEach(e => e.classList.remove("selected"));
-                        tab.classList.add("selected");
-
-                        document.querySelectorAll(".filters li").forEach(e => e.classList.remove("selected"));
-                        dataStore.tab = tabName;
-                        sender.field.$el.classList.add("selected");
-                    }
-                },
-                "/$tasklist/clickItem": {
-                    "click"(sender, dataStore) { //address specific element in dom
-                        let index = parseInt(sender.field.$el.getAttribute("data-index"));
-                        dataStore.items.some((v, k) => {
-                            if (v.id == index) {
-                                dataStore.items[k].status = !dataStore.items[k].status;
-                                return true;
-                            }
-                        });
-                    }
-                },
-                "name": {
-                    "input"(sender, dataStore) {
-                        let index = parseInt(sender.field.$el.getAttribute("data-index"));
-                        for (let k in dataStore.items) {
-                            let v = dataStore.items[k];
-                            if (v.id == index) {
-                                dataStore.items[k].label = sender.field.$el.innerText;
-                            }
-                        }
-                    }
-                },
-                "/$tasklist/deleteItem": {
-                    "click"(sender, dataStore) { //address specific element in dom
-                        let index = parseInt(sender.field.$el.getAttribute("data-index"));
-                        dataStore.items.some((v, k) => {
-                            if (v.id == index) {
-                                delete dataStore.items[k];
-                                return true;
-                            }
-                        });
-                    }
-                },
-                "/$tasklist/items": {
-                    "change"(sender, dataStore) {
-                        console.log(dataStore);
-                    }
-                },
-                "/$tasklist/name": {
-                    "keyup#tasklist-myinput"(sender, dataStore) { //address specific element in dom
-                        dataStore.name = sender.field.getValue();
-
-                        if (sender.ev.keyCode === 13) {
-                            dataStore.items.push({
-                                id: dataStore.items.length,
-                                label: dataStore.name,
-                                status: false
-                            });
-                        }
-                    }
-                }
+                } 
             }
         }
 
