@@ -153,6 +153,7 @@
         },
         "/$briefing/submit": {
           "click"(sender, dataStore) {
+            
             this.store.dataH.pxy.$breadcrumb.path = [{ name: "Aufträge", url: "/backend/tasklist" },
               { name: dataStore.name, url: window.location.pathname },
               { name: "Texte", url: "backend/units/" + window.location.pathname.split("/").pop() }

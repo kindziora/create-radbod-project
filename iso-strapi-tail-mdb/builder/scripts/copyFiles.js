@@ -125,6 +125,7 @@ export async function copyFiles(folder, options) {
         console.log(err);
     });
 
+    await fs.copyFile(folder + "/../node_modules/radbod/dist/radbod.js", buildP + "/deps/radbod.js");
 
     await copyImages(folder, buildPath);
 

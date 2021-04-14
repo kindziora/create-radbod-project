@@ -169,15 +169,20 @@
     components: {
       "breadcrumb-component": breadcrumb
     },
-    mounted() {
-      // document.querySelector(".page-header").style.opacity ="1";
-    },
+    
     data(data, runtime) {
       return this.createStore("backendtopmenu", {
         link: "runtime.path"
       })
     },
     interactions: () => ({
+      "backendtopmenu": {
+        "postRender": function (comp) {
+         
+
+          comp.store.dataH.pxy.$breadcrumb.path = [{ name: "Aufträge", url: "/backend/tasklist" }];
+        }
+      }, 
       "hamburger": {
         "click"(sender, dataStore) {
           sender.field.$el.classList.toggle("checked");

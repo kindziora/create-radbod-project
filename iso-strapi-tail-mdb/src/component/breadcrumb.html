@@ -61,7 +61,7 @@
         views: {
             "item": function (args) {
                 let { change, breadcrumb, _t, env } = args;
-                return `<li data-name="/$breadcrumb/path/${change.value.id}" data-type="list-item"><a href="${change.value.url}">${change.value.name}</a></li>`;
+                return `<li data-name="/$breadcrumb/path/${change.value.id}" data-type="list-item"><a data-events="blink:click" href="${change.value.url}">${change.value.name}</a></li>`;
             } 
         },
         lazyLoading: true,
@@ -73,9 +73,15 @@
             return this.createStore("breadcrumb", { path: [{ name: "Aufträge", url: "/backend/tasklist" }] })
         },
         interactions: () => ({
-            "link": {
+            "blink": {
                 "click"(sender, dataStore) {
-                    dataStore.path = false;
+                    sender.ev.preventDefault();
+                    let url = sender.field.$el.getAttribute("href");
+                    buildApp.loadPage(url, () => {
+                        console.log(arguments);
+                    });
+                    
+
                 }
             }
         })

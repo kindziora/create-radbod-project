@@ -33,7 +33,7 @@ export class myApp extends radbod.app {
             this.sharedComponents["topmenu#mainmenu"] = component;
         });
 
-        this.mountComponent("bottommenu#footermenu", bottommenu, (stores, data, component) => {
+        this.mountComponent("bottommenu#footermenu", bottommenu, (stores, data, component) => {               
             this.sharedComponents["bottommenu#footermenu"] = component;
         });
 

@@ -159,8 +159,8 @@ export class compileViews {
     async setupPuppeteer() {
 
         const browser = await puppeteer.launch({
-       //     headless: false,
-         //   devtools: true, 
+          //  headless: false,
+         //    devtools: true, 
       // dumpio: true,
             args: ["--disable-web-security"],
         });
@@ -311,7 +311,7 @@ export class compileViews {
             return Flatted.stringify(component);
         } catch (e) { 
             console.log(e, component);
-            return Flatted.stringify({ "error": {orherErrors, name: componentName, component: component, e} });
+            return Flatted.stringify({ "error": {orherErrors, name: componentName, component: component, e:Flatted.stringify(e.message)} });
         }
 
 
