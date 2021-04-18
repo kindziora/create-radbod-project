@@ -6,7 +6,7 @@
         <backendtopmenu-component type="component" data-name="/$backendtopmenu"></backendtopmenu-component>
 
         <section class="page-content briefing">
-            
+
             <section class="grid">
                 <article>
 
@@ -459,7 +459,7 @@
             ).db().findText(this.environment.view.path().split("/").pop()).then(function (res) {
                 let { data, model } = res;
 
-                  model._data = data;
+                model._data = data;
                 return data;
             });
         },
@@ -473,29 +473,31 @@
 
                         comp.store.dataH.pxy.$breadcrumb.path = [
                             { name: "Aufträge", url: "/backend/tasklist" },
-                            { name: comp.store._data.project.name, url: "/backend/briefing/" + comp.store._data.project.id}, 
-                            { name: "Texte", url: "/backend/units/" +  comp.store._data.project.id }, 
-                            { name: comp.store._data.title, url: "/backend/write/" +  comp.store._data.id }, 
+                            { name: comp.store._data.project.name, url: "/backend/briefing/" + comp.store._data.project.id },
+                            { name: "Texte", url: "/backend/units/" + comp.store._data.project.id },
+                            { name: comp.store._data.title, url: "/backend/write/" + comp.store._data.id },
                         ];
 
+                        if (!document.querySelector("#editor .ProseMirror-menubar-wrapper")) {
+                            // Mix the nodes from prosemirror-schema-list into the basic schema to
+                            // create a schema with list support.
+                            const mySchema = new Schema({
+                                nodes: addListNodes(schema.spec.nodes, "paragraph block*", "block"),
+                                marks: schema.spec.marks
+                            });
 
-                        // Mix the nodes from prosemirror-schema-list into the basic schema to
-                        // create a schema with list support.
-                        const mySchema = new Schema({
-                            nodes: addListNodes(schema.spec.nodes, "paragraph block*", "block"),
-                            marks: schema.spec.marks
-                        });
+                            window.view = new EditorView(document.querySelector("#editor"), {
+                                state: EditorState.create({
+                                    doc: DOMParser.fromSchema(mySchema).parse(document.querySelector("#content")),
+                                    plugins: exampleSetup({ schema: mySchema })
+                                })
+                            });
 
-                        window.view = new EditorView(document.querySelector("#editor"), {
-                            state: EditorState.create({
-                                doc: DOMParser.fromSchema(mySchema).parse(document.querySelector("#content")),
-                                plugins: exampleSetup({ schema: mySchema })
-                            })
-                        });
+                        }
 
 
                     }
-                } 
+                }
             }
         }
 

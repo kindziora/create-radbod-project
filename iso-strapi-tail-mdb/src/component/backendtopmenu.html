@@ -161,13 +161,12 @@
 
 <script language="js">
 
-  import { breadcrumb } from './breadcrumb';
 
   export let backendtopmenu = {
     lazyLoading: true,
     SSR: false,
     components: {
-      "breadcrumb-component": breadcrumb
+      "breadcrumb-component": "breadcrumb#breadcrumb"
     },
     
     data(data, runtime) {
@@ -178,8 +177,7 @@
     interactions: () => ({
       "backendtopmenu": {
         "postRender": function (comp) {
-         
-
+ 
           comp.store.dataH.pxy.$breadcrumb.path = [{ name: "Aufträge", url: "/backend/tasklist" }];
         }
       }, 

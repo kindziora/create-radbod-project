@@ -6,7 +6,7 @@ import cookie from './deps/cookie.js';
 import { topmenu } from './component/topmenu.js';
 import { bottommenu } from './component/bottommenu.js';
 import { modal } from './component/modal.js';
-
+import { breadcrumb } from './component/breadcrumb.js';
 import { backend } from './middleware/strapi.js';
 
 
@@ -40,7 +40,11 @@ export class myApp extends radbod.app {
         this.mountComponent("modal#partial", modal, (stores, data, component) => {
             this.sharedComponents["modal#partial"] = component;
         });
-        
+       
+        this.mountComponent("breadcrumb#breadcrumb", breadcrumb, (stores, data, component) => {
+            this.sharedComponents["breadcrumb#breadcrumb"] = component;
+        });
+
         this.cookie = cookie;
     }
 
@@ -95,6 +99,9 @@ export class myApp extends radbod.app {
                 if (this.sharedComponents[i].interactions[tagName] && this.sharedComponents[i].interactions[tagName]["postRender"]) {
                     this.sharedComponents[i].interactions[tagName]["postRender"](component);
                 }
+
+                this.renderSharedComponents(this.sharedComponents[i]);
+
             }
 
         }
