@@ -59,6 +59,39 @@
     background: var(--page-header-bgColor);
   }
   
+
+  .admin-profile {
+    display: flex;
+    align-items: center;
+  }
+  
+  .admin-profile .greeting {
+    margin: 0 10px 0 20px;
+  }
+  
+  .admin-profile svg {
+    width: 30px;
+    height: 30px;
+  }
+  
+.admin-profile .notifications {
+    position: relative;
+  }
+  
+.admin-profile .badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -10px;
+    right: -3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    font-size: 10px;
+    color: var(--white);
+    background: var(--red);
+  }
   /*In case you prefer an absolutely positioned header that covers the full page height, add these styles*/
   /*body {
     position: relative;
@@ -232,39 +265,7 @@
     background-color: white;
   }
   
-  .search-and-user .admin-profile {
-    display: flex;
-    align-items: center;
-  }
-  
-  .search-and-user .admin-profile .greeting {
-    margin: 0 10px 0 20px;
-  }
-  
-  .search-and-user .admin-profile svg {
-    width: 30px;
-    height: 30px;
-  }
-  
-  .search-and-user .admin-profile .notifications {
-    position: relative;
-  }
-  
-  .search-and-user .admin-profile .badge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: -10px;
-    right: -3px;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    font-size: 10px;
-    color: var(--white);
-    background: var(--red);
-  }
-  
+ 
   .page-content .grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

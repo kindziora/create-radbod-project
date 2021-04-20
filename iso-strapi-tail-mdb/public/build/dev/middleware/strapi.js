@@ -36,7 +36,7 @@ export class backend {
      */
     findByName(name, model){
  
-        name = !name || "/" ? "" : name;
+        name = !name || name === "/" ? "" : name;
         return this.requestP(this.baseUrl + "/projects?name_contains=" + name, model);
     }
 

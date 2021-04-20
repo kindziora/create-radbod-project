@@ -3,6 +3,15 @@
         <ul data-name="/$breadcrumb/path" data-view="item">
         </ul>
     </div>
+    <div class="admin-profile">
+        <span class="greeting">Hi Alex</span>
+        <div class="notifications">
+          <span class="badge">1</span>
+          <svg>
+            <use xlink:href="#users"></use>
+          </svg>
+        </div>
+      </div>
 </template>
 
 <style language="scss">
@@ -52,6 +61,10 @@
             color: #297EFE;
         }
 
+    }
+
+    component[data-id="breadcrumb"]{
+        display:flex;
     }
 </style>
 

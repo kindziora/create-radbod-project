@@ -15,16 +15,7 @@
                     <use xlink:href="#search"></use>
                   </svg>
                 </button>
-              </form>
-              <div class="admin-profile">
-                <span class="greeting">Hi Alex</span>
-                <div class="notifications">
-                  <span class="badge">1</span>
-                  <svg>
-                    <use xlink:href="#users"></use>
-                  </svg>
-                </div>
-              </div>
+              </form> 
             </section>
 
           
@@ -69,14 +60,21 @@
         },
         data( ) {
 
-            return this.createStore("tasklist", {});
+            return this.createStore("tasklist", {search :"77"});
 
         },
         interactions() {
             return {
                 "/$tasklist/search":{
-                    keyup(f,state){
-                        console.log(f, state);
+                    keyup(context, state){ 
+
+                        state.search = context.field.getValue();
+                        
+                        this.store.dataH.store.textlist.db().findByName( state.search ).then(function (res) {
+                            let { data, model } = res;
+                            model._data.items = data;
+                            return data;
+                        });
                     } 
                 },
                 "tasklist" : {

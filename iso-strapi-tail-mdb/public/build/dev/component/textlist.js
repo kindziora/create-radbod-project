@@ -11,14 +11,14 @@
                    'textlist-e-7' : function (args) { let {change, backendtopmenu,bottommenu,breadcrumb,briefing,home,login,modal,signin,tasklist,text,textlist,topmenu,units,write, _t, env} = args; return `${_t('Bezahlung')}`},
                    'textlist-e-8' : function (args) { let {change, backendtopmenu,bottommenu,breadcrumb,briefing,home,login,modal,signin,tasklist,text,textlist,topmenu,units,write, _t, env} = args; return `${_t('Ansehen')}`},
                    'textlist-e-9' : function (args) {
-        let { change, textlist, _t, env } = args;
+        let { change, textlist, _t, env, tasklist } = args;
         return `<div class="Rtable-row ${change.index % 2!=0? 'is-striped' : ''}" data-name="/$textlist/items/${change.value.id}" data-type="list-item"> 
                   <div class="Rtable-cell date-cell">
                     <div class="Rtable-cell--heading">Von</div>
                     <div class="Rtable-cell--content date-content"><span class="webinar-date">${change.value.createdAt.substr(5, 14).replace("T", " ")}</div>
                   </div>
                   <div class="Rtable-cell topic-cell">
-                    <div class="Rtable-cell--content title-content">${change.value.name}</div>
+                    <div class="Rtable-cell--content title-content">${change.value.name.replace( new RegExp("(" + tasklist.search + ")", "ig"), "<strong>$1</strong>")}</div>
                   </div>
                   <div class="Rtable-cell access-link-cell">
                     <div class="Rtable-cell--heading">Anzahl</div>
@@ -36,14 +36,14 @@
       },
                    'textlist' : function (args) { let {change, backendtopmenu,bottommenu,breadcrumb,briefing,home,login,modal,signin,tasklist,text,textlist,topmenu,units,write, _t, env} = args; return `<div class="wrapper textlist" data-id="textlist-e-1" data-view="textlist-e-1"> <div class="Rtable Rtable--5cols Rtable--collapse" data-id="textlist-e-2" data-view="textlist-e-2"> <div class="Rtable-row Rtable-row--head" data-id="textlist-e-3" data-view="textlist-e-3"> <div class="Rtable-cell date-cell column-heading" data-id="textlist-e-4" data-view="textlist-e-4">${_t('Von')}</div> <div class="Rtable-cell topic-cell column-heading" data-id="textlist-e-5" data-view="textlist-e-5">${_t('Auftrag')}</div> <div class="Rtable-cell access-link-cell column-heading" data-id="textlist-e-6" data-view="textlist-e-6">${_t('Anzahl')}</div> <div class="Rtable-cell replay-link-cell column-heading" data-id="textlist-e-7" data-view="textlist-e-7">${_t('Bezahlung')}</div> <div class="Rtable-cell pdf-cell column-heading" data-id="textlist-e-8" data-view="textlist-e-8">${_t('Ansehen')}</div> </div> <div class="tlist" data-name="/$textlist/items" data-view="text" data-type="list" data-id="textlist-e-9"> </div> </div> </div>`},
                    'text' : function (args) {
-        let { change, textlist, _t, env } = args;
+        let { change, textlist, _t, env, tasklist } = args;
         return `<div class="Rtable-row ${change.index % 2!=0? 'is-striped' : ''}" data-name="/$textlist/items/${change.value.id}" data-type="list-item"> 
                   <div class="Rtable-cell date-cell">
                     <div class="Rtable-cell--heading">Von</div>
                     <div class="Rtable-cell--content date-content"><span class="webinar-date">${change.value.createdAt.substr(5, 14).replace("T", " ")}</div>
                   </div>
                   <div class="Rtable-cell topic-cell">
-                    <div class="Rtable-cell--content title-content">${change.value.name}</div>
+                    <div class="Rtable-cell--content title-content">${change.value.name.replace( new RegExp("(" + tasklist.search + ")", "ig"), "<strong>$1</strong>")}</div>
                   </div>
                   <div class="Rtable-cell access-link-cell">
                     <div class="Rtable-cell--heading">Anzahl</div>
