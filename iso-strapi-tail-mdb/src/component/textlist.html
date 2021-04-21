@@ -1,14 +1,10 @@
 <template language="js-template">
 
   <div class="wrapper textlist">
-    <div class="Rtable Rtable--5cols Rtable--collapse">
-
-      <div class="Rtable-row Rtable-row--head">
-        <div class="Rtable-cell date-cell column-heading">Von</div>
-        <div class="Rtable-cell topic-cell column-heading">Auftrag</div>
-        <div class="Rtable-cell access-link-cell column-heading">Anzahl</div>
-        <div class="Rtable-cell replay-link-cell column-heading">Bezahlung</div>
-        <div class="Rtable-cell pdf-cell column-heading">Ansehen</div>
+ 
+  <div class="Rtable Rtable--5cols Rtable--collapse">
+      <div class="Rtable-row Rtable-row--head" data-name="/$textlist/results" data-view="tableheader">
+       
       </div>
 
       <div class="tlist" data-name="/$textlist/items" data-view="text" data-type="list">
@@ -16,18 +12,35 @@
       </div>
 
     </div>
+
   </div>
 
 </template>
 
 <style language="scss" scope=".textlist">
-
+.hide {
+  display:none;
+}
 </style>
 
 <script language="js">
 
   export let textlist = {
+    lazyLoading: true,
+    SSR:false,
     views: {
+      "tableheader": function (args) {
+        let { change, textlist, _t, env, tasklist } = args;
+        if(textlist.results ===0) {
+          return `<span class="hint">Keine passenden Aufträge gefunden</span>`;
+        }else{
+          return ` <div class="Rtable-cell date-cell column-heading">Von</div>
+        <div class="Rtable-cell topic-cell column-heading">Auftrag</div>
+        <div class="Rtable-cell access-link-cell column-heading">Anzahl</div>
+        <div class="Rtable-cell replay-link-cell column-heading">Bezahlung</div>
+        <div class="Rtable-cell pdf-cell column-heading">Ansehen</div>`;
+        }
+      },
       "text": function (args) {
         let { change, textlist, _t, env, tasklist } = args;
         return `<div class="Rtable-row ${change.index % 2!=0? 'is-striped' : ''}" data-name="/$textlist/items/${change.value.id}" data-type="list-item"> 
@@ -59,6 +72,7 @@
 
     data() {
       return this.createStore("textlist", {
+        results: 1,
         items: [
           {
             "i": 0,
@@ -106,6 +120,7 @@
       }).db().findByName( this.environment.view.path().split("backend/tasklist").pop() ).then(function (res) {
         let { data, model } = res;
         model._data.items = data;
+        model._data.results = data.length;
         return data;
       });
     },

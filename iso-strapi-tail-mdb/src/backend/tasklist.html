@@ -47,7 +47,8 @@
     import { textlist } from '../component/textlist';
 
     export let tasklist = { 
-        lazyLoading: false, /* server side rendering does not wait for store "tasklist" for rendering */
+        lazyLoading: true, 
+        SSR:false,
         mounted() {
             //  console.log("mounted", this);
 
@@ -60,7 +61,7 @@
         },
         data( ) {
 
-            return this.createStore("tasklist", {search :"77"});
+            return this.createStore("tasklist", {search :"77", results: 1});
 
         },
         interactions() {
@@ -73,6 +74,7 @@
                         this.store.dataH.store.textlist.db().findByName( state.search ).then(function (res) {
                             let { data, model } = res;
                             model._data.items = data;
+                            model._data.results = data.length;
                             return data;
                         });
                     } 

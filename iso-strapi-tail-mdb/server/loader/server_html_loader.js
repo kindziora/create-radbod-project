@@ -106,7 +106,7 @@ export const html_loader = asyncHandler(async function (req, res, next) {
 
         if (typeof component.loaded === "function") {
 
-            component.loaded.call(component, data);
+            component.loaded.call(component, componentsHandler[pageName]);
         }
 
     }, (stores, meta) => {
@@ -119,6 +119,8 @@ export const html_loader = asyncHandler(async function (req, res, next) {
  
 
         try {
+
+            console.log(stores);
             
             let pageHTML = eval(`(${page[pageName].views[pageName].toString()})`).call(stores, { change: { value: "" }, ...storeData, _t, env: dataH.environment });
 
