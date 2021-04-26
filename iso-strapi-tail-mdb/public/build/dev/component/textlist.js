@@ -2,8 +2,8 @@
 
   export let textlist = {
         views : {
-                   'textlist-e-1' : function (args) { let {change, backendtopmenu,bottommenu,breadcrumb,briefing,home,login,modal,signin,tasklist,text,textlist,topmenu,units,write, _t, env} = args; return `<div class="Rtable Rtable--5cols Rtable--collapse"> <div class="Rtable-row Rtable-row--head" data-name="/$textlist/results" data-view="tableheader"> </div> <div class="tlist" data-name="/$textlist/items" data-view="text" data-type="list"> </div> </div>`},
-                   'textlist-e-2' : function (args) { let {change, backendtopmenu,bottommenu,breadcrumb,briefing,home,login,modal,signin,tasklist,text,textlist,topmenu,units,write, _t, env} = args; return `<div class="Rtable-row Rtable-row--head" data-name="/$textlist/results" data-view="tableheader"> </div> <div class="tlist" data-name="/$textlist/items" data-view="text" data-type="list"> </div>`},
+                   'textlist-e-1' : function (args) { let {change, backendtopmenu,bottommenu,breadcrumb,briefing,home,login,modal,signin,tasklist,textlist,topmenu,units,write, _t, env} = args; return `<div class="Rtable Rtable--5cols Rtable--collapse"> <div class="Rtable-row Rtable-row--head" data-name="/$textlist/results" data-view="tableheader"> </div> <div class="tlist" data-name="/$textlist/items" data-view="text" data-type="list"> </div> </div>`},
+                   'textlist-e-2' : function (args) { let {change, backendtopmenu,bottommenu,breadcrumb,briefing,home,login,modal,signin,tasklist,textlist,topmenu,units,write, _t, env} = args; return `<div class="Rtable-row Rtable-row--head" data-name="/$textlist/results" data-view="tableheader"> </div> <div class="tlist" data-name="/$textlist/items" data-view="text" data-type="list"> </div>`},
                    'textlist-e-3' : function (args) {
         let { change, textlist, _t, env, tasklist } = args;
         if(textlist.results ===0) {
@@ -40,7 +40,7 @@
                   </div> 
               </div>`;
       },
-                   'textlist' : function (args) { let {change, backendtopmenu,bottommenu,breadcrumb,briefing,home,login,modal,signin,tasklist,text,textlist,topmenu,units,write, _t, env} = args; return `<div class="wrapper textlist" data-id="textlist-e-1" data-view="textlist-e-1"> <div class="Rtable Rtable--5cols Rtable--collapse" data-id="textlist-e-2" data-view="textlist-e-2"> <div class="Rtable-row Rtable-row--head" data-name="/$textlist/results" data-view="tableheader" data-id="textlist-e-3"> </div> <div class="tlist" data-name="/$textlist/items" data-view="text" data-type="list" data-id="textlist-e-4"> </div> </div> </div>`},
+                   'textlist' : function (args) { let {change, backendtopmenu,bottommenu,breadcrumb,briefing,home,login,modal,signin,tasklist,textlist,topmenu,units,write, _t, env} = args; return `<div class="wrapper textlist" data-id="textlist-e-1" data-view="textlist-e-1"> <div class="Rtable Rtable--5cols Rtable--collapse" data-id="textlist-e-2" data-view="textlist-e-2"> <div class="Rtable-row Rtable-row--head" data-name="/$textlist/results" data-view="tableheader" data-id="textlist-e-3"> </div> <div class="tlist" data-name="/$textlist/items" data-view="text" data-type="list" data-id="textlist-e-4"> </div> </div> </div>`},
                    'tableheader' : function (args) {
         let { change, textlist, _t, env, tasklist } = args;
         if(textlist.results ===0) {

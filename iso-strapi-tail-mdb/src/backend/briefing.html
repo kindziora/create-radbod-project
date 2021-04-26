@@ -132,7 +132,7 @@
       ).db().findProject(this.environment.view.path().split("/").pop()).then(function (res) {
         let { data, model } = res;
 
-        //  model._data.briefing = data;
+        model._data = data;
         return data;
       });
     },
