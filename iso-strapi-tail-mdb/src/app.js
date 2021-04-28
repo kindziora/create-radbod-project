@@ -101,7 +101,7 @@ export class myApp extends radbod.app {
                 if (this.sharedComponents[i].interactions[tagName] && this.sharedComponents[i].interactions[tagName]["postRender"]) {
                     this.sharedComponents[i].interactions[tagName]["postRender"](component);
                 }
-                this.dataH.events.dispatchEvent(i.split("#")[0] , `/$${i.split("#")[0] }`, "post_render", { change: {}, domScope: this.sharedComponents[i].dom.$el, readd: true }, this.dataH.store.toObject());
+                this.dataH.events.dispatchEvent(i.split("#")[0] , `/$${i.split("#")[0] }`, "post_render", { change: {}, domScope: this.sharedComponents[i].dom.$el, readd: false }, this.dataH.store.toObject());
 
                 this.renderSharedComponents(this.sharedComponents[i], true);
 
@@ -109,7 +109,7 @@ export class myApp extends radbod.app {
 
         }
         if(!recall){
-            this.dataH.events.dispatchEvent(component.name, `/$${component.name}`, "post_render", { change: {}, domScope: component.dom.$el }, this.dataH.store.toObject());
+            this.dataH.events.dispatchEvent(component.name, `/$${component.name}`, "post_render", { change: {}, domScope: component.dom.$el, readd: false }, this.dataH.store.toObject());
         }
     }
 
