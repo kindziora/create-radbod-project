@@ -19,8 +19,10 @@ export class myApp extends radbod.app {
         environment.data_loader = new backend(environment);
         try {
             let tk = cookie.get('tk'); 
-            if (tk)
+            if (tk) {
                 environment.data_loader.setAuthToken(tk);
+                environment.data_loader.setUser(JSON.parse(cookie.get('user')));
+            }
         } catch (e) {
             console.log(e);
         }
@@ -56,8 +58,8 @@ export class myApp extends radbod.app {
      * @param {*} component 
      * @param {*} path 
      */
-    render(stores, data, component, path) {
-       
+    render(stores, data, component, path) { 
+
         document.querySelector('#section').innerHTML = "";
         document.querySelector('#section').append(component.dom.$el);
 
@@ -89,7 +91,7 @@ export class myApp extends radbod.app {
      * 
      * @param {*} component 
      */
-    renderSharedComponents(component) {
+    renderSharedComponents(component, recall) {
 
         for (let i in this.sharedComponents) {
             let tagName = i.split("#")[0] + "-component";
@@ -99,13 +101,16 @@ export class myApp extends radbod.app {
                 if (this.sharedComponents[i].interactions[tagName] && this.sharedComponents[i].interactions[tagName]["postRender"]) {
                     this.sharedComponents[i].interactions[tagName]["postRender"](component);
                 }
+                this.dataH.events.dispatchEvent(i.split("#")[0] , `/$${i.split("#")[0] }`, "post_render", { change: {}, domScope: this.sharedComponents[i].dom.$el, readd: true }, this.dataH.store.toObject());
 
-                this.renderSharedComponents(this.sharedComponents[i]);
+                this.renderSharedComponents(this.sharedComponents[i], true);
 
             }
 
         }
-        
+        if(!recall){
+            this.dataH.events.dispatchEvent(component.name, `/$${component.name}`, "post_render", { change: {}, domScope: component.dom.$el }, this.dataH.store.toObject());
+        }
     }
 
     /**
@@ -128,11 +133,11 @@ export class myApp extends radbod.app {
 
         history.pushState(path, path, path);
 
-        if (this.components[page]) {
-
+        if (this.components[page]) {  
+            this.components[page].loadStores();
             this.renderSharedComponents(this.components[page]);
-
             this.render(null, null, this.components[page], path);
+            
             if (typeof callback === "function")
                 callback(this.components[page]);
         } else {
