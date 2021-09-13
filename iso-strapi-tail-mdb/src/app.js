@@ -42,10 +42,13 @@ export class myApp extends radbod.app {
         this.mountComponent("modal#partial", modal, (stores, data, component) => {
             this.sharedComponents["modal#partial"] = component;
         });
+
+        if(environment.data_loader.isAuthorized()) {
+            this.mountComponent("breadcrumb#breadcrumb", breadcrumb, (stores, data, component) => {
+                this.sharedComponents["breadcrumb#breadcrumb"] = component;
+            });
+        }
        
-        this.mountComponent("breadcrumb#breadcrumb", breadcrumb, (stores, data, component) => {
-            this.sharedComponents["breadcrumb#breadcrumb"] = component;
-        });
 
         this.cookie = cookie;
     }
