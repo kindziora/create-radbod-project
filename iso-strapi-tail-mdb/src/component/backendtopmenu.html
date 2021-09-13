@@ -79,25 +79,28 @@
         <li>
           <a href="${env.view.url('backend/tasklist')}" class="${env.view.isActive('/backend/tasklist')}">
             <svg>
+              <use xlink:href="#search"></use>
+            </svg>
+            <span>Auftrag finden</span>
+          </a>
+        </li>
+        <li>
+          <a href="#0">
+            <svg>
               <use xlink:href="#pages"></use>
             </svg>
-            <span>Aufträge</span>
+            <span>Meine Entwürfe</span>
           </a>
+        </li>
+        <li class="menu-heading">
+          <h3>Verwaltung</h3>
         </li>
         <li>
           <a href="#0">
             <svg>
-              <use xlink:href="#trends"></use>
+              <use xlink:href="#charts"></use>
             </svg>
-            <span>Trends</span>
-          </a>
-        </li>
-        <li>
-          <a href="#0">
-            <svg>
-              <use xlink:href="#collection"></use>
-            </svg>
-            <span>Collection</span>
+            <span>Qualität (92%)</span>
           </a>
         </li>
         <li>
@@ -105,17 +108,9 @@
             <svg>
               <use xlink:href="#comments"></use>
             </svg>
-            <span>Comments</span>
+            <span>Nachrichten <strong>(3)</strong></span>
           </a>
-        </li>
-        <li>
-          <a href="#0">
-            <svg>
-              <use xlink:href="#appearance"></use>
-            </svg>
-            <span>Appearance</span>
-          </a>
-        </li>
+        </li> 
         <li class="menu-heading">
           <h3>Einstellungen</h3>
         </li>
@@ -134,15 +129,7 @@
             </svg>
             <span>Bezahlung</span>
           </a>
-        </li>
-        <li>
-          <a href="#0">
-            <svg>
-              <use xlink:href="#charts"></use>
-            </svg>
-            <span>Statistiken</span>
-          </a>
-        </li>
+        </li> 
         <li>
           <a>Hilfe</a>
         </li>
