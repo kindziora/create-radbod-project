@@ -552,22 +552,13 @@
         }
 
         .Rtable-cell--content {
-          a {
-            font-size: 2em;
-            color: #333;
-          }
+         
 
           .webinar-date {
             font-weight: 700;
           }
         }
 
-
-        .Rtable-cell--content a:hover {
-          box-shadow: 0 2px 18px black;
-          border-radius: 500px;
-          text-decoration: none;
-        }
       }
     }
   }

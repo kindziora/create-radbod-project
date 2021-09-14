@@ -13,7 +13,7 @@
         <div class="Rtable-cell topic-cell column-heading">Auftrag</div>
         <div class="Rtable-cell access-link-cell column-heading">Anzahl</div>
         <div class="Rtable-cell replay-link-cell column-heading">Bezahlung</div>
-        <div class="Rtable-cell pdf-cell column-heading">Ansehen</div>`;
+         `;
         }
       },
                    'textlist-e-4' : function (args) {
@@ -24,7 +24,9 @@
                     <div class="Rtable-cell--content date-content"><span class="webinar-date">${change.value.createdAt.substr(5, 14).replace("T", " ")}</div>
                   </div>
                   <div class="Rtable-cell topic-cell">
-                    <div class="Rtable-cell--content title-content">${change.value.name.replace( new RegExp("(" + tasklist.search + ")", "ig"), "<strong>$1</strong>")}</div>
+                    <div class="Rtable-cell--content title-content">
+                      <a data-title="${change.value.name}" href="${env.view.url('backend/briefing/' + change.value.id)}" data-events="job:click" data-index="${change.value.id}"> ${change.value.name.replace( new RegExp("(" + tasklist.search + ")", "ig"), "<strong>$1</strong>")}</a>
+                      </div>
                   </div>
                   <div class="Rtable-cell access-link-cell">
                     <div class="Rtable-cell--heading">Anzahl</div>
@@ -34,10 +36,7 @@
                     <div class="Rtable-cell--heading">Bezahlung</div>
                     <div class="Rtable-cell--content replay-link-content">${change.value.wordcent} cent / Wort</div>
                   </div>
-                  <div class="Rtable-cell Rtable-cell--foot pdf-cell">
-                    <div class="Rtable-cell--heading">Aktion</div>
-                    <div class="Rtable-cell--content pdf-content"><a data-title="${change.value.name}" href="${env.view.url('backend/briefing/' + change.value.id)}" data-events="job:click" data-index="${change.value.id}"> &#9997;</a></div>
-                  </div> 
+                  
               </div>`;
       },
                    'textlist' : function (args) { let {change, backendtopmenu,bottommenu,breadcrumb,briefing,home,login,modal,signin,tasklist,textlist,topmenu,units,write, _t, env} = args; return `<div class="wrapper textlist" data-id="textlist-e-1" data-view="textlist-e-1"> <div class="Rtable Rtable--5cols Rtable--collapse" data-id="textlist-e-2" data-view="textlist-e-2"> <div class="Rtable-row Rtable-row--head" data-name="/$textlist/results" data-view="tableheader" data-id="textlist-e-3"> </div> <div class="tlist" data-name="/$textlist/items" data-view="text" data-type="list" data-id="textlist-e-4"> </div> </div> </div>`},
@@ -50,7 +49,7 @@
         <div class="Rtable-cell topic-cell column-heading">Auftrag</div>
         <div class="Rtable-cell access-link-cell column-heading">Anzahl</div>
         <div class="Rtable-cell replay-link-cell column-heading">Bezahlung</div>
-        <div class="Rtable-cell pdf-cell column-heading">Ansehen</div>`;
+         `;
         }
       },
                    'text' : function (args) {
@@ -61,7 +60,9 @@
                     <div class="Rtable-cell--content date-content"><span class="webinar-date">${change.value.createdAt.substr(5, 14).replace("T", " ")}</div>
                   </div>
                   <div class="Rtable-cell topic-cell">
-                    <div class="Rtable-cell--content title-content">${change.value.name.replace( new RegExp("(" + tasklist.search + ")", "ig"), "<strong>$1</strong>")}</div>
+                    <div class="Rtable-cell--content title-content">
+                      <a data-title="${change.value.name}" href="${env.view.url('backend/briefing/' + change.value.id)}" data-events="job:click" data-index="${change.value.id}"> ${change.value.name.replace( new RegExp("(" + tasklist.search + ")", "ig"), "<strong>$1</strong>")}</a>
+                      </div>
                   </div>
                   <div class="Rtable-cell access-link-cell">
                     <div class="Rtable-cell--heading">Anzahl</div>
@@ -71,10 +72,7 @@
                     <div class="Rtable-cell--heading">Bezahlung</div>
                     <div class="Rtable-cell--content replay-link-content">${change.value.wordcent} cent / Wort</div>
                   </div>
-                  <div class="Rtable-cell Rtable-cell--foot pdf-cell">
-                    <div class="Rtable-cell--heading">Aktion</div>
-                    <div class="Rtable-cell--content pdf-content"><a data-title="${change.value.name}" href="${env.view.url('backend/briefing/' + change.value.id)}" data-events="job:click" data-index="${change.value.id}"> &#9997;</a></div>
-                  </div> 
+                  
               </div>`;
       } },
             "style":".textlist .hide { display: none; }","path":"/component/textlist.js",

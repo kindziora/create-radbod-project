@@ -21,6 +21,7 @@
 .hide {
   display:none;
 }
+
 </style>
 
 <script language="js">
@@ -38,7 +39,7 @@
         <div class="Rtable-cell topic-cell column-heading">Auftrag</div>
         <div class="Rtable-cell access-link-cell column-heading">Anzahl</div>
         <div class="Rtable-cell replay-link-cell column-heading">Bezahlung</div>
-        <div class="Rtable-cell pdf-cell column-heading">Ansehen</div>`;
+         `;
         }
       },
       "text": function (args) {
@@ -49,7 +50,9 @@
                     <div class="Rtable-cell--content date-content"><span class="webinar-date">${change.value.createdAt.substr(5, 14).replace("T", " ")}</div>
                   </div>
                   <div class="Rtable-cell topic-cell">
-                    <div class="Rtable-cell--content title-content">${change.value.name.replace( new RegExp("(" + tasklist.search + ")", "ig"), "<strong>$1</strong>")}</div>
+                    <div class="Rtable-cell--content title-content">
+                      <a data-title="${change.value.name}" href="${env.view.url('backend/briefing/' + change.value.id)}" data-events="job:click" data-index="${change.value.id}"> ${change.value.name.replace( new RegExp("(" + tasklist.search + ")", "ig"), "<strong>$1</strong>")}</a>
+                      </div>
                   </div>
                   <div class="Rtable-cell access-link-cell">
                     <div class="Rtable-cell--heading">Anzahl</div>
@@ -59,10 +62,7 @@
                     <div class="Rtable-cell--heading">Bezahlung</div>
                     <div class="Rtable-cell--content replay-link-content">${change.value.wordcent} cent / Wort</div>
                   </div>
-                  <div class="Rtable-cell Rtable-cell--foot pdf-cell">
-                    <div class="Rtable-cell--heading">Aktion</div>
-                    <div class="Rtable-cell--content pdf-content"><a data-title="${change.value.name}" href="${env.view.url('backend/briefing/' + change.value.id)}" data-events="job:click" data-index="${change.value.id}"> &#9997;</a></div>
-                  </div> 
+                  
               </div>`;
       }
     },
