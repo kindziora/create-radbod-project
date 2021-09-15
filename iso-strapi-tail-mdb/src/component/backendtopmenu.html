@@ -77,7 +77,7 @@
           <h3>Schreiben</h3>
         </li>
         <li>
-          <a href="${env.view.url('backend/tasklist')}" class="${env.view.isActive('/backend/tasklist')}">
+          <a href="${env.view.url('backend/tasklist')}" data-name="/$backendtopmenu/link" class="${env.view.isActive('/backend/tasklist')}">
             <svg>
               <use xlink:href="#search"></use>
             </svg>
@@ -115,7 +115,7 @@
           <h3>Einstellungen</h3>
         </li>
         <li>
-          <a href="#0">
+          <a href="${env.view.url('backend/profile')}" data-name="/$backendtopmenu/link" class="${env.view.isActive('/backend/profile')}">
             <svg>
               <use xlink:href="#settings"></use>
             </svg>
@@ -165,7 +165,7 @@
       "backendtopmenu": {
         "postRender": function (comp) {
  
-          comp.store.dataH.pxy.$breadcrumb.path = [{ name: "Aufträge", url: "/backend/tasklist" }];
+         
         }
       }, 
       "hamburger": {
@@ -177,8 +177,9 @@
         "click"(sender, dataStore) {
           sender.ev.preventDefault();
 
-          buildApp.loadPage(sender.field.$el.firstChild.getAttribute("href"), () => {
-            dataStore.link = sender.field.$el.firstChild.getAttribute("href");
+          buildApp.loadPage(sender.field.$el.getAttribute("href"), () => {
+            dataStore.link = sender.field.$el.getAttribute("href");
+            
           });
 
         }

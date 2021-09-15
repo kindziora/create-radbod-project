@@ -1,6 +1,7 @@
 export default {
     "^([a-z]{2}_[A-Z]{2})/([.-\w]*)$": 2, // regex input : match group 
     "^home": "home",
+    "^profile": "profile",
     "^start": "start",
     "^$": "start",
     "^register": "register",

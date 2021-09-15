@@ -2,7 +2,7 @@
     <extend-head>
         <title>Willkommen zurück</title>
     </extend-head>
-    <page>
+    <page class="light-mode">
         <backendtopmenu-component type="component" data-name="/$backendtopmenu"></backendtopmenu-component>
 
          profil 
@@ -11,15 +11,20 @@
     </page>
 </template>
 
-<style language="scss" >
-   
+<style   language="scss"  scope=".profile">
+       @import "/css/backend.css";
+
 </style>
 
 <script language="js"> 
      
     import { translations } from './i18n/profile';
 
+    import { backendtopmenu } from '../component/backendtopmenu';
+
     export let profile = {
+        lazyLoading: true, 
+        SSR:false,
         mounted() {
             console.log("mounted", this);
         },
@@ -30,7 +35,7 @@
         }
         ,
         data() {
-            return this.createStore("home", { name: "AK home" });
+            return this.createStore("profile", { name: "AK profile" });
         }, 
         interactions() {
             return {
@@ -38,7 +43,15 @@
                     "keyup"(sender, data) { //address specific element in dom
                         data.name = sender.field.getValue();
                     }
-                }
+                }, "profile" : {
+                    "postRender" : function(comp) {
+                         this.mountComponent("backendtopmenu#mainmenu", backendtopmenu, (stores, data, component) => {
+                            this.sharedComponents["backendtopmenu#mainmenu"] = component;
+                          });
+
+                          comp.store.dataH.pxy.$breadcrumb.path = [{ name: "Profil", url: "/backend/profile" }];
+                    }
+                } 
             }
         },
         translations() {
