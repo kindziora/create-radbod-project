@@ -43,7 +43,7 @@ export class myApp extends radbod.app {
             this.sharedComponents["modal#partial"] = component;
         });
 
-        if(environment.data_loader.isAuthorized()) {
+        if(environment.data_loader.getUser()) {
             this.mountComponent("breadcrumb#breadcrumb", breadcrumb, (stores, data, component) => {
                 this.sharedComponents["breadcrumb#breadcrumb"] = component;
             });

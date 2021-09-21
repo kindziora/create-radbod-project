@@ -11,6 +11,9 @@ export class backend {
     setUser(user) {
         this.user = user;
     }
+    getUser() {
+        return this.user;
+    }
 
     parseCookie (str) {
        return str.split(';')
