@@ -48,8 +48,7 @@ export class myApp extends radbod.app {
                 this.sharedComponents["breadcrumb#breadcrumb"] = component;
             });
         }
-       
-
+        
         this.cookie = cookie;
     }
 

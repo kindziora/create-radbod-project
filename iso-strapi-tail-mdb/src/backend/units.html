@@ -126,7 +126,7 @@
                 let { data, model } = res;
                 model._data.items = data;
 
-                return data;
+                return model._data;
             });
 
         },
@@ -158,8 +158,8 @@
                     if(comp.store._data[0])
                     comp.store.dataH.pxy.$breadcrumb.path = [
                         { name: "Aufträge", url: "/backend/tasklist" },
-                        { name: comp.store._data.items[0].project.name, url: "/backend/briefing/" + comp.store._data.items[0].project.id}, 
-                        { name: "Texte", url: "/backend/units/" +  comp.store._data.items[0].project.id }, 
+                        { name: comp.store._data[0].project.name, url: "/backend/briefing/" + comp.store._data[0].project.id}, 
+                        { name: "Texte", url: "/backend/units/" +  comp.store._data[0].project.id }, 
                     ];
 
                 }

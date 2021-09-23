@@ -6,7 +6,7 @@
             <span class="greeting">Hi Alex</span>
             <div class="notifications">
               <span class="badge">1</span>
-              <img src="http://localhost:1337${env.data_loader.user.image.formats.thumbnail.url}" />
+              <img src="http://localhost:1337${env.data_loader.user.image ? env.data_loader.user.image.formats.thumbnail.url : ''}" />
             </div>
           </div>
     </div>
