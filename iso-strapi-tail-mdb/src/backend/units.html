@@ -31,7 +31,7 @@
                                 <div class="Rtable-cell pdf-cell column-heading">Schreiben</div>
                             </div>
 
-                            <div class="tlist" data-name="/$units" data-view="text" data-type="list">
+                            <div class="tlist" data-name="/$units/items" data-view="text" data-type="list">
 
                             </div>
 
@@ -126,7 +126,7 @@
                 let { data, model } = res;
                 model._data.items = data;
 
-                return data;
+                return model._data;
             });
 
         },
@@ -136,11 +136,11 @@
                     context.ev.preventDefault();
                     let url = context.field.$el.getAttribute("href");
                     let name = context.field.$el.getAttribute("data-title"); 
-
+                   
                     this.store.dataH.pxy.$breadcrumb.path = [
                         { name: "Aufträge", url: "/backend/tasklist" }, 
-                        { name: store[0].project.name, url: "/backend/briefing/" + store[0].project.id}, 
-                        { name: "Texte", url: "/backend/units/" +  store[0].project.id }, 
+                        { name: store.items[0].project.name, url: "/backend/briefing/" + store.items[0].project.id}, 
+                        { name: "Texte", url: "/backend/units/" +  store.items[0].project.id }, 
                         { name, url } 
                     ];
 
@@ -155,7 +155,7 @@
                     this.mountComponent("backendtopmenu#mainmenu", backendtopmenu, (stores, data, component) => {
                         this.sharedComponents["backendtopmenu#mainmenu"] = component;
                     });
-
+                    if(comp.store._data[0])
                     comp.store.dataH.pxy.$breadcrumb.path = [
                         { name: "Aufträge", url: "/backend/tasklist" },
                         { name: comp.store._data[0].project.name, url: "/backend/briefing/" + comp.store._data[0].project.id}, 

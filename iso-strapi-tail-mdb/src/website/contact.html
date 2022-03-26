@@ -1,0 +1,121 @@
+<template language="js-template">
+    <extend-head>
+        <title>Kontaktieren sie uns</title>
+    </extend-head>
+    <page>
+        <topmenu-component type="component" data-name="/$topmenu"></topmenu-component>
+        <modal-component data-name="/$modal"></modal-component>
+        <div class="bg"></div>
+        <form>
+            <div class="container">
+                <h2>Einfach eine Nachricht hinterlassen</h2>
+    
+                <div class="form-field">
+                    <label class="user" for="email"><span class="hidden">E-Mail</span></label>
+                    <input type="text" placeholder="email@xyz.de" required data-name="/$contact/email"
+                        data-validations="mail_validator" />
+                      
+                        <span data-name="/_state/$contact/email/msg" class="msg ${change.value ? 'error':''}">${ change.value.msg ? change.value.msg : change.value }</span>
+                </div>
+    
+                 
+                <div class="form-field">
+                    <label class="user" for="email"><span class="hidden">Anliegen</span></label>
+                    <textarea  type="text" placeholder="email@xyz.de" required data-name="/$contact/text"
+                        data-validations="wordlength_validator" />
+                </textarea>
+                        <span data-name="/_state/$contact/text/msg" class="msg ${change.value.msg ? 'error':''}">${ change.value.msg ? change.value.msg  : change.value }</span>
+                </div>
+    
+                <div class="button-container">
+                    <button type="submit" data-events="submit:click">Absenden</button>
+                </div>
+            </div>
+        </form>
+    
+    
+        <bottommenu-component data-name="/$bottommenu"></bottommenu-component>
+    </page>
+</template>
+
+<style language="scss">
+
+</style>
+
+<script language="js">
+    import {
+        mail_validator
+    } from '../middleware/validator/email';
+    import {
+        translations
+    } from './i18n/contact';
+    import {
+        required_validator
+    } from '../middleware/validator/required';
+    import {
+        magic_form
+    } from '../middleware/magicForm';
+    import cookie from '../deps/cookie';
+    import { wordlength_validator } from '../middleware/validator/wordlength';
+
+    export let contact = {
+        views: {
+            "failed": function(args) {
+                let {change, contact, modal} = args;
+                return `<p>Bitte überprüfe nochmal: <ul>${modal.error.map(e => `<li>${e}</li>`)}</ul></p>`;
+            },
+            "success": function (args) {
+                let { change, contact } = args;
+                return `<p>Schön das Sie uns geschrieben haben!</p>
+                <p>Wir melden uns zeitnah bei Ihnen.</p>`;
+            }
+        } ,
+        mounted() {
+            console.log("mounted", this);
+        },
+        components: {
+            "topmenu-component": "topmenu#mainmenu",
+            "bottommenu-component": "bottommenu#footermenu",
+            "modal-component": "modal#partial"
+        },
+        data(data, runtime) {
+            return this.createStore("contact", { "email": "", "text": "" })
+                .addValidations({ mail_validator, required_validator, "wordlength_validator" : wordlength_validator(8, 3000) });
+        },
+        translations() {
+            return translations;
+        },
+        interactions() {
+            return magic_form.call(this, {
+                "submit": {
+                    "click"(sender, dataStore) {
+
+                        sender.ev.preventDefault();
+
+                        let errorFnc = (errorMsg) => {
+                            this.store.dataH.pxy.$modal.error = errorMsg;
+                            this.store.dataH.pxy.$modal.body = this.dom.views.failed.call(this, { user: dataStore, modal: this.store.dataH.pxy.$modal });
+                            this.store.dataH.pxy.$modal.show = true;
+                        };
+                        let mailValidation = this.dom.elementByName["/$contact/email"][0].validate();
+                        let passwordValidation =  this.dom.elementByName["/$contact/text"][0].validate();
+                        
+                        let fieldStates = [mailValidation, passwordValidation];
+                        let filtered = [];
+                        for (let e in fieldStates) {
+                            if (!fieldStates[e].isValid) {
+                                filtered.push(...fieldStates[e].msg);
+                            }
+                        }
+
+                        let isValid = filtered.length === 0;
+
+                         
+                        errorFnc(filtered);
+                      
+                    }
+                }
+            })
+        }
+    }
+</script>

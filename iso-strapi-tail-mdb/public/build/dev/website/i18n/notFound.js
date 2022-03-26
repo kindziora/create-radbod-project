@@ -1,1 +1,0 @@
-export const translations = {"en_EN":{"404 oops Seite nicht gefunden":"404 oops Seite nicht gefunden","Hallo":"Hallo"}}

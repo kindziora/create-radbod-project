@@ -66,7 +66,7 @@ export const html_loader = asyncHandler(async function (req, res, next) {
         let ck = authHandler.parseCookie(req.headers.cookie);
         if(ck && ck.tk) {
             authHandler.setAuthToken(ck.tk);
-
+            authHandler.setUser(ck.user);
             let auth = await authHandler.isAuthorized();
    
             if(!auth){

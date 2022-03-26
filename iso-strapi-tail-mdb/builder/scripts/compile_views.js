@@ -159,9 +159,10 @@ export class compileViews {
     async setupPuppeteer() {
 
         const browser = await puppeteer.launch({
-          //  headless: false,
-         //    devtools: true, 
-      // dumpio: true,
+        
+       //     headless: false,
+       //     devtools: true, 
+       //     dumpio: true,
             args: ["--disable-web-security"],
         });
         const page = await browser.newPage();
@@ -311,7 +312,7 @@ export class compileViews {
             return Flatted.stringify(component);
         } catch (e) { 
             console.log(e, component);
-            return Flatted.stringify({ "error": {orherErrors, name: componentName, component: component, e:Flatted.stringify(e.message)} });
+            return Flatted.stringify({ "error": {orherErrors, name: componentName, component: component, e:Flatted.stringify(e.message) , trace :Flatted.stringify(e.stack)} });
         }
 
 

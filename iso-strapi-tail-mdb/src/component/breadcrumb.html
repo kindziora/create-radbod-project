@@ -2,16 +2,15 @@
     <div id="cssmenu">
         <ul data-name="/$breadcrumb/path" data-view="item">
         </ul>
+        <div class="admin-profile">
+            <span class="greeting">Hi Alex</span>
+            <div class="notifications">
+              <span class="badge">1</span>
+              <img src="http://localhost:1337${env.data_loader.user.image ? env.data_loader.user.image.formats.thumbnail.url : ''}" />
+            </div>
+          </div>
     </div>
-    <div class="admin-profile">
-        <span class="greeting">Hi Alex</span>
-        <div class="notifications">
-          <span class="badge">1</span>
-          <svg>
-            <use xlink:href="#users"></use>
-          </svg>
-        </div>
-      </div>
+   
 </template>
 
 <style language="scss">
@@ -24,7 +23,7 @@
         font-size: 14px;
         line-height: 1em;
         border-radius: 2px;
-
+        justify-content: space-between;
 
         /* Icons */
 
@@ -66,6 +65,14 @@
     component[data-id="breadcrumb"]{
         display:flex;
     }
+
+
+    @media screen and (max-width: 767px) {
+        #cssmenu {
+            left: 0;
+            width: 100%;
+        }
+  }
 </style>
 
 <script language="js">

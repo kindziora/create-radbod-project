@@ -10,8 +10,8 @@
 
       <section class="grid">
         <article>
-
           <div class="briefing-content">
+            <h1>Briefing</h1>
             <span class="date">${env.view.date(briefing.createdAt)}</span>
             <h2>${briefing.name}</h2>
 
@@ -132,7 +132,9 @@
       ).db().findProject(this.environment.view.path().split("/").pop()).then(function (res) {
         let { data, model } = res;
 
-        //  model._data.briefing = data;
+        model._data.createdAt = data.createdAt;
+        model._data.name = data.name;
+        model._data.briefing = data.briefing;
         return data;
       });
     },
@@ -142,12 +144,20 @@
           "postRender": function (comp) {
             this.mountComponent("backendtopmenu#mainmenu", backendtopmenu, (stores, data, component) => {
               this.sharedComponents["backendtopmenu#mainmenu"] = component;
+
+              stores.events.add(`/$breadcrumb`, "post_render", function() {
+                comp.store.dataH.pxy.$breadcrumb.path = [
+                  { name: "Aufträge", url: "/backend/tasklist" },
+                  { name: comp.store._data.name, url: window.location.pathname }
+                ];
+                return false;
+              } , component);
+
+            
+
             });
 
-            comp.store.dataH.pxy.$breadcrumb.path = [
-              { name: "Aufträge", url: "/backend/tasklist" },
-              { name: comp.store._data.name, url: window.location.pathname }
-            ];
+           
 
           }
         },

@@ -1,1 +1,0 @@
-export const translations = {"en_EN":{"start":"start","login":"login","registrieren":"registrieren","blog":"blog","kontakt":"kontakt","extra":"extra","home":"home","register":"register","form":"form","logo":"logo","Article 3":"Article 3","Article 4":"Article 4","Article 5":"Article 5","Mon logo":"Mon logo","more":"more","externe daten":"externe daten","xtern":"xtern"}}

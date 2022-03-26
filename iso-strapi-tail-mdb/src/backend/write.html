@@ -12,16 +12,16 @@
 
                     <div class="briefing-content">
 
-                        <h2>${text.title}</h2>
+                        <h2>${write.title}</h2>
 
                         <div id=editor style="margin-bottom: 23px"></div>
 
                         <div style="display: none" id="content">
 
-                            ${text.briefing}
+                            ${write.briefing}
                         </div>
                         <div class="button-container">
-                            <button type="submit" data-name="/$text/submit" class="submit">Veröffentlichen</button>
+                            <button type="submit" data-name="/$write/submit" class="submit">Veröffentlichen</button>
                         </div>
                     </div>
 
@@ -99,7 +99,7 @@
         pointer-events: none;
     }
 
-    .ProseMirror-textblock-dropdown {
+    .ProseMirror-writeblock-dropdown {
         min-width: 3em;
     }
 
@@ -251,7 +251,7 @@
     }
 
     .ProseMirror-icon span {
-        vertical-align: text-top;
+        vertical-align: write-top;
     }
 
     .ProseMirror-gapcursor {
@@ -329,14 +329,14 @@
         color: #444;
     }
 
-    .ProseMirror-prompt input[type="text"],
-    .ProseMirror-prompt textarea {
+    .ProseMirror-prompt input[type="write"],
+    .ProseMirror-prompt writearea {
         background: #eee;
         border: none;
         outline: none;
     }
 
-    .ProseMirror-prompt input[type="text"] {
+    .ProseMirror-prompt input[type="write"] {
         padding: 0 4px;
     }
 
@@ -427,7 +427,7 @@
         },
         data(cb, env) {
 
-            return this.createStore("text",
+            return this.createStore("write",
                 {
                     "versions": [],
                     "_id": "6065ffd3d65ede005e7cf9af",
@@ -441,7 +441,7 @@
                         "sourcetype": null,
                         "_id": "6065fc7327b6b3004e467327",
                         "name": "Business Profile schreiben",
-                        "briefing": "<h3>Lieber Autor, </h3>\n\n<p>in diesem Job sollen wir Unternehmenstexte für die zukünftigen Webseiten verschiedener Unternehmen erstellen. \n\nUnser Kunde ist ein Dienstleister, der Ärzten, Handwerkern etc. Webseiten-Pakete verkauft. Wir erstellen die Texte für die Pakete mit vier Kategorien (meist „Startseite“, „Über uns“, „Philosophie“ und „Leistungen“).</p>\n\n<p>Vielleicht kennst du diesen Job bereits – wir haben ihn neu gebaut und einen API-Job generiert. Das bedeutet, dass der Kunde die Vorgaben direkt in den Job schickt und die fertigen Texte nach Überprüfung durch unsere Qualitätsmanager direkt zurück erhält.</p>\n\n<p>Wir haben vertraglich festgelegt, dass wir die Texte innerhalb von 6 Werktagen an den Kunden zurück schicken, die Lieferzeiten waren bisher zu lange. Ich bin sehr zuversichtlich, dass wir das zusammen schaffen! :)</p>\n\n\n \n![ak.png](/uploads/ak_f19a214172.png)\n",
+                        "briefing": "<h3>Lieber Autor, </h3>\n\n<p>in diesem Job sollen wir Unternehmenswritee für die zukünftigen Webseiten verschiedener Unternehmen erstellen. \n\nUnser Kunde ist ein Dienstleister, der Ärzten, Handwerkern etc. Webseiten-Pakete verkauft. Wir erstellen die Texte für die Pakete mit vier Kategorien (meist „Startseite“, „Über uns“, „Philosophie“ und „Leistungen“).</p>\n\n<p>Vielleicht kennst du diesen Job bereits – wir haben ihn neu gebaut und einen API-Job generiert. Das bedeutet, dass der Kunde die Vorgaben direkt in den Job schickt und die fertigen Texte nach Überprüfung durch unsere Qualitätsmanager direkt zurück erhält.</p>\n\n<p>Wir haben vertraglich festgelegt, dass wir die Texte innerhalb von 6 Werktagen an den Kunden zurück schicken, die Lieferzeiten waren bisher zu lange. Ich bin sehr zuversichtlich, dass wir das zusammen schaffen! :)</p>\n\n\n \n![ak.png](/uploads/ak_f19a214172.png)\n",
                         "published_at": "2021-04-01T17:02:06.913Z",
                         "createdAt": "2021-04-01T17:01:39.499Z",
                         "updatedAt": "2021-04-04T13:14:42.292Z",
@@ -452,14 +452,14 @@
                         "id": "6065fc7327b6b3004e467327"
                     },
                     "title": "sdsdd",
-                    "textLatest": "hlk fjlkjlfghlkgfh klgfk gfhfghgh fghgfh",
+                    "writeLatest": "hlk fjlkjlfghlkgfh klgfk gfhfghgh fghgfh",
                     "validation": null,
                     "id": "6065ffd3d65ede005e7cf9af"
                 }
             ).db().findText(this.environment.view.path().split("/").pop()).then(function (res) {
                 let { data, model } = res;
-
-                model._data = data;
+                Object.assign(model._data, data);
+                
                 return data;
             });
         },

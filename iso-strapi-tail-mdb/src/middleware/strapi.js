@@ -8,6 +8,13 @@ export class backend {
         this.Authorization = `Bearer ${this.jwt}`;
     }
 
+    setUser(user) {
+        this.user = user;
+    }
+    getUser() {
+        return this.user;
+    }
+
     parseCookie (str) {
        return str.split(';')
       .map(v => v.split('='))

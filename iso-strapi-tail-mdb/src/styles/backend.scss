@@ -69,9 +69,10 @@
     margin: 0 10px 0 20px;
   }
   
-  .admin-profile svg {
+  .admin-profile img {
     width: 30px;
     height: 30px;
+    border-radius: 500px;
   }
   
 .admin-profile .notifications {
@@ -223,7 +224,7 @@
   .search-and-user {
     display: grid;
     grid-template-columns: 1fr auto;
-    grid-column-gap: 50px;
+    grid-column-gap: 0;
     align-items: center;
     background: var(--page-content-bgColor);
     margin-bottom: 30px;
@@ -551,22 +552,13 @@
         }
 
         .Rtable-cell--content {
-          a {
-            font-size: 2em;
-            color: #333;
-          }
+         
 
           .webinar-date {
             font-weight: 700;
           }
         }
 
-
-        .Rtable-cell--content a:hover {
-          box-shadow: 0 2px 18px black;
-          border-radius: 500px;
-          text-decoration: none;
-        }
       }
     }
   }

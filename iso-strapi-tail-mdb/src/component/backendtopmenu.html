@@ -61,8 +61,7 @@
       <rect x="11.84" y="9.87" width="2" height="5.93" transform="translate(-5.32 12.84) rotate(-45)" />
     </symbol>
   </svg>
-  <breadcrumb-component type="component" data-name="/$breadcrumb"></breadcrumb-component>
-
+  
   <header class="page-header">
     <nav>
       <a href="#0" aria-label="forecastr logo" class="logo">
@@ -78,27 +77,30 @@
           <h3>Schreiben</h3>
         </li>
         <li>
-          <a href="${env.view.url('backend/tasklist')}" class="${env.view.isActive('/backend/tasklist')}">
+          <a href="${env.view.url('backend/tasklist')}" data-name="/$backendtopmenu/link" class="${env.view.isActive('/backend/tasklist')}">
+            <svg>
+              <use xlink:href="#search"></use>
+            </svg>
+            <span>Auftrag finden</span>
+          </a>
+        </li>
+        <li>
+          <a href="#0">
             <svg>
               <use xlink:href="#pages"></use>
             </svg>
-            <span>Aufträge</span>
+            <span>Meine Entwürfe</span>
           </a>
+        </li>
+        <li class="menu-heading">
+          <h3>Verwaltung</h3>
         </li>
         <li>
           <a href="#0">
             <svg>
-              <use xlink:href="#trends"></use>
+              <use xlink:href="#charts"></use>
             </svg>
-            <span>Trends</span>
-          </a>
-        </li>
-        <li>
-          <a href="#0">
-            <svg>
-              <use xlink:href="#collection"></use>
-            </svg>
-            <span>Collection</span>
+            <span>Qualität (92%)</span>
           </a>
         </li>
         <li>
@@ -106,22 +108,14 @@
             <svg>
               <use xlink:href="#comments"></use>
             </svg>
-            <span>Comments</span>
+            <span>Nachrichten <strong>(3)</strong></span>
           </a>
-        </li>
-        <li>
-          <a href="#0">
-            <svg>
-              <use xlink:href="#appearance"></use>
-            </svg>
-            <span>Appearance</span>
-          </a>
-        </li>
+        </li> 
         <li class="menu-heading">
           <h3>Einstellungen</h3>
         </li>
         <li>
-          <a href="#0">
+          <a href="${env.view.url('backend/profile')}" data-name="/$backendtopmenu/link" class="${env.view.isActive('/backend/profile')}">
             <svg>
               <use xlink:href="#settings"></use>
             </svg>
@@ -135,21 +129,14 @@
             </svg>
             <span>Bezahlung</span>
           </a>
-        </li>
-        <li>
-          <a href="#0">
-            <svg>
-              <use xlink:href="#charts"></use>
-            </svg>
-            <span>Statistiken</span>
-          </a>
-        </li>
+        </li> 
         <li>
           <a>Hilfe</a>
         </li>
       </ul>
     </nav>
   </header>
+  <breadcrumb-component type="component" data-name="/$breadcrumb"></breadcrumb-component>
 </template>
 
 <style language="scss">
@@ -178,7 +165,7 @@
       "backendtopmenu": {
         "postRender": function (comp) {
  
-          comp.store.dataH.pxy.$breadcrumb.path = [{ name: "Aufträge", url: "/backend/tasklist" }];
+         
         }
       }, 
       "hamburger": {
@@ -190,8 +177,9 @@
         "click"(sender, dataStore) {
           sender.ev.preventDefault();
 
-          buildApp.loadPage(sender.field.$el.firstChild.getAttribute("href"), () => {
-            dataStore.link = sender.field.$el.firstChild.getAttribute("href");
+          buildApp.loadPage(sender.field.$el.getAttribute("href"), () => {
+            dataStore.link = sender.field.$el.getAttribute("href");
+            
           });
 
         }
