@@ -522,7 +522,7 @@
           "passwordr": "",
           "seoLevel": "", 
         })
-        .addValidations({ mail_validator, required_validator, wordlength_validator });
+        .addValidations({ mail_validator, required_validator, "wordlength_validator" : wordlength_validator(150, 3000) });
     },
     interactions() {
       return magic_form.call(this, {

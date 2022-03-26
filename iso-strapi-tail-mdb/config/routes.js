@@ -1,7 +1,7 @@
 //import routes from "./routes/website.js";
 
 let routes = {
-    "^([a-z]{2}_[A-Z]{2})/([.-\w]*)$": 2, // regex input : match group 
+    "^([a-z]{2}_[A-Z]{2})/([.-\w]*)$": "website/$2.js", // regex input : match group 
     "^home": "website/home.js",
     "^start": "website/start.js",
     "^$": "website/start.js",
@@ -9,6 +9,8 @@ let routes = {
     "^login": "website/login.js",
     "^impressum": "website/impressum.js",
     "_not_found": "website/notFound.js",
+    "^blog": "website/blog.js",
+    "^contact": "website/contact.js",
 
     "^backend/profile": "backend/profile.js",
     "^backend/tasklist": "backend/tasklist.js",
@@ -25,7 +27,7 @@ export function parseRoute(path) {
     for (let i in routes) {
 
         let file = routes[i];
-       
+
         let rex = new RegExp(i, "i");
 
         let match = pathCleaned.match(rex);
@@ -38,10 +40,10 @@ export function parseRoute(path) {
                 file = match[file];
                 lang = match[1];
             }
-
-            return { filename: file, language: lang, private: pathCleaned.indexOf("backend") !==-1, requested: pathCleaned };
+            console.log(pathCleaned, i, file);
+            return { filename: pathCleaned.replace(new RegExp(i), file), language: lang, private: pathCleaned.indexOf("backend") !== -1, requested: pathCleaned };
         }
     }
 
-    return { filename: routes._not_found, language: lang, private: pathCleaned.indexOf("backend") !==-1, requested: pathCleaned };
+    return { filename: routes._not_found, language: lang, private: pathCleaned.indexOf("backend") !== -1, requested: pathCleaned };
 }
